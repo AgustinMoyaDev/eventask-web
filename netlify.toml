@@ -1,0 +1,17 @@
+# Build configuration
+[build]
+  command = "pnpm run build"
+  publish = "dist"
+
+# Rewrite rule for SPA
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+
+# Optimized caching for static files (Performance improvement)
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "DENY"
+    X-XSS-Protection = "1; mode=block"
