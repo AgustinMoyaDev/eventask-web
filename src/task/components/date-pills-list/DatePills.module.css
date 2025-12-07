@@ -1,0 +1,19 @@
+.datePillsNav {
+  display: flex;
+  flex-direction: column;
+  row-gap: var(--spacing-md-plus);
+}
+
+.datePillsActions {
+  display: flex;
+  column-gap: var(--spacing-md-plus);
+  justify-content: center;
+  align-items: center;
+}
+
+.datePills {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  column-gap: var(--spacing-xs);
+}

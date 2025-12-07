@@ -1,0 +1,249 @@
+.notFound {
+  --not-found-text-min: 5rem;
+  --not-found-text-max: 6rem;
+
+  --not-found-title-min: 2rem;
+  --not-found-title-max: 3rem;
+  --not-found-subtitle-min: 0.9rem;
+  --not-found-subtitle-max: 1.25rem;
+
+  --color-glow: hsl(44, 87%, 94%);
+  --color-subtitle: hsl(43, 4%, 66%);
+  --color-moon-crater: hsla(43, 63%, 14%, 0.235);
+  --color-space-dust: hsl(60, 2%, 45%);
+  --bg-gradient-1: hsl(40, 3%, 17%);
+  --bg-gradient-2: hsl(247, 5%, 8%);
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100dvh;
+  height: 100vh;
+  width: 100%;
+  overflow: hidden;
+  background: radial-gradient(circle at 20% 20%, var(--bg-gradient-1) 0%, var(--bg-gradient-2) 80%);
+  position: relative;
+}
+
+.notFoundBg {
+  overflow: hidden;
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-normal);
+  pointer-events: none;
+}
+
+.notFoundMoonWrapper {
+  z-index: var(--z-tooltip);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 200px;
+  height: 150px;
+}
+
+.notFoundMoonCrater {
+  fill: var(--color-moon-crater);
+  opacity: 0.8;
+}
+
+.notFoundMoonGlow {
+  fill: var(--color-glow);
+  animation: glowPulse 2s ease-in-out infinite;
+}
+
+@keyframes glowPulse {
+  0%,
+  100% {
+    filter: drop-shadow(0 0 6px var(--color-glow)) brightness(1);
+  }
+  50% {
+    filter: drop-shadow(0 0 9px var(--color-glow)) brightness(1.1);
+  }
+}
+
+.notFoundMessageWrapper {
+  z-index: var(--z-tooltip);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: var(--spacing-md);
+}
+
+.notFoundText {
+  font-weight: var(--ref-font-weight-medium);
+  font-size: var(--not-found-text-min);
+  color: var(--color-glow);
+  animation: glowPulse 2s ease-in-out infinite;
+}
+
+.notFoundTitle {
+  color: var(--color-glow);
+  line-height: var(--font-display-lg-height);
+  font-weight: var(--font-display-lg-weight);
+  letter-spacing: var(--font-display-lg-space);
+  font-size: var(--not-found-title-min);
+}
+
+.notFoundSubtitle {
+  color: var(--color-subtitle);
+  line-height: var(--font-title-md-height);
+  font-weight: var(--font-title-md-weight);
+  letter-spacing: var(--font-title-md-space);
+  font-size: var(--not-found-subtitle-min);
+}
+
+.notFoundGoHomeBtn {
+  margin-top: var(--spacing-lg);
+  padding: var(--spacing-md) var(--spacing-xl);
+}
+
+/* Dust as pseudo-element */
+.notFound::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(var(--color-space-dust) 1px, transparent 1px),
+    radial-gradient(var(--color-space-dust) 1px, transparent 1px),
+    radial-gradient(var(--color-space-dust) 1px, transparent 1px);
+  background-size:
+    65px 60px,
+    120px 80px,
+    90px 130px;
+  background-position:
+    0 0,
+    70px 120px,
+    200px 60px;
+  opacity: 0.2;
+  animation: starMove 120s backwards infinite;
+  z-index: var(--z-normal);
+}
+
+@keyframes starMove {
+  0% {
+    background-position:
+      0 0,
+      70px 120px,
+      200px 60px;
+  }
+  100% {
+    background-position:
+      80vw 80vh,
+      60vw 40vh,
+      40vw 80vh;
+  }
+}
+
+.notFoundAstronaut {
+  position: absolute;
+  width: 150px;
+  height: 150px;
+  z-index: var(--z-normal);
+  animation: floatAround 40s ease-in-out infinite;
+  opacity: 0.9;
+}
+
+.notFoundAstronaut img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+@keyframes floatAround {
+  0% {
+    bottom: -10%;
+    left: -10%;
+    transform: rotate(80deg) scale(0.7);
+    opacity: 0;
+  }
+  2% {
+    opacity: 0.9;
+  }
+  25% {
+    bottom: 20%;
+    left: 25%;
+    transform: rotate(15deg) scale(1);
+  }
+  50% {
+    bottom: 15%;
+    left: 70%;
+    transform: rotate(50deg) scale(2);
+  }
+  75% {
+    bottom: 65%;
+    left: 80%;
+    transform: rotate(25deg) scale(0.9);
+  }
+  90% {
+    opacity: 0.9;
+  }
+  100% {
+    bottom: 110%;
+    left: 110%;
+    transform: rotate(45deg) scale(0.6);
+    opacity: 0;
+  }
+}
+
+.notFoundUfo {
+  position: absolute;
+  width: 110px;
+  height: 110px;
+  z-index: var(--z-tooltip);
+  animation: ufoCrossing 15s linear infinite;
+}
+
+.notFoundUfo img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+@keyframes ufoCrossing {
+  0% {
+    top: 30%;
+    left: -15%;
+    transform: rotate(-15deg) scale(0.8);
+    opacity: 0;
+  }
+  5% {
+    opacity: 0.8;
+  }
+  50% {
+    top: 25%;
+    left: 50%;
+    transform: rotate(25deg) scale(2);
+  }
+  95% {
+    opacity: 0.8;
+  }
+  100% {
+    top: 20%;
+    left: 115%;
+    transform: rotate(-10deg) scale(0.7);
+    opacity: 0;
+  }
+}
+
+@media screen and (min-width: 576px) {
+  .notFoundMoonWrapper {
+    width: 250px;
+    height: 200px;
+  }
+
+  .notFoundText {
+    font-size: var(--not-found-text-max);
+  }
+
+  .notFoundTitle {
+    font-size: var(--not-found-title-max);
+  }
+
+  .notFoundSubtitle {
+    font-size: var(--not-found-subtitle-max);
+  }
+}

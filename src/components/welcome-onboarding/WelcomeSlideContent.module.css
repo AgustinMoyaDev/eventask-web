@@ -1,0 +1,74 @@
+.welcomeSlideContent {
+  --height-content-description: 4.375rem;
+  --slide-width-image: 4rem;
+  --slide-width-btn: 4.5rem;
+  --width-dot-active: 24px;
+  --height-dot: 8px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: var(--spacing-lg);
+  flex: 1;
+}
+
+.welcomeSlideContentHeader {
+  display: flex;
+  align-items: center;
+  column-gap: var(--spacing-md);
+}
+
+.welcomeSlideContentImage {
+  transform: scaleX(-1);
+  width: var(--slide-width-image);
+  aspect-ratio: 1/1;
+  object-fit: contain;
+}
+
+.welcomeSlideContentTitle {
+  color: var(--color-primary);
+}
+
+.welcomeSlideContentDescription {
+  margin-top: var(--spacing-lg);
+  color: var(--color-on-surface-variant);
+  height: var(--height-content-description);
+}
+
+.welcomeSlideContentProgress {
+  text-align: center;
+  color: var(--color-on-surface-variant);
+}
+
+.welcomeSlideContentDots {
+  display: flex;
+  justify-content: center;
+  column-gap: var(--spacing-sm);
+  margin-top: var(--spacing-sm);
+}
+
+.welcomeSlideContentDot {
+  height: var(--height-dot);
+  aspect-ratio: 1 / 1;
+  border-radius: var(--radius-full);
+  background-color: var(--color-outline-variant);
+  transition: all var(--transition-base);
+}
+
+.welcomeSlideContentDotActive {
+  width: var(--width-dot-active);
+  border-radius: var(--radius-sm);
+  background-color: var(--color-primary);
+}
+
+.welcomeSlideContentActions {
+  margin-top: auto;
+  display: flex;
+  justify-content: center;
+  gap: var(--spacing-md);
+  padding-top: var(--spacing-lg);
+}
+
+.welcomeSlideContentButton {
+  width: var(--slide-width-btn);
+}

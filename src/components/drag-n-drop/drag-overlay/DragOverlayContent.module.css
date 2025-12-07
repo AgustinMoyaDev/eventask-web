@@ -1,0 +1,15 @@
+.dragOverlay {
+  z-index: var(--z-modal);
+  cursor: grabbing;
+  transform-origin: center center;
+  will-change: transform, opacity;
+  transition:
+    transform 0.3s ease,
+    opacity 0.3s ease;
+}
+
+.dragOverlayUser {
+  opacity: 0.9;
+  transform: translate(-50%, -100%) scale(1.2);
+  filter: drop-shadow(var(--elevation-3));
+}

@@ -1,0 +1,13 @@
+.rootLayout {
+  display: flex;
+  min-height: 100%;
+  margin-top: var(--spacing-md-plus);
+  overflow: hidden;
+}
+
+.rootLayoutContent {
+  width: 100%;
+  max-width: var(--root-layout-max-width);
+  margin-inline: auto;
+  overflow: hidden;
+}

@@ -1,0 +1,40 @@
+.chip {
+  min-width: 4.375rem;
+  height: 1.625rem;
+
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  padding: var(--spacing-xs) var(--spacing-sm-plus);
+  border-radius: var(--radius-md);
+  font-weight: var(--font-weight-medium);
+  font-size: var(--font-label-md-size);
+  text-transform: capitalize;
+  background-color: var(--color-surface-variant);
+  color: var(--color-on-surface-variant);
+}
+
+.completed {
+  background-color: var(--color-on-success);
+  color: var(--color-success);
+}
+
+.pending {
+  background-color: var(--color-on-warning);
+  color: var(--color-warning);
+}
+
+.progress {
+  background-color: var(--color-on-info);
+  color: var(--color-info);
+}
+
+.error {
+  background-color: var(--color-on-error);
+  color: var(--color-error);
+}
+
+.outlined {
+  background-color: transparent;
+  border: var(--stroke-width-2) solid var(--color-outline);
+}

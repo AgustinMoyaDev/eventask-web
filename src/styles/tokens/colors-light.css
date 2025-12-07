@@ -1,0 +1,76 @@
+/* COLOR: #5247ED (Indigo) */
+:root {
+  --color-shimmer-effect: hsla(0, 0%, 100%, 0.4);
+
+  --color-page-1-calendar: hsl(247, 5%, 83%);
+  --color-page-2-calendar: hsl(247, 5%, 78%);
+
+  --color-surface-tint: hsl(242, 24%, 46%);
+
+  --color-primary: hsl(242, 24%, 46%);
+  --color-on-primary: hsl(0, 0%, 100%);
+
+  --color-primary-container: hsl(246, 100%, 95%);
+  --color-primary-container-hsla: hsla(247, 100%, 95%, 0.75);
+  --color-on-primary-container: hsl(243, 59%, 18%);
+
+  --color-secondary: hsl(246, 10%, 40%);
+  --color-on-secondary: hsl(0, 0%, 100%);
+
+  --color-secondary-container: hsl(247, 68%, 93%);
+  --color-on-secondary-container: hsl(240, 26%, 14%);
+
+  --color-surface: hsl(274, 100%, 99%);
+  --color-surface-hsla: hsl(274, 100%, 99%, 0.75);
+  --color-on-surface: hsla(250, 10%, 12%);
+
+  --color-surface-variant: hsl(256, 22%, 90%);
+  --color-surface-variant-hsla: hsla(256, 22%, 90%, 0.75);
+  --color-on-surface-variant: hsl(247, 6%, 29%);
+
+  --color-outline: hsl(252, 4%, 48%);
+  --color-outline-variant: hsl(256, 10%, 79%);
+
+  --color-error: hsl(0, 75%, 42%);
+  --color-on-error: hsl(0, 0%, 100%);
+
+  --color-error-container: hsl(6, 100%, 92%);
+  --color-on-error-container: hsl(358, 100%, 13%);
+
+  --color-warning: hsl(35, 80%, 30%);
+  --color-on-warning: hsl(45, 100%, 90%);
+
+  --color-warning-container: hsl(45, 100%, 90%);
+  --color-on-warning-container: hsl(35, 80%, 30%);
+
+  --color-info: hsl(210, 80%, 35%);
+  --color-on-info: hsl(208, 100%, 93%);
+
+  --color-info-container: hsl(208, 100%, 93%);
+  --color-on-info-container: hsl(210, 80%, 35%);
+
+  --color-success: hsl(145, 60%, 25%);
+  --color-on-success: hsl(142, 80%, 90%);
+
+  --color-success-container: hsl(142, 80%, 90%);
+  --color-on-success-container: hsl(145, 60%, 25%);
+
+  --color-scrim: hsla(0, 0%, 0%, 0.75);
+
+  /* ========== Shadows ========== */
+  /* Umbra (Key Light): Darker, it defines the shape */
+  --shadow-key-color: hsla(0, 0%, 0%, 0.3);
+  /* Penumbra (Ambient Light): Softer, gives atmosphere */
+  --shadow-ambient-color: hsla(0, 0%, 0%, 0.15);
+
+  --elevation-1:
+    0px 1px 2px 0px var(--shadow-key-color), 0px 1px 3px 1px var(--shadow-ambient-color);
+  --elevation-2:
+    0px 1px 2px 0px var(--shadow-key-color), 0px 2px 6px 2px var(--shadow-ambient-color);
+  --elevation-3:
+    0px 4px 8px 3px var(--shadow-ambient-color), 0px 1px 3px 0px var(--shadow-key-color);
+  --elevation-4:
+    0px 6px 10px 4px var(--shadow-ambient-color), 0px 2px 3px 0px var(--shadow-key-color);
+  --elevation-5:
+    0px 8px 12px 6px var(--shadow-ambient-color), 0px 4px 4px 0px var(--shadow-key-color);
+}

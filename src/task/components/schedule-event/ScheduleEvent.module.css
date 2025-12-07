@@ -1,0 +1,130 @@
+.scheduleEvent {
+  color: var(--color-on-secondary-container);
+  background-color: var(--color-secondary-container);
+  border-radius: var(--spacing-md);
+  padding: var(--spacing-md-plus);
+  gap: var(--spacing-sm-plus) var(--spacing-xs);
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  width: 95%;
+  animation: fadeSlideIn var(--transition-slow) both;
+  overflow-y: auto;
+}
+
+@keyframes fadeSlideIn {
+  from {
+    opacity: 0;
+    transform: scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.scheduleEventCompleted .scheduleEventBody {
+  filter: blur(2px) contrast(50%);
+  transition: filter var(--transition-base);
+  cursor: none;
+  pointer-events: none;
+}
+
+.scheduleEventStart {
+  mask-image: linear-gradient(to bottom, var(--color-surface) calc(100% - 1rem), transparent 100%);
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.scheduleEventEnd {
+  mask-image: linear-gradient(to top, var(--color-surface) calc(100% - 1rem), transparent 100%);
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+
+.scheduleEventHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.scheduleEventTitle {
+  display: flex;
+  gap: var(--spacing-sm);
+}
+
+.scheduleEventCompleted .scheduleEventTitleText {
+  text-decoration: line-through;
+}
+
+.scheduleEventCompleted .scheduleEventTextCompleted {
+  font-size: var(--font-label-lg-size);
+  color: var(--color-on-secondary-container);
+  text-decoration: dotted;
+}
+
+.scheduleEventStatusBtn {
+  color: var(--color-outline);
+  border: var(--stroke-width-2) solid var(--color-outline);
+}
+
+.scheduleEventStatusIcon {
+  color: var(--color-outline);
+}
+
+.scheduleEventStatusBtnCompleted {
+  color: var(--color-on-secondary-container);
+  border: var(--stroke-width-2) solid var(--color-on-secondary-container);
+}
+
+.scheduleEventStatusBtnCompleted .scheduleEventStatusIcon {
+  color: var(--color-on-secondary-container);
+}
+
+.scheduleEventBody {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md-plus);
+}
+
+.scheduleEventNotes {
+  color: var(--color-on-surface-variant);
+}
+
+.scheduleEventCollaboratorsWrapper {
+  display: flex;
+  column-gap: var(--spacing-md-plus);
+  align-items: center;
+  justify-content: space-between;
+}
+
+.scheduleEventCollaborators {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  gap: var(--spacing-sm);
+}
+
+.scheduleEventPhoneBtn {
+  align-self: flex-end;
+  background-color: var(--color-primary);
+  color: var(--color-on-primary);
+}
+
+.scheduleEventCollaboratorsNoResults {
+  color: var(--color-on-surface-variant);
+}
+
+.scheduleEventFollowBtn {
+  position: absolute;
+  right: var(--spacing-md);
+  bottom: var(--spacing-xl);
+}
+
+.scheduleEventFollowIcon {
+  transition: transform var(--transition-base);
+}
+
+.scheduleEventFollowBtn:hover .scheduleEventFollowIcon {
+  transform: translateX(var(--spacing-sm));
+}

@@ -1,0 +1,13 @@
+.authHeader {
+  margin-block: var(--spacing-md);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-lg);
+}
+
+.authHeaderLogo {
+  width: 4.5rem;
+  height: 4.5rem;
+  transform: scaleX(-1);
+}

@@ -1,0 +1,87 @@
+.taskInfo {
+  display: flex;
+  flex-direction: column;
+  row-gap: var(--spacing-lg);
+}
+
+.taskInfoHeader {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+
+.taskInfoDateSeparator {
+  height: 1rem;
+  aspect-ratio: 1/1;
+  margin-inline: var(--spacing-xs);
+  color: var(--color-on-surface-variant);
+}
+
+.taskInfoTitleBlock {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm-plus);
+}
+
+.taskInfoMeta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--spacing-sm-plus);
+}
+
+.taskInfoProgressGroup {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  flex-basis: 100%;
+}
+
+.taskInfoDates {
+  flex-basis: 100%;
+}
+
+.taskInfoEventCount {
+  color: var(--color-on-surface-variant);
+  white-space: nowrap;
+}
+
+.taskInfoParticipants {
+  display: flex;
+  flex-direction: column;
+  row-gap: var(--spacing-sm);
+  align-items: flex-start;
+}
+
+.taskInfoParticipantsLabel {
+  font-weight: var(--font-weight-medium);
+}
+
+.taskInfoActions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  column-gap: var(--spacing-sm);
+
+  & .actionBtn {
+    height: 2.75rem;
+    aspect-ratio: 1 / 1;
+    padding: 0;
+  }
+}
+
+.taskInfoText {
+  display: none;
+}
+
+@media screen and (min-width: 576px) {
+  .taskInfoActions .actionBtn {
+    height: 2.5rem;
+    aspect-ratio: auto;
+    padding-inline: var(--spacing-md-plus);
+  }
+
+  .taskInfoText {
+    display: inline;
+  }
+}

@@ -1,0 +1,111 @@
+.input {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xs);
+}
+
+.inputWrapper {
+  position: relative;
+}
+
+.inputIcon,
+.inputButton {
+  right: var(--spacing-md);
+}
+
+.inputLabel {
+  left: var(--spacing-md-plus);
+  font-weight: var(--font-weight-medium);
+  transition:
+    transform 0.4s,
+    font-size 0.3s,
+    color 0.3s;
+}
+
+.inputIcon,
+.inputButton,
+.inputLabel {
+  position: absolute;
+  color: var(--color-on-surface-variant);
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.inputField {
+  width: 100%;
+  color: var(--color-on-surface);
+  background-color: var(--color-surface-variant);
+  padding-block: var(--spacing-lg);
+  padding-inline: var(--spacing-md-plus) var(--spacing-xl);
+  font-weight: var(--font-weight-medium);
+  border-radius: var(--spacing-sm-plus);
+  transition: border-color 0.2s;
+}
+
+.inputField:focus {
+  outline: var(--stroke-width-2) solid var(--color-on-surface);
+}
+
+.inputField::placeholder {
+  font-size: var(--font-label-lg-size);
+}
+
+.inputField:focus ~ .inputIcon,
+.inputField:focus ~ .inputLabel {
+  color: var(--color-on-surface);
+}
+
+.inputField:focus,
+.inputField:not(:placeholder-shown):not(:focus) {
+  padding-block: var(--spacing-xl) var(--spacing-md);
+}
+
+.inputField:focus ~ .inputLabel,
+.inputField:not(:placeholder-shown):not(:focus) ~ .inputLabel {
+  transform: translateY(-30px);
+  font-size: var(--font-label-md-size);
+  color: var(--color-on-surface);
+}
+
+.inputField:focus:not(.inputFieldError) {
+  outline-color: var(--color-on-surface);
+}
+
+.inputFieldError {
+  outline: var(--stroke-width-2) solid var(--color-error);
+}
+
+.inputLabelDisabled,
+.inputFieldDisabled {
+  opacity: var(--state-layer-disabled-opacity);
+  cursor: not-allowed;
+}
+
+.inputFeedback {
+  height: 1.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--spacing-xs);
+}
+
+.inputHint {
+  margin-left: auto;
+}
+
+.inputErrorMessage {
+  color: var(--color-error);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+input[type='datetime-local'].inputField::-webkit-calendar-picker-indicator {
+  font-size: var(--font-body-lg-size);
+  cursor: pointer;
+  filter: invert(0);
+}
+
+[data-theme='dark'] input[type='datetime-local'].inputField::-webkit-calendar-picker-indicator {
+  filter: invert(1);
+}

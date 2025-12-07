@@ -1,0 +1,74 @@
+[data-theme='dark'] {
+  --color-shimmer-effect: hsla(0, 0%, 100%, 0.1);
+
+  --color-page-1-calendar: hsl(243, 13%, 20%);
+  --color-page-2-calendar: hsl(243, 13%, 15%);
+
+  --color-surface-tint: hsl(243, 100%, 88%);
+
+  --color-primary: hsl(243, 100%, 88%);
+  --color-on-primary: hsl(242, 39%, 27%);
+
+  --color-primary-container: hsl(242, 30%, 36%);
+  --color-primary-container-hsla: hsla(242, 30%, 36%, 0.75);
+  --color-on-primary-container: hsl(246, 100%, 94%);
+
+  --color-secondary: hsl(247, 27%, 82%);
+  --color-on-secondary: hsl(243, 18%, 22%);
+
+  --color-secondary-container: hsl(243, 13%, 31%);
+  --color-on-secondary-container: hsl(247, 68%, 93%);
+
+  --color-surface: hsla(240, 12%, 8%);
+  --color-surface-hsla: hsl(240, 12%, 8%, 0.75);
+  --color-on-surface: hsl(270, 15%, 90%);
+
+  --color-surface-variant: hsl(247, 6%, 29%);
+  --color-surface-variant-hsla: hsla(247, 6%, 29%, 0.75);
+  --color-on-surface-variant: hsl(256, 10%, 79%);
+
+  --color-outline: hsl(256, 5%, 58%);
+  --color-outline-variant: hsl(247, 6%, 29%);
+
+  --color-error: hsl(6, 100%, 84%);
+  --color-on-error: hsl(357, 100%, 21%);
+
+  --color-error-container: hsl(356, 100%, 29%);
+  --color-on-error-container: hsl(6, 100%, 92%);
+
+  --color-warning: hsl(35, 80%, 60%);
+  --color-on-warning: hsl(0, 0%, 10%);
+
+  --color-warning-container: hsl(35, 80%, 30%);
+  --color-on-warning-container: hsl(45, 100%, 90%);
+
+  --color-info: hsl(210, 80%, 60%);
+  --color-on-info: hsl(0, 0%, 10%);
+
+  --color-info-container: hsl(210, 80%, 30%);
+  --color-on-info-container: hsl(208, 100%, 93%);
+
+  --color-success: hsl(145, 60%, 60%);
+  --color-on-success: hsl(0, 0%, 10%);
+
+  --color-success-container: hsl(142, 80%, 30%);
+  --color-on-success-container: hsl(142, 80%, 90%);
+
+  --color-scrim: hsla(0, 0%, 0%, 0.75);
+
+  --color-shadow-inset: hsl(0, 0%, 8%);
+
+  --shadow-key-color: hsla(0, 0%, 0%, 0.6);
+  --shadow-ambient-color: hsla(0, 0%, 0%, 0.4);
+
+  --elevation-1:
+    0px 1px 2px 0px var(--shadow-key-color), 0px 1px 3px 1px var(--shadow-ambient-color);
+  --elevation-2:
+    0px 1px 2px 0px var(--shadow-key-color), 0px 2px 6px 2px var(--shadow-ambient-color);
+  --elevation-3:
+    0px 4px 8px 3px var(--shadow-ambient-color), 0px 1px 3px 0px var(--shadow-key-color);
+  --elevation-4:
+    0px 6px 10px 4px var(--shadow-ambient-color), 0px 2px 3px 0px var(--shadow-key-color);
+  --elevation-5:
+    0px 8px 12px 6px var(--shadow-ambient-color), 0px 4px 4px 0px var(--shadow-key-color);
+}

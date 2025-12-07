@@ -1,0 +1,156 @@
+.calendar {
+  position: relative;
+  background-color: var(--color-secondary-container);
+  padding: var(--spacing-sm-plus);
+  border-radius: var(--radius-sm);
+  display: flex;
+  flex-direction: column;
+  row-gap: var(--spacing-xs);
+  flex: 1 1 75%;
+  box-shadow: var(--elevation-2);
+}
+
+.calendar::after,
+.calendar::before {
+  content: '';
+  position: absolute;
+  width: 7px;
+  height: 96%;
+  top: 50%;
+  right: 100%;
+  transform: translateY(-50%);
+  border-radius: var(--radius-sm) 0 0 var(--radius-sm);
+  background-color: var(--color-page-1-calendar);
+}
+
+.calendar::before {
+  height: 92%;
+  right: calc(100% + 5px);
+  background-color: var(--color-page-2-calendar);
+}
+
+.calendarHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  column-gap: var(--spacing-md-plus);
+  padding-block: var(--spacing-sm-plus) var(--spacing-md-plus);
+}
+
+.calendarNavBtn {
+  background-color: var(--color-secondary);
+  color: var(--color-on-secondary);
+}
+
+.calendarWeekdays {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  text-transform: capitalize;
+}
+
+.calendarWeekday {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 14.28%;
+  font-weight: var(--font-weight-medium);
+}
+
+.calendarDays {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.calendarDay {
+  color: var(--color-on-primary-container);
+  background-color: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 14.28%;
+  aspect-ratio: 1 / 1;
+  cursor: pointer;
+  transition:
+    transform var(--transition-base),
+    background-color var(--transition-base),
+    color var(--transition-base);
+  will-change: transform, background-color;
+}
+
+.calendarDay::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background-color: transparent;
+  z-index: var(--z-deep);
+}
+
+.calendarDayActive,
+.calendarDay {
+  border-radius: 50%;
+}
+
+.calendarDayPrev,
+.calendarDayNext {
+  color: var(--color-outline);
+}
+
+.calendarDayPrev:hover,
+.calendarDayNext:hover {
+  cursor: not-allowed;
+}
+
+.calendarDay:not(
+    .calendarDayPrev,
+    .calendarDayNext,
+    .calendarDayActive,
+    .calendarDayToday
+  ):hover::before {
+  color: var(--color-on-primary-container);
+  background-color: var(--color-surface);
+  border: var(--stroke-width-1) solid var(--color-on-secondary-container);
+}
+
+.calendarDayActive::before {
+  border: var(--stroke-width-2) dashed var(--color-on-secondary-container);
+  background-color: var(--color-surface);
+}
+
+.calendarDayToday:not(.calendarDayActive)::before {
+  box-shadow: var(--elevation-1);
+  background-color: var(--color-surface);
+  z-index: var(--z-deep);
+}
+
+.calendarDayActive,
+.calendarDayEvent {
+  position: relative;
+}
+
+.calendarDayEvent::after {
+  content: '';
+  position: absolute;
+  bottom: 15%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 10%;
+  height: 10%;
+  border-radius: var(--radius-sm);
+  background-color: var(--color-on-surface);
+}
+
+.calendarDayEvent:hover::after {
+  background-color: var(--color-on-secondary-container);
+}
+
+.calendarDayActive.calendarDayEvent::after {
+  background-color: var(--color-on-secondary-container);
+}
+
+@media screen and (min-width: 576px) {
+  .calendarDay::before {
+    inset: 3%;
+  }
+}

@@ -1,0 +1,14 @@
+.buttonThemeIcon {
+  display: inline-block;
+  transition:
+    transform var(--transition-slow),
+    opacity var(--transition-slow);
+}
+
+.buttonThemeIconLight {
+  transform: rotate(0deg);
+}
+
+.buttonThemeIconDark {
+  transform: rotate(360deg);
+}

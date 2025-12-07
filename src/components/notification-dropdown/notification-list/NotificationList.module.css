@@ -1,0 +1,142 @@
+.notificationDropdownContent {
+  --dropdown-list-height: 20rem;
+  --dropdown-content-height: 30rem;
+
+  max-height: var(--dropdown-content-height);
+  overflow: hidden;
+}
+
+.notificationDropdownHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-block: var(--spacing-sm);
+  border-bottom: var(--stroke-width-1) solid var(--color-outline);
+}
+
+.notificationDropdownTitle {
+  font-weight: var(--font-weight-medium);
+}
+
+.notificationDropdownMarkAll {
+  background: none;
+  border: none;
+  color: var(--color-primary);
+  font-weight: var(--font-weight-medium);
+  cursor: pointer;
+  padding-inline: var(--spacing-xs);
+  border-radius: var(--radius-sm);
+  transition: background-color var(--transition-base);
+}
+
+.notificationDropdownMarkAll:hover {
+  background-color: var(--color-primary-container);
+}
+
+.notificationDropdownList {
+  max-height: var(--dropdown-list-height);
+  overflow-y: auto;
+}
+
+.notificationDropdownLoading,
+.notificationDropdownEmpty {
+  padding: var(--spacing-lg);
+  text-align: center;
+  color: var(--color-on-surface-variant);
+}
+
+.notificationDropdownItem {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm-plus);
+  padding: var(--spacing-sm-plus);
+  cursor: pointer;
+  transition: background-color var(--transition-base);
+  border-radius: var(--radius-sm);
+  position: relative;
+}
+
+.notificationDropdownItem::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-color: currentColor;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--transition-base);
+  border-radius: inherit;
+}
+
+.notificationDropdownItem:hover::before {
+  opacity: var(--state-layer-hover-opacity);
+}
+
+.notificationDropdownItem:last-child {
+  border-bottom: none;
+}
+
+.notificationDropdownItemUnread {
+  background-color: var(--color-primary-container);
+}
+
+.notificationDropdownItemUnread:hover {
+  background-color: var(--color-primary-container);
+  border-color: var(--color-secondary);
+}
+
+.notificationDropdownItemContent {
+  flex: 1;
+  min-width: 0;
+}
+
+/* If the text fits on 2 lines, it is displayed in full.
+If it exceeds that, it is truncated with "...". */
+.notificationDropdownItemMessage {
+  display: block;
+  color: var(--color-on-surface-variant);
+  margin-bottom: var(--spacing-xs);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+
+.notificationDropdownItemTime {
+  display: block;
+  color: var(--color-on-surface-variant);
+}
+
+.notificationDropdownItemUnreadDot {
+  position: absolute;
+  top: var(--spacing-sm-plus);
+  right: var(--spacing-sm-plus);
+  width: var(--spacing-sm);
+  height: var(--spacing-sm);
+  background-color: var(--color-primary);
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.notificationDropdownItemStatus {
+  color: var(--color-on-surface-variant);
+}
+
+.notificationDropdownFooter {
+  border-top: var(--stroke-width-1) solid var(--color-outline-variant);
+  background: var(--color-surface-container);
+}
+
+.notificationDropdownViewAll {
+  width: 100%;
+  color: var(--color-primary);
+  font-weight: var(--font-weight-medium);
+  transition: background-color var(--transition-fast);
+}
+
+.notificationDropdownItemIcon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

@@ -1,0 +1,21 @@
+/* — HIDING AUTOFILL BACKGROUND — */
+
+/* Chrome, Edge, Safari (WebKit/Chromium) */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  /* cover the filling with an inset-shadow */
+  box-shadow: inset 0 0 0 1000px var(--color-surface-variant) !important;
+  /* keeps text color */
+  -webkit-text-fill-color: var(--color-on-surface) !important;
+  /* ensures that the box-shadow does not leave the padding */
+  background-clip: content-box !important;
+}
+
+/* Firefox */
+input:-moz-autofill {
+  /* In FF, normal box-shadow is enough */
+  box-shadow: inset 0 0 0 1000px var(--color-surface-variant) !important;
+  -moz-text-fill-color: var(--color-on-surface) !important;
+}

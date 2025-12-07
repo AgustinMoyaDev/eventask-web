@@ -1,0 +1,30 @@
+:root {
+  --noise-texture: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+
+  /* ========== Stroke  ========== */
+  --stroke-width-3: 3px;
+  --stroke-width-2: 2px;
+  --stroke-width-1: 1px;
+
+  /* ========== State Layer ========== */
+  --state-layer-hover-opacity: 0.08;
+  --state-layer-focus-opacity: 0.1;
+  --state-layer-pressed-opacity: 0.13;
+  --state-layer-dragged-opacity: 0.16;
+  --state-layer-disabled-opacity: 0.7;
+
+  /* ========== Transitions ========== */
+  --transition-fast: 150ms ease;
+  --transition-base: 250ms ease;
+  --transition-slow: 350ms ease;
+
+  /* ========== Border ========== */
+  --radius-full: 999rem; /* Pill shape */
+  --radius-lg: 1rem;
+  --radius-md: 0.75rem;
+  --radius-sm: 0.5rem;
+
+  /* ========== Scroll bar ========== */
+  --scrollbar-thumb-color: hsla(0, 0%, 39%, 0.8);
+  --scrollbar-thumb-color-darker: hsla(0, 0%, 39%, 0.5);
+}

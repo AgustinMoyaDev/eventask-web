@@ -1,0 +1,98 @@
+/* ==================== BACKDROP (MOBILE) ==================== */
+.sidebarBackdrop {
+  position: fixed;
+  inset: 0;
+  background-color: var(--color-surface-hsla);
+  z-index: var(--z-fixed);
+  height: 100%;
+  animation: fadeIn 0.3s ease-in-out;
+  overflow: hidden;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* ==================== SIDEBAR BASE ==================== */
+.sidebar {
+  padding-top: var(--spacing-md-plus);
+  position: fixed;
+  top: 0;
+  width: var(--sidebar-width);
+  min-height: 100%;
+  padding-inline: 0 var(--spacing-sm);
+  background-color: var(--color-surface);
+  z-index: var(--z-modal);
+  transform: translateX(0);
+  transition: transform 0.3s ease-in-out;
+  overflow: hidden;
+}
+
+.sidebar.sidebarCollapsed {
+  transform: translateX(-100%);
+  width: var(--sidebar-collapsed-width);
+}
+
+/* ==================== NAVIGATION ==================== */
+.sidebarNav {
+  display: flex;
+  flex-direction: column;
+  row-gap: var(--spacing-sm);
+}
+
+.sidebarLink {
+  display: flex;
+  justify-content: left;
+  align-items: center;
+  padding: var(--spacing-sm-plus) var(--spacing-sm);
+  column-gap: var(--spacing-md);
+  border-radius: var(--radius-sm);
+  color: var(--color-on-surface);
+  transition: background-color 0.3s ease;
+}
+
+.sidebarCollapsed .sidebarLink {
+  justify-content: center;
+  width: 3.75rem;
+  height: 3.75rem;
+  flex-direction: column;
+  align-items: center;
+  row-gap: var(--spacing-xs);
+  padding: var(--spacing-xs);
+}
+
+.sidebarLink:hover {
+  background-color: var(--color-surface-variant);
+}
+
+.sidebarLinkActive {
+  background-color: var(--color-secondary-container);
+  color: var(--color-on-secondary-container);
+}
+
+.sidebarText {
+  font-size: var(--font-title-sm-size);
+}
+
+.sidebarCollapsed .sidebarText {
+  font-size: var(--font-label-sm-size);
+}
+
+@media screen and (min-width: 992px) {
+  .sidebar {
+    position: sticky;
+  }
+
+  .sidebar.sidebarCollapsed {
+    transform: none;
+  }
+
+  .sidebarBackdrop {
+    display: none;
+  }
+}

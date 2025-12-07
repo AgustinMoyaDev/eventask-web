@@ -1,0 +1,35 @@
+:root {
+  --header-height: 5rem;
+  --container-max-width: 3400px;
+  --slide-width: 400px;
+  --breadcrumb-height: 2.5rem;
+  --sidebar-width: 240px;
+  --sidebar-collapsed-width: 90px;
+  --root-layout-max-width: 3100px;
+
+  /* ========== SPACING ========== */
+
+  --spacing-2xl: 3rem;
+  --spacing-xl: 2rem;
+  --spacing-lg: 1.5rem;
+  --spacing-md-plus: 1.25rem;
+  --spacing-md: 1rem;
+  --spacing-sm-plus: 0.75rem;
+  --spacing-sm: 0.5rem;
+  --spacing-xs: 0.25rem;
+
+  /* ========== Z INDEX ========== */
+  --z-modal: 4;
+  --z-fixed: 3;
+  --z-tooltip: 2;
+  --z-normal: 1;
+  --z-base: 0;
+  --z-deep: -1;
+
+  /* ========== BREAKPOINTS ========== */
+  /* Use as reference in media queries Mobile-first approach */
+  --breakpoint-sm: 400px; /* Mobile large */
+  --breakpoint-md: 576px; /* Tablet */
+  --breakpoint-lg: 768px; /* Desktop */
+  --breakpoint-xl: 992px; /* Desktop large */
+}

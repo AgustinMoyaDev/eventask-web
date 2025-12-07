@@ -1,0 +1,77 @@
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--color-surface);
+  color: var(--color-on-surface);
+  font-family: var(--font-family-base);
+  font-size: var(--font-body-md-size);
+  line-height: var(--font-body-md-height);
+  font-weight: var(--font-body-md-weight);
+  letter-spacing: var(--font-body-md-space);
+}
+
+h1 {
+  font-size: var(--font-headline-lg-size);
+  line-height: var(--font-headline-lg-height);
+  font-weight: var(--font-headline-lg-weight);
+  letter-spacing: var(--font-headline-lg-space);
+}
+
+h2 {
+  font-size: var(--font-headline-md-size);
+  line-height: var(--font-headline-md-height);
+  font-weight: var(--font-headline-md-weight);
+  letter-spacing: var(--font-headline-md-space);
+}
+
+h3 {
+  font-size: var(--font-headline-sm-size);
+  line-height: var(--font-headline-sm-height);
+  font-weight: var(--font-headline-sm-weight);
+  letter-spacing: var(--font-headline-sm-space);
+}
+
+h4 {
+  font-size: var(--font-title-lg-size);
+  line-height: var(--font-title-lg-height);
+  font-weight: var(--font-title-lg-weight);
+  letter-spacing: var(--font-title-lg-space);
+}
+
+h5 {
+  font-size: var(--font-title-md-size);
+  line-height: var(--font-title-md-height);
+  font-weight: var(--font-title-md-weight);
+  letter-spacing: var(--font-title-md-space);
+}
+
+h6 {
+  font-size: var(--font-title-sm-size);
+  line-height: var(--font-title-sm-height);
+  font-weight: var(--font-title-sm-weight);
+  letter-spacing: var(--font-title-sm-space);
+}
+
+/* Interactives and form elements */
+button,
+input,
+textarea,
+select {
+  font-family: inherit;
+  font-size: var(--font-label-lg-size);
+  line-height: var(--font-label-lg-height);
+  font-weight: var(--font-label-lg-weight);
+  letter-spacing: var(--font-label-lg-space);
+}
+
+/* Scrollbars */
+* {
+  scrollbar-color: var(--scrollbar-thumb-color-darker) transparent;
+  scrollbar-width: thin;
+}
+
+*:hover {
+  scrollbar-color: var(--scrollbar-thumb-color) transparent;
+}

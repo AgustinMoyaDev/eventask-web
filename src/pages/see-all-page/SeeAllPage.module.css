@@ -1,0 +1,7 @@
+.tableView {
+  min-height: 350px;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+  justify-content: space-between;
+}

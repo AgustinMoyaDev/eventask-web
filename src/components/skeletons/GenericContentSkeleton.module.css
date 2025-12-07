@@ -1,0 +1,33 @@
+.genericSkeleton {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.genericSkeletonTitle {
+  width: 20rem;
+  height: 2rem;
+}
+
+.genericSkeletonFlex {
+  display: flex;
+  gap: 1rem;
+  flex-direction: column;
+}
+
+.genericSkeletonFlex > * {
+  height: 10rem;
+}
+
+.genericSkeletonGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+  height: 20rem;
+}
+
+@media (min-width: 768px) {
+  .genericSkeletonGrid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}

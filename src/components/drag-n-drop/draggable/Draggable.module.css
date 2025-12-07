@@ -1,0 +1,12 @@
+.draggable {
+  cursor: grab;
+  touch-action: none;
+  transition: opacity 0.3s ease;
+}
+
+.draggableActive {
+  cursor: grabbing;
+  opacity: 0.5;
+  pointer-events: none;
+  touch-action: none;
+}

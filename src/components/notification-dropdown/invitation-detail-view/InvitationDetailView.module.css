@@ -1,0 +1,51 @@
+.notificationDropdownInvitationDetail {
+  border-radius: var(--radius-sm);
+  display: flex;
+  flex-direction: column;
+  row-gap: var(--spacing-sm-plus);
+}
+
+.notificationDropdownDetailHeader {
+  border-bottom: var(--stroke-width-1) solid var(--color-outline);
+  padding-block: var(--spacing-sm);
+  display: flex;
+  column-gap: var(--spacing-xs);
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.notificationDropdownBackButton {
+  padding: var(--spacing-xs);
+}
+
+.notificationDropdownDetailContent {
+  display: flex;
+  flex-direction: column;
+  row-gap: var(--spacing-sm-plus);
+}
+
+.notificationDropdownInvitationInfo {
+  line-height: 1.5;
+}
+
+.notificationDropdownInvitationTitle {
+  font-weight: var(--font-weight-bold);
+}
+
+.notificationDropdownInvitationMessage {
+  color: var(--color-on-surface-variant);
+}
+
+.notificationDropdownInvitationFrom {
+  font-weight: var(--font-weight-medium);
+}
+
+.notificationDropdownInvitationActions {
+  display: flex;
+  column-gap: var(--spacing-sm);
+  justify-content: flex-end;
+}
+
+.notificationDropdownInvitationActions button {
+  padding: var(--spacing-xs) var(--spacing-sm);
+}

@@ -1,0 +1,39 @@
+.eventForm {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+}
+
+.eventFormFieldset {
+  all: unset;
+}
+
+.eventFormFieldsetReadonly {
+  opacity: 0.5;
+  cursor: alias;
+  pointer-events: none;
+}
+
+.eventFormHeader {
+  display: flex;
+  margin-block: var(--spacing-sm) var(--spacing-md);
+  align-items: center;
+  justify-content: center;
+  column-gap: var(--spacing-sm);
+}
+
+.eventFormError {
+  margin-block: var(--spacing-xs);
+  color: var(--color-error);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.eventFormFooter {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-md);
+}

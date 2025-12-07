@@ -1,0 +1,11 @@
+.circularProgress {
+  height: 3.5rem;
+  aspect-ratio: 1 / 1;
+  border-radius: 50%;
+  color: var(--color-on-surface);
+  background:
+    radial-gradient(var(--color-surface) 60%, transparent 63%),
+    conic-gradient(var(--color-on-surface) var(--progress), var(--color-outline) var(--progress));
+  display: grid;
+  place-items: center;
+}

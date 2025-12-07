@@ -1,0 +1,108 @@
+.toast {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  background-color: var(--color-surface);
+  color: var(--color-on-surface);
+  padding: var(--spacing-sm-plus) var(--spacing-md);
+  border-radius: var(--radius-sm);
+  box-shadow: var(--elevation-3);
+  min-width: 12.5rem;
+  min-height: 3.5rem;
+  animation: slideIn 0.3s ease;
+}
+
+.success {
+  border-left: var(--stroke-width-3) solid var(--color-success);
+}
+
+.error {
+  border-left: var(--stroke-width-3) solid var(--color-error);
+}
+
+.loading {
+  border-left: var(--stroke-width-3) solid var(--color-info);
+}
+
+.toastIcon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.success .toastIcon {
+  color: var(--color-success);
+}
+
+.error .toastIcon {
+  color: var(--color-error);
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateX(50%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+.toastLoader {
+  display: inline-block;
+  width: 1rem;
+  height: 1rem;
+  border: var(--stroke-width-2) solid var(--color-outline);
+  border-top: var(--stroke-width-2) solid transparent;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.toastMessage {
+  flex: 1;
+}
+
+.toastProgress {
+  position: absolute;
+  bottom: 0;
+  left: 5px;
+  right: 5px;
+  height: 3px;
+  width: 100%;
+  border-radius: var(--radius-sm);
+  color: var(--color-on-surface);
+  background: linear-gradient(to right, transparent, 1%, var(--color-outline), 99%, transparent);
+  animation: shrink 0.8s linear forwards;
+}
+
+@keyframes shrink {
+  from {
+    width: 100%;
+  }
+  to {
+    width: 0%;
+  }
+}
+
+.toastExiting {
+  animation: slideOut 0.3s ease forwards;
+}
+
+@keyframes slideOut {
+  from {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateX(50%);
+  }
+}

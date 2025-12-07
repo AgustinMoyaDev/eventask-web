@@ -1,0 +1,75 @@
+.eventTimeline {
+  --timeline-marker-height: 8rem;
+  --timeline-marker-width: 2px;
+  --marker-height: 2rem;
+
+  display: flex;
+  align-items: center;
+  column-gap: var(--spacing-md-plus);
+  cursor: pointer;
+}
+
+.eventTimeline:hover .eventTimelineBtn {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.eventTimelineBtn {
+  opacity: 0;
+  transform: translateX(-10px);
+  transition:
+    opacity 0.2s ease-in-out,
+    transform 0.2s ease-in-out;
+}
+
+.eventTimelineBtnDelete {
+  transform: translateX(10px);
+}
+
+.eventTimelineDisabled {
+  pointer-events: none;
+}
+
+.eventTimeline:not(:last-child) .eventTimelineMarker::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 0;
+  transform: translateX(-50%);
+  width: var(--timeline-marker-width);
+  height: var(--timeline-marker-height);
+  background: repeating-linear-gradient(
+    to bottom,
+    var(--color-on-surface-variant) 0,
+    var(--color-on-surface-variant) 4px,
+    transparent 4px,
+    transparent 8px
+  );
+  z-index: var(--z-deep);
+}
+
+.eventTimelineMarker {
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  border: var(--stroke-width-3) solid var(--color-primary-container);
+  background-color: var(--color-surface);
+  height: var(--marker-height);
+  aspect-ratio: 1/1;
+  position: relative;
+}
+
+.eventTimelineMarkerCompleted {
+  background-color: var(--color-primary-container);
+}
+
+.eventTimelineContent {
+  display: flex;
+  flex-direction: column;
+  row-gap: var(--spacing-xs);
+}
+
+.eventTimelineSubtitle,
+.eventTimelineTime {
+  color: var(--color-on-surface-variant);
+}

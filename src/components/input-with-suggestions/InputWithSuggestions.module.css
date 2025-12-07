@@ -1,0 +1,51 @@
+.input {
+  position: relative;
+}
+
+.inputSuggestions {
+  position: absolute;
+  top: 58%;
+  left: 0;
+  width: 100%;
+  background-color: var(--color-surface-variant);
+  border-radius: 0 0 var(--radius-sm) var(--radius-sm);
+  z-index: var(--z-tooltip);
+  overflow: hidden;
+  outline: var(--stroke-width-1) solid var(--color-surface);
+}
+
+.inputSuggestion {
+  overflow: hidden;
+  position: relative;
+  cursor: pointer;
+  padding: var(--spacing-md) var(--spacing-md-plus);
+  font-size: var(--font-label-lg-size);
+  transition: background-color var(--transition-base);
+}
+
+.inputSuggestion::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-color: currentColor;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--transition-base);
+  border-radius: inherit;
+}
+
+.inputSuggestion:hover::before {
+  opacity: var(--state-layer-hover-opacity);
+}
+
+.inputSuggestion:focus::before {
+  opacity: var(--state-layer-focus-opacity);
+}
+
+.inputSuggestion:active::before {
+  opacity: var(--state-layer-pressed-opacity);
+}
+
+.inputSuggestion:focus-visible {
+  outline: var(--stroke-width-1) solid var(--color-outline);
+}

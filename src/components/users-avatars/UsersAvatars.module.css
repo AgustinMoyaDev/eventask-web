@@ -1,0 +1,18 @@
+.avatars {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.avatar:not(:first-child),
+.avatarMore {
+  margin-left: calc(-1 * var(--spacing-sm));
+  border-radius: 50%;
+}
+
+.avatarMore {
+  padding: var(--spacing-sm);
+  background-color: var(--color-on-surface);
+  width: 2.5rem;
+  height: 2.5rem;
+}

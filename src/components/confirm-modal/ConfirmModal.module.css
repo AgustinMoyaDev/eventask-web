@@ -1,0 +1,11 @@
+.confirmModalMessage {
+  text-align: center;
+  margin: var(--spacing-lg) 0;
+}
+
+.confirmModalActions {
+  display: flex;
+  justify-content: center;
+  gap: var(--spacing-sm-plus);
+  margin-top: var(--spacing-xl);
+}

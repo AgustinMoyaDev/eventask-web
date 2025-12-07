@@ -1,0 +1,60 @@
+.breadcrumb {
+  position: fixed;
+  width: 100%;
+  overflow: hidden;
+  z-index: var(--z-normal);
+  background-color: var(--color-surface-hsla);
+  display: flex;
+  align-items: center;
+  padding-inline: var(--spacing-lg);
+  min-height: var(--breadcrumb-height);
+  transition: opacity 0.3s ease;
+}
+
+.breadcrumbHidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.breadcrumbList {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  overflow-x: auto;
+  white-space: nowrap;
+}
+
+.breadcrumbItem {
+  display: inline-flex;
+  align-items: center;
+  column-gap: var(--spacing-sm);
+}
+
+.breadcrumbLink {
+  color: var(--color-primary);
+  text-decoration: none;
+  font-weight: var(--font-weight-medium);
+  padding: var(--spacing-xs) 0;
+  transition: color 0.3s;
+}
+
+.breadcrumbLink:hover {
+  color: var(--color-primary);
+}
+
+.breadcrumbCurrent {
+  color: var(--color-on-surface-variant);
+  padding: var(--spacing-xs) 0;
+}
+
+.breadcrumbSeparator {
+  color: var(--color-outline);
+  display: inline-flex;
+  align-items: center;
+}
+
+@media screen and (min-width: 992px) {
+  .breadcrumb {
+    padding-left: calc(var(--sidebar-collapsed-width) + var(--spacing-md-plus));
+  }
+}

@@ -1,0 +1,29 @@
+.notificationDropdownTrigger {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--spacing-sm);
+}
+
+.notificationDropdownIcon {
+  color: var(--color-on-surface);
+  transition: color var(--transition-base);
+}
+
+.notificationDropdownBadge {
+  position: absolute;
+  bottom: calc(-1 * var(--spacing-xs));
+  right: calc(-1 * var(--spacing-xs));
+  height: 1.25rem;
+  aspect-ratio: 1/1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--color-error);
+  color: var(--color-on-error);
+  font-size: var(--font-label-md-size);
+  font-weight: var(--font-weight-bold);
+  border-radius: 50%;
+  padding-inline: var(--spacing-xs);
+}

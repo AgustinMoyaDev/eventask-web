@@ -1,0 +1,41 @@
+.schedule {
+  --schedule-height: 60vh;
+  --schedule-no-events-height: 5rem;
+
+  display: grid;
+  grid-template-columns: 4rem 1fr;
+  height: var(--schedule-height);
+  overflow: auto;
+  gap: var(--spacing-sm);
+}
+
+.scheduleTimescale {
+  display: flex;
+  flex-direction: column;
+  row-gap: 7rem;
+}
+
+.scheduleEventList {
+  position: relative;
+}
+
+.scheduleEventListAnimate {
+  animation: fadeSlideIn var(--transition-base);
+}
+
+@keyframes fadeSlideIn {
+  from {
+    opacity: 0;
+    transform: scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.scheduleNoEvents {
+  display: grid;
+  place-content: center;
+  height: var(--schedule-no-events-height);
+}

@@ -1,0 +1,71 @@
+.userDropdown {
+  --trigger-height: 3.25rem;
+  --menu-wrapper-width: 15rem;
+  --menu-item-height: 3rem;
+}
+
+.userDropdownTrigger {
+  aspect-ratio: 1 / 1;
+  width: 100%;
+  height: var(--trigger-height);
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.userDropdownMenuWrapper {
+  width: var(--menu-wrapper-width);
+}
+
+.userDropdownContent {
+  display: flex;
+  flex-direction: column;
+  row-gap: var(--spacing-sm);
+}
+
+.userDropdownHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: var(--stroke-width-1) solid var(--color-outline);
+}
+
+.userDropdownInfo {
+  display: flex;
+  flex-direction: column;
+  row-gap: var(--spacing-xs);
+  padding-block: var(--spacing-sm);
+}
+
+.userDropdownName {
+  font-weight: var(--font-weight-medium);
+}
+
+.userDropdownTasks {
+  color: var(--color-on-surface-variant);
+}
+
+.userDropdownMenuItem {
+  position: relative;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  column-gap: var(--spacing-sm);
+  padding-inline: var(--spacing-xs);
+  height: var(--menu-item-height);
+  border-radius: var(--radius-sm);
+}
+
+.userDropdownMenuItem::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-color: currentColor;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--transition-base);
+  border-radius: inherit;
+}
+
+.userDropdownMenuItem:hover::before {
+  opacity: var(--state-layer-hover-opacity);
+}

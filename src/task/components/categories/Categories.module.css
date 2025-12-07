@@ -1,0 +1,11 @@
+.categoriesHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: var(--spacing-md);
+}
+
+.categoriesList {
+  --list-min-height: 13rem;
+  min-height: var(--list-min-height);
+}

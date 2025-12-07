@@ -1,0 +1,9 @@
+.toastContainer {
+  z-index: var(--z-modal);
+  position: fixed;
+  bottom: 6rem;
+  right: var(--spacing-sm);
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xs);
+}

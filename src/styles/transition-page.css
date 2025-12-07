@@ -1,0 +1,41 @@
+/* Base state - ensures content is visible without transition classes */
+.main {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.page-enter,
+.page-exit {
+  will-change: opacity, transform;
+  isolation: isolate;
+}
+
+.page-enter {
+  animation: fadeIn var(--transition-base) forwards;
+}
+
+.page-exit {
+  animation: fadeOut var(--transition-base) forwards;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+}

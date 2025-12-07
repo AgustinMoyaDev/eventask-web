@@ -1,0 +1,60 @@
+.arrowButtonWrapper {
+  content: '';
+  position: absolute;
+  width: 2rem;
+  height: 100%;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: var(--z-tooltip);
+}
+
+.arrowButtonWrapperLeft {
+  left: -5px;
+  background: linear-gradient(
+    to left,
+    transparent 0%,
+    var(--color-surface) 80%,
+    var(--color-surface) 85%,
+    transparent 100%
+  );
+}
+
+.arrowButtonWrapperRight {
+  right: -5px;
+  background: linear-gradient(
+    to right,
+    transparent 50%,
+    var(--color-surface) 80%,
+    var(--color-surface) 85%,
+    transparent 100%
+  );
+}
+
+.arrowButton {
+  display: none;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: var(--z-normal);
+  color: var(--color-on-secondary);
+  background-color: var(--color-secondary);
+}
+
+.arrowButtonLeft {
+  left: 5px;
+}
+
+.arrowButtonRight {
+  right: 5px;
+}
+
+.arrowButtonLeft,
+.arrowButtonRight {
+  z-index: var(--z-modal);
+}
+
+@media screen and (min-width: 600px) {
+  .arrowButton {
+    display: flex;
+  }
+}

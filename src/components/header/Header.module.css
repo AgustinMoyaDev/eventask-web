@@ -1,0 +1,68 @@
+.headerApp {
+  position: sticky;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: var(--z-fixed);
+  box-shadow: var(--elevation-1);
+  background-color: var(--color-surface-hsla);
+  backdrop-filter: blur(10px);
+  transition:
+    background-color var(--transition-base),
+    box-shadow var(--transition-base);
+}
+
+.headerApp::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity var(--transition-base);
+  z-index: var(--z-deep);
+  pointer-events: none;
+}
+
+.headerAppScrolled {
+  background-color: var(--color-surface-hsla);
+  box-shadow: var(--elevation-3);
+}
+
+.headerAppNav {
+  height: var(--header-height);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.headerAppLogoContainer {
+  display: flex;
+  align-items: center;
+  column-gap: var(--spacing-xs);
+}
+
+.headerAppLogo {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+}
+
+.headerAppLogoImg {
+  transform: scaleX(-1);
+  height: 2.75rem;
+  aspect-ratio: 1 / 1;
+}
+
+.headerAppLogoText {
+  font-weight: var(--font-weight-bold);
+}
+
+.headerAppActions {
+  display: flex;
+  align-items: center;
+  column-gap: var(--spacing-sm);
+}
+
+.headerAppHamburger {
+  color: var(--color-on-surface);
+  transition: background-color var(--transition-base);
+}

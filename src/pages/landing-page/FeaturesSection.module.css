@@ -1,0 +1,60 @@
+.features {
+  min-height: 55vh;
+  padding: var(--spacing-xl) var(--spacing-md);
+  background: linear-gradient(180deg, var(--color-surface) 0%, var(--color-primary-container) 60%);
+  place-content: center;
+}
+
+.featuresContainer {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.featuresTitle {
+  text-align: center;
+  margin-bottom: var(--spacing-2xl);
+}
+
+.featuresGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: var(--spacing-lg);
+}
+
+.featureCard {
+  background-color: var(--color-surface);
+  padding: var(--spacing-xl);
+  border-radius: var(--radius-md);
+  box-shadow: var(--elevation-1);
+  transition: all var(--transition-base);
+}
+
+.featureCard:hover {
+  box-shadow: var(--elevation-2);
+  transform: translateY(-4px);
+}
+
+.featureCardIcon {
+  transform: scaleX(-1);
+  width: 9em;
+  margin-bottom: var(--spacing-md);
+}
+
+.featureCardTitle {
+  margin-bottom: var(--spacing-sm-plus);
+  color: var(--color-primary);
+}
+
+.featureCardDescription {
+  color: var(--color-on-surface-variant);
+}
+
+@media screen and (min-width: 992px) {
+  .features {
+    padding: var(--spacing-2xl) var(--spacing-md);
+  }
+
+  .featuresGrid {
+    gap: var(--spacing-xl);
+  }
+}

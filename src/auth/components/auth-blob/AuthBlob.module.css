@@ -1,0 +1,16 @@
+.blob {
+  display: none;
+}
+
+@media screen and (min-width: 992px) {
+  svg.blob {
+    display: block;
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 100vh;
+    cursor: default;
+    z-index: var(--z-deep);
+    overflow: hidden;
+  }
+}

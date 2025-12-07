@@ -1,0 +1,47 @@
+.calendarEvents {
+  --events-header-height: 3rem;
+  --events-timeline-height: 15rem;
+  --calendar-events-empty-height: 7rem;
+
+  margin-block: var(--spacing-md) 0;
+  flex: 1 1 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.calendarEventsHeader {
+  width: 100%;
+  color: var(--color-on-surface-variant);
+  background: linear-gradient(
+    to right,
+    transparent,
+    5%,
+    var(--color-surface-variant),
+    95%,
+    transparent
+  );
+  height: var(--events-header-height);
+  padding-inline: var(--spacing-md-plus);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.eventsTimeline {
+  margin-block: var(--spacing-md);
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  row-gap: var(--spacing-lg);
+  min-height: var(--events-timeline-height);
+}
+
+.calendarEventsEmpty,
+.eventsTimelineEmpty {
+  display: grid;
+  place-content: center;
+  height: var(--events-timeline-empty-height);
+  color: var(--color-on-surface-variant);
+}

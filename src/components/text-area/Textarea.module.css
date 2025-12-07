@@ -1,0 +1,81 @@
+.textareaWrapper {
+  position: relative;
+}
+
+.textareaLabel {
+  color: var(--color-on-surface-variant);
+  font-weight: var(--font-weight-medium);
+  left: var(--spacing-md-plus);
+  margin-bottom: var(--spacing-xs);
+  position: absolute;
+  top: 40%;
+  transform: translateY(-50%);
+  transition:
+    transform var(--transition-slow),
+    font-size var(--transition-slow),
+    color var(--transition-slow);
+}
+
+.textareaField {
+  width: 100%;
+  color: var(--color-on-surface-variant);
+  background-color: var(--color-surface-variant);
+  resize: none;
+  min-height: 1rem;
+  padding-block: var(--spacing-lg);
+  padding-inline: var(--spacing-md-plus) var(--spacing-xl);
+  font-weight: var(--font-weight-medium);
+  border-radius: var(--spacing-sm-plus);
+  transition: border-color var(--transition-base);
+}
+
+.textareaField::placeholder {
+  font-size: var(--font-label-lg-size);
+}
+
+.textareaField:focus + .textareaLabel {
+  color: var(--color-on-surface);
+}
+
+.textareaField:focus,
+.textareaField:not(:placeholder-shown):not(:focus) {
+  padding-block: var(--spacing-xl) var(--spacing-md);
+}
+
+.textareaField:focus ~ .textareaLabel,
+.textareaField:not(:placeholder-shown):not(:focus) ~ .textareaLabel {
+  transform: translateY(-40px);
+  font-size: var(--font-label-sm-size);
+  color: var(--color-on-surface);
+}
+
+.textareaField:focus:not(.textareaFieldError) {
+  outline-color: var(--color-on-surface);
+}
+
+.textareaFieldError {
+  outline: var(--stroke-width-2) solid var(--color-error);
+}
+
+.textareaFieldDisabled {
+  background-color: var(--color-outline);
+  cursor: not-allowed;
+}
+
+.textareaFeedback {
+  height: 1.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.textareaHint {
+  color: var(--color-outline);
+}
+
+.textareaErrorMessage {
+  color: var(--color-error);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

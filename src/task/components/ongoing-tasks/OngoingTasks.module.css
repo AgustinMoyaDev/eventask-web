@@ -1,0 +1,28 @@
+.ongoingTasks {
+  --list-min-height: 16.25rem;
+
+  overflow: hidden;
+}
+
+.ongoingTasksHeader {
+  padding-bottom: var(--spacing-md);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.ongoingTasksHeaderInfo {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+}
+
+.ongoingTasksList {
+  display: flex;
+  gap: var(--spacing-sm);
+  min-height: var(--list-min-height);
+}
+
+.ongoingTasksBtnNew {
+  border: var(--stroke-width-2) solid var(--color-primary);
+}

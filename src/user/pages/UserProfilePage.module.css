@@ -1,0 +1,44 @@
+.userProfileForm {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  row-gap: var(--spacing-sm-plus);
+  margin-inline: auto;
+  max-width: 25rem;
+  margin-block: var(--spacing-sm-plus);
+}
+
+.userProfileFormAvatar {
+  margin-bottom: var(--spacing-md-plus);
+}
+
+.userProfileFormBackendError {
+  min-height: 1rem;
+  color: var(--color-error);
+  font-weight: var(--font-weight-bold);
+  text-align: center;
+}
+
+.userProfileFormHeader {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  row-gap: var(--spacing-md);
+}
+
+.userProfileFormFooter {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-sm);
+}
+
+.userProfileResetOnboardingContainer {
+  display: flex;
+  padding-inline: var(--spacing-xs);
+}
+
+.userProfileResetOnboardingBtn {
+  margin-left: auto;
+}

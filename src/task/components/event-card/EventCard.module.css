@@ -1,0 +1,114 @@
+.eventCard {
+  background-color: transparent;
+  border: var(--stroke-width-2) solid var(--color-secondary-container);
+  color: var(--color-on-secondary-container);
+  border-radius: var(--radius-sm);
+  padding: var(--spacing-md);
+  min-height: 7rem;
+
+  position: relative;
+  overflow: hidden;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  animation: fadeInUp var(--transition-base) backwards;
+  transition:
+    box-shadow var(--transition-base),
+    background-color var(--transition-base),
+    transform var(--transition-base);
+}
+
+.eventCard:hover {
+  box-shadow: var(--elevation-1);
+  transform: scale(1.01);
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.eventCardCompleted {
+  color: var(--color-outline);
+  pointer-events: none;
+}
+
+.eventCardHeader {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.eventCardTitle {
+  font-weight: var(--font-weight-medium);
+}
+
+.eventCardTitleCompleted {
+  text-decoration: line-through;
+}
+
+.eventCardContent {
+  display: flex;
+  flex-direction: column;
+  row-gap: var(--spacing-sm);
+  color: var(--color-on-surface-variant);
+}
+
+.eventCardTime {
+  display: flex;
+  align-items: center;
+}
+
+.eventCardActions {
+  position: absolute;
+  top: var(--spacing-sm-plus);
+  right: var(--spacing-sm-plus);
+  display: flex;
+  gap: var(--spacing-sm);
+  opacity: 0;
+  transform: translateY(-10px);
+  transition:
+    opacity var(--transition-base),
+    transform var(--transition-base);
+  z-index: var(--z-tooltip);
+}
+
+.eventCardBtn {
+  padding: var(--spacing-xs);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: var(--elevation-1);
+}
+
+.eventCardBtnEdit {
+  background-color: var(--color-secondary-container);
+  color: var(--color-on-secondary-container);
+}
+
+.eventCardBtnDelete {
+  background-color: var(--color-primary-container);
+  color: var(--color-on-primary-container);
+}
+
+.eventCardContent {
+  transition: filter var(--transition-base);
+}
+
+.eventCard:hover .eventCardActions {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.eventCard:hover .eventCardHeader,
+.eventCard:hover .eventCardContent {
+  filter: blur(1px) brightness(0.8);
+}

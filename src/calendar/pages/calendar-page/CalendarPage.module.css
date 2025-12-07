@@ -1,0 +1,11 @@
+.calendarPage {
+  display: flex;
+  flex-direction: column;
+}
+
+@media screen and (min-width: 950px) {
+  .calendarPage {
+    justify-content: center;
+    flex-direction: row;
+  }
+}

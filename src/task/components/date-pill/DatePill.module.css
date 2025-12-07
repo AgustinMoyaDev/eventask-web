@@ -1,0 +1,44 @@
+.pill {
+  color: var(--color-on-surface);
+  background-color: var(--color-surface);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+  height: 5.25rem;
+  width: 2.75rem;
+  border-radius: var(--radius-full);
+  position: relative;
+  z-index: var(--z-normal);
+}
+
+.pill:hover {
+  outline: var(--stroke-width-2) dashed var(--color-on-surface);
+}
+
+.today {
+  color: var(--color-surface);
+  background-color: var(--color-on-surface);
+}
+
+.today:not(.selected) .pill__dot {
+  background-color: var(--color-surface);
+}
+
+.selected {
+  background-color: var(--color-primary-container);
+  color: var(--color-on-primary-container);
+  outline: var(--stroke-width-2) dashed var(--color-on-surface);
+}
+
+.dot {
+  opacity: 0;
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 50%;
+  background-color: var(--color-on-surface);
+}
+
+.pillHasEvents .dot {
+  opacity: 1;
+}

@@ -1,0 +1,30 @@
+.scrollableContainer {
+  position: relative;
+}
+
+.scrollableContainerList {
+  display: flex;
+  column-gap: var(--spacing-sm);
+  padding: var(--spacing-sm);
+  scroll-padding-inline: var(--spacing-xs); /* start snap after padding */
+  overflow-x: auto;
+  overflow-y: hidden;
+  scroll-snap-type: x mandatory; /* snap children to start */
+  scroll-behavior: smooth;
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE/Edge */
+}
+
+.scrollableContainerListEmpty {
+  min-height: var(--list-min-height, 12rem);
+  background-color: var(--color-surface-variant);
+  color: var(--color-on-surface-variant);
+  font-style: italic;
+  border-radius: var(--radius-md);
+  justify-content: center;
+  align-items: center;
+}
+
+.scrollableContainerList > * {
+  scroll-snap-align: start;
+}

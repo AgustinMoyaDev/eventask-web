@@ -1,0 +1,28 @@
+.linearProgressWrapper {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  gap: var(--spacing-sm);
+  font-size: var(--font-label-lg-size);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-on-surface-variant);
+}
+
+.linearProgress {
+  flex-grow: 1;
+  height: 1rem;
+  background-color: var(--color-surface-variant);
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+}
+
+.linearProgressBar {
+  height: 100%;
+  background-color: var(--color-primary);
+  transition: width var(--transition-base);
+  border-radius: var(--radius-sm);
+}
+
+.linearProgressLabel {
+  white-space: nowrap;
+}
