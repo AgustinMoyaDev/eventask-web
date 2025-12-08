@@ -4,7 +4,7 @@
   "version": "0.0.0",
   "description": "Modern web application for collaborative task management based on events. Its core focus is organizing work into 8-hour workday sessions, where each task is broken down into specific events that determine its total duration.",
   "author": "Agustin Moya",
-  "license": "UNLICENSED",
+  "license": "SEE LICENSE IN LICENSE",
   "engines": {
     "node": ">=20.0.0",
     "pnpm": ">=10.0.0"
