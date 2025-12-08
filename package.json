@@ -55,11 +55,24 @@
     "globals": "15.12.0",
     "happy-dom": "18.0.1",
     "husky": "9.1.7",
+    "lint-staged": "16.2.7",
     "prettier": "3.5.3",
     "typescript": "5.6.2",
     "typescript-eslint": "8.15.0",
     "vite": "6.0.1",
     "vite-tsconfig-paths": "5.1.4",
     "vitest": "3.2.4"
+  },
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx}": [
+      "eslint --fix",
+      "prettier --write"
+    ],
+    "*.{ts,tsx}": [
+      "bash -c 'pnpm run typecheck'"
+    ],
+    "src/**/*.{test,spec}.{ts,tsx}": [
+      "vitest related --run"
+    ]
   }
 }

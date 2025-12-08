@@ -22,6 +22,7 @@ import styles from './AvatarDropdown.module.css'
  */
 export const AvatarDropdown = () => {
   const { currentUserId, logout } = useAuthActions()
+
   const { user } = useUserActions()
   const { tasks } = useTaskActions()
   const navigate = useNavigate()

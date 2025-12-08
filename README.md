@@ -2606,6 +2606,7 @@ chore(deps): update react to v18.3
 docs(readme): update installation guide
 ```
 > **Note:** Husky will automatically block any commit that doesn't strictly follow this pattern.
+
 ---
 
 ## 📄 License
