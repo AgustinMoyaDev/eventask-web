@@ -5,10 +5,14 @@
   "description": "Modern web application for collaborative task management based on events. Its core focus is organizing work into 8-hour workday sessions, where each task is broken down into specific events that determine its total duration.",
   "author": "Agustin Moya",
   "license": "UNLICENSED",
+  "engines": {
+    "node": ">=20.0.0",
+    "pnpm": ">=10.0.0"
+  },
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "build": "tsc --noEmit && vite build",
     "build:preview": "vite build --mode preview",
     "preview": "vite preview",
     "lint": "eslint .",

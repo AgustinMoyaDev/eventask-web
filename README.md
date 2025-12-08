@@ -9,7 +9,7 @@
 ![Commitlint](https://img.shields.io/badge/commitlint-enabled-brightgreen?style=for-the-badge&logo=commitlint)
 ![Vite](https://img.shields.io/badge/Vite-5.x-646CFF?style=for-the-badge&logo=vite&logoColor=white)
 ![Redux](https://img.shields.io/badge/Redux_Toolkit-2.5-764ABC?style=for-the-badge&logo=redux&logoColor=white)
-![pnpm](https://img.shields.io/badge/pnpm-9.x-F69220?style=for-the-badge&logo=pnpm&logoColor=white)
+![pnpm](https://img.shields.io/badge/pnpm-10.x-F69220?style=for-the-badge&logo=pnpm&logoColor=white)
 
 **Collaborative task manager with integrated calendar and real-time notifications**
 
@@ -36,7 +36,7 @@ The application is designed with a scalable architecture, following **Material D
 
 ---
 
-## 📸 Interface Preview
+<!-- ## 📸 Interface Preview
 
 <div align="center">
   <img src="public/images/demo-preview.gif" alt="EvenTask Dashboard Demo" width="100%" />
@@ -54,7 +54,7 @@ The application is designed with a scalable architecture, following **Material D
 | ----------------------- | --------------------- |
 | ![Mobile](url_to_image) | ![Dark](url_to_image) |
 
-</details>
+</details> -->
 
 ---
 
@@ -2084,8 +2084,6 @@ test(input): add validation tests
 ---
 
 ## 🗺️ Roadmap
-
-> **Note for future implementation**: This roadmap was created on November 21, 2025. File paths and implementations may need adjustment if project structure changes significantly. All code examples are based on the current codebase structure as of this date.
 
 ### Planned Features
 
