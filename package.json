@@ -21,6 +21,18 @@
     "test:ci": "vitest run --coverage",
     "prepare": "husky"
   },
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx}": [
+      "eslint --fix",
+      "prettier --write"
+    ],
+    "*.{ts,tsx}": [
+      "bash -c 'pnpm run typecheck'"
+    ],
+    "src/**/*.{test,spec}.{ts,tsx}": [
+      "vitest related --run"
+    ]
+  },
   "dependencies": {
     "@dnd-kit/core": "6.3.1",
     "@dnd-kit/modifiers": "9.0.0",
@@ -62,17 +74,5 @@
     "vite": "6.0.1",
     "vite-tsconfig-paths": "5.1.4",
     "vitest": "3.2.4"
-  },
-  "lint-staged": {
-    "*.{js,jsx,ts,tsx}": [
-      "eslint --fix",
-      "prettier --write"
-    ],
-    "*.{ts,tsx}": [
-      "bash -c 'pnpm run typecheck'"
-    ],
-    "src/**/*.{test,spec}.{ts,tsx}": [
-      "vitest related --run"
-    ]
   }
 }
