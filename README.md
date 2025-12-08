@@ -1,3 +1,5 @@
+[![Netlify Status](https://api.netlify.com/api/v1/badges/c9c092ac-e9c4-46c9-a48c-76f3b733c0e7/deploy-status)](https://app.netlify.com/projects/taskevent/deploys)
+
 # 🎯 EvenTask
 
 <div align="center">
@@ -381,7 +383,7 @@ eventask/
 ├── tsconfig.json             # TypeScript configuration (root)
 ├── tsconfig.app.json         # TypeScript configuration (app)
 ├── tsconfig.node.json        # TypeScript configuration (node)
-├── vercel.json               # Vercel deployment config
+├── netlify.toml              # Netlify deployment config
 └── vite.config.ts            # Vite configuration
 ```
 

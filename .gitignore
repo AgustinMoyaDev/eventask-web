@@ -1,18 +1,11 @@
-# Compilation files
 dist/
-
-# Node dependencies
+coverage/
 node_modules/
-
-# Local configuration files
 .env
 .env.preview
 .env.production
-
-# Editor directories and files
 .github/instructions/
 .vscode/
 
-# testing coverage
-coverage/
+
 
