@@ -15,7 +15,16 @@ const ALLOWED_TYPES = ['image/png', 'image/jpeg', 'image/webp']
 /**
  * Safe check for URLs: only http, https, blob, or data
  */
-const isSafeUrl = (url: string) => /^(https?:|blob:|data:)/.test(url)
+const isSafeUrl = (url: string) => {
+  // Allow http, https, blob
+  if (/^(https?:|blob:)/.test(url)) return true
+  // Allow only specific data URLs for image types
+  if (
+    /^data:image\/(png|jpeg|webp);base64,/.test(url)
+  ) return true
+  // Otherwise, unsafe
+  return false
+}
 
 /**
  * Reusable user avatar component with optional file upload functionality
