@@ -13,7 +13,7 @@ describe('Dropdown', () => {
   const getDropdownElements = () => {
     const children = screen.getByText('Menu Item')
     const button = screen.getByText('Open')
-    const summary = button.closest('summary') as HTMLElement
+    const summary = button.closest('summary')!
     const details = summary.parentElement as HTMLDetailsElement
     return { button, summary, details, children }
   }
@@ -65,7 +65,7 @@ describe('Dropdown', () => {
     )
 
     const button = screen.getByText('Open')
-    const summary = button.closest('summary') as HTMLElement
+    const summary = button.closest('summary')!
     const details = summary.parentElement as HTMLDetailsElement
 
     // open dropdown

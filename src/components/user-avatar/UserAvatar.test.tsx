@@ -32,7 +32,7 @@ describe('UserAvatar', () => {
     )
     const input = screen
       .getByLabelText(/upload profile picture/i)
-      .querySelector('input[type="file"]') as HTMLInputElement
+      .querySelector('input[type="file"]')!
     const file = new File(['avatar'], 'avatar.png', { type: 'image/png' })
     fireEvent.change(input, { target: { files: [file] } })
     expect(handleFileChange).toHaveBeenCalledWith(file)
@@ -42,7 +42,7 @@ describe('UserAvatar', () => {
     render(<UserAvatar firstName="Jane" lastName="Smith" editable onFileChange={vi.fn()} />)
     const input = screen
       .getByLabelText(/upload profile picture/i)
-      .querySelector('input[type="file"]') as HTMLInputElement
+      .querySelector('input[type="file"]')!
     const file = new File(['avatar'], 'avatar.gif', { type: 'image/gif' })
     fireEvent.change(input, { target: { files: [file] } })
     expect(screen.getByRole('alert')).toHaveTextContent(/only png, jpeg or webp/i)
@@ -52,7 +52,7 @@ describe('UserAvatar', () => {
     render(<UserAvatar firstName="Jane" lastName="Smith" editable onFileChange={vi.fn()} />)
     const input = screen
       .getByLabelText(/upload profile picture/i)
-      .querySelector('input[type="file"]') as HTMLInputElement
+      .querySelector('input[type="file"]')!
     const file = new File(['a'.repeat(1024 * 1024 + 1)], 'avatar.png', { type: 'image/png' })
     Object.defineProperty(file, 'size', { value: 1024 * 1024 + 1 })
     fireEvent.change(input, { target: { files: [file] } })

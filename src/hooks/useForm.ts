@@ -4,7 +4,7 @@ import { useEffect, useMemo, useState } from 'react'
 type ValidationFunction<T, K extends keyof T> = (value: T[K], formState: T) => boolean
 
 export type FormValidations<T> = {
-  [K in keyof T]?: Array<[ValidationFunction<T, K>, string]>
+  [K in keyof T]?: [ValidationFunction<T, K>, string][]
 }
 
 // Estado de validaciones: Cada campo se transforma en campoValid que puede ser string o undefined
@@ -91,7 +91,7 @@ export const useForm = <T extends object>(
     // ✅ Hacemos un objeto mutable, no readonly
     const formCheckedValues: Record<string, string | undefined> = {}
 
-    for (const formField of Object.keys(formValidations) as Array<keyof T>) {
+    for (const formField of Object.keys(formValidations) as (keyof T)[]) {
       const validations = formValidations[formField]
       if (!validations) continue
 

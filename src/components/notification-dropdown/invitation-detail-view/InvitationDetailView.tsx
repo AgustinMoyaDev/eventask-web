@@ -16,14 +16,14 @@ export const InvitationDetailView = ({ notification, onBack }: InvitationDetailV
   const { acceptInvitation, rejectInvitation, accepting, rejecting } = useInvitationActions()
 
   const handleAccept = async () => {
-    const { invitationId } = data || {}
+    const { invitationId } = data ?? {}
     if (!invitationId) return
     await acceptInvitation({ invitationId })
     onBack?.() // Return to list after action
   }
 
   const handleReject = async () => {
-    const { invitationId } = data || {}
+    const { invitationId } = data ?? {}
     if (!invitationId) return
     await rejectInvitation({ invitationId })
     onBack?.() // Return to list after action

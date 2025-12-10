@@ -57,7 +57,7 @@ export const NotificationDropdown = ({
   }
 
   return (
-    <Dropdown className={notificationClasses} trigger={trigger || defaultTrigger}>
+    <Dropdown className={notificationClasses} trigger={trigger ?? defaultTrigger}>
       <NotificationList
         unreadCount={unreadCount}
         notifications={notifications}

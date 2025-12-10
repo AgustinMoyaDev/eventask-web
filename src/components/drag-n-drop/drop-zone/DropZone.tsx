@@ -95,7 +95,7 @@ const DroppableComponent = ({
       {showContent && (
         <div className={styles.dropZoneContent}>
           {icon && <span className={styles.dropZoneIcon}>{icon}</span>}
-          <span className={styles.dropZoneLabel}>{label || 'Drop here'}</span>
+          <span className={styles.dropZoneLabel}>{label ?? 'Drop here'}</span>
         </div>
       )}
       {children}

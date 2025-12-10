@@ -113,9 +113,7 @@ export const NotificationList = ({
 
   const showResolvedNotification = (notification: INotification) => {
     if (
-      !notification ||
-      !notification.data ||
-      !notification.data.actionUrl ||
+      !notification?.data?.actionUrl ||
       notification.data.invitationStatus === INVITATION_STATUS.PENDING
     )
       return false

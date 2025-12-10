@@ -1,13 +1,15 @@
 import { createContext, Dispatch, SetStateAction, useContext } from 'react'
 
-type SearchContextType = {
+interface SearchContextType {
   search: string
   updateSearch: Dispatch<SetStateAction<string>>
 }
 
 export const SearchContext = createContext<SearchContextType>({
   search: '',
-  updateSearch: () => {},
+  updateSearch: () => {
+    /* no-op */
+  },
 })
 
 export const useSearchContext = () => {

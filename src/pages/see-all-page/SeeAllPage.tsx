@@ -25,7 +25,7 @@ const SeeAllPage = () => {
   const navigate = useNavigate()
   const [searchParams, setSearchParams] = useSearchParams()
 
-  const currentPage = parseInt(searchParams.get('page') || '1', 10)
+  const currentPage = parseInt(searchParams.get('page') ?? '1', 10)
   const type = searchParams.get('type') as ViewType
 
   // Read sorting from URL params
@@ -147,7 +147,7 @@ const SeeAllPage = () => {
   }
 
   if (config.hasError(hooks)) {
-    const errorMessage = config.getErrorMessage?.(hooks) || 'Failed to load data'
+    const errorMessage = config.getErrorMessage?.(hooks) ?? 'Failed to load data'
     return (
       <div role="alert" className="error-message">
         <p>{errorMessage}</p>

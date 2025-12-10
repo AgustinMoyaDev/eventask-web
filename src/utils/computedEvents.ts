@@ -54,7 +54,7 @@ const makeSegment = (
     duration,
     isStartSegment: isStart,
     isEndSegment: isEnd,
-    collaborators: event.collaborators || [],
+    collaborators: event.collaborators ?? [],
     createdBy: event.createdBy,
     createdAt: event.createdAt,
     updatedAt: event.updatedAt,

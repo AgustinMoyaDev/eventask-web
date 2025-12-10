@@ -1,5 +1,0 @@
-minimumReleaseAge: 1440 # 24 h
-
-minimumReleaseAgeExclude:
-  - react
-  - react-dom

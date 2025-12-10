@@ -39,7 +39,7 @@ export const SocketProvider = ({ children }: SocketProviderProps) => {
         return
       }
       setIsConnected(true)
-      setSocketId(socket.id || null)
+      setSocketId(socket.id ?? null)
     }
 
     const handleDisconnect = () => {

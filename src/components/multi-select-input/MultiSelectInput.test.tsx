@@ -1,7 +1,10 @@
 import { render, screen, fireEvent } from '@testing-library/react'
 import { MultiSelectInput } from '@/components/multi-select-input/MultiSelectInput'
 
-type Option = { id: string; label: string }
+interface Option {
+  id: string
+  label: string
+}
 
 const options: Option[] = [
   { id: '1', label: 'Alice' },

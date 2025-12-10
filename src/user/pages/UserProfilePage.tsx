@@ -76,7 +76,7 @@ const UserProfilePage = () => {
 
   useEffect(() => {
     return () => {
-      if (preview && preview.startsWith('blob:')) {
+      if (preview?.startsWith('blob:')) {
         URL.revokeObjectURL(preview)
       }
     }
@@ -233,7 +233,7 @@ const UserProfilePage = () => {
           actionLabel="Invite"
           actionMethod={sendEmailInvitation}
           loading={inviting}
-          error={inviteContactError?.fieldsValidations?.email || inviteContactError?.message}
+          error={inviteContactError?.fieldsValidations?.email ?? inviteContactError?.message}
           getOptionLabel={(user: IUser) => user.email}
           getOptionKey={(user: IUser) => user.id}
         />

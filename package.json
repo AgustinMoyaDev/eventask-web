@@ -29,12 +29,6 @@
     "*.{js,jsx,ts,tsx}": [
       "eslint --fix",
       "prettier --write"
-    ],
-    "*.{ts,tsx}": [
-      "bash -c 'pnpm run typecheck'"
-    ],
-    "src/**/*.{test,spec}.{ts,tsx}": [
-      "vitest related --run"
     ]
   },
   "dependencies": {

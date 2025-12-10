@@ -126,7 +126,7 @@ export function MultiSelectInput<T>({
 
       <div className={styles.multiSelectInputFeedback}>
         <small id={errorId} className={styles.multiSelectInputErrorMessage} role="alert">
-          {error || ''}
+          {error ?? ''}
         </small>
       </div>
     </div>

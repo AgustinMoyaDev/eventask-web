@@ -19,9 +19,7 @@ const isSafeUrl = (url: string) => {
   // Allow http, https, blob
   if (/^(https?:|blob:)/.test(url)) return true
   // Allow only specific data URLs for image types
-  if (
-    /^data:image\/(png|jpeg|webp);base64,/.test(url)
-  ) return true
+  if (/^data:image\/(png|jpeg|webp);base64,/.test(url)) return true
   // Otherwise, unsafe
   return false
 }
@@ -137,7 +135,7 @@ export const UserAvatar = ({
   if (editable) {
     return (
       <div className={styles.userAvatarWrapper}>
-        <label className={avatarClasses} aria-label={ariaLabel || 'Upload profile picture'}>
+        <label className={avatarClasses} aria-label={ariaLabel ?? 'Upload profile picture'}>
           {avatarContent}
           <input
             className={styles.userAvatarInput}
@@ -157,7 +155,7 @@ export const UserAvatar = ({
 
   // Read-only avatar
   return (
-    <div className={avatarClasses} aria-label={ariaLabel || `${firstName} ${lastName} avatar`}>
+    <div className={avatarClasses} aria-label={ariaLabel ?? `${firstName} ${lastName} avatar`}>
       {avatarContent}
     </div>
   )

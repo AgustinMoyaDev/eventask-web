@@ -13,11 +13,7 @@ import {
 import { useAppSelector } from '../reduxStore'
 import { setActiveTaskId } from '../slices/task/taskSlice'
 
-export const useTaskActions = (
-  page: number = 0,
-  perPage: number = 5,
-  shouldFetch: boolean = true
-) => {
+export const useTaskActions = (page = 0, perPage = 5, shouldFetch = true) => {
   const { accessToken } = useAppSelector(state => state.auth)
   const canGetTasks =
     accessToken && page >= 0 && perPage > 0 && shouldFetch ? { page, perPage } : skipToken

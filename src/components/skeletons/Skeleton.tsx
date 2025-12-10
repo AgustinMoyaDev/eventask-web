@@ -19,7 +19,7 @@ export const Skeleton = ({
     ...stylesInline,
   }
 
-  const skeletonClassName = clsx(styles && styles.skeleton, className)
+  const skeletonClassName = clsx(styles?.skeleton, className)
 
   return <div className={skeletonClassName} style={style} aria-hidden="true" />
 }

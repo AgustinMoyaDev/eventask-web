@@ -2,14 +2,16 @@ import { Dispatch, createContext, SetStateAction, useContext } from 'react'
 
 import { BreadcrumbItem } from '@/types/ui/breadbrumb'
 
-type NavigationContextType = {
+interface NavigationContextType {
   breadcrumbs: BreadcrumbItem[]
   setBreadcrumbs: Dispatch<SetStateAction<BreadcrumbItem[]>>
 }
 
 export const NavigationContext = createContext<NavigationContextType>({
   breadcrumbs: [],
-  setBreadcrumbs: () => {},
+  setBreadcrumbs: () => {
+    /* no-op */
+  },
 })
 
 export const useNavigationContext = () => {

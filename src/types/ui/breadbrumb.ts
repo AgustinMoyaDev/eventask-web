@@ -1,16 +1,16 @@
 import { RouteMatch } from 'react-router-dom'
 
-export type BreadcrumbItem = {
+export interface BreadcrumbItem {
   path: string
   label: string
   icon?: React.ReactNode
 }
 
-export type BreadcrumbNavigation = {
-  breadcrumbs: Array<{
+export interface BreadcrumbNavigation {
+  breadcrumbs: {
     path: string
     label: string
-  }>
+  }[]
 }
 
 // Extended type for TypeScript to recognize crumb

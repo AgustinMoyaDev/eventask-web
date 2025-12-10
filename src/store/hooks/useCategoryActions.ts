@@ -13,7 +13,7 @@ import { getErrorMessage, OperationError } from '@/api/helpers/getErrorMessage'
 
 import { useAppSelector } from '../reduxStore'
 
-export const useCategoryActions = (shouldFetch: boolean = true) => {
+export const useCategoryActions = (shouldFetch = true) => {
   const { accessToken } = useAppSelector(state => state.auth)
   const canGetCategories = accessToken && shouldFetch ? undefined : skipToken
 

@@ -19,9 +19,9 @@ import { useAppSelector } from '../reduxStore'
  * @returns Notification actions, data, loading states, and error handling
  */
 export const useNotificationActions = (
-  page: number = 1,
-  limit: number = 10,
-  shouldFetch: boolean = true,
+  page = 1,
+  limit = 10,
+  shouldFetch = true,
   filters?: { read?: boolean; type?: string }
 ) => {
   const { accessToken } = useAppSelector(state => state.auth)
@@ -47,7 +47,7 @@ export const useNotificationActions = (
     error: fetchUnreadCountError,
     refetch: refetchUnreadCount,
   } = useGetUnreadCountQuery(accessToken ? undefined : skipToken)
-  const unreadCount = unreadCountData?.unreadCount || 0
+  const unreadCount = unreadCountData?.unreadCount ?? 0
 
   const [
     markAsRead,

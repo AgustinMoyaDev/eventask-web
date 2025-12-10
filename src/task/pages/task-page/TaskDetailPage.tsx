@@ -15,7 +15,6 @@ import {
   DroppableData,
   ParticipantDragData,
 } from '@/types/ui/dragNdrop'
-import { IEventSegment } from '@/types/ui/event-segment'
 
 import { DragOverlayContent } from '@/components/drag-n-drop/drag-overlay/DragOverlayContent'
 
@@ -71,7 +70,7 @@ const TaskDetailPage = () => {
     ) {
       const collaboratorId = src.id.toString()
       const eventId = target.id.toString()
-      const eventExists = allSegments.find(es => es.id === eventId) as IEventSegment
+      const eventExists = allSegments.find(es => es.id === eventId)!
       const collaboratorExists = eventExists?.collaborators?.some(c => c.id === collaboratorId)
       if (collaboratorExists) return
       await assignCollaborator({ eventId, collaboratorId })
