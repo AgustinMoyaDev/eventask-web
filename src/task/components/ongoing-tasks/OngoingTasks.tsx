@@ -37,6 +37,7 @@ export const OngoingTasks = () => {
             size="sm"
             className={styles.ongoingTasksBtnNew}
             to="/task-form"
+            aria-label="Create new task"
           >
             <PlusIcon />
           </ButtonLink>
