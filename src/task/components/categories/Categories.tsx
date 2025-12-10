@@ -19,7 +19,7 @@ export function Categories() {
   const categoryCountMap = new Map<string, number>()
   tasks.forEach(t => {
     const catName = t.category?.name
-    categoryCountMap.set(catName, (categoryCountMap.get(catName) || 0) + 1)
+    categoryCountMap.set(catName, (categoryCountMap.get(catName) ?? 0) + 1)
   })
 
   const filteredCategories = Object.values(categories).filter(({ name }) =>
@@ -46,7 +46,7 @@ export function Categories() {
           ))
         ) : areCategoriesPresent ? (
           filteredCategories.map(({ id, name }) => {
-            const quantity = categoryCountMap.get(name) || 0
+            const quantity = categoryCountMap.get(name) ?? 0
             const quantityFormatted = `In ${quantity} ${quantity === 1 ? 'task' : 'tasks'}`
             return <Category key={id} name={name} quantityFormatted={quantityFormatted} />
           })

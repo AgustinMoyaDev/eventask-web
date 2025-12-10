@@ -140,7 +140,7 @@ const TaskFormPage = () => {
           <MultiSelectInput<IUser>
             label="Participants"
             typeOption="email"
-            options={user?.contacts || []}
+            options={user?.contacts ?? []}
             loading={fetchingProfile}
             selectedOptions={participants}
             onAddItem={handleAddParticipant}

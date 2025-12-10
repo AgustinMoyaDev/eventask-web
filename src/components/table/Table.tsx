@@ -48,7 +48,7 @@ export function Table<T extends IBase>({
                 )}
               </th>
             ))}
-            {(onEdit || onDelete || onView) && (
+            {(onEdit ?? onDelete ?? onView) && (
               <th className={clsx(styles.tableHeader, styles.tableHeaderActions)}>Actions</th>
             )}
           </tr>
@@ -78,7 +78,7 @@ export function Table<T extends IBase>({
                   )
                 })}
 
-                {(onEdit || onDelete || onView) && (
+                {(onEdit ?? onDelete ?? onView) && (
                   <td className={clsx(styles.tableBodyData, styles.tableBodyDataActions)}>
                     {onView && (
                       <Button

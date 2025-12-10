@@ -9,7 +9,7 @@ interface AuthHeaderProps {
 }
 
 export const AuthHeaderForm = ({ logoSrc, title, subtitle }: AuthHeaderProps) => {
-  const imgLogo = logoSrc || '/images/appLogo.webp'
+  const imgLogo = logoSrc ?? '/images/appLogo.webp'
 
   return (
     <header className={styles.authHeader}>

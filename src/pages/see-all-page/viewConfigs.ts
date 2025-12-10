@@ -48,7 +48,7 @@ export interface ViewDetail {
   }
 }
 
-type SpecificViewConfigs = {
+interface SpecificViewConfigs {
   [ViewType.TASKS]: ViewConfig<ITask>
   [ViewType.CATEGORIES]: ViewConfig<ICategory>
   [ViewType.NOTIFICATIONS]: ViewConfig<INotification>
@@ -62,7 +62,7 @@ export const VIEW_CONFIGS: SpecificViewConfigs = {
     hasPagination: true,
     isLoading: detail => detail.tasks.fetching,
     hasError: detail => !!detail.tasks.error,
-    getErrorMessage: detail => detail.tasks.error || null,
+    getErrorMessage: detail => detail.tasks.error ?? null,
     createActions: navigate => ({
       onView: id => navigate(`/task/${id}`),
       onEdit: id => navigate(`/task-form/${id}`),
@@ -76,7 +76,7 @@ export const VIEW_CONFIGS: SpecificViewConfigs = {
     hasPagination: false,
     isLoading: detail => detail.categories.fetching,
     hasError: detail => !!detail.categories.error,
-    getErrorMessage: detail => detail.categories.error || null,
+    getErrorMessage: detail => detail.categories.error,
   },
 
   [ViewType.NOTIFICATIONS]: {
@@ -85,6 +85,6 @@ export const VIEW_CONFIGS: SpecificViewConfigs = {
     hasPagination: false,
     isLoading: detail => detail.notifications.fetching,
     hasError: detail => !!detail.notifications.error,
-    getErrorMessage: detail => detail.notifications.error || null,
+    getErrorMessage: detail => detail.notifications.error,
   },
 }

@@ -20,7 +20,7 @@ export const toastSlice = createSlice({
       prepare: (
         message: string,
         status: ToastStatus = TOAST_STATUS.LOADING,
-        duration: number = 3000
+        duration = 3000
       ): { payload: IToast } => ({
         payload: {
           id: nanoid(),

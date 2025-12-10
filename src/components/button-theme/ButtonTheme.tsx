@@ -12,7 +12,7 @@ export const ButtonTheme = () => {
   const darkTheme = 'dark'
 
   const [theme, setTheme] = useState(() => {
-    return localStorage.getItem('selected-theme') || lightTheme
+    return localStorage.getItem('selected-theme') ?? lightTheme
   })
 
   useEffect(() => {

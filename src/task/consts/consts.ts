@@ -20,4 +20,4 @@ export const FILTERS_BUTTONS = {
 } as const
 
 // CACHE
-export const localCache: { [key: string]: string } = {}
+export const localCache: Record<string, string> = {}
