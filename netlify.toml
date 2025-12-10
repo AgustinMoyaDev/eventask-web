@@ -36,7 +36,7 @@
       style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
       font-src 'self' https://fonts.gstatic.com;
       img-src 'self' data: blob: https://task-app-ifmj.onrender.com https://*.googleusercontent.com;
-      connect-src 'self' https://task-app-ifmj.onrender.com https://accounts.google.com/gsi/;
+      connect-src 'self' https://task-app-ifmj.onrender.com wss://task-app-ifmj.onrender.com https://accounts.google.com/gsi/;
       frame-src 'self' https://accounts.google.com https://app.netlify.com;
       object-src 'none';
       base-uri 'self';
