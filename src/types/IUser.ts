@@ -4,7 +4,9 @@ export interface IUser extends IBase {
   firstName: string
   lastName: string
   email: string
+  hasManualPassword: boolean
   profileImageURL: string
+  googleId?: string
   contacts: IUser[]
 }
 
@@ -15,5 +17,7 @@ export interface IUserForm {
   firstName: string
   lastName: string
   profileImageURL: string
+  newPassword?: string
+  confirmPassword?: string
   contacts: IUser[]
 }

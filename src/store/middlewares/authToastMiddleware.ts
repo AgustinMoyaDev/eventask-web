@@ -2,7 +2,7 @@ import { authApi } from '@/services/authApi'
 
 import { registerToastFor } from './toastHelper'
 
-const { forgotPassword, resetPassword } = authApi.endpoints
+const { forgotPassword, resetPassword, setPassword } = authApi.endpoints
 
 const forgotPasswordOperation = {
   endpoints: {
@@ -30,6 +30,19 @@ const resetPasswordOperation = {
   },
 }
 
-const toastAuthOperations = [forgotPasswordOperation, resetPasswordOperation]
+const setPasswordOperation = {
+  endpoints: {
+    matchPending: setPassword.matchPending,
+    matchFulfilled: setPassword.matchFulfilled,
+    matchRejected: setPassword.matchRejected,
+  },
+  messages: {
+    loading: 'Setting new password…',
+    success: 'Password set successfully',
+    error: 'Error setting password',
+  },
+}
+
+const toastAuthOperations = [forgotPasswordOperation, resetPasswordOperation, setPasswordOperation]
 
 toastAuthOperations.forEach(({ endpoints, messages }) => registerToastFor({ endpoints, messages }))

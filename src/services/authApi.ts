@@ -47,6 +47,22 @@ export const authApi = baseApi.injectEndpoints({
         body: { token, newPassword, type },
       }),
     }),
+    setPassword: builder.mutation<void, { newPassword: string }>({
+      query: ({ newPassword }) => ({
+        url: '/auth/set-password',
+        method: 'POST',
+        body: { newPassword },
+      }),
+      invalidatesTags: (_result, error) => (error ? [] : ['User']),
+    }),
+    changePassword: builder.mutation<void, { currentPassword: string; newPassword: string }>({
+      query: ({ currentPassword, newPassword }) => ({
+        url: '/auth/change-password',
+        method: 'POST',
+        body: { currentPassword, newPassword },
+      }),
+      invalidatesTags: (_result, error) => (error ? [] : ['User']),
+    }),
   }),
   overrideExisting: false,
 })
@@ -59,4 +75,6 @@ export const {
   useLogoutMutation,
   useForgotPasswordMutation,
   useResetPasswordMutation,
+  useSetPasswordMutation,
+  useChangePasswordMutation,
 } = authApi

@@ -1,5 +1,7 @@
 export enum ModalIds {
   EventForm = 'eventForm',
+  SetPasswordForm = 'setPasswordForm',
+  ChangePasswordForm = 'changePasswordForm',
   Confirm = 'confirm',
 }
 
