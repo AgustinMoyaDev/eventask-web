@@ -64,6 +64,7 @@
 .welcomeSlideContentActions {
   margin-top: auto;
   display: flex;
+  align-items: center;
   justify-content: center;
   gap: var(--spacing-md);
   padding-top: var(--spacing-lg);

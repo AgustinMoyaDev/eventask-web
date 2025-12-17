@@ -2582,13 +2582,44 @@ test(input): add validation tests
 
 ## 🤝 Contributing & Development Workflow
 
-This project enforces strict code quality standards using **Husky** and **Commitlint**.
+This project enforces strict code quality standards using **Husky** and **Commitlint**, following the **GitHub Flow**.
+Development focuses on Continuous Integration (CI) and rapid deployment to production.
+
+### Branching Strategy
+
+1.  **Main (`main`)**: The single source of truth. Contains production-ready code. Any merge into this branch triggers an automatic deployment to Netlify. Direct commits to this branch are restricted.
+2.  **Feature/Fix Branches**: Short-lived, independent branches created from `main` for specific tasks.
+
+### Branch Naming Convention
+
+We follow a strict convention to link code changes with project issues:
+
+* `feat/feature-name-ID`: For new features.
+    * *Example:* `feat/google-auth-login-23`
+* `fix/bug-name-ID`: For bug fixes.
+    * *Example:* `fix/cors-header-error-12`
+* `chore/maintenance-task-ID`: For configuration or maintenance tasks (no production code changes).
+    * *Example:* `chore/update-dependencies-45`
+
+### Contribution Cycle
+
+1.  Create an **Issue** describing the task.
+2.  Create a local branch following the naming convention.
+3.  Develop and commit changes.
+4.  Open a **Pull Request (PR)** targeting `main`.
+5.  Ensure all **CI Checks** (Netlify Build, Linter) pass successfully.
+6.  Perform a **Squash and Merge** into `main`.
+7.  Delete the feature branch.
 
 ### Commit Convention
 We follow the [Conventional Commits](https://www.conventionalcommits.org/) specification. Your commit messages must follow this format:
 
+**Rules:**
+* Use the imperative mood in the description ("add" not "added", "fix" not "fixed").
+* No period at the end of the subject line.
+
 ```bash
-<type>(<scope>): <description>
+Format: <type>(<scope>): <description>
 
 Allowed Types:
 

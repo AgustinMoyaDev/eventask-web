@@ -5,9 +5,8 @@ import { useModalActions } from '@/store/hooks/useModalActions'
 
 import { Chip } from '@/components/chip/Chip'
 import { Button } from '@/components/button/Button'
-import { GoogleIcon, LockIcon } from '@/components/icons/Icons'
+import { GoogleIcon, LockIcon, EditIcon, PlusIcon } from '@/components/icons/Icons'
 import { Modal } from '@/components/modal/Modal'
-import { EditIcon, PlusIcon } from '@/components/icons/Icons'
 
 import { SetPasswordForm } from '../set-password-form/SetPasswordForm'
 import { ChangePasswordForm } from '../change-password-form/ChangePasswordForm'

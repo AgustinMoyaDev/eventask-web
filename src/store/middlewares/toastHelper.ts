@@ -2,7 +2,7 @@ import { UnknownAction } from '@reduxjs/toolkit'
 
 import { TOAST_STATUS } from '@/types/ui/toast'
 
-import { startAppListening } from '../listenerMiddleware'
+import { startAppListening } from './listenerMiddleware'
 import { onShowToast, onUpdateToastStatus } from '../slices/ui/toastSlice'
 
 interface RTKQAction extends UnknownAction {
