@@ -8,6 +8,8 @@ import {
   useRegisterMutation,
   useForgotPasswordMutation,
   useResetPasswordMutation,
+  useSetPasswordMutation,
+  useChangePasswordMutation,
 } from '@/services/authApi'
 import { AUTH_STATUS } from '@/types/ui/auth-status'
 import { getErrorMessage, OperationError } from '@/api/helpers/getErrorMessage'
@@ -27,6 +29,10 @@ export const useAuthActions = () => {
     useForgotPasswordMutation()
   const [resetPassword, { isLoading: resetPasswordLoading, error: resetPasswordError }] =
     useResetPasswordMutation()
+  const [setPassword, { isLoading: setPasswordLoading, error: setPasswordError }] =
+    useSetPasswordMutation()
+  const [changePassword, { isLoading: changePasswordLoading, error: changePasswordError }] =
+    useChangePasswordMutation()
 
   const {
     login: loginAuthError,
@@ -35,6 +41,8 @@ export const useAuthActions = () => {
     refresh: refreshAuthError,
     forgotPassword: forgotPasswordAuthError,
     resetPassword: resetPasswordAuthError,
+    setPassword: setPasswordAuthError,
+    changePassword: changePasswordAuthError,
   } = useMemo(
     () =>
       getErrorMessage([
@@ -44,6 +52,8 @@ export const useAuthActions = () => {
         { operation: OperationError.REFRESH, error: refreshError },
         { operation: OperationError.FORGOT_PASSWORD, error: forgotPasswordError },
         { operation: OperationError.RESET_PASSWORD, error: resetPasswordError },
+        { operation: OperationError.SET_PASSWORD, error: setPasswordError },
+        { operation: OperationError.CHANGE_PASSWORD, error: changePasswordError },
       ]),
     [
       loginError,
@@ -52,6 +62,8 @@ export const useAuthActions = () => {
       refreshError,
       forgotPasswordError,
       resetPasswordError,
+      setPasswordError,
+      changePasswordError,
     ]
   )
 
@@ -67,9 +79,13 @@ export const useAuthActions = () => {
     logoutLoading,
     forgotPasswordLoading,
     resetPasswordLoading,
+    setPasswordLoading,
+    changePasswordLoading,
     // Mutations RTKQ
     forgotPassword,
     resetPassword,
+    setPassword,
+    changePassword,
     logout,
     login,
     loginWithGoogle,
@@ -83,5 +99,7 @@ export const useAuthActions = () => {
     logoutError,
     forgotPasswordAuthError,
     resetPasswordAuthError,
+    setPasswordAuthError,
+    changePasswordAuthError,
   }
 }

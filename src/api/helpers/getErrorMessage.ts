@@ -26,6 +26,8 @@ export enum OperationError {
   REMOVE_COLLABORATOR = 'removeCollaborator',
   FORGOT_PASSWORD = 'forgotPassword',
   RESET_PASSWORD = 'resetPassword',
+  SET_PASSWORD = 'setPassword',
+  CHANGE_PASSWORD = 'changePassword',
 }
 
 export type RTKQueryError = FetchBaseQueryError | SerializedError | undefined
@@ -73,7 +75,8 @@ function parseError(operation: OperationError, error: RTKQueryError): ParsedErro
       operation === OperationError.ACCEPT ||
       operation === OperationError.REJECT ||
       operation === OperationError.FORGOT_PASSWORD ||
-      operation === OperationError.RESET_PASSWORD
+      operation === OperationError.RESET_PASSWORD ||
+      operation === OperationError.CHANGE_PASSWORD
     ) {
       return {
         message: body?.message,

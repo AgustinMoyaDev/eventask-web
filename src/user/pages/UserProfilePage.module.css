@@ -32,6 +32,7 @@
   align-items: center;
   justify-content: center;
   gap: var(--spacing-sm);
+  margin-top: var(--spacing-lg);
 }
 
 .userProfileResetOnboardingContainer {

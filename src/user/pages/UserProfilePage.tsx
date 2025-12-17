@@ -2,28 +2,26 @@ import { useEffect, useMemo, useRef, useState } from 'react'
 import deepEqual from 'fast-deep-equal'
 import { clsx } from 'clsx'
 
-import { UserAvatar } from '@/components/user-avatar/UserAvatar'
 import { useUserActions } from '@/store/hooks/useUserActions'
+import { useForm } from '@/hooks/useForm'
+import { useInvitationActions } from '@/store/hooks/useInvitationActions'
+import {
+  userFormFields,
+  userFormValidations,
+} from '@/helpers/form-validations/getUserFormValidations'
 
 import { IUpdateUserDto } from '@/types/dtos/user'
 import { IUserForm, IUser } from '@/types/IUser'
 
+import { UserAvatar } from '@/components/user-avatar/UserAvatar'
 import { Input } from '@/components/input/Input'
 import { Button } from '@/components/button/Button'
 import { ButtonLink } from '@/components/button-link/ButtonLink'
 import { MultiSelectInput } from '@/components/multi-select-input/MultiSelectInput'
 import { CheckIcon, ErrorIcon } from '@/components/icons/Icons'
 import { useFirstTimeUser } from '@/components/welcome-onboarding/useFirstTimeUser'
+import { SecuritySettings } from '../components/security-settings/SecuritySettings'
 import UserProfilePageSkeleton from './UserProfilePageSkeleton'
-
-import { useForm } from '@/hooks/useForm'
-
-import { useInvitationActions } from '@/store/hooks/useInvitationActions'
-
-import {
-  userFormFields,
-  userFormValidations,
-} from '@/helpers/form-validations/getUserFormValidations'
 
 import styles from './UserProfilePage.module.css'
 
@@ -35,7 +33,7 @@ import styles from './UserProfilePage.module.css'
 const UserProfilePage = () => {
   const { showWelcome, resetWelcome } = useFirstTimeUser()
   const originalFormRef = useRef<IUserForm | null>(null)
-  // Custom hook for user operations
+
   const {
     user,
     fetchingProfile,
@@ -185,7 +183,7 @@ const UserProfilePage = () => {
           {displayError}
         </p>
         <header className={styles.userProfileFormHeader}>
-          <h1 className={styles.userProfileFormTitle}>Profile: {firstName}</h1>
+          <h2 className={styles.userProfileFormTitle}>Profile: {firstName}</h2>
 
           <UserAvatar
             className={styles.userProfileFormAvatar}
@@ -237,6 +235,8 @@ const UserProfilePage = () => {
           getOptionLabel={(user: IUser) => user.email}
           getOptionKey={(user: IUser) => user.id}
         />
+
+        <SecuritySettings user={user} />
 
         <footer className={styles.userProfileFormFooter}>
           <Button
