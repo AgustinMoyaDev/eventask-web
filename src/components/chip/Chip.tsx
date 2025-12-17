@@ -6,7 +6,7 @@ import styles from './Chip.module.css'
 
 export const Chip = ({
   label,
-  role,
+  role = 'status',
   color = 'default',
   variant = 'filled',
   className,

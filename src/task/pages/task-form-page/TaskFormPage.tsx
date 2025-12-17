@@ -95,7 +95,7 @@ const TaskFormPage = () => {
           <h1 className={clsx('text-title-lg', styles.taskFormTitle)}>
             {task?.id ? 'Edit ' : 'Create '} task
           </h1>
-          <Chip label={currentStatus!} role="status" color={colorChip} />
+          <Chip label={currentStatus!} color={colorChip} />
         </header>
         <fieldset
           disabled={isCompleted}

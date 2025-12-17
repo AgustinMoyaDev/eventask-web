@@ -67,7 +67,7 @@ export const TaskInfo = ({ task }: Props) => {
           <h2 className="text-title-lg">{title}</h2>
           <div className={styles.taskInfoMeta}>
             <Chip label={category?.name} variant="outlined" role="category" />
-            <Chip label={status} color={colorChip} role="status" />
+            <Chip label={status} color={colorChip} />
 
             <span className={styles.taskInfoDates}>
               {dayjs(beginningDate).format('DD MMM')}

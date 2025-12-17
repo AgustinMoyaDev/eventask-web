@@ -46,7 +46,7 @@ export const EventForm = ({
     <form className={styles.eventForm} onSubmit={handleSubmit} aria-label="Event form">
       <header className={styles.eventFormHeader}>
         <h1 className="text-title-lg">{eventToEdit ? 'Edit ' : 'Create '} event</h1>
-        <Chip label={currentStatus} role="status" color={colorChip} />
+        <Chip label={currentStatus} color={colorChip} />
       </header>
 
       {hasConflict && (

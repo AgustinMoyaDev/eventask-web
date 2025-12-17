@@ -3,7 +3,7 @@ import { configureStore } from '@reduxjs/toolkit'
 import { baseApi } from '../services/baseApi'
 
 import { rootReducer } from './rootReducer'
-import { listenerMiddleware } from './listenerMiddleware'
+import { listenerMiddleware } from './middlewares/listenerMiddleware'
 
 // Custom middlewares imports
 import './middlewares/categoryToastMiddleware'

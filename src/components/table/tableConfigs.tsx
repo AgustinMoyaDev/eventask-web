@@ -13,9 +13,7 @@ export const TASK_COLUMNS: ColumnConfig<ITask>[] = [
     key: 'status',
     label: 'Status',
     sortable: true,
-    render: task => (
-      <Chip label={task.status} color={getColorChipTask(task.status)} role="status" />
-    ),
+    render: task => <Chip label={task.status} color={getColorChipTask(task.status)} />,
   },
   {
     key: 'createdAt',
