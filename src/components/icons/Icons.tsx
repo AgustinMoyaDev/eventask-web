@@ -483,7 +483,7 @@ export function HomeIcon({ size = 24, fill = 'currentColor', ...props }: IconPro
   )
 }
 
-export function SortAscIcon({ size = 12, fill = 'currentColor', ...props }: IconProps) {
+export function SortAscIcon({ size = 24, fill = 'currentColor', ...props }: IconProps) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -498,7 +498,7 @@ export function SortAscIcon({ size = 12, fill = 'currentColor', ...props }: Icon
   )
 }
 
-export function SortDescIcon({ size = 12, fill = 'currentColor', ...props }: IconProps) {
+export function SortDescIcon({ size = 24, fill = 'currentColor', ...props }: IconProps) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -509,6 +509,30 @@ export function SortDescIcon({ size = 12, fill = 'currentColor', ...props }: Ico
       {...props}
     >
       <path d="M20 4V16H23L19 21L15 16H18V4H20ZM12 18V20H3V18H12ZM14 11V13H3V11H14ZM14 4V6H3V4H14Z"></path>
+    </svg>
+  )
+}
+
+export function LockIcon({ size = 24, fill = 'currentColor', ...props }: IconProps) {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 24 24"
+      fill={fill}
+      width={size}
+      height={size}
+      {...props}
+    >
+      <g
+        fill="none"
+        stroke="currentColor"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth="2"
+      >
+        <path d="M5 13a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v6a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2z" />
+        <path d="M11 16a1 1 0 1 0 2 0a1 1 0 0 0-2 0m-3-5V7a4 4 0 1 1 8 0v4" />
+      </g>
     </svg>
   )
 }
