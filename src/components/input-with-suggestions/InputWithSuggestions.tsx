@@ -1,4 +1,4 @@
-import { FC, useEffect, useId, useRef, useState } from 'react'
+import { FC, useEffect, useId, useMemo, useRef, useState } from 'react'
 
 import clsx from 'clsx'
 
@@ -28,8 +28,6 @@ export const InputWithSuggestions: FC<InputWithSuggestionsProps> = ({
   onCreateNew,
   ...rest
 }) => {
-  const [showSuggestions, setShowSuggestions] = useState(false)
-  const [filteredSuggestions, setFilteredSuggestions] = useState<string[]>([])
   const hasError = touched && !!error
   const generatedId = useId()
   const inputId = id ?? generatedId
@@ -39,15 +37,13 @@ export const InputWithSuggestions: FC<InputWithSuggestionsProps> = ({
     [hasError && errorId, hint && !hasError && hintId].filter(Boolean).join(' ') || undefined
   const containerRef = useRef<HTMLDivElement>(null)
 
-  useEffect(() => {
+  const [showSuggestions, setShowSuggestions] = useState(false)
+
+  const filteredSuggestions = useMemo(() => {
     if (!String(value).trim()) {
-      setFilteredSuggestions(suggestionData)
-      return
+      return suggestionData
     }
-    const filtered = suggestionData.filter(item =>
-      item.toLowerCase().includes(String(value).toLowerCase())
-    )
-    setFilteredSuggestions(filtered)
+    return suggestionData.filter(item => item.toLowerCase().includes(String(value).toLowerCase()))
   }, [value, suggestionData])
 
   // Close suggestions when clicking outside the input or selecting one

@@ -98,7 +98,7 @@ const SeeAllPage = () => {
 
   // Get raw data and apply sorting
   const rawData = config.getData(hooks)
-  const sortedData = useMemo(() => sortData(rawData as IBase[], sortConfig), [rawData, sortConfig])
+  const sortedData = sortData(rawData as IBase[], sortConfig)
 
   const totalPages = config.getTotal ? Math.ceil(config.getTotal(hooks) / ITEMS_PER_PAGE) : 0
 

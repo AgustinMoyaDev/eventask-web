@@ -12,7 +12,7 @@ import { useEventFormLogic } from './useEventFormLogic'
 import styles from './EventForm.module.css'
 
 interface Props {
-  eventToEdit?: IEventLocal
+  eventToEdit: IEventLocal | null
   existingEvents?: IEventLocal[]
   onAddEvent: (event: IEventLocal) => void
   onUpdateEvent: (event: IEventLocal) => void

@@ -1,8 +1,4 @@
-/**
- * Custom hook that manages the event modal state and logic
- * Separates modal concerns from main form logic
- */
-import { useState, useEffect, useCallback, useRef } from 'react'
+import { useState, useEffect, useCallback, useMemo, useRef } from 'react'
 
 import { useSearchParams } from 'react-router-dom'
 
@@ -17,44 +13,61 @@ interface UseTaskFormEventModalProps {
   handleEditModalEvent: (evt: IEventLocal) => void
 }
 
+/**
+ * Custom hook that manages the event modal state and logic
+ * Separates modal concerns from main form logic
+ */
 export const useTaskFormEventModal = ({
   events,
   handleAddModalEvent,
   handleEditModalEvent,
 }: UseTaskFormEventModalProps) => {
-  const [editingEvent, setEditingEvent] = useState<IEventLocal | undefined>(undefined)
-  const { isOpen, open, close } = useModalActions(ModalIds.EventForm)
   const [searchParams, setSearchParams] = useSearchParams()
-  const processedRef = useRef<string | null>(null)
+  const [manualEditEvent, setManualEditEvent] = useState<IEventLocal | null>(null)
+  const [isCreatingNew, setIsCreatingNew] = useState(false)
+  const { isOpen, open, close } = useModalActions(ModalIds.EventForm)
+  const processedUrlRef = useRef<string | null>(null)
 
-  // Handle opening event from external state (e.g., from calendar)
+  const eventFromUrl = useMemo(() => {
+    const editId = searchParams.get('editEvent')
+    if (!editId) return null
+    return events.find(e => e.id === editId) ?? null
+  }, [searchParams, events])
+
+  // Computed value: manual takes priority over URL
+  const currentEvent = isCreatingNew ? null : (manualEditEvent ?? eventFromUrl)
+
+  // Open modal ONLY when NEW event appears in URL
   useEffect(() => {
     const editId = searchParams.get('editEvent')
-    if (!editId || processedRef.current === editId) return
-
-    const found = events.find(e => e.id === editId)
-    if (found) {
-      processedRef.current = editId
-      setEditingEvent(found)
+    if (eventFromUrl && editId && editId !== processedUrlRef.current && !isCreatingNew) {
+      processedUrlRef.current = editId
       open()
     }
-  }, [searchParams, setSearchParams, events, open, close])
+    if (!editId) {
+      processedUrlRef.current = null
+    }
+  }, [eventFromUrl, searchParams, open, isCreatingNew])
 
   const handleOpenNewEvent = useCallback(() => {
-    setEditingEvent(undefined)
+    setIsCreatingNew(true)
+    setManualEditEvent(null)
+    setSearchParams({}, { replace: true })
     open()
-  }, [open])
+  }, [open, setSearchParams])
 
   const handleOpenEditEvent = useCallback(
     (evt: IEventLocal) => {
-      setEditingEvent(evt)
+      setIsCreatingNew(false)
+      setManualEditEvent(evt)
       open()
     },
     [open]
   )
 
   const handleCloseModal = useCallback(() => {
-    setEditingEvent(undefined)
+    setIsCreatingNew(false)
+    setManualEditEvent(null)
     close()
     setSearchParams({}, { replace: true })
   }, [close, setSearchParams])
@@ -77,7 +90,7 @@ export const useTaskFormEventModal = ({
 
   return {
     isOpen,
-    editingEvent,
+    manualEditEvent: currentEvent,
     handleOpenNewEvent,
     handleOpenEditEvent,
     handleCreateEvent,

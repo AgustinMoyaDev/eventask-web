@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 
 const STORAGE_KEY = 'hasSeenWelcome'
 
@@ -7,15 +7,10 @@ const STORAGE_KEY = 'hasSeenWelcome'
  * Shows welcome slide only on first visit
  */
 export const useFirstTimeUser = () => {
-  const [showWelcome, setShowWelcome] = useState(false)
-
-  useEffect(() => {
-    const hasSeenWelcome = localStorage.getItem(STORAGE_KEY)
-
-    if (!hasSeenWelcome) {
-      setShowWelcome(true)
-    }
-  }, [])
+  const [showWelcome, setShowWelcome] = useState(() => {
+    const hasSeenWelcome = localStorage.getItem('hasSeenWelcome')
+    return !hasSeenWelcome
+  })
 
   const markAsCompleted = () => {
     localStorage.setItem(STORAGE_KEY, 'true')

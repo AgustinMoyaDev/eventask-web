@@ -13,7 +13,7 @@ import { EVENT_STATUS, IEventForm, IEventLocal } from '@/types/IEvent'
 import { ColorProgressType } from '@/types/ui/task'
 
 export function useEventFormLogic(
-  eventToEdit: IEventLocal | undefined,
+  eventToEdit: IEventLocal | null,
   existingEvents: IEventLocal[],
   onAddEvent: (evt: IEventLocal) => void,
   onUpdateEvent: (evt: IEventLocal) => void
