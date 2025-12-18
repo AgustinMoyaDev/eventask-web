@@ -6,33 +6,14 @@ import { Loader } from '@/components/loaders/loader/Loader'
 
 import { UserAvatarProps } from '@/types/ui/user-avatar'
 
-import { buildImageUrl } from '@/helpers/buildImageUrl'
+import {
+  ALLOWED_MIME_TYPES,
+  buildImageUrl,
+  MAX_FILE_SIZE,
+  sanitizeImageUrl,
+} from '@/helpers/buildImageUrl'
 
 import styles from './UserAvatar.module.css'
-
-const MAX_FILE_SIZE = 1024 * 1024 // 1MB
-const ALLOWED_MIME_TYPES = ['image/png', 'image/jpeg', 'image/webp']
-/**
- * Safe check for URLs: only http, https, validated blob, or data
- * @param url - URL to validate
- * @param mimeType - Optional MIME type for blob URL validation
- * @returns boolean - Whether URL is safe to use in img src
- */
-const isSafeUrl = (url: string, mimeType?: string) => {
-  // Allow http, https (server URLs)
-  if (url.startsWith('http:') || url.startsWith('https:')) return true
-
-  // For blob URLs, require valid MIME type from validated file
-  if (url.startsWith('blob:')) {
-    return mimeType !== undefined && ALLOWED_MIME_TYPES.includes(mimeType)
-  }
-
-  // Allow only specific data URLs for image types
-  if (/^data:image\/(png|jpeg|webp);base64,/.test(url)) return true
-
-  // Otherwise, unsafe
-  return false
-}
 
 /**
  * Reusable user avatar component with optional file upload functionality
@@ -65,17 +46,16 @@ export const UserAvatar = ({
   }, [firstName, lastName])
 
   /**
-   * Process image URL - auto-detect if it needs buildImageUrl or use directly
-   * For blob URLs, validates against imageType to ensure origin from validated file
+   * Process and sanitize image URL
+   * 1. Build complete URL from relative/partial paths
+   * 2. Sanitize against XSS attacks (validated by CodeQL)
    */
   const displayImage = useMemo(() => {
-    if (!imageUrl) return null
-    if (imageLoadError) return null
+    if (!imageUrl || imageLoadError) return null
 
-    // If it's a server relative path, use buildImageUrl
     const url = buildImageUrl(imageUrl)
-
-    return isSafeUrl(url, imageType) ? url : null
+    // Sanitize URL - returns safe string or null
+    return sanitizeImageUrl(url, imageType)
   }, [imageUrl, imageType, imageLoadError])
 
   /**
