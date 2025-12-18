@@ -26,6 +26,14 @@ import UserProfilePageSkeleton from './UserProfilePageSkeleton'
 import styles from './UserProfilePage.module.css'
 
 /**
+ * Preview state with metadata for security validation
+ */
+interface IPreviewState {
+  url: string
+  type?: string // MIME type for blob URLs to verify origin
+}
+
+/**
  * User profile page component for editing user information and avatar
  * Features: profile data editing, avatar upload, form validation, error handling
  * @returns JSX.Element - User profile form with avatar upload
@@ -62,7 +70,7 @@ const UserProfilePage = () => {
 
   // Local state for file handling
   const [selectedFile, setSelectedFile] = useState<File | null>(null)
-  const [preview, setPreview] = useState<string>('')
+  const [preview, setPreview] = useState<IPreviewState>({ url: '' })
 
   const formHasChanges = useMemo(() => {
     if (!originalFormRef.current) return false
@@ -74,11 +82,11 @@ const UserProfilePage = () => {
 
   useEffect(() => {
     return () => {
-      if (preview?.startsWith('blob:')) {
-        URL.revokeObjectURL(preview)
+      if (preview.url.startsWith('blob:')) {
+        URL.revokeObjectURL(preview.url)
       }
     }
-  }, [preview])
+  }, [preview.url])
 
   useEffect(() => {
     if (user) {
@@ -90,7 +98,7 @@ const UserProfilePage = () => {
         profileImageURL,
         contacts,
       })
-      setPreview(profileImageURL)
+      setPreview({ url: profileImageURL })
 
       originalFormRef.current = {
         email,
@@ -105,11 +113,15 @@ const UserProfilePage = () => {
 
   /**
    * Handle file selection for avatar upload
+   * Stores both blob URL and MIME type for security validation
    * @param file - Selected file from UserAvatar component
    */
   const handleFileChange = (file: File) => {
     setSelectedFile(file)
-    setPreview(URL.createObjectURL(file))
+    setPreview({
+      url: URL.createObjectURL(file),
+      type: file.type, // Store validated MIME type for URL origin verification
+    })
   }
 
   const sendEmailInvitation = (email: string) => {
@@ -136,8 +148,8 @@ const UserProfilePage = () => {
 
       if (uploadResult.data?.profileImageURL) {
         avatarUrl = uploadResult.data.profileImageURL
-        // Update preview immediately with server URL
-        setPreview(avatarUrl)
+        // Update preview immediately with server URL (no type needed for https URLs)
+        setPreview({ url: avatarUrl })
       }
     }
 
@@ -188,7 +200,8 @@ const UserProfilePage = () => {
           <UserAvatar
             className={styles.userProfileFormAvatar}
             userId={user?.id.toString()}
-            imageUrl={preview || user?.profileImageURL}
+            imageUrl={preview.url || user?.profileImageURL}
+            imageType={preview.type}
             firstName={firstName}
             lastName={lastName}
             size="lg"

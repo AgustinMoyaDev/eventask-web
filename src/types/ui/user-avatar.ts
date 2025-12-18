@@ -7,6 +7,8 @@ export interface UserAvatarProps {
   userId?: string
   /** User's profile image URL (server path or blob URL) */
   imageUrl?: string
+  /** MIME type of the image (required for blob URLs to verify origin) */
+  imageType?: string
   /** User's first name for initials fallback */
   firstName: string
   /** User's last name for initials fallback */

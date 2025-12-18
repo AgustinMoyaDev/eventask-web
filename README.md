@@ -2600,6 +2600,30 @@ We follow a strict convention to link code changes with project issues:
     * *Example:* `fix/cors-header-error-12`
 * `chore/maintenance-task-ID`: For configuration or maintenance tasks (no production code changes).
     * *Example:* `chore/update-dependencies-45`
+* `refactor/description-ID`: For code restructuring without behavior changes.
+    * *Example:* `refactor/middleware-organization-24`
+
+### Pre-commit Hooks (Husky)
+
+Before each commit, Husky automatically validates:
+- ✅ **Linting** (ESLint)
+- ✅ **Type checking** (TypeScript)
+- ✅ **Commit message format** (Commitlint)
+
+If validation fails, the commit is blocked. Fix issues and retry.
+
+### Linking Issues
+
+Include `Closes #<issue-number>` in your commit message to auto-close issues:
+
+```bash
+git commit -m "feat(auth): add security settings
+
+- Add SetPasswordForm and ChangePasswordForm
+- Implement password validation with current password check
+
+Closes #125"
+```
 
 ### Contribution Cycle
 
