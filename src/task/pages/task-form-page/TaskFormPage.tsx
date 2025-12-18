@@ -1,5 +1,10 @@
 import clsx from 'clsx'
 
+import { IUser } from '@/types/IUser'
+
+import { useTaskFormEventModal } from '@/task/hooks/useTaskFormEventModal'
+import { useTaskFormLogic } from '@/task/hooks/useTaskFormLogic'
+
 import { Button } from '@/components/button/Button'
 import { Chip } from '@/components/chip/Chip'
 import { EventForm } from '@/components/event-form/EventForm'
@@ -7,14 +12,7 @@ import { Input } from '@/components/input/Input'
 import { InputWithSuggestions } from '@/components/input-with-suggestions/InputWithSuggestions'
 import { Modal } from '@/components/modal/Modal'
 import { MultiSelectInput } from '@/components/multi-select-input/MultiSelectInput'
-
 import { EventCardList } from '@/task/components/event-card-list/EventCardList'
-
-import { useTaskFormLogic } from '@/task/hooks/useTaskFormLogic'
-import { useTaskFormEventModal } from '@/task/hooks/useTaskFormEventModal'
-
-import { IUser } from '@/types/IUser'
-
 import { TaskFormSkeleton } from './TaskFormSkeleton'
 
 import styles from './TaskFormPage.module.css'
@@ -62,7 +60,7 @@ const TaskFormPage = () => {
 
   const {
     isOpen,
-    editingEvent,
+    manualEditEvent,
     handleOpenNewEvent,
     handleOpenEditEvent,
     handleCreateEvent,
@@ -178,7 +176,7 @@ const TaskFormPage = () => {
         <Modal isOpen={isOpen} onClose={handleCloseModal}>
           <EventForm
             existingEvents={events}
-            eventToEdit={editingEvent}
+            eventToEdit={manualEditEvent}
             onAddEvent={handleCreateEvent}
             onUpdateEvent={handleUpdateEvent}
           />
