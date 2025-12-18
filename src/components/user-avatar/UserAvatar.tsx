@@ -11,15 +11,25 @@ import { buildImageUrl } from '@/helpers/buildImageUrl'
 import styles from './UserAvatar.module.css'
 
 const MAX_FILE_SIZE = 1024 * 1024 // 1MB
-const ALLOWED_TYPES = ['image/png', 'image/jpeg', 'image/webp']
+const ALLOWED_MIME_TYPES = ['image/png', 'image/jpeg', 'image/webp']
 /**
- * Safe check for URLs: only http, https, blob, or data
+ * Safe check for URLs: only http, https, validated blob, or data
+ * @param url - URL to validate
+ * @param mimeType - Optional MIME type for blob URL validation
+ * @returns boolean - Whether URL is safe to use in img src
  */
-const isSafeUrl = (url: string) => {
-  // Allow http, https, blob
-  if (/^(https?:|blob:)/.test(url)) return true
+const isSafeUrl = (url: string, mimeType?: string) => {
+  // Allow http, https (server URLs)
+  if (url.startsWith('http:') || url.startsWith('https:')) return true
+
+  // For blob URLs, require valid MIME type from validated file
+  if (url.startsWith('blob:')) {
+    return mimeType !== undefined && ALLOWED_MIME_TYPES.includes(mimeType)
+  }
+
   // Allow only specific data URLs for image types
   if (/^data:image\/(png|jpeg|webp);base64,/.test(url)) return true
+
   // Otherwise, unsafe
   return false
 }
@@ -32,6 +42,7 @@ const isSafeUrl = (url: string) => {
  */
 export const UserAvatar = ({
   imageUrl,
+  imageType,
   firstName,
   lastName,
   size = 'sm',
@@ -55,6 +66,7 @@ export const UserAvatar = ({
 
   /**
    * Process image URL - auto-detect if it needs buildImageUrl or use directly
+   * For blob URLs, validates against imageType to ensure origin from validated file
    */
   const displayImage = useMemo(() => {
     if (!imageUrl) return null
@@ -63,8 +75,8 @@ export const UserAvatar = ({
     // If it's a server relative path, use buildImageUrl
     const url = buildImageUrl(imageUrl)
 
-    return isSafeUrl(url) ? url : null
-  }, [imageUrl, imageLoadError])
+    return isSafeUrl(url, imageType) ? url : null
+  }, [imageUrl, imageType, imageLoadError])
 
   /**
    * Handle image load error - fallback to initials
@@ -81,7 +93,7 @@ export const UserAvatar = ({
     const file = e.target.files?.[0]
     if (!file || !onFileChange) return
 
-    if (!ALLOWED_TYPES.includes(file.type)) {
+    if (!ALLOWED_MIME_TYPES.includes(file.type)) {
       setFileError('Only PNG, JPEG or WEBP files are allowed')
       return
     }
