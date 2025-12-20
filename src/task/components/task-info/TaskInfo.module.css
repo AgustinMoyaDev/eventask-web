@@ -64,6 +64,7 @@
   column-gap: var(--spacing-sm);
 
   & .actionBtn {
+    font-weight: var(--font-weight-medium);
     height: 2.75rem;
     aspect-ratio: 1 / 1;
     padding: 0;
