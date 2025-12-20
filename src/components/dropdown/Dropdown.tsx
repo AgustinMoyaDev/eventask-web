@@ -34,6 +34,9 @@ export const Dropdown = ({ children, className, trigger, classNameMenuWrapper }:
   }
 
   useEffect(() => {
+    const element = detailsRef.current
+    if (!element) return
+
     /**
      * Handle clicks outside dropdown to close it
      * @param e - Mouse click event
@@ -41,16 +44,32 @@ export const Dropdown = ({ children, className, trigger, classNameMenuWrapper }:
     const handleClickOutside = (e: MouseEvent) => {
       const target = e.target as Node
 
-      // Only close if click is truly outside the dropdown content
-      if (detailsRef.current && !detailsRef.current.contains(target)) {
-        detailsRef.current.removeAttribute('open')
+      // Only close if click is outside the dropdown content
+      if (element && !element.contains(target)) {
+        element.removeAttribute('open')
+        setIsOpen(false)
+      }
+    }
+
+    /**
+     * Handle clicks on menu items to auto-close dropdown
+     * @param e - Mouse click event
+     */
+    const handleMenuItemClick = (e: MouseEvent) => {
+      const target = e.target as HTMLElement
+      // Close dropdown when clicking on any menu item
+      if (target.closest('[role="menuitem"]')) {
+        element.removeAttribute('open')
         setIsOpen(false)
       }
     }
 
     document.addEventListener('mousedown', handleClickOutside)
+    element.addEventListener('click', handleMenuItemClick)
+
     return () => {
       document.removeEventListener('mousedown', handleClickOutside)
+      element.removeEventListener('click', handleMenuItemClick)
     }
   }, [])
 
