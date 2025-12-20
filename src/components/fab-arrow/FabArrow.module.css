@@ -12,7 +12,7 @@
   left: -5px;
   background: linear-gradient(
     to left,
-    transparent 0%,
+    transparent 25%,
     var(--color-surface) 80%,
     var(--color-surface) 85%,
     transparent 100%
@@ -23,7 +23,7 @@
   right: -5px;
   background: linear-gradient(
     to right,
-    transparent 50%,
+    transparent 25%,
     var(--color-surface) 80%,
     var(--color-surface) 85%,
     transparent 100%
