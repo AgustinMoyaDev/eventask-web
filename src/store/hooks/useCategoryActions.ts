@@ -2,6 +2,8 @@ import { useMemo } from 'react'
 
 import { skipToken } from '@reduxjs/toolkit/query'
 
+import { SortConfig } from '@/types/ui/table'
+
 import {
   useCreateCategoryMutation,
   useDeleteCategoryMutation,
@@ -13,12 +15,31 @@ import { getErrorMessage, OperationError } from '@/api/helpers/getErrorMessage'
 
 import { useAppSelector } from '../reduxStore'
 
-export const useCategoryActions = (shouldFetch = true) => {
+export const useCategoryActions = (
+  page = 1,
+  perPage = 5,
+  shouldFetch = true,
+  sortConfig?: SortConfig
+) => {
   const { accessToken } = useAppSelector(state => state.auth)
-  const canGetCategories = accessToken && shouldFetch ? undefined : skipToken
+  const canGetCategories = useMemo(() => {
+    if (!accessToken || page < 0 || perPage <= 0 || !shouldFetch) {
+      return skipToken
+    }
+
+    return {
+      page,
+      perPage,
+      ...(sortConfig?.key &&
+        sortConfig.direction && {
+          sortBy: sortConfig.key,
+          sortOrder: sortConfig.direction,
+        }),
+    }
+  }, [accessToken, page, perPage, shouldFetch, sortConfig])
 
   const {
-    data: { items: categories = [] } = {},
+    data: { items: categories = [], total = 0 } = {},
     isFetching: fetching,
     error: fetchError,
     refetch,
@@ -49,6 +70,7 @@ export const useCategoryActions = (shouldFetch = true) => {
   return {
     // RTKQ Data and flags
     categories,
+    total,
     fetching,
     creating,
     updating,

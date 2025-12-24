@@ -1,6 +1,7 @@
 import { baseApi } from './baseApi'
 
 import { INotification, INotificationQueryOptions } from '../types/INotification'
+import { IPaginationResult } from '@/api/types/pagination'
 
 /**
  * Notification API endpoints using RTK Query
@@ -12,20 +13,27 @@ export const notificationApi = baseApi.injectEndpoints({
      * Get user notifications with pagination
      * @param params - Pagination parameters (limit, offset)
      */
-    getUserNotifications: builder.query<INotification[], INotificationQueryOptions>({
-      query: ({ limit = 10, offset = 0, read, type } = {}) => ({
+    getUserNotifications: builder.query<
+      IPaginationResult<INotification>,
+      INotificationQueryOptions
+    >({
+      query: ({ page = 1, perPage = 10, sortBy, sortOrder, read, type } = {}) => ({
         url: '/notifications',
         method: 'GET',
-        params: { limit, offset, ...(read !== undefined && { read }), ...(type && { type }) },
+        params: {
+          page,
+          perPage,
+          ...(sortBy && { sortBy }),
+          ...(sortOrder && { sortOrder }),
+          ...(read && { read }),
+          ...(type && { type }),
+        },
       }),
-      providesTags: (result = []) => {
-        return [
-          { type: 'Notification', id: 'LIST' },
-          ...result.map(n => ({ type: 'Notification' as const, id: n.id })),
-        ]
-      },
+      providesTags: result => [
+        { type: 'Notification', id: 'LIST' },
+        ...(result?.items.map(({ id }) => ({ type: 'Notification' as const, id })) ?? []),
+      ],
     }),
-
     /**
      * Get unread notifications count for badge display
      * @returns Object with unread count number
@@ -37,7 +45,6 @@ export const notificationApi = baseApi.injectEndpoints({
       }),
       providesTags: [{ type: 'Notification', id: 'UNREAD_COUNT' }],
     }),
-
     /**
      * Mark specific notification as read
      * @param notificationId - ID of notification to mark as read
@@ -53,7 +60,6 @@ export const notificationApi = baseApi.injectEndpoints({
         { type: 'Notification', id: 'UNREAD_COUNT' },
       ],
     }),
-
     /**
      * Mark all user notifications as read
      * @returns Success confirmation

@@ -6,8 +6,8 @@ import { IEvent } from '@/types/IEvent'
 import { CalendarDayWithEvents } from '@/types/ui/calendar-day'
 
 import { computeCalendar } from '@/calendar/utils/computeCalendar'
-import { useEventActions } from '@/store/hooks/useEventActions'
 import { useCalendarActions } from '@/store/hooks/useCalendarActions'
+import { useMonthlyEventsActions } from '@/store/hooks/useMonthlyEventsActions'
 
 /**
  * Custom hook for calendar functionality
@@ -25,7 +25,7 @@ import { useCalendarActions } from '@/store/hooks/useCalendarActions'
  */
 export const useCalendar = () => {
   const { activeCalendarDay, resetActiveCalendarDay, year, month } = useCalendarActions()
-  const { events } = useEventActions()
+  const { monthlyEvents } = useMonthlyEventsActions(year, month + 1)
 
   // Generate the basic 42 CalendarDay grid
   const baseDays = useMemo(() => computeCalendar(month, year), [month, year])
@@ -33,12 +33,12 @@ export const useCalendar = () => {
   // Group events by key YYYY-MM-DD
   const eventsByDay = useMemo(() => {
     const map: Record<string, IEvent[]> = {}
-    events.forEach(evt => {
+    monthlyEvents.forEach(evt => {
       const key = dayjs(evt.start).format('YYYY-MM-DD')
       map[key] = map[key] ? [...map[key], evt] : [evt]
     })
     return map
-  }, [events])
+  }, [monthlyEvents])
 
   // Enrich every day with its array of events
   const calendarDays = useMemo<CalendarDayWithEvents[]>(() => {

@@ -46,3 +46,15 @@ export interface IEvent extends IBase {
 export type EventId = Pick<IEvent, 'id'>
 export type EventTitle = Pick<IEvent, 'title'>
 export type EventDates = Pick<IEvent, 'start' | 'end'>
+
+export interface IEventCalendarResult {
+  events: IEvent[]
+  year: number
+  month: number
+  total: number
+}
+
+export interface IEventCalendarQueryParams {
+  year: string
+  month: string
+}

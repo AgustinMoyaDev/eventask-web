@@ -7,14 +7,14 @@ import { IPaginationOptions, IPaginationResult } from '../api/types/pagination'
 export const categoryApi = baseApi.injectEndpoints({
   endpoints: builder => ({
     fetchCategories: builder.query<IPaginationResult<ICategory>, IPaginationOptions | void>({
-      query: ({ page = 0, perPage = 5 } = {}) => ({
+      query: ({ page = 1, perPage = 5 } = {}) => ({
         url: '/categories',
         method: 'GET',
         params: { page, perPage },
       }),
-      providesTags: (result = { items: [], total: 0 }) => [
+      providesTags: result => [
         { type: 'Category', id: 'LIST' },
-        ...result.items.map(c => ({ type: 'Category' as const, id: c.id })),
+        ...(result?.items.map(c => ({ type: 'Category' as const, id: c.id })) ?? []),
       ],
     }),
     createCategory: builder.mutation<ICategory, ICategoryCreatePayload>({

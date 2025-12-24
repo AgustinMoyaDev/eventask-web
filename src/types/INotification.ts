@@ -1,3 +1,4 @@
+import { IPaginationOptions } from '@/api/types/pagination'
 import { IBase } from './IBase'
 
 import { InvitationStatus } from './IInvitation'
@@ -45,9 +46,7 @@ export interface INotificationData {
 /**
  * Query options for notification filtering.
  */
-export interface INotificationQueryOptions {
-  limit?: number
-  offset?: number
+export interface INotificationQueryOptions extends IPaginationOptions {
   read?: boolean
   type?: string
 }

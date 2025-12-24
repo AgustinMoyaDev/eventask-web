@@ -1,6 +1,8 @@
 import { useMemo } from 'react'
 import { skipToken } from '@reduxjs/toolkit/query'
 
+import { SortConfig } from '@/types/ui/table'
+
 import { getErrorMessage, OperationError } from '@/api/helpers/getErrorMessage'
 
 import {
@@ -13,10 +15,28 @@ import {
 import { useAppSelector } from '../reduxStore'
 import { setActiveTaskId } from '../slices/task/taskSlice'
 
-export const useTaskActions = (page = 0, perPage = 5, shouldFetch = true) => {
+export const useTaskActions = (
+  page = 1,
+  perPage = 5,
+  shouldFetch = true,
+  sortConfig?: SortConfig
+) => {
   const { accessToken } = useAppSelector(state => state.auth)
-  const canGetTasks =
-    accessToken && page >= 0 && perPage > 0 && shouldFetch ? { page, perPage } : skipToken
+  const canGetTasks = useMemo(() => {
+    if (!accessToken || page < 0 || perPage <= 0 || !shouldFetch) {
+      return skipToken
+    }
+
+    return {
+      page,
+      perPage,
+      ...(sortConfig?.key &&
+        sortConfig.direction && {
+          sortBy: sortConfig.key,
+          sortOrder: sortConfig.direction,
+        }),
+    }
+  }, [accessToken, page, perPage, shouldFetch, sortConfig])
 
   const {
     data: { items: tasks = [], total = 0 } = {},

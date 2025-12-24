@@ -2,20 +2,31 @@ import { baseApi } from './baseApi'
 
 import { IPaginationOptions, IPaginationResult } from '../api/types/pagination'
 
-import { IEvent } from '../types/IEvent'
+import { IEvent, IEventCalendarQueryParams, IEventCalendarResult } from '../types/IEvent'
 import { IEventCreatePayload, IEventStatusPayload, IEventUpdatePayload } from '../types/dtos/event'
 
 export const eventApi = baseApi.injectEndpoints({
   endpoints: builder => ({
-    fetchEventsByUser: builder.query<IPaginationResult<IEvent>, IPaginationOptions | void>({
-      query: ({ page = 0, perPage = 10 } = {}) => ({
+    fetchEventsByUser: builder.query<IPaginationResult<IEvent>, IPaginationOptions>({
+      query: ({ page = 1, perPage = 10, sortBy, sortOrder } = {}) => ({
         url: '/events',
         method: 'GET',
-        params: { page, perPage },
+        params: { page, perPage, ...(sortBy && { sortBy }), ...(sortOrder && { sortOrder }) },
       }),
-      providesTags: (result = { items: [], total: 0 }) => [
+      providesTags: result => [
         { type: 'Event', id: 'LIST' },
-        ...result.items.map(evt => ({ type: 'Event' as const, id: evt.id })),
+        ...(result?.items.map(evt => ({ type: 'Event' as const, id: evt.id })) ?? []),
+      ],
+    }),
+    fetchEventsByMonth: builder.query<IEventCalendarResult, IEventCalendarQueryParams>({
+      query: ({ year, month }) => ({
+        url: '/events/calendar',
+        method: 'GET',
+        params: { year, month },
+      }),
+      providesTags: result => [
+        { type: 'Event', id: 'LIST' },
+        ...(result?.events.map(evt => ({ type: 'Event' as const, id: evt.id })) ?? []),
       ],
     }),
     createEvent: builder.mutation<IEvent, IEventCreatePayload>({
@@ -91,6 +102,7 @@ export const eventApi = baseApi.injectEndpoints({
 
 export const {
   useFetchEventsByUserQuery,
+  useFetchEventsByMonthQuery,
   useCreateEventMutation,
   useUpdateEventMutation,
   useUpdateEventStatusMutation,

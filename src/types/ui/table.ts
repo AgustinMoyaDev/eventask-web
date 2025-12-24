@@ -4,6 +4,8 @@ export enum ViewType {
   TASKS = 'tasks',
   CATEGORIES = 'categories',
   NOTIFICATIONS = 'notifications',
+  EVENTS = 'events',
+  CONTACTS = 'contacts',
 }
 
 export enum SortDirection {
