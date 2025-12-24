@@ -1,13 +1,16 @@
 .tableContainer {
-  --min-height-table-container: 320px;
+  --min-width-table: 900px;
+  --min-height-table-container: 350px;
   --table-row-height: 3.5rem;
 
   display: flex;
   flex-direction: column;
   min-height: var(--min-height-table-container);
+  overflow-x: auto;
 }
 
 .table {
+  min-width: var(--min-width-table);
   display: flex;
   flex-direction: column;
   border: var(--stroke-width-2) solid var(--color-outline);
@@ -48,6 +51,14 @@
   justify-content: space-between;
   align-items: center;
   height: var(--table-row-height);
+
+  &:nth-child(odd) {
+    background-color: var(--color-secondary-container);
+  }
+
+  &:last-child {
+    border-radius: 0 0 var(--radius-md) var(--radius-md);
+  }
 }
 
 .tableHeadRow,
