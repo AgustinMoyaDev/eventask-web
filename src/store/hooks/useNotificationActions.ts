@@ -10,32 +10,48 @@ import {
 import { getErrorMessage, OperationError } from '@/api/helpers/getErrorMessage'
 
 import { useAppSelector } from '../reduxStore'
+import { SortConfig } from '@/types/ui/table'
+
 /**
  * Custom hook for managing notification-related state and operations
  * Centralizes notification data, loading states, and error handling
- * @param page - Current page for pagination (default: 1)
- * @param limit - Items per page (default: 10)
- * @param filters - Optional filters for notifications
+ * @param page - Current page for pagination (default: 0)
+ * @param perPage - Items per page (default: 5)
+ * @param shouldFetch - Flag to determine if data should be fetched (default: true)
+ * @param sortConfig - Sorting configuration for notifications (optional)
  * @returns Notification actions, data, loading states, and error handling
  */
 export const useNotificationActions = (
   page = 1,
-  limit = 10,
+  perPage = 5,
   shouldFetch = true,
-  filters?: { read?: boolean; type?: string }
+  sortConfig?: SortConfig,
+  read?: boolean,
+  type?: string
 ) => {
   const { accessToken } = useAppSelector(state => state.auth)
-  // Convert page-based pagination to offset-based for backend compatibility
-  const offset = (page - 1) * limit
 
-  const canGetNotifications =
-    accessToken && limit > 0 && offset >= 0 && shouldFetch
-      ? { limit, offset, ...filters }
-      : skipToken
+  const canGetNotifications = useMemo(() => {
+    if (!accessToken || page < 0 || perPage <= 0 || !shouldFetch) {
+      return skipToken
+    }
+
+    return {
+      page,
+      perPage,
+      ...(read && { read }),
+      ...(type && { type }),
+      ...(sortConfig?.key &&
+        sortConfig.direction && {
+          sortBy: sortConfig.key,
+          sortOrder: sortConfig.direction,
+        }),
+    }
+  }, [accessToken, page, perPage, shouldFetch, sortConfig, read, type])
 
   // Query only execute if user is authenticated and parameters are valid
   const {
-    data: notifications = [],
+    data: { items: notifications = [], total = 0 } = {},
     isFetching: fetchingNotifications,
     error: fetchNotificationsError,
     refetch: refetchNotifications,
@@ -78,6 +94,7 @@ export const useNotificationActions = (
   return {
     // Data
     notifications,
+    total,
     unreadCount,
     // Loading states
     fetchingNotifications,

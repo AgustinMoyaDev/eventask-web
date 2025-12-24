@@ -8,7 +8,7 @@ interface AvatarProps {
   draggable?: DraggableData
 }
 
-export const AvatarComponent = ({ user, draggable }: AvatarProps) => {
+export const Avatar = ({ user, draggable }: AvatarProps) => {
   const { id, profileImageURL, firstName, lastName } = user
   const commonProps = {
     imageUrl: profileImageURL,

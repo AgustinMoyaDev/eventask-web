@@ -2,7 +2,7 @@ import clsx from 'clsx'
 
 import { UsersAvatarsProps } from '@/types/ui/user-avatar'
 
-import { AvatarComponent } from './Avatar'
+import { Avatar } from './Avatar'
 
 import styles from './UsersAvatars.module.css'
 
@@ -10,7 +10,7 @@ export const UsersAvatars = ({ users = [], className = '', draggable }: UsersAva
   return (
     <section className={clsx(styles.avatars, className)}>
       {users.slice(0, 3).map(user => (
-        <AvatarComponent key={user.id} user={user} draggable={draggable} />
+        <Avatar key={user.id} user={user} draggable={draggable} />
       ))}
 
       {users.length > 3 && (

@@ -1,4 +1,5 @@
 import { useMemo } from 'react'
+import { skipToken } from '@reduxjs/toolkit/query'
 
 import {
   useFetchEventsByUserQuery,
@@ -11,23 +12,47 @@ import {
 } from '@/services/eventApi'
 import { getErrorMessage, OperationError } from '@/api/helpers/getErrorMessage'
 
+import { SortConfig } from '@/types/ui/table'
+
 import { useAppSelector, useAppDispatch } from '../reduxStore'
 import { selectActiveEvent } from '../selectors/event'
 import { resetActiveEventId, setActiveEventId } from '../slices/event/eventSlice'
 
-export const useEventActions = () => {
+export const useEventActions = (
+  page = 1,
+  perPage = 5,
+  shouldFetch = true,
+  sortConfig?: SortConfig
+) => {
   const activeEvent = useAppSelector(selectActiveEvent)
   const dispatch = useAppDispatch()
 
   const setActiveEvent = (id: string) => dispatch(setActiveEventId(id))
   const clearActiveEvent = () => dispatch(resetActiveEventId())
 
+  const { accessToken } = useAppSelector(state => state.auth)
+  const canGetEvents = useMemo(() => {
+    if (!accessToken || page < 0 || perPage <= 0 || !shouldFetch) {
+      return skipToken
+    }
+
+    return {
+      page,
+      perPage,
+      ...(sortConfig?.key &&
+        sortConfig.direction && {
+          sortBy: sortConfig.key,
+          sortOrder: sortConfig.direction,
+        }),
+    }
+  }, [accessToken, page, perPage, shouldFetch, sortConfig])
+
   const {
-    data: { items: events = [] } = {},
+    data: { items: events = [], total = 0 } = {},
     isFetching: fetching,
-    error: fetchError,
+    error: fetchEventsError,
     refetch,
-  } = useFetchEventsByUserQuery()
+  } = useFetchEventsByUserQuery(canGetEvents)
   const [createEvent, { isLoading: creating, error: createError }] = useCreateEventMutation()
   const [updateEvent, { isLoading: updating, error: updateError }] = useUpdateEventMutation()
   const [updateEventStatus, { isLoading: updatingStatus, error: updateEvtStatusError }] =
@@ -39,7 +64,8 @@ export const useEventActions = () => {
     useRemoveCollaboratorMutation()
 
   const {
-    fetch: fetchEventError,
+    fetch: fetchAllEventsError,
+    fetch: fetchMonthlyEventsCalendarError,
     create: createEventError,
     update: updateEventError,
     updateEventStatus: updateEventStatusError,
@@ -49,7 +75,7 @@ export const useEventActions = () => {
   } = useMemo(
     () =>
       getErrorMessage([
-        { operation: OperationError.FETCH, error: fetchError },
+        { operation: OperationError.FETCH, error: fetchEventsError },
         { operation: OperationError.CREATE, error: createError },
         { operation: OperationError.UPDATE, error: updateError },
         { operation: OperationError.UPDATE_EVENT_STATUS, error: updateEvtStatusError },
@@ -58,7 +84,7 @@ export const useEventActions = () => {
         { operation: OperationError.REMOVE_COLLABORATOR, error: removeCollaboratorError },
       ]),
     [
-      fetchError,
+      fetchEventsError,
       createError,
       updateError,
       updateEvtStatusError,
@@ -75,6 +101,7 @@ export const useEventActions = () => {
     clearActiveEvent,
     // Data y flags RTKQ
     events,
+    total,
     fetching,
     refetch,
     creating,
@@ -91,7 +118,8 @@ export const useEventActions = () => {
     assignCollaborator,
     removeCollaborator,
     // RTKQ errors
-    fetchEventError,
+    fetchAllEventsError,
+    fetchMonthlyEventsCalendarError,
     createEventError,
     updateEventError,
     updateEventStatusError,

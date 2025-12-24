@@ -1,8 +1,15 @@
-import { NavLink } from 'react-router-dom'
+import { NavLink, useLocation } from 'react-router-dom'
 
 import clsx from 'clsx'
 
-import { CalendarIcon, HomeIcon, PlusIcon, UserSettingIcon } from '@/components/icons/Icons'
+import {
+  CalendarIcon,
+  ClockIcon,
+  ContactsIcon,
+  HomeIcon,
+  PlusIcon,
+  UserSettingIcon,
+} from '@/components/icons/Icons'
 
 import { SidebarProps } from '@/types/ui/sidebar'
 
@@ -21,6 +28,16 @@ const menuItems = [
     icon: <CalendarIcon className={styles.sidebarIcon} />,
   },
   {
+    to: '/see-all?type=events',
+    label: 'Events',
+    icon: <ClockIcon className={styles.sidebarIcon} />,
+  },
+  {
+    to: '/see-all?type=contacts',
+    label: 'Contacts',
+    icon: <ContactsIcon className={styles.sidebarIcon} />,
+  },
+  {
     to: '/profile',
     label: 'Profile',
     icon: <UserSettingIcon className={styles.sidebarIcon} />,
@@ -28,8 +45,21 @@ const menuItems = [
 ]
 
 export const Sidebar = ({ isCollapsed, onClose }: SidebarProps) => {
+  const location = useLocation()
+
   const handleNavClick = () => {
     if (window.innerWidth < 991) onClose()
+  }
+
+  /**
+   * Check if link is active including query params
+   * Needed because multiple links go to /see-all with different ?type
+   */
+  const isLinkActive = (to: string) => {
+    const [pathname, search] = to.split('?')
+    const currentPath = location.pathname
+    const currentSearch = location.search.slice(1) // Remove leading '?'
+    return currentPath === pathname && (!search || currentSearch === search)
   }
 
   return (
@@ -44,8 +74,8 @@ export const Sidebar = ({ isCollapsed, onClose }: SidebarProps) => {
             <NavLink
               key={to}
               to={to}
-              className={({ isActive }) =>
-                clsx(styles.sidebarLink, isActive && styles.sidebarLinkActive)
+              className={() =>
+                clsx(styles.sidebarLink, isLinkActive(to) && styles.sidebarLinkActive)
               }
               onClick={handleNavClick}
             >

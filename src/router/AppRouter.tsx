@@ -57,7 +57,7 @@ export const AppRouter = () => {
       {showHeader && <Header />}
       {showBreadcrumb && <Breadcrumb />}
       <main className={clsx('main', transitionPage)} onAnimationEnd={handleTransitionEnd}>
-        <Routes location={displayLocation} key={displayLocation.pathname}>
+        <Routes location={displayLocation} key={displayLocation.pathname + displayLocation.search}>
           {/* PUBLIC ROUTES */}
           <Route path="/" element={authenticatedBaseUrlElement} />
           <Route

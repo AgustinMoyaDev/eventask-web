@@ -42,8 +42,12 @@ export function Table<T extends IBase>({
               >
                 {label}
                 {sortBy === key && (
-                  <Button variant="icon" className={styles.tableSortIndicator}>
-                    {sortOrder === SortDirection.ASC ? <SortAscIcon /> : <SortDescIcon />}
+                  <Button variant="icon" size="sm">
+                    {sortOrder === SortDirection.ASC ? (
+                      <SortAscIcon size={18} />
+                    ) : (
+                      <SortDescIcon size={18} />
+                    )}
                   </Button>
                 )}
               </th>

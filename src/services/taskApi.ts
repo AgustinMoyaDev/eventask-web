@@ -7,19 +7,16 @@ import { ITask, TaskId } from '../types/ITask'
 
 export const taskApi = baseApi.injectEndpoints({
   endpoints: builder => ({
-    fetchTasks: builder.query<IPaginationResult<ITask>, IPaginationOptions | void>({
-      query: ({ page = 0, perPage = 10 } = {}) => ({
+    fetchTasks: builder.query<IPaginationResult<ITask>, IPaginationOptions>({
+      query: ({ page = 1, perPage = 10, sortBy, sortOrder } = {}) => ({
         url: '/tasks',
         method: 'GET',
-        params: { page, perPage },
+        params: { page, perPage, ...(sortBy && { sortBy }), ...(sortOrder && { sortOrder }) },
       }),
-      providesTags: (result = { items: [], total: 0 }) =>
-        result
-          ? [
-              { type: 'Task', id: 'LIST' },
-              ...result.items.map(({ id }) => ({ type: 'Task' as const, id })),
-            ]
-          : [{ type: 'Task', id: 'LIST' }],
+      providesTags: result => [
+        { type: 'Task', id: 'LIST' },
+        ...(result?.items.map(({ id }) => ({ type: 'Task' as const, id })) ?? []),
+      ],
     }),
     fetchTaskById: builder.query<ITask, TaskId>({
       query: id => `/tasks/${id}`,
