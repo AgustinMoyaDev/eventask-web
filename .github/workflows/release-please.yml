@@ -17,4 +17,4 @@ jobs:
         with:
           # Node.js configuration
           release-type: node
-          package-name: eventask-backend
+          package-name: eventask-web
