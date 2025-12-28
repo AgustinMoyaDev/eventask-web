@@ -252,18 +252,13 @@ export const baseQueryWithReauth: BaseQueryFn<
       if (refreshResult?.data) {
         result = await handleRefreshSuccess(api, refreshResult.data, args, extraOptions)
       } else {
-        if (!logoutPromise) {
-          logoutPromise = handleRefreshFailure(api)
-        }
+        logoutPromise ??= handleRefreshFailure(api)
         await logoutPromise
         logoutPromise = null // Reset after completion
       }
     } catch (error) {
       refreshPromise = null // Reset on error
-
-      if (!logoutPromise) {
-        logoutPromise = handleRefreshError(error, api)
-      }
+      logoutPromise ??= handleRefreshError(error, api)
       await logoutPromise
       logoutPromise = null // Reset after completion
     }
