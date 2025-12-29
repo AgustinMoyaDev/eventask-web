@@ -2645,21 +2645,34 @@ We follow the [Conventional Commits](https://www.conventionalcommits.org/) speci
 ```bash
 Format: <type>(<scope>): <description>
 
-Allowed Types:
+Allowed Types (by impact):
 
-feat: New feature
-fix: Bug fix
-docs: Documentation only
-style: Formatting, missing semi colons, etc; no code change
-refactor: Refactoring production code
-test: Adding tests, refactoring test; no production code change
-chore: Updating build tasks, package manager configs, etc
+Production Code:
+  feat: New feature
+  fix: Bug fix
+  refactor: Refactoring production code
+  perf: Perfomance improvements
+
+Development & Infrastructure:  
+  test: Adding tests, refactoring test; no production code change
+  build: Chnage to build systems or dependencies
+  ci: Changes to CI/CD configuration
+  chore: Updating build tasks, package manager configs, etc
+
+Documentation & Style:
+  docs: Documentation only changes
+  style: Code formatting (no logic change)
 
 # Examples:
 feat(auth): add google oauth integration
+feat(tasks): implement drag and drop sorting
 fix(calendar): resolve event overlap issue
+test(mocks): create MSW handlers for API endpoints
+build(vite): update to v6.0
 chore(deps): update react to v18.3
 docs(readme): update installation guide
+refactor(hooks): simplify useForm validation logic
+perf(table): optimize rendering with useMemo
 ```
 > **Note:** Husky will automatically block any commit that doesn't strictly follow this pattern.
 
