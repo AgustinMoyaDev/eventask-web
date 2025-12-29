@@ -1,0 +1,77 @@
+/**
+ * Category Factory
+ * Generates fake ICategory objects using Faker.js
+ * @see https://fakerjs.dev/guide/usage.html#create-complex-objects
+ */
+import { faker } from '@faker-js/faker'
+import type { ICategory } from '@/types/ICategory'
+
+/**
+ * Predefined realistic category names for task management.
+ * Used when no overwrites are provided for more realistic data.
+ */
+const CATEGORY_NAMES = [
+  'Development',
+  'Design',
+  'Marketing',
+  'Sales',
+  'Support',
+  'Research',
+  'Planning',
+  'Testing',
+  'Documentation',
+  'Deployment',
+  'Meeting',
+  'Review',
+] as const
+
+/**
+ * Creates a fake ICategory object with realistic data.
+ *
+ * @param overwrites - Partial ICategory to override default generated values
+ * @returns A complete ICategory object with fake data
+ *
+ * @example
+ * ```typescript
+ * // Generate random category
+ * const category = createFakeCategory()
+ *
+ * // Generate specific category
+ * const devCategory = createFakeCategory({ name: 'Development' })
+ * ```
+ */
+export function createFakeCategory(overwrites: Partial<ICategory> = {}): ICategory {
+  const {
+    id = faker.string.uuid(),
+    name = faker.helpers.arrayElement(CATEGORY_NAMES),
+    createdAt = faker.date.past(),
+    updatedAt = faker.date.recent(),
+  } = overwrites
+
+  return {
+    id,
+    name,
+    createdAt,
+    updatedAt,
+  }
+}
+
+/**
+ * Creates multiple fake ICategory objects.
+ *
+ * @param count - Number of categories to generate
+ * @param overwrites - Partial ICategory applied to all generated categories
+ * @returns Array of ICategory objects
+ *
+ * @example
+ * ```typescript
+ * // Generate 5 random categories
+ * const categories = createFakeCategories(5)
+ * ```
+ */
+export function createFakeCategories(
+  count: number,
+  overwrites: Partial<ICategory> = {}
+): ICategory[] {
+  return Array.from({ length: count }, () => createFakeCategory(overwrites))
+}
