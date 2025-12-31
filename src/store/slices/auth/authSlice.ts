@@ -1,9 +1,9 @@
-import { createSlice, isAnyOf, PayloadAction } from '@reduxjs/toolkit'
+import { createSlice, isAnyOf } from '@reduxjs/toolkit'
 
 import { AUTH_STATUS } from '@/types/ui/auth-status'
 
 import { authApi } from '@/services/authApi'
-import { IAuthResponseDto } from '@/types/dtos/auth'
+import { setCredentials } from './authActions'
 
 export interface AuthState {
   status: string
@@ -20,17 +20,15 @@ const initialState: AuthState = {
 export const authSlice = createSlice({
   name: 'auth',
   initialState,
-  reducers: {
-    // Action to update credentials from baseQueryWithReauth
-    setCredentials: (state, { payload }: PayloadAction<IAuthResponseDto>) => {
-      state.currentUserId = payload.userId
-      state.accessToken = payload.accessToken
-      state.status = AUTH_STATUS.AUTHENTICATED
-    },
-  },
+  reducers: {},
   extraReducers: builder => {
     const { login, loginWithGoogle, register, refresh, logout } = authApi.endpoints
     builder
+      .addCase(setCredentials, (state, { payload }) => {
+        state.currentUserId = payload.userId
+        state.accessToken = payload.accessToken
+        state.status = AUTH_STATUS.AUTHENTICATED
+      })
       .addMatcher(refresh.matchPending, state => {
         state.status = AUTH_STATUS.CHECKING
       })
@@ -55,4 +53,5 @@ export const authSlice = createSlice({
   },
 })
 
-export const { setCredentials } = authSlice.actions
+export { setCredentials } from './authActions'
+export default authSlice.reducer
