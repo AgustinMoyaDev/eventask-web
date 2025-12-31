@@ -3,9 +3,11 @@
  * @see https://mswjs.io/docs/basics/request-handler
  */
 import { http, HttpResponse } from 'msw'
+
 import type { IPaginationResult } from '@/api/types/pagination'
 import type { ITask } from '@/types/ITask'
 import type { INotification } from '@/types/INotification'
+
 import { createFakeTasks } from './factories/taskFactory'
 import { createFakeNotifications } from './factories/notificationFactory'
 
@@ -52,14 +54,40 @@ function createPaginatedResponse<T>(
  */
 export const handlers: ReturnType<typeof http.get>[] = [
   /**
+   * GET /api/notifications/unread-count - Returns unread notification count
+   */
+  http.get('*/api/notifications/unread-count', () => {
+    return HttpResponse.json({
+      unreadCount: 5,
+    })
+  }),
+
+  /**
+   * GET /api/users/me - Returns user profile
+   */
+  http.get('*/api/users/me', () => {
+    return HttpResponse.json({
+      id: 'fake-user-id',
+      username: 'fake-username',
+      email: 'fake-email',
+    })
+  }),
+
+  /**
+   * GET /api/security/csrf-token - Returns CSRF token
+   * Required by baseApi for secure requests
+   */
+  http.get('*/api/security/csrf-token', () => {
+    return HttpResponse.json({ csrfToken: 'fake-csrf-token' })
+  }),
+  /**
    * GET /api/tasks - Returns paginated tasks
    * Supports query params: page, perPage, sortBy, sortOrder
    */
-  http.get('/api/tasks', ({ request }) => {
+  http.get('*/api/tasks', ({ request }) => {
     const url = new URL(request.url)
     const { page, perPage } = getPaginationParams(url)
 
-    // Generate 50 fake tasks for testing pagination
     const allTasks = createFakeTasks(50)
     const response = createPaginatedResponse<ITask>(allTasks, page, perPage)
 
@@ -70,11 +98,10 @@ export const handlers: ReturnType<typeof http.get>[] = [
    * GET /api/notifications - Returns paginated notifications
    * Supports query params: page, perPage, sortBy, sortOrder
    */
-  http.get('/api/notifications', ({ request }) => {
+  http.get('*/api/notifications', ({ request }) => {
     const url = new URL(request.url)
     const { page, perPage } = getPaginationParams(url)
 
-    // Generate 30 fake notifications for testing
     const allNotifications = createFakeNotifications(30)
     const response = createPaginatedResponse<INotification>(allNotifications, page, perPage)
 
