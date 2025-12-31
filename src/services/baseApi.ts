@@ -8,15 +8,15 @@ import {
   BaseQueryApi,
 } from '@reduxjs/toolkit/query/react'
 
-import { IAuthResponseDto } from '../types/dtos/auth'
-import { HTTP_STATUS } from '../api/types/http-status'
+import { IAuthResponseDto } from '@/types/dtos/auth'
+import { HTTP_STATUS } from '@/api/types/http-status'
 
-import { RootState } from '../store/store'
-import { setCredentials } from '../store/slices/auth/authSlice'
-import { setCsrfToken } from '../store/slices/security/security'
+import type { RootState } from '@/store/store'
+import { setCredentials } from '@/store/slices/auth/authActions'
+import { setCsrfToken } from '@/store/slices/security/security'
 
-import { getEnvVariables } from '../helpers/getEnvVariables'
-import { ApiResponse } from '../api/types/response'
+import { getEnvVariables } from '@/helpers/getEnvVariables'
+import { ApiResponse } from '@/api/types/response'
 
 /**
  * Development logging utilities for auth flow

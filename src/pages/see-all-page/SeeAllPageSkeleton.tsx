@@ -7,7 +7,7 @@ import styles from './SeeAllPage.module.css'
 
 const SeeAllPageSkeleton = () => {
   return (
-    <div className={clsx(styles.seeAllPage, 'section')}>
+    <div className={clsx(styles.seeAllPage, 'section')} role="status" aria-label="Loading">
       <section className={styles.tableView}>
         <TableSkeleton />
         <PaginationSkeleton />
