@@ -28,6 +28,7 @@ const users = [
     email: 'ada@lovelace.com',
     contacts: [],
     createdAt: new Date(),
+    hasManualPassword: true,
   },
   {
     id: '2',
@@ -37,6 +38,7 @@ const users = [
     email: 'ada@lovelace.com',
     contacts: [],
     createdAt: new Date(),
+    hasManualPassword: true,
   },
   {
     id: '3',
@@ -46,6 +48,7 @@ const users = [
     email: 'ada@lovelace.com',
     contacts: [],
     createdAt: new Date(),
+    hasManualPassword: true,
   },
   {
     id: '4',
@@ -55,6 +58,7 @@ const users = [
     email: 'ada@lovelace.com',
     contacts: [],
     createdAt: new Date(),
+    hasManualPassword: true,
   },
 ]
 
