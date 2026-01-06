@@ -8,6 +8,7 @@ import {
   useCreateCategoryMutation,
   useDeleteCategoryMutation,
   useFetchCategoriesQuery,
+  useGetCategoriesWithTaskCountQuery,
   useUpdateCategoryMutation,
 } from '@/services/categoryApi'
 
@@ -45,6 +46,10 @@ export const useCategoryActions = (
     refetch,
   } = useFetchCategoriesQuery(canGetCategories)
 
+  const { data: categoriesWithTaskCount = [] } = useGetCategoriesWithTaskCountQuery(
+    !accessToken ? skipToken : undefined
+  )
+
   const [createCategory, { isLoading: creating, error: createError }] = useCreateCategoryMutation()
   const [updateCategory, { isLoading: updating, error: updateError }] = useUpdateCategoryMutation()
   const [deleteCategory, { isLoading: deleting, error: deleteError }] = useDeleteCategoryMutation()
@@ -70,6 +75,7 @@ export const useCategoryActions = (
   return {
     // RTKQ Data and flags
     categories,
+    categoriesWithTaskCount,
     total,
     fetching,
     creating,

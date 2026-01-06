@@ -23,7 +23,7 @@ const CATEGORY_NAMES = [
   'Deployment',
   'Meeting',
   'Review',
-] as const
+]
 
 /**
  * Creates a fake ICategory object with realistic data.
@@ -47,6 +47,8 @@ export function createFakeCategory(overwrites: Partial<ICategory> = {}): ICatego
     createdAt = faker.date.past(),
     updatedAt = faker.date.recent(),
   } = overwrites
+
+  CATEGORY_NAMES.splice(CATEGORY_NAMES.indexOf(name), 1)
 
   return {
     id,

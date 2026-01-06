@@ -4,10 +4,40 @@
  * @see https://fakerjs.dev/guide/usage.html#create-complex-objects
  */
 import { faker } from '@faker-js/faker'
+
 import type { ITask, TaskStatus } from '@/types/ITask'
+import type { IUser } from '@/types/IUser'
 import { TASK_STATUS } from '@/types/ITask'
+import { EVENT_STATUS } from '@/types/IEvent'
+
 import { createFakeUser } from './userFactory'
-import { createFakeCategory } from './categoryFactory'
+import { createSequentialEvents } from './eventFactory'
+import { MOCK_CATEGORIES } from '../data/mockData'
+
+/**
+ * Select random participants from available users including the creator
+ *
+ * @param creator - Task creator (always included in participants)
+ * @param availableUsers - Pool of users to select from
+ * @param minParticipants - Minimum number of participants (default: 2)
+ * @param maxParticipants - Maximum number of participants (default: 5)
+ * @returns Array of selected users always including the creator
+ */
+function selectRandomParticipants(
+  availableUsers: IUser[],
+  minParticipants = 2,
+  maxParticipants = 5
+): IUser[] {
+  if (availableUsers.length === 0) return []
+
+  const count = faker.number.int({ min: minParticipants, max: maxParticipants })
+  const randomUsers = faker.helpers.arrayElements(
+    availableUsers,
+    Math.min(count, availableUsers.length)
+  )
+
+  return randomUsers
+}
 
 /**
  * Creates a fake ITask object with realistic data and relationships.
@@ -30,18 +60,22 @@ import { createFakeCategory } from './categoryFactory'
  * ```
  */
 export function createFakeTask(overwrites: Partial<ITask> = {}): ITask {
-  // Generate related entities first
-  const category = overwrites.category ?? createFakeCategory()
+  const category = overwrites.category ?? faker.helpers.arrayElement(MOCK_CATEGORIES)
   const creator = overwrites.creator ?? createFakeUser()
-  const participants = overwrites.participants ?? [creator, createFakeUser()]
 
-  // Generate status and related fields
+  const participants = overwrites.participants
+    ? selectRandomParticipants([...overwrites.participants, creator])
+    : [creator, createFakeUser()]
+
+  const mockEvents =
+    overwrites.events ??
+    createSequentialEvents(faker.number.int({ min: 3, max: 5 }), {}, participants)
+
+  const completedEvents = mockEvents.filter(me => me.status === EVENT_STATUS.COMPLETED).length
+  const progress = Math.round(overwrites.progress ?? (completedEvents / mockEvents.length) * 100)
   const status: TaskStatus =
-    overwrites.status ?? faker.helpers.arrayElement(Object.values(TASK_STATUS))
-  const progress =
-    overwrites.progress ?? (status === 'completed' ? 100 : faker.number.int({ min: 0, max: 80 }))
+    overwrites.status ?? (progress === 100 ? TASK_STATUS.COMPLETED : TASK_STATUS.PENDING)
 
-  // Generate dates
   const beginningDate = overwrites.beginningDate ?? faker.date.soon({ days: 30 }).toISOString()
   const completionDate =
     overwrites.completionDate ?? faker.date.future({ refDate: beginningDate }).toISOString()
@@ -54,7 +88,7 @@ export function createFakeTask(overwrites: Partial<ITask> = {}): ITask {
     eventsIds = [],
     createdBy = creator.id,
     duration = faker.number.int({ min: 1, max: 8 }),
-    events = [],
+    events = mockEvents,
     createdAt = faker.date.past(),
     updatedAt = faker.date.recent(),
   } = overwrites

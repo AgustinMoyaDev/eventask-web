@@ -5,7 +5,6 @@ import { ButtonLink } from '@/components/button-link/ButtonLink'
 
 import { useSearch } from '@/hooks/useSearch'
 import { useCategoryActions } from '@/store/hooks/useCategoryActions'
-import { useTaskActions } from '@/store/hooks/useTaskActions'
 
 import { Category, CategorySkeleton } from '../category/Category'
 
@@ -13,16 +12,9 @@ import styles from './Categories.module.css'
 
 export function Categories() {
   const { search } = useSearch()
-  const { fetching, categories } = useCategoryActions()
-  const { tasks } = useTaskActions()
+  const { fetching, categoriesWithTaskCount } = useCategoryActions()
 
-  const categoryCountMap = new Map<string, number>()
-  tasks.forEach(t => {
-    const catName = t.category?.name
-    categoryCountMap.set(catName, (categoryCountMap.get(catName) ?? 0) + 1)
-  })
-
-  const filteredCategories = Object.values(categories).filter(({ name }) =>
+  const filteredCategories = Object.values(categoriesWithTaskCount).filter(({ name }) =>
     name.toLowerCase().includes(search.toLowerCase())
   )
 
@@ -45,8 +37,8 @@ export function Categories() {
             <CategorySkeleton key={`skeleton-${index}`} />
           ))
         ) : areCategoriesPresent ? (
-          filteredCategories.map(({ id, name }) => {
-            const quantity = categoryCountMap.get(name) ?? 0
+          filteredCategories.map(({ id, name, taskCount }) => {
+            const quantity = taskCount ?? 0
             const quantityFormatted = `In ${quantity} ${quantity === 1 ? 'task' : 'tasks'}`
             return <Category key={id} name={name} quantityFormatted={quantityFormatted} />
           })

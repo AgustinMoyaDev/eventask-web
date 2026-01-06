@@ -74,5 +74,10 @@
     "vite": "6.0.1",
     "vite-tsconfig-paths": "6.0.3",
     "vitest": "3.2.4"
+  },
+  "msw": {
+    "workerDirectory": [
+      "public"
+    ]
   }
 }

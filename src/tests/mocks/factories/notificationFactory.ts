@@ -126,6 +126,19 @@ export function createFakeNotification(overwrites: Partial<INotification> = {}):
 }
 
 /**
+ * Sort notifications by creation date (most recent first)
+ * @param notifications - Array of notifications to sort
+ * @returns Sorted array (descending by createdAt)
+ */
+function sortByMostRecent(notifications: INotification[]): INotification[] {
+  return notifications.sort((a, b) => {
+    const timeA = a.createdAt.getTime()
+    const timeB = b.createdAt.getTime()
+    return timeB - timeA // Descending order (most recent first)
+  })
+}
+
+/**
  * Creates multiple fake INotification objects.
  *
  * @param count - Number of notifications to generate
@@ -145,5 +158,6 @@ export function createFakeNotifications(
   count: number,
   overwrites: Partial<INotification> = {}
 ): INotification[] {
-  return Array.from({ length: count }, () => createFakeNotification(overwrites))
+  const notifications = Array.from({ length: count }, () => createFakeNotification(overwrites))
+  return sortByMostRecent(notifications)
 }

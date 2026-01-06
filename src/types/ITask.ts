@@ -4,8 +4,8 @@ import type { IUser } from './IUser'
 import { IBase } from './IBase'
 
 export const TASK_STATUS = {
+  // ACTIVE: 'active',
   PENDING: 'pending',
-  ACTIVE: 'active',
   PROGRESS: 'in-progress',
   COMPLETED: 'completed',
 } as const

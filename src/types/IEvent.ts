@@ -4,7 +4,7 @@ import { ITask } from './ITask'
 import { IUser } from './IUser'
 
 export const EVENT_STATUS = {
-  ACTIVE: 'active',
+  // ACTIVE: 'active',
   PENDING: 'pending',
   PROGRESS: 'in-progress',
   COMPLETED: 'done',

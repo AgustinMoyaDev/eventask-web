@@ -349,6 +349,25 @@ eventask/
 │   │       └── TaskFormPage.tsx  # Task creation/editing
 │   │
 │   ├── tests/                # Test configuration
+│   │   ├── data/
+│   │   │   └── mockData.ts   # SSOT
+│   │   ├── factories/
+│   │   │   │── taskFactory.ts
+│   │   │   │── eventFactory.ts
+│   │   │   │── userFactory.ts
+│   │   │   │── categoryFactory.ts
+│   │   │   └── notificationFactory.ts
+│   │   ├── handlers/
+│   │   │   │── index.ts
+│   │   │   └── shared.ts
+│   │   │   └── auth.ts
+│   │   │   └── user.ts
+│   │   │   └── task.ts
+│   │   │   └── event.ts
+│   │   │   └── category.ts
+│   │   │   └── notification.ts
+│   │   │   └── security.ts
+│   │   │   └── socket.ts
 │   │   ├── setup.ts          # Vitest setup file
 │   │   └── vitest.d.ts       # Vitest type definitions
 │   │

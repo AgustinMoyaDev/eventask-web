@@ -25,9 +25,9 @@ import { Schedule } from '@/task/components/schedule/Schedule'
 import { getEventsSegments } from '@/utils/computedEvents'
 import { useEventActions } from '@/store/hooks/useEventActions'
 
-import { TaskDetailSkeleton } from './TaskDetailSkeleton'
-
 import { useFetchTaskByIdQuery } from '@/services/taskApi'
+
+import { TaskDetailSkeleton } from './TaskDetailSkeleton'
 
 const TaskDetailPage = () => {
   const { id } = useParams<{ id: TaskId }>()
