@@ -9,10 +9,18 @@ import { authApi } from '../authApi'
 
 import { getEnvVariables } from '@/helpers/getEnvVariables'
 
-const { VITE_BACKEND_URL, DEV } = getEnvVariables()
+const { VITE_BACKEND_URL, DEV, VITE_USE_MOCK_API } = getEnvVariables()
+
+/**
+ * Determine transports based on environment
+ * When using MSW (demo mode), force polling-only to ensure MSW can intercept
+ * In normal mode, prefer websocket for better performance
+ * @see https://socket.io/docs/v4/client-options/#transports
+ */
+const transports = VITE_USE_MOCK_API === 'true' ? ['polling'] : ['websocket', 'polling']
 
 const socketOptions = {
-  transports: ['websocket', 'polling'],
+  transports,
   autoConnect: false, // connect manually after auth
   auth: (cb: (auth: { token?: string }) => void) => {
     const state = store.getState()
@@ -25,6 +33,10 @@ const socketOptions = {
 } as Partial<ManagerOptions & SocketOptions>
 
 const socket: AuthenticatedSocket = io(VITE_BACKEND_URL, socketOptions)
+
+if (DEV) {
+  console.log(`🔌 Socket.io configured with transports: [${transports.join(', ')}]`)
+}
 
 socket.on('connected', (data: ConnectionData) => {
   if (DEV) console.log('Socket connected:', data)
