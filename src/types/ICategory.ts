@@ -4,6 +4,10 @@ export interface ICategory extends IBase {
   name: string
 }
 
-export interface ICountingCategories extends ICategory {
-  quantity: number
+/**
+ * Category with count of associated tasks.
+ * Used for analytics and category usage statistics.
+ */
+export interface ICategoryWithTaskCount extends ICategory {
+  taskCount: number
 }

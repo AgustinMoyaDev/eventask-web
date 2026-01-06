@@ -1,6 +1,6 @@
 import { baseApi } from './baseApi'
 
-import { ICategory } from '../types/ICategory'
+import { ICategory, ICategoryWithTaskCount } from '../types/ICategory'
 import { ICategoryCreatePayload, ICategoryUpdatePayload } from '../types/dtos/category'
 import { IPaginationOptions, IPaginationResult } from '../api/types/pagination'
 
@@ -17,13 +17,23 @@ export const categoryApi = baseApi.injectEndpoints({
         ...(result?.items.map(c => ({ type: 'Category' as const, id: c.id })) ?? []),
       ],
     }),
+    getCategoriesWithTaskCount: builder.query<ICategoryWithTaskCount[], void>({
+      query: () => ({
+        url: '/categories/task-count',
+        method: 'GET',
+      }),
+      providesTags: result => [
+        { type: 'Category', id: 'LIST' },
+        ...(result?.map(c => ({ type: 'Category' as const, id: c.id })) ?? []),
+      ],
+    }),
     createCategory: builder.mutation<ICategory, ICategoryCreatePayload>({
       query: newCategory => ({
         url: '/categories',
         method: 'POST',
         body: newCategory,
       }),
-      invalidatesTags: ['Category'],
+      invalidatesTags: [{ type: 'Category', id: 'LIST' }],
     }),
     updateCategory: builder.mutation<ICategory, ICategoryUpdatePayload>({
       query: updatedCategory => ({
@@ -31,14 +41,17 @@ export const categoryApi = baseApi.injectEndpoints({
         method: 'PUT',
         body: updatedCategory,
       }),
-      invalidatesTags: (_result, _error, arg) => [{ type: 'Category', id: arg.id }],
+      invalidatesTags: (_result, _error, arg) => [
+        { type: 'Category', id: 'LIST' },
+        { type: 'Category', id: arg.id },
+      ],
     }),
     deleteCategory: builder.mutation<void, string>({
       query: categoryId => ({
         url: `/categories/${categoryId}`,
         method: 'DELETE',
       }),
-      invalidatesTags: ['Category'],
+      invalidatesTags: [{ type: 'Category', id: 'LIST' }],
     }),
   }),
   overrideExisting: false,
@@ -46,6 +59,7 @@ export const categoryApi = baseApi.injectEndpoints({
 
 export const {
   useFetchCategoriesQuery,
+  useGetCategoriesWithTaskCountQuery,
   useCreateCategoryMutation,
   useUpdateCategoryMutation,
   useDeleteCategoryMutation,
