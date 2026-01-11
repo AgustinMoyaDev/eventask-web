@@ -14,6 +14,7 @@ export type EventStatus = (typeof EVENT_STATUS)[keyof typeof EVENT_STATUS]
 
 // start & end --> format "YYYY-MM-DDTHH:mm"
 export interface IEventForm {
+  id?: string
   title: string
   start: string
   end: string

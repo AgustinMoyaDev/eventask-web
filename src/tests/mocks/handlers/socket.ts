@@ -15,7 +15,7 @@ chatSocket.addEventListener('connection', ({ client }) => {
 export const socketHandlers = [
   /**
    * Socket.io Polling Handler
-   * When VITE_USE_MOCK_API is true, Socket.io uses polling instead of WebSocket
+   * When MODE === 'development' or MODE === 'demo', Socket.io uses polling instead of WebSocket
    * This handler simulates the Socket.io server responses for polling transport
    * @see https://socket.io/docs/v4/how-it-works/#polling
    */

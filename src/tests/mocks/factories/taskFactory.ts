@@ -74,7 +74,12 @@ export function createFakeTask(overwrites: Partial<ITask> = {}): ITask {
   const completedEvents = mockEvents.filter(me => me.status === EVENT_STATUS.COMPLETED).length
   const progress = Math.round(overwrites.progress ?? (completedEvents / mockEvents.length) * 100)
   const status: TaskStatus =
-    overwrites.status ?? (progress === 100 ? TASK_STATUS.COMPLETED : TASK_STATUS.PENDING)
+    overwrites.status ??
+    (progress === 100
+      ? TASK_STATUS.COMPLETED
+      : progress === 0
+        ? TASK_STATUS.PENDING
+        : TASK_STATUS.PROGRESS)
 
   const beginningDate = overwrites.beginningDate ?? faker.date.soon({ days: 30 }).toISOString()
   const completionDate =
@@ -85,10 +90,10 @@ export function createFakeTask(overwrites: Partial<ITask> = {}): ITask {
     title = faker.lorem.sentence({ min: 3, max: 8 }).replace('.', ''),
     categoryId = category.id,
     participantsIds = participants.map(p => p.id),
-    eventsIds = [],
     createdBy = creator.id,
     duration = faker.number.int({ min: 1, max: 8 }),
     events = mockEvents,
+    eventsIds = mockEvents.map(e => e.id),
     createdAt = faker.date.past(),
     updatedAt = faker.date.recent(),
   } = overwrites
