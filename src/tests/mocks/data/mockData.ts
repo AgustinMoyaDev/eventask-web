@@ -2,10 +2,22 @@ import { ITask } from '@/types/ITask'
 import { IUser } from '@/types/IUser'
 import { IEvent } from '@/types/IEvent'
 import { ICategoryWithTaskCount } from '@/types/ICategory'
+import { INotification } from '@/types/INotification'
 
 import { createFakeTasks } from '../factories/taskFactory'
 import { createFakeUser, createFakeUsers } from '../factories/userFactory'
 import { createFakeCategories } from '../factories/categoryFactory'
+import { createFakeNotifications } from '../factories/notificationFactory'
+
+/**
+ * Session state for authentication
+ * Tracks current logged-in user and token
+ */
+export interface MockSession {
+  isAuthenticated: boolean
+  user: IUser | null
+  token: string | null
+}
 
 /**
  * Mock categories
@@ -32,6 +44,16 @@ export const MOCK_LOGGED_USER: IUser = createFakeUser({
   lastName: 'User',
   contacts: MOCK_CONTACTS,
 })
+
+/**
+ * Current session state (mutable)
+ * Modified by auth handlers (login/logout)
+ */
+export const MOCK_SESSION: MockSession = {
+  isAuthenticated: true,
+  user: MOCK_LOGGED_USER,
+  token: 'mock-token',
+}
 
 /**
  * Single Source of Truth for mock tasks
@@ -68,3 +90,9 @@ export const MOCK_CATEGORIES_TASK_COUNT: ICategoryWithTaskCount[] = MOCK_CATEGOR
     }
   }
 )
+
+/**
+ * Mock notifications for logged-in user (includes invitations)
+ * Mutable array for marking as read
+ */
+export const MOCK_NOTIFICATIONS: INotification[] = createFakeNotifications(15)

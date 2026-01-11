@@ -4,8 +4,9 @@
  * @see https://fakerjs.dev/guide/usage.html#create-complex-objects
  */
 import { faker } from '@faker-js/faker'
-import type { INotification, NotificationType } from '@/types/INotification'
+import type { INotification, INotificationData, NotificationType } from '@/types/INotification'
 import { NOTIFICATION_TYPE } from '@/types/INotification'
+import { INVITATION_STATUS, InvitationStatus } from '@/types/IInvitation'
 
 /**
  * Realistic notification templates by type.
@@ -88,26 +89,68 @@ export function createFakeNotification(overwrites: Partial<INotification> = {}):
   const type: NotificationType =
     overwrites.type ?? faker.helpers.arrayElement(Object.values(NOTIFICATION_TYPE))
 
-  // Get templates for this type
-  const templates = NOTIFICATION_TEMPLATES[type]
-  const title = overwrites.title ?? faker.helpers.arrayElement(templates.titles)
-  const message = overwrites.message ?? faker.helpers.arrayElement(templates.messages)
+  // Generate invitation-specific data with varied statuses
+  let title: string
+  let message: string
+  let defaultData: INotificationData
+  let readInvitation = true
+  const fromUserNameInvitation = faker.person.fullName()
 
-  // Generate data based on type
-  const defaultData = {
-    taskId: type === 'task' ? faker.string.uuid() : undefined,
-    eventId: type === 'event' ? faker.string.uuid() : undefined,
-    invitationId: type === 'invitation' ? faker.string.uuid() : undefined,
-    fromUserId: faker.string.uuid(),
-    fromUserName: faker.person.fullName(),
-    actionUrl: `/${type}s/${faker.string.uuid()}`,
+  if (type === NOTIFICATION_TYPE.INVITATION && !overwrites.data?.invitationStatus) {
+    const invitationStatus = faker.helpers.arrayElement([
+      'pending',
+      'pending',
+      'accepted',
+      'rejected',
+    ]) as InvitationStatus
+
+    if (invitationStatus === INVITATION_STATUS.PENDING) {
+      title = overwrites.title ?? 'New Invitation'
+      message = overwrites.message ?? `${fromUserNameInvitation} sent you a contact invitation`
+      readInvitation = false
+    } else if (invitationStatus === INVITATION_STATUS.ACCEPTED) {
+      title = overwrites.title ?? 'Invitation Accepted'
+      message = overwrites.message ?? 'Your invitation has been accepted'
+      readInvitation = true
+    } else {
+      title = overwrites.title ?? 'Invitation Declined'
+      message = overwrites.message ?? 'Your invitation has been declined'
+      readInvitation = true
+    }
+
+    defaultData = {
+      invitationId: faker.string.uuid(),
+      fromUserId: faker.string.uuid(),
+      fromUserName: fromUserNameInvitation,
+      invitationStatus,
+      // actionUrl only for resolved invitations
+      actionUrl:
+        invitationStatus !== INVITATION_STATUS.PENDING
+          ? `/tasks/${faker.string.uuid()}`
+          : undefined,
+    }
+  } else {
+    // Non-invitation types or explicit overwrites
+    const templates = NOTIFICATION_TEMPLATES[type]
+    title = overwrites.title ?? faker.helpers.arrayElement(templates.titles)
+    message = overwrites.message ?? faker.helpers.arrayElement(templates.messages)
+
+    defaultData = {
+      taskId: type === 'task' ? faker.string.uuid() : undefined,
+      eventId: type === 'event' ? faker.string.uuid() : undefined,
+      invitationId: type === 'invitation' ? faker.string.uuid() : undefined,
+      fromUserId: faker.string.uuid(),
+      fromUserName: faker.person.fullName(),
+      actionUrl: `/${type}s/${faker.string.uuid()}`,
+      invitationStatus: overwrites.data?.invitationStatus,
+    }
   }
 
   const {
     id = faker.string.uuid(),
     userId = faker.string.uuid(),
     data = defaultData,
-    read = faker.datatype.boolean(),
+    read = readInvitation || faker.datatype.boolean(),
     createdAt = faker.date.recent({ days: 7 }),
     updatedAt = faker.date.recent({ days: 1 }),
   } = overwrites

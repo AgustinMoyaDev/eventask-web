@@ -11,6 +11,7 @@ import { categoryHandlers } from './category'
 import { securityHandlers } from './security'
 import { socketHandlers } from './socket'
 import { eventHandlers } from './event'
+import { invitationHandlers } from './invitation'
 
 /**
  * Combined array of all request handlers
@@ -22,6 +23,7 @@ export const handlers = [
   ...taskHandlers,
   ...eventHandlers,
   ...notificationHandlers,
+  ...invitationHandlers,
   ...categoryHandlers,
   ...securityHandlers,
   ...socketHandlers,

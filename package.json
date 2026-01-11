@@ -14,6 +14,7 @@
     "dev": "vite",
     "build": "tsc --noEmit && vite build",
     "build:preview": "vite build --mode preview",
+    "build:demo": "tsc --noEmit && vite build --mode demo",
     "preview": "vite preview",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
