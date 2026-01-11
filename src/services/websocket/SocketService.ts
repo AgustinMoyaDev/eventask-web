@@ -9,7 +9,7 @@ import { authApi } from '../authApi'
 
 import { getEnvVariables } from '@/helpers/getEnvVariables'
 
-const { VITE_BACKEND_URL, DEV, VITE_USE_MOCK_API } = getEnvVariables()
+const { VITE_BACKEND_URL, DEV } = getEnvVariables()
 
 /**
  * Determine transports based on environment
@@ -17,7 +17,10 @@ const { VITE_BACKEND_URL, DEV, VITE_USE_MOCK_API } = getEnvVariables()
  * In normal mode, prefer websocket for better performance
  * @see https://socket.io/docs/v4/client-options/#transports
  */
-const transports = VITE_USE_MOCK_API === 'true' ? ['polling'] : ['websocket', 'polling']
+const transports =
+  import.meta.env.MODE === 'development' || import.meta.env.MODE === 'demo'
+    ? ['polling']
+    : ['websocket', 'polling']
 
 const socketOptions = {
   transports,

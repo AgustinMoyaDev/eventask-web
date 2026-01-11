@@ -5,7 +5,6 @@
 interface EnvVariables {
   VITE_API_URL: string
   VITE_BACKEND_URL: string
-  VITE_USE_MOCK_API?: string
   DEV: boolean
   MODE: string
   PROD: boolean
