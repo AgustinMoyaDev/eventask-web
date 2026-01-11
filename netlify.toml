@@ -1,7 +1,9 @@
 # Build configuration
 [build]
-  command = "pnpm run build"
   publish = "dist"
+  # command removed - configure per-site in Netlify dashboard
+  # Production site: pnpm run build
+  # Demo site: pnpm run build:demo
 
 # Rewrite rule for SPA
 [[redirects]]
