@@ -25,7 +25,6 @@ const mapEventLocalToEventForm = (events: IEventLocal[]): IEventForm[] => {
     start: new Date(evt.start).toISOString(),
     end: new Date(evt.end).toISOString(),
     notes: evt.notes,
-    status: evt.status,
   }))
 }
 

@@ -51,7 +51,8 @@ export const useTaskFormLogic = () => {
     updateTaskError,
   } = useTaskActions()
   const {
-    categories,
+    // categories,
+    categoriesWithTaskCount,
     fetching: fetchingCat,
     creating: creatingCat,
     createCategoryError,
@@ -77,8 +78,11 @@ export const useTaskFormLogic = () => {
   } = useForm<ITaskForm>(taskFormFields, taskFormValidations)
 
   // Computed values
-  const categorySuggestions = useMemo(() => categories.map(cat => cat.name), [categories])
-  const validSelectedCategory = categories?.some(cat => cat.name === category)
+  const categorySuggestions = useMemo(
+    () => categoriesWithTaskCount.map(cat => cat.name),
+    [categoriesWithTaskCount]
+  )
+  const validSelectedCategory = categoriesWithTaskCount?.some(cat => cat.name === category)
   const currentStatus = task?.status ?? TASK_STATUS.PENDING
   const isCompleted = currentStatus === TASK_STATUS.COMPLETED
   const colorChip = useMemo(() => {
@@ -168,10 +172,10 @@ export const useTaskFormLogic = () => {
 
     let result = null
     if (id) {
-      const payloadEdit = mapTaskFormToUpdatePayload(id, { ...formState }, categories)
+      const payloadEdit = mapTaskFormToUpdatePayload(id, { ...formState }, categoriesWithTaskCount)
       result = await updateTask(payloadEdit)
     } else {
-      const payloadSave = mapTaskFormToCreatePayload({ ...formState }, categories)
+      const payloadSave = mapTaskFormToCreatePayload({ ...formState }, categoriesWithTaskCount)
       result = await createTask(payloadSave)
     }
 

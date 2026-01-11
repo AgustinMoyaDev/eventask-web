@@ -46,43 +46,40 @@ export const SecuritySettings = ({ user }: SecuritySettingsProps) => {
       )}
 
       <div className={styles.authMethods}>
-        {!user.googleId && (
-          <div className={styles.method}>
-            <GoogleIcon />
-            <span>You haven't logged in with Google yet</span>
-            <Chip label="Pending" color="pending" />
-          </div>
-        )}
+        <div className={styles.method}>
+          <LockIcon />
+          <span className={styles.methodTitle}>Manual Password</span>
+          {user.hasManualPassword ? (
+            <>
+              <Button variant="fab" size="sm" onClick={() => openChange()}>
+                <EditIcon />
+              </Button>
+              <Chip label="Active" color="completed" />
+            </>
+          ) : (
+            <>
+              <Button variant="fab" size="sm" onClick={() => openSet()}>
+                <PlusIcon />
+              </Button>
+              <Chip label="Pending" color="pending" />
+            </>
+          )}
+        </div>
 
-        {!user.hasManualPassword && (
-          <div className={styles.method}>
-            <LockIcon />
-            <span>Manual Password</span>
-            <Button variant="fab" size="sm" onClick={() => openSet()}>
-              <PlusIcon />
-            </Button>
-            <Chip label="Pending" color="pending" />
-          </div>
-        )}
-
-        {user.hasManualPassword && (
-          <div className={styles.method}>
-            <LockIcon />
-            <span className={styles.methodTitle}>Manual Password</span>
-            <Button variant="fab" size="sm" onClick={() => openChange()}>
-              <EditIcon />
-            </Button>
-            <Chip label="Active" color="completed" />
-          </div>
-        )}
-
-        {user.googleId && (
-          <div className={styles.method}>
-            <GoogleIcon />
-            <span className={styles.methodTitle}>Google Account Connected</span>
-            <Chip label="Active" color="completed" />
-          </div>
-        )}
+        <div className={styles.method}>
+          <GoogleIcon />
+          {user.googleId ? (
+            <>
+              <span className={styles.methodTitle}>Google Account Connected</span>
+              <Chip label="Active" color="completed" />
+            </>
+          ) : (
+            <>
+              <span className={styles.methodTitle}>You haven't logged in with Google yet</span>
+              <Chip label="Pending" color="pending" />
+            </>
+          )}
+        </div>
       </div>
     </section>
   )

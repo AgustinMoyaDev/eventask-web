@@ -80,6 +80,7 @@ const valueMockNotificationsActions = {
   fetchUnreadCountErrors: parsedError,
   markAsReadErrors: parsedError,
   markAllAsReadErrors: parsedError,
+  total: 5,
 }
 
 describe('NotificationDropdown', () => {

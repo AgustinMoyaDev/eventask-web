@@ -9,7 +9,6 @@ import styles from './InvitationDetailView.module.css'
 
 /**
  * Detailed view for invitation notifications with accept/reject actions
- * Similar to YouTube's nested dropdown navigation pattern
  */
 export const InvitationDetailView = ({ notification, onBack }: InvitationDetailViewProps) => {
   const { data } = notification
@@ -26,7 +25,7 @@ export const InvitationDetailView = ({ notification, onBack }: InvitationDetailV
     const { invitationId } = data ?? {}
     if (!invitationId) return
     await rejectInvitation({ invitationId })
-    onBack?.() // Return to list after action
+    onBack?.()
   }
 
   const handleBackClick = () => {
