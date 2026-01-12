@@ -1,5 +1,3 @@
-[![Netlify Status](https://api.netlify.com/api/v1/badges/c9c092ac-e9c4-46c9-a48c-76f3b733c0e7/deploy-status)](https://app.netlify.com/projects/taskevent/deploys)
-
 # 🎯 EvenTask
 
 <div align="center">
@@ -13,7 +11,39 @@
 
 **Collaborative task manager with integrated calendar and real-time notifications**
 
-[Features](#-key-features) • [Installation](#-installation--setup) • [Architecture](#️-architecture) • [Testing](#-testing)
+[Live Demo](#-live-demo) • [Features](#-key-features) • [Architecture](#️-architecture) • [Testing](#-testing)
+
+</div>
+
+---
+
+## 🌐 Live Demo
+
+<div align="center">
+
+### 🚀 Production
+[![Netlify Status](https://api.netlify.com/api/v1/badges/c9c092ac-e9c4-46c9-a48c-76f3b733c0e7/deploy-status)](https://app.netlify.com/projects/prod-eventask/deploys)
+
+**[prod-eventask.netlify.app](https://prod-eventask.netlify.app)**
+
+*Full-stack deployment with real backend (may take 30-60s for cold start)*
+
+---
+
+### 🎭 Demo Mode
+[![Netlify Status](https://api.netlify.com/api/v1/badges/c60310ae-fad5-464a-a482-7c0823f09409/deploy-status)](https://app.netlify.com/projects/demo-eventask/deploys)
+
+**[demo-eventask.netlify.app](https://demo-eventask.netlify.app)**
+
+*Fully functional offline demo with MSW mocks (instant load, no backend required)*
+
+**Demo Credentials:**
+```
+Email: demo@eventask.com
+Password: mock-password
+```
+
+> 💡 **Tip:** Use demo mode to explore all features instantly without waiting for backend cold start.
 
 </div>
 
