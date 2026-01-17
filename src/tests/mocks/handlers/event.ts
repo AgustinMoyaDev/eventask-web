@@ -5,6 +5,7 @@ import { IEventUpdatePayload, IEventStatusPayload } from '@/types/dtos/event'
 import { createPaginatedResponse, getPaginationParams, recalculateTaskProgress } from './shared'
 import { MOCK_EVENTS, MOCK_TASKS, MOCK_CONTACTS } from '../data/mockData'
 import { DELAYS } from '../utils/delays'
+import { calculateTaskDuration } from '../factories/taskFactory'
 
 /**
  * Parse calendar query params from URL
@@ -90,6 +91,7 @@ export const eventHandlers = [
         const taskEventIndex = task.events.findIndex(e => e.id === id)
         if (taskEventIndex !== -1) {
           task.events[taskEventIndex] = updatedEvent
+          task.duration = calculateTaskDuration(task.events)
         }
       }
     }
@@ -165,6 +167,7 @@ export const eventHandlers = [
         const task = MOCK_TASKS[taskIndex]
         task.events = task.events.filter(e => e.id !== id)
         task.eventsIds = task.eventsIds.filter(eId => eId !== id)
+        task.duration = calculateTaskDuration(task.events)
       }
     }
 

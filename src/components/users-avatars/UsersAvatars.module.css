@@ -11,8 +11,11 @@
 }
 
 .avatarMore {
+  display: grid;
+  place-items: center;
   padding: var(--spacing-sm);
-  background-color: var(--color-on-surface);
+  color: var(--color-on-secondary);
+  background-color: var(--color-secondary);
   width: 2.5rem;
   height: 2.5rem;
 }

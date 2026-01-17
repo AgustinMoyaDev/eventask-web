@@ -36,11 +36,15 @@ export const eventSlice = createSlice({
   },
 
   extraReducers: builder => {
-    const { fetchEventsByUser, createEvent, updateEvent, deleteEvent } = eventApi.endpoints
+    const { fetchEventsByUser, fetchEventsByMonth, createEvent, updateEvent, deleteEvent } =
+      eventApi.endpoints
 
     builder
       .addMatcher(fetchEventsByUser.matchFulfilled, (state, { payload: { items } }) => {
         eventsAdapter.setAll(state, items)
+      })
+      .addMatcher(fetchEventsByMonth.matchFulfilled, (state, { payload: { events } }) => {
+        eventsAdapter.upsertMany(state, events)
       })
       .addMatcher(createEvent.matchFulfilled, (state, { payload }) => {
         eventsAdapter.upsertOne(state, payload)

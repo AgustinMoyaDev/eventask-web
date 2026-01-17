@@ -46,10 +46,10 @@ export const ScheduleEvent = ({
   return (
     <article
       className={clsx(
-        styles.scheduleEvent,
-        isStartSegment && styles.scheduleEventStart,
-        isEndSegment && styles.scheduleEventEnd,
-        status === EVENT_STATUS.COMPLETED && styles.scheduleEventCompleted
+        styles.event,
+        isStartSegment && styles.eventStart,
+        isEndSegment && styles.eventEnd,
+        status === EVENT_STATUS.COMPLETED && styles.eventCompleted
       )}
       style={{
         top: `${top}px`,
@@ -59,34 +59,36 @@ export const ScheduleEvent = ({
       role="listitem"
     >
       <DropZone itemId={id} itemType={DROPPABLE_ITEM_TARGET.EVENT} label="Add collaborator">
-        <header className={styles.scheduleEventHeader}>
-          <h3 className={clsx('text-title-lg', styles.scheduleEventTitle)}>
-            <span className={styles.scheduleEventTitleText}>{title}</span>
+        <header className={styles.header}>
+          <h3 className={clsx('text-title-lg', styles.title)}>
+            <span className={styles.titleText}>{title}</span>
             {status === EVENT_STATUS.COMPLETED && (
-              <small className={styles.scheduleEventTextCompleted}>(Done)</small>
+              <small className={styles.textCompleted}>(Done)</small>
             )}
           </h3>
           <Button
             variant="icon"
             size="sm"
             className={clsx(
-              styles.scheduleEventStatusBtn,
-              status === EVENT_STATUS.COMPLETED && styles.scheduleEventStatusBtnCompleted
+              styles.statusBtn,
+              status === EVENT_STATUS.COMPLETED && styles.statusBtnCompleted
             )}
             onClick={handleToggle}
             disabled={updatingStatus}
           >
-            {updatingStatus ? <Loader /> : <CheckIcon className={styles.scheduleEventStatusIcon} />}
+            {updatingStatus ? <Loader /> : <CheckIcon className={styles.statusIcon} />}
           </Button>
         </header>
 
-        <section className={styles.scheduleEventBody}>
-          <p className={styles.scheduleEventNotes}>{notes}</p>
+        <section className={styles.eventBody}>
+          <p className={styles.eventNotes}>{notes}</p>
 
           {collaborators.length > 0 ? (
-            <div className={styles.scheduleEventCollaboratorsWrapper}>
-              <div className={styles.scheduleEventCollaborators}>
-                <span className={styles.scheduleEventCollaboratorsLabel}>Collaborators:</span>
+            <div className={styles.collaboratorsWrapper}>
+              <div className={styles.collaborators}>
+                <span className={styles.collaboratorsLabel}>
+                  {collaborators.length === 1 ? 'Collaborator:' : 'Collaborators:'}
+                </span>
                 <UsersAvatars
                   users={collaborators}
                   draggable={{
@@ -97,20 +99,24 @@ export const ScheduleEvent = ({
                   }}
                 />
               </div>
-              <Button variant="fab" className={styles.scheduleEventPhoneBtn}>
+              <Button
+                variant="fab"
+                className={styles.phoneBtn}
+                title="This feature is under development"
+              >
                 <PhoneIcon />
               </Button>
             </div>
           ) : (
-            <span className={styles.scheduleEventCollaboratorsNoResults}>
+            <span className={styles.collaboratorsEmpty}>
               Drag task participants to become event collaborators.
             </span>
           )}
         </section>
         {isStartSegment && (
-          <Button className={styles.scheduleEventFollowBtn} onClick={requestNextDay}>
-            <span className={styles.scheduleEventNextText}>Follow event</span>
-            <ArrowRightIcon className={styles.scheduleEventFollowIcon} />
+          <Button className={styles.followBtn} onClick={requestNextDay}>
+            <span className={styles.followText}>Follow event</span>
+            <ArrowRightIcon className={styles.followIcon} />
           </Button>
         )}
       </DropZone>

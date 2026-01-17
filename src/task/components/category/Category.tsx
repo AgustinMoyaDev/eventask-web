@@ -11,7 +11,7 @@ export const Category = ({ name, quantityFormatted }: CategoryProps) => {
   return (
     <li className={styles.categoryItem}>
       <header className={styles.categoryItemHeader}>
-        <h3 className="text-title-md">{name}</h3>
+        <h3 className="text-title-md line-clamp-1">{name}</h3>
         <p className={`text-label-md ${styles.categoryItemSubtitle}`}>{quantityFormatted}</p>
       </header>
     </li>

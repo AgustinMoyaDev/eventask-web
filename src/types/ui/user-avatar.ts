@@ -31,4 +31,5 @@ export interface UsersAvatarsProps {
   users: IUser[]
   className?: string
   draggable?: DraggableData
+  collapsed?: boolean
 }

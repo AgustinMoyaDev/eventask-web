@@ -10,10 +10,10 @@ export const {
   selectIds: selectEventIds,
 } = eventsAdapter.getSelectors<RootState>(state => state.event)
 
-// 1. Extraemos selectActiveEventId y selectEntities
+// 1. Extract selectActiveEventId and selectEventsEntities
 export const selectActiveEventId = (state: RootState) => state.event.activeEventId
 
-// 2. Selector memoizado que combina ambas entradas
+// 2. Memoized selector that combines both inputs
 export const selectActiveEvent = createSelector(
   [selectActiveEventId, selectEventsEntities],
   (activeId, entities) => (activeId ? entities[activeId] : undefined)

@@ -5,14 +5,127 @@
  */
 import { faker } from '@faker-js/faker'
 
+import dayjs from 'dayjs'
+import minMax from 'dayjs/plugin/minMax.js'
+dayjs.extend(minMax)
+
 import type { ITask, TaskStatus } from '@/types/ITask'
 import type { IUser } from '@/types/IUser'
 import { TASK_STATUS } from '@/types/ITask'
-import { EVENT_STATUS } from '@/types/IEvent'
+import { EVENT_STATUS, IEvent } from '@/types/IEvent'
 
 import { createFakeUser } from './userFactory'
 import { createSequentialEvents } from './eventFactory'
 import { MOCK_CATEGORIES } from '../data/mockData'
+
+/**
+ * Capitalize first letter of a string
+ */
+function capitalize(text: string): string {
+  if (!text) return text
+  return text.charAt(0).toUpperCase() + text.slice(1)
+}
+
+/**
+ * Map categories to contextual title generators
+ * Uses Faker's specialized methods for realistic titles
+ */
+const CATEGORY_TITLE_GENERATORS: Record<string, () => string> = {
+  Development: () =>
+    faker.helpers.arrayElement([
+      `Implement ${faker.hacker.noun()} feature`,
+      `Fix ${faker.hacker.noun()} bug`,
+      `Refactor ${faker.hacker.noun()} module`,
+      `Add ${faker.hacker.verb()} functionality`,
+    ]),
+  Design: () =>
+    faker.helpers.arrayElement([
+      `Design ${faker.commerce.product()} mockup`,
+      `Create ${faker.commerce.productAdjective()} UI components`,
+      `Update brand identity guidelines`,
+      `Design landing page wireframes`,
+    ]),
+  Marketing: () =>
+    faker.helpers.arrayElement([
+      `Launch ${faker.commerce.product()} campaign`,
+      `Plan social media strategy`,
+      `Create content calendar`,
+      `Analyze market trends`,
+    ]),
+  Sales: () =>
+    faker.helpers.arrayElement([
+      `Follow up with ${faker.company.name()}`,
+      `Prepare sales presentation`,
+      `Update CRM pipeline`,
+      `Client discovery call`,
+    ]),
+  Support: () =>
+    faker.helpers.arrayElement([
+      `Resolve customer ticket #${faker.number.int({ min: 1000, max: 9999 })}`,
+      `Update knowledge base article`,
+      `Customer onboarding session`,
+      `Technical support escalation`,
+    ]),
+  Research: () =>
+    faker.helpers.arrayElement([
+      `Research ${faker.commerce.productMaterial()} alternatives`,
+      `Competitive analysis report`,
+      `User research interviews`,
+      `Market research study`,
+    ]),
+  Planning: () =>
+    faker.helpers.arrayElement([
+      `Q${faker.number.int({ min: 1, max: 4 })} strategic planning`,
+      `Sprint planning meeting`,
+      `Resource allocation review`,
+      `Project roadmap update`,
+    ]),
+  Testing: () =>
+    faker.helpers.arrayElement([
+      `QA testing for ${faker.hacker.noun()}`,
+      `Automated test suite setup`,
+      `Performance testing session`,
+      `User acceptance testing`,
+    ]),
+  Documentation: () =>
+    faker.helpers.arrayElement([
+      `Write API documentation`,
+      `Update user manual`,
+      `Create onboarding guide`,
+      `Document ${faker.hacker.noun()} process`,
+    ]),
+  Deployment: () =>
+    faker.helpers.arrayElement([
+      `Deploy to ${faker.helpers.arrayElement(['staging', 'production', 'QA'])}`,
+      `Database migration setup`,
+      `CI/CD pipeline configuration`,
+      `Release v${faker.system.semver()}`,
+    ]),
+  Meeting: () =>
+    faker.helpers.arrayElement([
+      `${faker.helpers.arrayElement(['Weekly', 'Monthly', 'Quarterly'])} team sync`,
+      `${faker.company.buzzNoun()} stakeholder meeting`,
+      `One-on-one with ${faker.person.firstName()}`,
+      `${faker.helpers.arrayElement(['Sprint', 'Project'])} retrospective`,
+    ]),
+  Review: () =>
+    faker.helpers.arrayElement([
+      `Code review session`,
+      `Performance review meeting`,
+      `Design review for ${faker.commerce.product()}`,
+      `Quarterly business review`,
+    ]),
+}
+
+/**
+ * Generate contextual task title based on category
+ */
+function generateTaskTitle(categoryName: string): string {
+  const generator = CATEGORY_TITLE_GENERATORS[categoryName]
+  return generator
+    ? capitalize(generator())
+    : capitalize(faker.lorem.sentence({ min: 3, max: 6 }).replace('.', ''))
+}
 
 /**
  * Select random participants from available users including the creator
@@ -37,6 +150,35 @@ function selectRandomParticipants(
   )
 
   return randomUsers
+}
+
+/**
+ * Calculate the total duration of a task based on its events
+ *
+ * @param events
+ * @returns duration in hours
+ */
+export function calculateTaskDuration(events: IEvent[]): number {
+  const starts = events.map(e => dayjs(e.start)).filter(e => e.isValid())
+  const ends = events.map(e => dayjs(e.end)).filter(e => e.isValid())
+
+  if (starts.length === 0 || ends.length === 0) return 0
+
+  const minStart = dayjs.min(...starts)
+  const maxEnd = dayjs.max(...ends)
+
+  if (!minStart || !maxEnd) return 0
+
+  const duration = events.reduce((acc, ev) => {
+    const start = dayjs(ev.start)
+    const end = dayjs(ev.end)
+    if (start.isValid() && end.isValid()) {
+      return acc + end.diff(start, 'hour', true)
+    }
+    return acc
+  }, 0)
+
+  return duration
 }
 
 /**
@@ -67,9 +209,11 @@ export function createFakeTask(overwrites: Partial<ITask> = {}): ITask {
     ? selectRandomParticipants([...overwrites.participants, creator])
     : [creator, createFakeUser()]
 
+  const randomNumberOfEvents = faker.number.int({ min: 3, max: 5 })
+
   const mockEvents =
     overwrites.events ??
-    createSequentialEvents(faker.number.int({ min: 3, max: 5 }), {}, participants)
+    createSequentialEvents(randomNumberOfEvents, {}, participants, category.name)
 
   const completedEvents = mockEvents.filter(me => me.status === EVENT_STATUS.COMPLETED).length
   const progress = Math.round(overwrites.progress ?? (completedEvents / mockEvents.length) * 100)
@@ -87,11 +231,11 @@ export function createFakeTask(overwrites: Partial<ITask> = {}): ITask {
 
   const {
     id = faker.string.uuid(),
-    title = faker.lorem.sentence({ min: 3, max: 8 }).replace('.', ''),
+    title = generateTaskTitle(category.name),
     categoryId = category.id,
     participantsIds = participants.map(p => p.id),
     createdBy = creator.id,
-    duration = faker.number.int({ min: 1, max: 8 }),
+    duration = calculateTaskDuration(mockEvents),
     events = mockEvents,
     eventsIds = mockEvents.map(e => e.id),
     createdAt = faker.date.past(),

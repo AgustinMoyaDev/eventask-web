@@ -93,6 +93,7 @@ export const TaskInfo = ({ task }: Props) => {
             <span className={styles.taskInfoParticipantsLabel}>Participants:</span>
 
             <UsersAvatars
+              collapsed={false}
               users={participants}
               draggable={{
                 id: '', // populate with participant ID

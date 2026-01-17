@@ -6,15 +6,26 @@ import { Avatar } from './Avatar'
 
 import styles from './UsersAvatars.module.css'
 
-export const UsersAvatars = ({ users = [], className = '', draggable }: UsersAvatarsProps) => {
+export const UsersAvatars = ({
+  users = [],
+  className = '',
+  draggable,
+  collapsed = true,
+}: UsersAvatarsProps) => {
+  const MAX_VISIBLE_AVATARS = 3
+  const visibleUsers = collapsed ? users.slice(0, MAX_VISIBLE_AVATARS) : users
+
+  const remainingCount = users.length - MAX_VISIBLE_AVATARS
+  const showCounter = collapsed && remainingCount > 0
+
   return (
     <section className={clsx(styles.avatars, className)}>
-      {users.slice(0, 3).map(user => (
-        <Avatar key={user.id} user={user} draggable={draggable} />
+      {visibleUsers.map(user => (
+        <Avatar key={user.id} className={styles.avatar} user={user} draggable={draggable} />
       ))}
 
-      {users.length > 3 && (
-        <span className={clsx(styles.avatar, styles.avatarMore)}>+{users.length - 3}</span>
+      {showCounter && (
+        <span className={clsx(styles.avatar, styles.avatarMore)}>+{remainingCount}</span>
       )}
     </section>
   )

@@ -73,13 +73,15 @@ describe('NotificationList', () => {
 
   it('should render header and mark all as read button when there are unread notifications', () => {
     render(
-      <NotificationList
-        unreadCount={1}
-        notifications={[baseNotification]}
-        markAsRead={markAsRead}
-        markAllAsRead={markAllAsRead}
-        fetchingNotifications={false}
-      />
+      <MemoryRouter>
+        <NotificationList
+          unreadCount={1}
+          notifications={[baseNotification]}
+          markAsRead={markAsRead}
+          markAllAsRead={markAllAsRead}
+          fetchingNotifications={false}
+        />
+      </MemoryRouter>
     )
     expect(screen.getByText('Notifications')).toBeInTheDocument()
     expect(
@@ -151,19 +153,21 @@ describe('NotificationList', () => {
     expect(
       screen
         .getByRole('button', { name: `Notification: ${baseNotification.title}` })
-        .querySelector(`.${styles.notificationDropdownItemUnreadDot}`)
+        .querySelector(`.${styles.itemUnreadDot}`)
     ).toBeInTheDocument()
   })
 
   it('should call markAsRead when clicking an unread notification', async () => {
     render(
-      <NotificationList
-        unreadCount={1}
-        notifications={[baseNotification]}
-        markAsRead={markAsRead}
-        markAllAsRead={markAllAsRead}
-        fetchingNotifications={false}
-      />
+      <MemoryRouter>
+        <NotificationList
+          unreadCount={1}
+          notifications={[baseNotification]}
+          markAsRead={markAsRead}
+          markAllAsRead={markAllAsRead}
+          fetchingNotifications={false}
+        />
+      </MemoryRouter>
     )
     fireEvent.click(screen.getByLabelText(`Notification: ${baseNotification.title}`))
     await waitFor(() => expect(markAsRead).toHaveBeenCalledWith(baseNotification.id))
@@ -171,13 +175,15 @@ describe('NotificationList', () => {
 
   it('should show details button for pending invitation', () => {
     render(
-      <NotificationList
-        unreadCount={1}
-        notifications={[baseNotification]}
-        markAsRead={markAsRead}
-        markAllAsRead={markAllAsRead}
-        fetchingNotifications={false}
-      />
+      <MemoryRouter>
+        <NotificationList
+          unreadCount={1}
+          notifications={[baseNotification]}
+          markAsRead={markAsRead}
+          markAllAsRead={markAllAsRead}
+          fetchingNotifications={false}
+        />
+      </MemoryRouter>
     )
     expect(screen.getByRole('button', { name: /show details/i })).toBeInTheDocument()
   })
@@ -221,13 +227,15 @@ describe('NotificationList', () => {
 
   it('should navigate to invitation detail view and back', async () => {
     render(
-      <NotificationList
-        unreadCount={1}
-        notifications={[baseNotification]}
-        markAsRead={markAsRead}
-        markAllAsRead={markAllAsRead}
-        fetchingNotifications={false}
-      />
+      <MemoryRouter>
+        <NotificationList
+          unreadCount={1}
+          notifications={[baseNotification]}
+          markAsRead={markAsRead}
+          markAllAsRead={markAllAsRead}
+          fetchingNotifications={false}
+        />
+      </MemoryRouter>
     )
     // Click details button
     fireEvent.click(screen.getByRole('button', { name: /show details/i }))

@@ -22,7 +22,7 @@ export const useTaskFormEventModal = ({
   handleAddModalEvent,
   handleEditModalEvent,
 }: UseTaskFormEventModalProps) => {
-  const [searchParams, setSearchParams] = useSearchParams()
+  const [searchParams] = useSearchParams()
   const [manualEditEvent, setManualEditEvent] = useState<IEventLocal | null>(null)
   const [isCreatingNew, setIsCreatingNew] = useState(false)
   const { isOpen, open, close } = useModalActions(ModalIds.EventForm)
@@ -52,9 +52,8 @@ export const useTaskFormEventModal = ({
   const handleOpenNewEvent = useCallback(() => {
     setIsCreatingNew(true)
     setManualEditEvent(null)
-    setSearchParams({}, { replace: true })
     open()
-  }, [open, setSearchParams])
+  }, [open])
 
   const handleOpenEditEvent = useCallback(
     (evt: IEventLocal) => {
@@ -69,8 +68,7 @@ export const useTaskFormEventModal = ({
     setIsCreatingNew(false)
     setManualEditEvent(null)
     close()
-    setSearchParams({}, { replace: true })
-  }, [close, setSearchParams])
+  }, [close])
 
   const handleCreateEvent = useCallback(
     (evt: IEventLocal) => {
