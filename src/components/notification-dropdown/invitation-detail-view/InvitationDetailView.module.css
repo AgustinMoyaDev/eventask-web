@@ -1,51 +1,42 @@
-.notificationDropdownInvitationDetail {
+.detail {
   border-radius: var(--radius-sm);
   display: flex;
   flex-direction: column;
   row-gap: var(--spacing-sm-plus);
 }
 
-.notificationDropdownDetailHeader {
+.header {
   border-bottom: var(--stroke-width-1) solid var(--color-outline);
   padding-block: var(--spacing-sm);
   display: flex;
-  column-gap: var(--spacing-xs);
+  column-gap: var(--spacing-sm);
   align-items: center;
   justify-content: flex-start;
 }
 
-.notificationDropdownBackButton {
-  padding: var(--spacing-xs);
-}
-
-.notificationDropdownDetailContent {
+.content {
   display: flex;
   flex-direction: column;
-  row-gap: var(--spacing-sm-plus);
+  row-gap: var(--spacing-sm);
 }
 
-.notificationDropdownInvitationInfo {
-  line-height: 1.5;
+.headerInfo {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
 }
 
-.notificationDropdownInvitationTitle {
+.title {
   font-weight: var(--font-weight-bold);
 }
 
-.notificationDropdownInvitationMessage {
+.message {
   color: var(--color-on-surface-variant);
 }
 
-.notificationDropdownInvitationFrom {
-  font-weight: var(--font-weight-medium);
-}
-
-.notificationDropdownInvitationActions {
+.actions {
   display: flex;
-  column-gap: var(--spacing-sm);
+  align-items: center;
   justify-content: flex-end;
-}
-
-.notificationDropdownInvitationActions button {
-  padding: var(--spacing-xs) var(--spacing-sm);
+  column-gap: var(--spacing-sm);
 }

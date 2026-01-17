@@ -1,10 +1,11 @@
 .ongoingTask {
-  --task-height: 15.25rem;
-  --task-width: 18rem;
+  --task-height: 16rem;
+  --task-width: 20rem;
   --task-duration-width: 3.5rem;
   --task-duration-height: 2rem;
 
   display: flex;
+  flex-shrink: 0;
   flex-direction: column;
   justify-content: space-between;
   row-gap: var(--spacing-sm-plus);
@@ -16,8 +17,8 @@
   );
   border-radius: var(--radius-md);
   padding: var(--spacing-lg);
-  min-height: var(--task-height);
-  min-width: var(--task-width);
+  height: var(--task-height);
+  width: var(--task-width);
   box-shadow: var(--elevation-1);
   cursor: pointer;
   position: relative;
@@ -78,8 +79,7 @@
 }
 
 .ongoingTaskTitle {
-  display: flex;
-  align-items: center;
+  margin-right: var(--spacing-sm);
 }
 
 .ongoingTaskDuration {

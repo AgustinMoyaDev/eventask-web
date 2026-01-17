@@ -83,7 +83,7 @@ export const eventApi = baseApi.injectEndpoints({
         url: `/events/${eventId}/collaborators/${collaboratorId}`,
         method: 'PUT',
       }),
-      invalidatesTags: ['Event', 'Task', 'User'],
+      invalidatesTags: ['Event', 'Task'],
     }),
     /**
      * Remove a collaborator from an event.
@@ -94,7 +94,7 @@ export const eventApi = baseApi.injectEndpoints({
         url: `/events/${eventId}/collaborators/${collaboratorId}`,
         method: 'DELETE',
       }),
-      invalidatesTags: ['Event', 'Task', 'User'],
+      invalidatesTags: ['Event', 'Task'],
     }),
   }),
   overrideExisting: false,

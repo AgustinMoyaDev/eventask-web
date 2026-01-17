@@ -124,15 +124,17 @@ export const NotificationList = ({
       : INVITATION_STATUS.ACCEPTED
   }
 
+  const thereAreNotifications = notifications.length > 0
+
   return (
-    <div className={styles.notificationDropdownContent}>
+    <div className={styles.content}>
       {currentView === DropdownView.LIST && (
         <>
-          <header className={styles.notificationDropdownHeader}>
-            <h3 className="text-title-sm">Notifications</h3>
+          <header className={styles.header}>
+            <h3 className={styles.title}>Notifications</h3>
             {unreadCount > 0 && (
               <Button
-                className={styles.notificationDropdownMarkAll}
+                className={styles.markAll}
                 onClick={handleMarkAllAsRead}
                 aria-label="Mark all notifications as read"
               >
@@ -141,13 +143,13 @@ export const NotificationList = ({
             )}
           </header>
 
-          <ul className={styles.notificationDropdownList}>
+          <ul className={styles.list}>
             {fetchingNotifications ? (
-              <div className={styles.notificationDropdownLoading}>
+              <div className={styles.loading}>
                 <Loader />
-                &nbsp; Loading notifications...
+                Loading notifications...
               </div>
-            ) : notifications.length > 0 ? (
+            ) : thereAreNotifications ? (
               notifications.map((notification: INotification) => {
                 const { id, title, message, createdAt, read, type } = notification
 
@@ -159,33 +161,23 @@ export const NotificationList = ({
                 return (
                   <li
                     key={id}
-                    className={clsx(
-                      styles.notificationDropdownItem,
-                      !read && styles.notificationDropdownItemUnread
-                    )}
+                    className={clsx(styles.item, !read && styles.itemUnread)}
                     onClick={() => handleNotificationClick(notification)}
                     role="button"
                     tabIndex={0}
                     aria-label={`Notification: ${title}`}
                   >
-                    <span className={styles.notificationDropdownItemIcon}>
-                      {getNotificationTypeIcon(type)}
-                    </span>
+                    <span className={styles.itemIcon}>{getNotificationTypeIcon(type)}</span>
 
-                    <div className={styles.notificationDropdownItemContent}>
+                    <div className={styles.itemContent}>
                       <span className="text-title-sm">{title}</span>
-                      <small className={styles.notificationDropdownItemMessage}>{message}</small>
-                      <small className={styles.notificationDropdownItemTime}>
+                      <small className={styles.itemMessage}>{message}</small>
+                      <small className={styles.itemTime}>
                         <time>{formatNotificationTime(createdAt.toString())}</time>
                       </small>
                     </div>
 
-                    {!read && (
-                      <span
-                        className={styles.notificationDropdownItemUnreadDot}
-                        aria-hidden="true"
-                      />
-                    )}
+                    {!read && <span className={styles.itemUnreadDot} aria-hidden="true" />}
 
                     {showDetailButton(notification) && (
                       <Button
@@ -199,7 +191,7 @@ export const NotificationList = ({
                     )}
 
                     {showResolvedNotification(notification) && (
-                      <small className={styles.notificationDropdownItemStatus}>
+                      <small className={styles.itemStatus}>
                         {isInvitationRejected && 'Rejected'}
                         {isInvitationAccepted && 'Accepted'}
                       </small>
@@ -208,17 +200,14 @@ export const NotificationList = ({
                 )
               })
             ) : (
-              <li className={styles.notificationDropdownEmpty}>
+              <li className={styles.empty}>
                 <small>There are no new notifications.</small>
               </li>
             )}
 
-            {notifications.length >= 2 && (
-              <footer className={styles.notificationDropdownFooter}>
-                <ButtonLink
-                  className={styles.notificationDropdownViewAll}
-                  to="/see-all?type=notifications"
-                >
+            {thereAreNotifications && (
+              <footer className={styles.footer}>
+                <ButtonLink className={styles.viewAll} to="/see-all?type=notifications">
                   View all notifications
                 </ButtonLink>
               </footer>

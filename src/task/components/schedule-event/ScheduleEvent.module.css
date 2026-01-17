@@ -1,4 +1,4 @@
-.scheduleEvent {
+.event {
   color: var(--color-on-secondary-container);
   background-color: var(--color-secondary-container);
   border-radius: var(--spacing-md);
@@ -23,108 +23,110 @@
   }
 }
 
-.scheduleEventCompleted .scheduleEventBody {
+.eventCompleted .eventBody {
   filter: blur(2px) contrast(50%);
   transition: filter var(--transition-base);
   cursor: none;
   pointer-events: none;
 }
 
-.scheduleEventStart {
+.eventStart {
   mask-image: linear-gradient(to bottom, var(--color-surface) calc(100% - 1rem), transparent 100%);
   border-bottom-left-radius: 0;
   border-bottom-right-radius: 0;
 }
 
-.scheduleEventEnd {
+.eventEnd {
   mask-image: linear-gradient(to top, var(--color-surface) calc(100% - 1rem), transparent 100%);
   border-top-left-radius: 0;
   border-top-right-radius: 0;
 }
 
-.scheduleEventHeader {
+.header {
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
-.scheduleEventTitle {
-  display: flex;
-  gap: var(--spacing-sm);
+.title {
+  max-width: 75%;
 }
 
-.scheduleEventCompleted .scheduleEventTitleText {
+.eventCompleted .titleText {
   text-decoration: line-through;
 }
 
-.scheduleEventCompleted .scheduleEventTextCompleted {
-  font-size: var(--font-label-lg-size);
-  color: var(--color-on-secondary-container);
-  text-decoration: dotted;
+.eventCompleted .textCompleted {
+  margin-left: var(--spacing-sm);
 }
 
-.scheduleEventStatusBtn {
+.statusBtn {
   color: var(--color-outline);
   border: var(--stroke-width-2) solid var(--color-outline);
 }
 
-.scheduleEventStatusIcon {
+.statusIcon {
   color: var(--color-outline);
 }
 
-.scheduleEventStatusBtnCompleted {
+.statusBtnCompleted {
   color: var(--color-on-secondary-container);
   border: var(--stroke-width-2) solid var(--color-on-secondary-container);
 }
 
-.scheduleEventStatusBtnCompleted .scheduleEventStatusIcon {
+.statusBtnCompleted .statusIcon {
   color: var(--color-on-secondary-container);
 }
 
-.scheduleEventBody {
+.eventBody {
   display: flex;
   flex-direction: column;
-  gap: var(--spacing-md-plus);
+  gap: var(--spacing-xl);
 }
 
-.scheduleEventNotes {
+.eventNotes {
   color: var(--color-on-surface-variant);
+  margin-top: var(--spacing-md-plus);
 }
 
-.scheduleEventCollaboratorsWrapper {
+.collaboratorsWrapper {
   display: flex;
   column-gap: var(--spacing-md-plus);
   align-items: center;
   justify-content: space-between;
 }
 
-.scheduleEventCollaborators {
+.collaborators {
   display: flex;
   flex-direction: column;
   align-items: start;
   gap: var(--spacing-sm);
+
+  & .collaboratorsLabel {
+    font-weight: var(--font-weight-medium);
+  }
 }
 
-.scheduleEventPhoneBtn {
+.phoneBtn {
   align-self: flex-end;
   background-color: var(--color-primary);
   color: var(--color-on-primary);
 }
 
-.scheduleEventCollaboratorsNoResults {
+.collaboratorsEmpty {
   color: var(--color-on-surface-variant);
 }
 
-.scheduleEventFollowBtn {
+.followBtn {
   position: absolute;
   right: var(--spacing-md);
   bottom: var(--spacing-xl);
 }
 
-.scheduleEventFollowIcon {
+.followIcon {
   transition: transform var(--transition-base);
 }
 
-.scheduleEventFollowBtn:hover .scheduleEventFollowIcon {
+.followBtn:hover .followIcon {
   transform: translateX(var(--spacing-sm));
 }

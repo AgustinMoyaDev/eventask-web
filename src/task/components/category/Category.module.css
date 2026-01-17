@@ -1,6 +1,10 @@
 .categoryItem {
+  --category-height: 13rem;
+  --category-width: 10rem;
+
   display: flex;
   flex-direction: column;
+  flex-shrink: 0;
   color: var(--color-on-secondary-container);
   background: linear-gradient(
     135deg,
@@ -9,8 +13,8 @@
   );
   border-radius: var(--radius-md);
   padding: var(--spacing-lg);
-  min-height: 13rem;
-  min-width: 10rem;
+  height: var(--category-height);
+  width: var(--category-width);
   box-shadow: var(--elevation-1);
   cursor: pointer;
   position: relative;

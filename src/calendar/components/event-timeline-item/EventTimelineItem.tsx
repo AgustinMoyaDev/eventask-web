@@ -45,8 +45,10 @@ export const EventTimelineItem = ({ event, onEditEvent, onDeleteEvent }: Props) 
       </span>
 
       <div className={styles.eventTimelineContent}>
-        <h2 className="text-title-md">{title}</h2>
-        <h3 className={`text-title-sm ${styles.eventTimelineSubtitle}`}>{task?.title}</h3>
+        <h2 className={`text-title-md line-clamp-1 ${styles.eventTimelineTitle}`}>{title}</h2>
+        <h3 className={`text-title-sm line-clamp-1 ${styles.eventTimelineSubtitle}`}>
+          {task?.title}
+        </h3>
         <span className={styles.eventTimelineTime}>
           {`${dayjs(event.start).format('HH:mm')} hs - ${dayjs(event.end).format('HH:mm')} hs`}
         </span>

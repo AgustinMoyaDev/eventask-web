@@ -25,7 +25,7 @@ import { useMonthlyEventsActions } from '@/store/hooks/useMonthlyEventsActions'
  */
 export const useCalendar = () => {
   const { activeCalendarDay, resetActiveCalendarDay, year, month } = useCalendarActions()
-  const { monthlyEvents } = useMonthlyEventsActions(year, month + 1)
+  const { fetchingMonthlyEvents, monthlyEvents } = useMonthlyEventsActions(year, month + 1)
 
   // Generate the basic 42 CalendarDay grid
   const baseDays = useMemo(() => computeCalendar(month, year), [month, year])
@@ -91,5 +91,6 @@ export const useCalendar = () => {
     todayDateLabel,
     eventsForActiveDay,
     calendarDays,
+    fetchingMonthlyEvents,
   }
 }

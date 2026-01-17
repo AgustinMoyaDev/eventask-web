@@ -6,9 +6,10 @@ import { DraggableData } from '@/types/ui/dragNdrop'
 interface AvatarProps {
   user: IUser
   draggable?: DraggableData
+  className?: string
 }
 
-export const Avatar = ({ user, draggable }: AvatarProps) => {
+export const Avatar = ({ user, draggable, className }: AvatarProps) => {
   const { id, profileImageURL, firstName, lastName } = user
   const commonProps = {
     imageUrl: profileImageURL,
@@ -18,6 +19,7 @@ export const Avatar = ({ user, draggable }: AvatarProps) => {
 
   return draggable ? (
     <DraggableUserAvatar
+      className={className}
       data={{
         id,
         type: draggable.type,
@@ -29,7 +31,7 @@ export const Avatar = ({ user, draggable }: AvatarProps) => {
   ) : (
     <UserAvatar
       userId={id.toString()}
-      className="avatar"
+      className={className}
       ariaLabel={`${firstName} ${lastName} avatar`}
       {...commonProps}
     />

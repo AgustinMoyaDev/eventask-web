@@ -25,7 +25,9 @@ export const OngoingTask = ({ task }: TaskProps) => {
   return (
     <li className={styles.ongoingTask} key={id} onClick={handleClick}>
       <header className={styles.ongoingTaskHeader}>
-        <h3 className={`text-title-md ${styles.ongoingTaskTitle}`}>{title}&nbsp;</h3>
+        <h3 className={`text-title-md line-clamp-2 ${styles.ongoingTaskTitle}`} title={title}>
+          {title}
+        </h3>
         <CircularProgress progress={progress} />
       </header>
       {participants.length > 0 && (

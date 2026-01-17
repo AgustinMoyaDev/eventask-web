@@ -6,6 +6,123 @@ import { IUser } from '@/types/IUser'
 import { createFakeUser, createFakeUsers } from './userFactory'
 
 /**
+ * Capitalize first letter of a string
+ */
+function capitalize(text: string): string {
+  if (!text) return text
+  return text.charAt(0).toUpperCase() + text.slice(1)
+}
+
+/**
+ * Map categories to contextual event titles
+ */
+const CATEGORY_EVENT_GENERATORS: Record<string, () => string> = {
+  Meeting: () =>
+    faker.helpers.arrayElement([
+      `${faker.helpers.arrayElement(['Weekly', 'Monthly', 'Quarterly'])} team sync`,
+      `${faker.company.buzzNoun()} stakeholder meeting`,
+      `One-on-one with ${faker.person.firstName()}`,
+      `${faker.helpers.arrayElement(['Sprint', 'Project'])} retrospective`,
+    ]),
+  Review: () =>
+    faker.helpers.arrayElement([
+      `Code review session`,
+      `Performance review meeting`,
+      `Design review for ${faker.commerce.product()}`,
+      `Quarterly business review`,
+    ]),
+  Development: () =>
+    faker.helpers.arrayElement([
+      `Code review`,
+      `Pair programming session`,
+      `Architecture discussion`,
+      `Debug ${faker.hacker.noun()}`,
+      `Sprint planning`,
+    ]),
+  Design: () =>
+    faker.helpers.arrayElement([
+      `Design critique`,
+      `Mockup review session`,
+      `UI component workshop`,
+      `UX feedback meeting`,
+      `Design system sync`,
+    ]),
+  Marketing: () =>
+    faker.helpers.arrayElement([
+      `Campaign brainstorm`,
+      `Content planning session`,
+      `Analytics review`,
+      `Social media strategy meeting`,
+      `Brand workshop`,
+    ]),
+  Sales: () =>
+    faker.helpers.arrayElement([
+      `Client discovery call`,
+      `Demo presentation`,
+      `Sales pipeline review`,
+      `Proposal discussion`,
+      `Follow-up meeting`,
+    ]),
+  Support: () =>
+    faker.helpers.arrayElement([
+      `Customer onboarding call`,
+      `Troubleshooting session`,
+      `Support ticket review`,
+      `Technical assistance`,
+      `Escalation handling`,
+    ]),
+  Research: () =>
+    faker.helpers.arrayElement([
+      `User interview`,
+      `Data analysis session`,
+      `Research presentation`,
+      `Findings review`,
+      `Competitive analysis meeting`,
+    ]),
+  Planning: () =>
+    faker.helpers.arrayElement([
+      `Sprint planning`,
+      `Roadmap discussion`,
+      `Resource allocation meeting`,
+      `Strategy session`,
+      `Quarterly planning`,
+    ]),
+  Testing: () =>
+    faker.helpers.arrayElement([
+      `QA testing session`,
+      `Bug triage meeting`,
+      `Test plan review`,
+      `Automation discussion`,
+      `Performance testing`,
+    ]),
+  Documentation: () =>
+    faker.helpers.arrayElement([
+      `Documentation review`,
+      `Writing session`,
+      `Content sync`,
+      `Knowledge sharing`,
+      `API docs review`,
+    ]),
+  Deployment: () =>
+    faker.helpers.arrayElement([
+      `Deployment planning`,
+      `Release review`,
+      `Production sync`,
+      `Rollback discussion`,
+      `Infrastructure meeting`,
+    ]),
+}
+
+/**
+ * Generate contextual event title
+ */
+function generateEventTitle(categoryName?: string): string {
+  if (!categoryName) return faker.lorem.words(3)
+  const generator = CATEGORY_EVENT_GENERATORS[categoryName]
+  return generator ? capitalize(generator()) : capitalize(faker.lorem.words(3))
+}
+
+/**
  * Rounds a date to the nearest 15-minute interval.
  * Useful for creating realistic event times (09:00, 09:15, 09:30, 09:45)
  *
@@ -160,7 +277,8 @@ export function createFakeEvents(
 export function createSequentialEvents(
   count: number,
   overwrites: Partial<IEvent> = {},
-  availableUsers?: IUser[]
+  availableUsers?: IUser[],
+  categoryName?: string
 ): IEvent[] {
   const events: IEvent[] = []
   let currentDate = roundToQuarterHour(faker.date.soon({ days: 1 }))
@@ -177,6 +295,7 @@ export function createSequentialEvents(
         ...overwrites,
         start: startDate.toISOString(),
         end: endDate.toISOString(),
+        title: generateEventTitle(categoryName),
       },
       availableUsers
     )

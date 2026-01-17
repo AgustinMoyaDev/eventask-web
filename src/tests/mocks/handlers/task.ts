@@ -14,7 +14,7 @@ import {
   MOCK_TASKS,
 } from '../data/mockData'
 import { DELAYS } from '../utils/delays'
-import { createFakeTask } from '../factories/taskFactory'
+import { calculateTaskDuration, createFakeTask } from '../factories/taskFactory'
 
 /**
  * Task domain handlers
@@ -203,6 +203,7 @@ export const taskHandlers = [
       events: updatedEvents,
       eventsIds: newEventIds,
       updatedAt: new Date(),
+      duration: calculateTaskDuration(updatedEvents),
     })
 
     MOCK_TASKS[taskIndex] = updatedTask

@@ -39,3 +39,9 @@
   place-content: center;
   height: var(--schedule-no-events-height);
 }
+
+@media screen and (max-width: 600px) {
+  .schedule {
+    grid-template-columns: 2rem 1fr;
+  }
+}

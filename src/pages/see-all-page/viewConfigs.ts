@@ -86,7 +86,7 @@ export const VIEW_CONFIGS: SpecificViewConfigs = {
     createActions: navigate => ({
       onView: id => navigate(`/task/${id}`),
       onEdit: id => navigate(`/task-form/${id}`),
-      onDelete: id => console.log('Delete task', id), // TODO: Implement modal
+      // onDelete: id => console.log('Delete task', id), // TODO: Implement modal
     }),
   },
   [ViewType.CATEGORIES]: {

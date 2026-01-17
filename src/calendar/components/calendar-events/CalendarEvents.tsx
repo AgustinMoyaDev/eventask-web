@@ -29,8 +29,9 @@ export const CalendarEvents = () => {
   const navigate = useNavigate()
   const { isOpen, open, close } = useModalActions(ModalIds.Confirm)
   const { activeCalendarDay } = useCalendarActions()
-  const { fetching, activeEvent, setActiveEvent, clearActiveEvent, deleteEvent } = useEventActions()
-  const { eventsForActiveDay, activeCalendarDayName, fullDateLabel } = useCalendar()
+  const { activeEvent, setActiveEvent, clearActiveEvent, deleteEvent } = useEventActions()
+  const { fetchingMonthlyEvents, eventsForActiveDay, activeCalendarDayName, fullDateLabel } =
+    useCalendar()
 
   const handleClickDeleteEvent = useCallback(
     (id: string) => {
@@ -70,11 +71,15 @@ export const CalendarEvents = () => {
     ))
   }, [eventsForActiveDay, handleClickEditEvent, handleClickDeleteEvent])
 
-  return fetching ? (
+  return fetchingMonthlyEvents ? (
     <CalendarEventsSkeleton />
   ) : (
     <aside className={styles.calendarEvents}>
-      {!activeCalendarDay && <span className={styles.calendarEventsEmpty}>No day selected</span>}
+      {!activeCalendarDay && (
+        <span className={styles.calendarEventsEmpty} role="status" aria-live="polite">
+          No day selected
+        </span>
+      )}
 
       <header className={styles.calendarEventsHeader}>
         <span className={styles.calendarEventsHeaderDay}>{activeCalendarDayName}</span>

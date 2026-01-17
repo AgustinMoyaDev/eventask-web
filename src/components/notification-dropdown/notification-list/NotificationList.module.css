@@ -1,4 +1,5 @@
-.notificationDropdownContent {
+.content {
+  --dropdown-header-height: 3.75rem;
   --dropdown-list-height: 20rem;
   --dropdown-content-height: 30rem;
 
@@ -6,7 +7,8 @@
   overflow: hidden;
 }
 
-.notificationDropdownHeader {
+.header {
+  height: var(--dropdown-header-height);
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -14,11 +16,12 @@
   border-bottom: var(--stroke-width-1) solid var(--color-outline);
 }
 
-.notificationDropdownTitle {
+.title {
   font-weight: var(--font-weight-medium);
+  font-size: var(--font-title-md-size);
 }
 
-.notificationDropdownMarkAll {
+.markAll {
   background: none;
   border: none;
   color: var(--color-primary);
@@ -29,23 +32,26 @@
   transition: background-color var(--transition-base);
 }
 
-.notificationDropdownMarkAll:hover {
+.markAll:hover {
   background-color: var(--color-primary-container);
 }
 
-.notificationDropdownList {
+.list {
   max-height: var(--dropdown-list-height);
   overflow-y: auto;
 }
 
-.notificationDropdownLoading,
-.notificationDropdownEmpty {
+.loading,
+.empty {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
   padding: var(--spacing-lg);
   text-align: center;
   color: var(--color-on-surface-variant);
 }
 
-.notificationDropdownItem {
+.item {
   display: flex;
   align-items: center;
   gap: var(--spacing-sm-plus);
@@ -56,7 +62,7 @@
   position: relative;
 }
 
-.notificationDropdownItem::before {
+.item::before {
   content: '';
   position: absolute;
   inset: 0;
@@ -67,31 +73,31 @@
   border-radius: inherit;
 }
 
-.notificationDropdownItem:hover::before {
+.item:hover::before {
   opacity: var(--state-layer-hover-opacity);
 }
 
-.notificationDropdownItem:last-child {
+.item:last-child {
   border-bottom: none;
 }
 
-.notificationDropdownItemUnread {
+.itemUnread {
   background-color: var(--color-primary-container);
 }
 
-.notificationDropdownItemUnread:hover {
+.itemUnread:hover {
   background-color: var(--color-primary-container);
   border-color: var(--color-secondary);
 }
 
-.notificationDropdownItemContent {
+.itemContent {
   flex: 1;
   min-width: 0;
 }
 
 /* If the text fits on 2 lines, it is displayed in full.
 If it exceeds that, it is truncated with "...". */
-.notificationDropdownItemMessage {
+.itemMessage {
   display: block;
   color: var(--color-on-surface-variant);
   margin-bottom: var(--spacing-xs);
@@ -103,12 +109,12 @@ If it exceeds that, it is truncated with "...". */
   -webkit-box-orient: vertical;
 }
 
-.notificationDropdownItemTime {
+.itemTime {
   display: block;
   color: var(--color-on-surface-variant);
 }
 
-.notificationDropdownItemUnreadDot {
+.itemUnreadDot {
   position: absolute;
   top: var(--spacing-sm-plus);
   right: var(--spacing-sm-plus);
@@ -119,23 +125,23 @@ If it exceeds that, it is truncated with "...". */
   flex-shrink: 0;
 }
 
-.notificationDropdownItemStatus {
+.itemStatus {
   color: var(--color-on-surface-variant);
 }
 
-.notificationDropdownFooter {
+.footer {
   border-top: var(--stroke-width-1) solid var(--color-outline-variant);
   background: var(--color-surface-container);
 }
 
-.notificationDropdownViewAll {
+.viewAll {
   width: 100%;
   color: var(--color-primary);
   font-weight: var(--font-weight-medium);
   transition: background-color var(--transition-fast);
 }
 
-.notificationDropdownItemIcon {
+.itemIcon {
   display: flex;
   justify-content: center;
   align-items: center;

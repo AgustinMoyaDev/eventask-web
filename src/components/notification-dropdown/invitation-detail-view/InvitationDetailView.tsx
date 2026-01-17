@@ -33,39 +33,39 @@ export const InvitationDetailView = ({ notification, onBack }: InvitationDetailV
   }
 
   return (
-    <section className={styles.notificationDropdownInvitationDetail}>
-      <header className={styles.notificationDropdownDetailHeader}>
+    <section className={styles.detail}>
+      <header className={styles.header}>
         <Button
+          size="sm"
           variant="icon"
-          className={styles.notificationDropdownBackButton}
           onClick={handleBackClick}
           aria-label="Back to notifications"
         >
-          <ArrowLeftIcon size={20} />
+          <ArrowLeftIcon />
         </Button>
-        <h3>Contact Invitation</h3>
+        <h3 className="text-title-md">Contact Invitation</h3>
       </header>
 
-      <section className={styles.notificationDropdownDetailContent}>
-        <header className={styles.notificationDropdownInvitationInfo}>
-          <span className={styles.notificationDropdownInvitationTitle}>{notification.title}</span>
-          <p className={styles.notificationDropdownInvitationMessage}>{notification.message}</p>
+      <section className={styles.content}>
+        <header className={styles.headerInfo}>
+          <span className={styles.title}>{notification.title}</span>
+          <p className={styles.message}>{notification.message}</p>
         </header>
 
-        <div className={styles.notificationDropdownInvitationActions}>
+        <div className={styles.actions}>
           <Button
+            size="sm"
             variant="filled"
             onClick={handleAccept}
             disabled={accepting || rejecting}
-            className={styles.notificationDropdownAcceptButton}
           >
             {accepting ? 'Accepting...' : 'Accept'}
           </Button>
           <Button
+            size="sm"
             variant="outlined"
             onClick={handleReject}
             disabled={rejecting || accepting}
-            className={styles.notificationDropdownRejectButton}
           >
             {rejecting ? 'Rejecting...' : 'Reject'}
           </Button>

@@ -25,9 +25,11 @@
   border-radius: var(--radius-md) var(--radius-md) 0 0;
 }
 
-.tableHeadRow {
+.tableHeadRow,
+.tableBodyRow {
   display: flex;
   justify-content: space-between;
+  padding-inline: var(--spacing-sm);
 }
 
 .tableHeader {
@@ -47,8 +49,6 @@
 }
 
 .tableBodyRow {
-  display: flex;
-  justify-content: space-between;
   align-items: center;
   height: var(--table-row-height);
 

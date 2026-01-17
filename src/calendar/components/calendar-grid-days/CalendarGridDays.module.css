@@ -6,27 +6,8 @@
   display: flex;
   flex-direction: column;
   row-gap: var(--spacing-xs);
-  flex: 1 1 75%;
+  width: 100%;
   box-shadow: var(--elevation-2);
-}
-
-.calendar::after,
-.calendar::before {
-  content: '';
-  position: absolute;
-  width: 7px;
-  height: 96%;
-  top: 50%;
-  right: 100%;
-  transform: translateY(-50%);
-  border-radius: var(--radius-sm) 0 0 var(--radius-sm);
-  background-color: var(--color-page-1-calendar);
-}
-
-.calendar::before {
-  height: 92%;
-  right: calc(100% + 5px);
-  background-color: var(--color-page-2-calendar);
 }
 
 .calendarHeader {
@@ -89,7 +70,7 @@
 
 .calendarDayActive,
 .calendarDay {
-  border-radius: 50%;
+  border-radius: var(--radius-full);
 }
 
 .calendarDayPrev,
@@ -150,6 +131,29 @@
 }
 
 @media screen and (min-width: 576px) {
+  .calendar {
+    margin-right: 40%;
+  }
+
+  .calendar::after,
+  .calendar::before {
+    content: '';
+    position: absolute;
+    width: 7px;
+    height: 96%;
+    top: 50%;
+    right: 100%;
+    transform: translateY(-50%);
+    border-radius: var(--radius-sm) 0 0 var(--radius-sm);
+    background-color: var(--color-page-1-calendar);
+  }
+
+  .calendar::before {
+    height: 92%;
+    right: calc(100% + 5px);
+    background-color: var(--color-page-2-calendar);
+  }
+
   .calendarDay::before {
     inset: 3%;
   }

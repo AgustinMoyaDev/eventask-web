@@ -1,14 +1,18 @@
 .calendarEvents {
   --events-header-height: 3rem;
-  --events-timeline-height: 15rem;
   --calendar-events-empty-height: 7rem;
+  --max-calendar-events-height: 48rem;
+  --min-calendar-events-height: 10rem;
+  --height: 48rem;
 
   margin-block: var(--spacing-md) 0;
-  flex: 1 1 50%;
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   width: 100%;
+  max-height: var(--max-calendar-events-height);
+  min-height: var(--min-calendar-events-height);
 }
 
 .calendarEventsHeader {
@@ -22,7 +26,8 @@
     95%,
     transparent
   );
-  height: var(--events-header-height);
+  font-weight: var(--font-weight-medium);
+  min-height: var(--events-header-height);
   padding-inline: var(--spacing-md-plus);
   display: flex;
   align-items: center;
@@ -30,18 +35,35 @@
 }
 
 .eventsTimeline {
-  margin-block: var(--spacing-md);
+  min-height: var(--events-timeline-height);
+  padding-block: var(--spacing-md);
   overflow-y: auto;
   display: flex;
   flex-direction: column;
+  align-items: center;
   row-gap: var(--spacing-lg);
-  min-height: var(--events-timeline-height);
+  flex: 1;
+  --fade-height: 1rem;
+
+  mask-image: linear-gradient(
+    to bottom,
+    var(--color-surface) calc(100% - var(--fade-height)),
+    transparent 100%
+  );
 }
 
 .calendarEventsEmpty,
 .eventsTimelineEmpty {
-  display: grid;
-  place-content: center;
   height: var(--events-timeline-empty-height);
   color: var(--color-on-surface-variant);
+}
+
+@media screen and (min-width: 950px) {
+  .calendarEvents {
+    position: absolute;
+    top: 4%;
+    bottom: 5%;
+    right: 0;
+    width: 40%;
+  }
 }
