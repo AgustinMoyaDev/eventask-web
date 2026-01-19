@@ -17,27 +17,36 @@
 
 ---
 
+## 📸 Interface Preview
+
+![App Preview](public/images/landing/preview-eventask.webp)
+
+---
+
 ## 🌐 Live Demo
 
 <div align="center">
 
 ### 🚀 Production
+
 [![Netlify Status](https://api.netlify.com/api/v1/badges/c9c092ac-e9c4-46c9-a48c-76f3b733c0e7/deploy-status)](https://app.netlify.com/projects/prod-eventask/deploys)
 
 **[prod-eventask.netlify.app](https://prod-eventask.netlify.app)**
 
-*Full-stack deployment with real backend (may take 30-60s for cold start)*
+_Full-stack deployment with real backend (may take 30-60s for cold start)_
 
 ---
 
 ### 🎭 Demo Mode
+
 [![Netlify Status](https://api.netlify.com/api/v1/badges/c60310ae-fad5-464a-a482-7c0823f09409/deploy-status)](https://app.netlify.com/projects/demo-eventask/deploys)
 
 **[demo-eventask.netlify.app](https://demo-eventask.netlify.app)**
 
-*Fully functional offline demo with MSW mocks (instant load, no backend required)*
+_Fully functional offline demo with MSW mocks (instant load, no backend required)_
 
 **Demo Credentials:**
+
 ```
 Email: demo@eventask.com
 Password: mock-password
@@ -63,10 +72,6 @@ Password: mock-password
 - **App Shell Architecture**: Instant initial load perception using Skeleton screens instead of blocking spinners
 
 The application is designed with a scalable architecture, following **Material Design 3** principles, with full support for **light/dark themes** and a strong focus on **accessibility (a11y)**.
-
----
-
-<!-- ## 📸 Interface Preview -->
 
 ---
 
@@ -242,18 +247,21 @@ Demo mode intercepts API calls and responds with realistic fake data generated b
 ### Implementation
 
 **Mock Data** (`src/tests/mocks/data/mockData.ts`):
+
 - Tasks with events
 - Notifications with varied statuses
 - Categories
 - Contacts
 
 **Handlers** (`src/tests/mocks/handlers/`):
+
 - Network delay simulation (FAST/NORMAL/SLOW)
 - Circular reference handling (tasks ↔ events)
 - Progress recalculation on event status change
 - Cascade operations (delete task → delete events)
 
 **Factories** (`src/tests/mocks/factories/`):
+
 - Faker.js data generators for realistic content
 - Overrides support for custom data
 - Coherent relationships between entities
@@ -352,12 +360,14 @@ All design tokens (colors, typography, spacing, elevation, border radius, state 
 ### Theming
 
 **Light/Dark Mode:**
+
 - System preference detection
 - Persisted in localStorage
 - Instant switching via `data-theme` attribute
 - CSS variables cascade automatically
 
 **Visual Effects:**
+
 - Gradient backgrounds with color-mix
 - Noise texture overlays for depth
 - Shimmer animations on cards
@@ -366,6 +376,7 @@ All design tokens (colors, typography, spacing, elevation, border radius, state 
 ### Accessibility
 
 **WCAG AA Compliance:**
+
 - 4.5:1 minimum contrast ratio
 - Keyboard navigation with visible focus rings
 - Semantic HTML with ARIA labels
@@ -396,6 +407,7 @@ pnpm test:ci    # With coverage report
 ```
 
 **Coverage includes:**
+
 - Form components (Input, Textarea, MultiSelect, EventForm)
 - Feedback (Toast, Modal, LinearProgress, Loader)
 - Interactive (Dropdowns, Avatars, DnD components)
@@ -410,6 +422,7 @@ EvenTask implements multiple layers of security to protect user data and prevent
 ### Authentication Strategy
 
 **JWT Token System:**
+
 - **Access Token**: Short-lived (15min), stored in memory (Redux state)
 - **Refresh Token**: Long-lived (7 days), HTTP-only cookie
 - **Auto-Refresh**: 401 responses trigger automatic token refresh with promise deduplication
@@ -447,6 +460,7 @@ EvenTask implements multiple layers of security to protect user data and prevent
 **Production-ready components** with full TypeScript typing, ARIA compliance, and theme-aware styling (CSS variables).
 
 **Design Principles:**
+
 - Composition over configuration
 - Accessibility first (ARIA, keyboard navigation)
 - Performance optimized (memoization, lazy loading)
@@ -459,13 +473,16 @@ EvenTask implements multiple layers of security to protect user data and prevent
 **Socket.io WebSocket integration** with JWT authentication and auto-reconnect (max 5 attempts).
 
 **Connection Management:**
+
 - Manual control (connects on login, disconnects on logout)
 - Token refresh on connection errors
-- State exposed via `SocketContext` (isConnected, socketId)****
+- State exposed via `SocketContext` (isConnected, socketId)\*\*\*\*
 - Foundation ready for domain-specific event **handlers**
 
 ---
-****
+
+---
+
 ## 📝 Code Conventions
 
 EvenTask follows strict coding standards enforced by **ESLint**, **TypeScript strict mode**, and **Prettier**. Configuration files: `eslint.config.js`, `tsconfig.json`, `.prettierrc`.
@@ -473,11 +490,13 @@ EvenTask follows strict coding standards enforced by **ESLint**, **TypeScript st
 ### Key **Standards**
 
 **TypeScript:**
+
 - Strict mode enabled (no `any`, null checks, explicit returns)
 - Type-first development with interfaces and generics
 - Typed Redux hooks and RTK Query endpoints
 
 **Naming:**
+
 - Components: PascalCase (`Button.tsx`)
 - Hooks: camelCase with `use` prefix (`useForm.ts`)
 - Types/Interfaces: PascalCase with `I` prefix (`ITask.ts`)
@@ -485,12 +504,14 @@ EvenTask follows strict coding standards enforced by **ESLint**, **TypeScript st
 - Variables/Functions: camelCase with descriptive verbs
 
 **File Organization:**
+
 - Component structure: Types → Component → Exports
 - Import order: External → Internal (aliases) → Relative → Styles
 - Tests co-located with components
 - Named exports preferred over default exports
 
 **Patterns:**
+
 - Functional components with explicit TypeScript types
 - Props destructuring with defaults
 - Redux slices with EntityAdapter for normalized state
@@ -500,6 +521,7 @@ EvenTask follows strict coding standards enforced by **ESLint**, **TypeScript st
 - Descriptive test names following "should + behavior" pattern
 
 **Auto-formatting:**
+
 ```bash
 pnpm format  # Prettier
 pnpm lint    # ESLint
