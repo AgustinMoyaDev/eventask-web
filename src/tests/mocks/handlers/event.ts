@@ -55,7 +55,8 @@ export const eventHandlers = [
       total: filteredEvents.length,
     }
 
-    return HttpResponse.json(response)
+    const cleanItems = response.events.map(({ task: _, ...evt }) => evt)
+    return HttpResponse.json({ ...response, events: cleanItems })
   }),
   /**
    * PUT /api/events/:id - Update event

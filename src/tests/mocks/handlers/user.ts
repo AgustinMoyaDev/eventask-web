@@ -38,7 +38,7 @@ export const userHandlers = [
     }
 
     // Simulate upload success with fake URL
-    const fakeImageUrl = `https://api.dicebear.com/9.x/initials/svg?seed=${MOCK_LOGGED_USER.firstName}${MOCK_LOGGED_USER.lastName}`
+    const fakeImageUrl = `https://api.dicebear.com/9.x/initials/svg?backgroundColor=b6e3f4,c0aede,d1d4f9&seed=${MOCK_LOGGED_USER.firstName}${MOCK_LOGGED_USER.lastName}`
     MOCK_LOGGED_USER.profileImageURL = fakeImageUrl
 
     return HttpResponse.json({ profileImageURL: fakeImageUrl })
