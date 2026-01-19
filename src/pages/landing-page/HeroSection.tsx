@@ -43,7 +43,7 @@ export const HeroSection = () => {
       <div className={styles.heroImageWrapper}>
         <img
           className={styles.heroImage}
-          src="/images/landing/capture-2.webp"
+          src="/preview-eventask.webp"
           alt="TaskApp interface preview"
         />
       </div>
