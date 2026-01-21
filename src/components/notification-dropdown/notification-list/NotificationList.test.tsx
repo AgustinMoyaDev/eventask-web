@@ -204,19 +204,24 @@ describe('NotificationList', () => {
     expect(screen.getByText('Rejected')).toBeInTheDocument()
   })
 
-  it('should show "View all notifications" link when there are 2 or more notifications', () => {
+  it('should show "View all notifications" link when there are 4 or more notifications', () => {
     render(
       <MemoryRouter>
         <NotificationList
-          unreadCount={2}
-          notifications={[baseNotification, readNotification]}
+          unreadCount={4}
+          notifications={[
+            baseNotification,
+            readNotification,
+            acceptedNotification,
+            rejectedNotification,
+          ]}
           markAsRead={markAsRead}
           markAllAsRead={markAllAsRead}
           fetchingNotifications={false}
         />
       </MemoryRouter>
     )
-    expect(screen.getByRole('link', { name: /view all notifications/i })).toBeInTheDocument()
+    expect(screen.getByRole('menuitem', { name: /view all notifications/i })).toBeInTheDocument()
   })
 
   vi.mock('@/services/invitationApi', () => ({

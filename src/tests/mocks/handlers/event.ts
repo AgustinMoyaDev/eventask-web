@@ -55,7 +55,13 @@ export const eventHandlers = [
       total: filteredEvents.length,
     }
 
-    const cleanItems = response.events.map(({ task: _, ...evt }) => evt)
+    const cleanItems = response.events.map(event => {
+      const { task, ...evt } = event
+      return {
+        ...evt,
+        task: task ? { id: task.id, title: task.title } : undefined,
+      }
+    })
     return HttpResponse.json({ ...response, events: cleanItems })
   }),
   /**

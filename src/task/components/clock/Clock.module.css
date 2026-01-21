@@ -3,4 +3,5 @@
   font-weight: var(--font-weight-bold);
   font-size: var(--font-body-lg-size);
   white-space: nowrap;
+  margin-block: auto;
 }

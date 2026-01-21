@@ -13,14 +13,20 @@ import { ScheduleEvent } from '../schedule-event/ScheduleEvent'
 import { useRowHeight } from './hooks/useRowHeight'
 
 import styles from './Schedule.module.css'
+import dayjs from 'dayjs'
 
-export const Schedule = ({ segmentsForDay, onRequestNextDay }: ScheduleProps) => {
+export const Schedule = ({ isToday, segmentsForDay, onRequestNextDay }: ScheduleProps) => {
   const timescaleRef = useRef<HTMLElement>(null)
   const labelRef = useRef<HTMLElement>(null)
   const { rowHeight, labelHeight } = useRowHeight(timescaleRef, labelRef)
   const visualRowHeight = rowHeight
   const hoursSchedule = getHoursSchedule(segmentsForDay)
   const initialLocation = hoursSchedule[0] ?? 0
+
+  // Calculate current timeline position
+  const now = dayjs()
+  const currentHour = now.hour() + now.minute() / 60
+  const currentTimeTop = (currentHour - initialLocation) * visualRowHeight + labelHeight / 2
 
   const transitionKey =
     segmentsForDay
@@ -32,11 +38,9 @@ export const Schedule = ({ segmentsForDay, onRequestNextDay }: ScheduleProps) =>
       <DropZone itemId="remove-collaborator" itemType={DROPPABLE_ITEM_TARGET.TRASH} label="Remove">
         <aside className={styles.scheduleTimescale} ref={timescaleRef} aria-hidden="true">
           {hoursSchedule.map(h => (
-            <small
-              ref={labelRef}
-              key={h}
-              className={styles.scheduleTimescaleLabel}
-            >{`${h}:00`}</small>
+            <small ref={labelRef} key={h} className={styles.scheduleTimescaleLabel}>
+              {dayjs().hour(h).format('h A')}
+            </small>
           ))}
         </aside>
       </DropZone>
@@ -45,9 +49,16 @@ export const Schedule = ({ segmentsForDay, onRequestNextDay }: ScheduleProps) =>
         className={clsx(styles.scheduleEventList, styles.scheduleEventListAnimate)}
         role="list"
       >
+        {isToday && (
+          <div className={styles.currentTimeLine} style={{ top: `${currentTimeTop}px` }}>
+            <div className={styles.currentTimeMarker} />
+          </div>
+        )}
+
         {segmentsForDay.length === 0 && (
           <div className={styles.scheduleNoEvents}>No events scheduled</div>
         )}
+
         {segmentsForDay.map((segment, index) => {
           return (
             <ScheduleEvent

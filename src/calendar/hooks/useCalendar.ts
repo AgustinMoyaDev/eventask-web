@@ -78,8 +78,8 @@ export const useCalendar = () => {
     const activeDate = dayjs().year(year).month(month).date(day)
 
     return {
-      todayDateLabel: dayjs().format('ddd, DD MMMM'),
-      fullDateLabel: activeDate.format('DD MMM YYYY'),
+      todayDateLabel: dayjs().format('ddd, MMM DD'),
+      fullDateLabel: activeDate.format('MMM DD, YYYY'),
       activeCalendarDayName: activeDate.format('dddd'),
     }
   }, [activeCalendarDay])

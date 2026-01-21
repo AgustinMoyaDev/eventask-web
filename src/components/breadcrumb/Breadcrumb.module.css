@@ -1,14 +1,16 @@
 .breadcrumb {
-  position: fixed;
+  position: sticky;
+  top: var(--header-height);
   width: 100%;
   overflow: hidden;
-  z-index: var(--z-normal);
+  z-index: var(--z-tooltip);
   background-color: var(--color-surface-hsla);
+  backdrop-filter: blur(10px);
   display: flex;
   align-items: center;
   padding-inline: var(--spacing-lg);
   min-height: var(--breadcrumb-height);
-  transition: opacity 0.3s ease;
+  transition: opacity var(--transition-base);
 }
 
 .breadcrumbHidden {
@@ -32,14 +34,13 @@
 
 .breadcrumbLink {
   color: var(--color-primary);
-  text-decoration: none;
   font-weight: var(--font-weight-medium);
   padding: var(--spacing-xs) 0;
-  transition: color 0.3s;
+  transition: color var(--transition-base);
 }
 
 .breadcrumbLink:hover {
-  color: var(--color-primary);
+  text-decoration: underline;
 }
 
 .breadcrumbCurrent {

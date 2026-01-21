@@ -7,6 +7,7 @@ import clsx from 'clsx'
 
 export const HeroSection = () => {
   const navigate = useNavigate()
+  const heroImg = '/images/landing/preview-eventask.webp'
 
   return (
     <section className={styles.hero}>
@@ -41,11 +42,7 @@ export const HeroSection = () => {
       </div>
 
       <div className={styles.heroImageWrapper}>
-        <img
-          className={styles.heroImage}
-          src="/preview-eventask.webp"
-          alt="TaskApp interface preview"
-        />
+        <img className={styles.heroImage} src={heroImg} alt="EvenTask app interface preview" />
       </div>
     </section>
   )

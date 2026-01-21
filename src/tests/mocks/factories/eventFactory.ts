@@ -1,6 +1,6 @@
 import { faker } from '@faker-js/faker'
 
-import { EVENT_STATUS, EventStatus, IEvent } from '@/types/IEvent'
+import { EVENT_STATUS, IEvent } from '@/types/IEvent'
 import { IUser } from '@/types/IUser'
 
 import { createFakeUser, createFakeUsers } from './userFactory'
@@ -200,8 +200,7 @@ export function createFakeEvent(
     : new Date(startDate.getTime() + durationMs)
 
   // Generate status
-  const status: EventStatus =
-    overwrites.status ?? faker.helpers.arrayElement(Object.values(EVENT_STATUS))
+  const status = overwrites.status ?? faker.helpers.arrayElement(Object.values(EVENT_STATUS))
 
   const {
     id = faker.string.uuid(),
@@ -288,6 +287,7 @@ export function createSequentialEvents(
     const durationHours = faker.number.int({ min: 1, max: 8 })
     const startDate = new Date(currentDate)
     const endDate = new Date(startDate.getTime() + durationHours * 60 * 60 * 1000)
+    const status = overwrites.status ?? faker.helpers.arrayElement(Object.values(EVENT_STATUS))
 
     // Create event with calculated dates
     const event = createFakeEvent(
@@ -296,6 +296,7 @@ export function createSequentialEvents(
         start: startDate.toISOString(),
         end: endDate.toISOString(),
         title: generateEventTitle(categoryName),
+        status,
       },
       availableUsers
     )

@@ -4,7 +4,7 @@ export const breadcrumbMap: Record<string, string | ((params: Record<string, str
   {
     '/home': 'Home',
     '/see-all': 'Overview',
-    '/task/:id': ({ id }) => `Task ID: ...${id.slice(20, id.length)}`,
+    '/task/:id': ({ id }) => `Task ID: ...${id.slice(30, id.length)}`,
     '/task-form': 'New task form',
     '/task-form/:id': 'Edit task form',
     '/calendar': 'Calendar',

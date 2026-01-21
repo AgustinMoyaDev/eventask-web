@@ -11,8 +11,8 @@ import {
 
 import { useSidebarContext } from '../context/sidebar/SidebarContext'
 
-import { Sidebar } from '../components/sidebar/Sidebar'
-import { GenericContentSkeleton } from '../components/skeletons/GenericContentSkeleton'
+import { Sidebar } from '@/components/sidebar/Sidebar'
+import { GenericContentSkeleton } from '@/components/skeletons/GenericContentSkeleton'
 
 import styles from './RootLayout.module.css'
 

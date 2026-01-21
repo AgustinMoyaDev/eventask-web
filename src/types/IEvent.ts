@@ -6,7 +6,7 @@ import { IUser } from './IUser'
 export const EVENT_STATUS = {
   // ACTIVE: 'active',
   PENDING: 'pending',
-  PROGRESS: 'in-progress',
+  // PROGRESS: 'in-progress',
   COMPLETED: 'done',
 } as const
 

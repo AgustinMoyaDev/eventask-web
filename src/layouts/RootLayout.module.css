@@ -1,7 +1,6 @@
 .rootLayout {
   display: flex;
   min-height: 100%;
-  margin-top: var(--spacing-xl);
   overflow: hidden;
 }
 

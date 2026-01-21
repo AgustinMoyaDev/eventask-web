@@ -15,6 +15,7 @@ import { useTransitionPage } from '@/hooks/useTransitionPage'
 
 import { Header } from '@/components/header/Header'
 import { Breadcrumb } from '@/components/breadcrumb/Breadcrumb'
+import { Footer } from '@/components/footer/Footer'
 import { AuthBlob } from '@/auth/components/auth-blob/AuthBlob'
 import { AppShellSkeleton } from '@/layouts/AppShellSkeleton'
 
@@ -23,6 +24,8 @@ import { LandingPage } from '@/pages/landing-page/LandingPage'
 
 import { PublicRoute } from './PublicRoute'
 import { PrivateRoute } from './PrivateRoute'
+
+import styles from './AppRouter.module.css'
 
 export const AppRouter = () => {
   const { status, refresh } = useAuthActions()
@@ -52,11 +55,14 @@ export const AppRouter = () => {
   if (isAuthChecking) return <AppShellSkeleton />
 
   return (
-    <>
+    <div className={styles.appContainer}>
       {showAuthBlob && <AuthBlob />}
       {showHeader && <Header />}
       {showBreadcrumb && <Breadcrumb />}
-      <main className={clsx('main', transitionPage)} onAnimationEnd={handleTransitionEnd}>
+      <main
+        className={clsx('main', styles.mainContent, transitionPage)}
+        onAnimationEnd={handleTransitionEnd}
+      >
         <Routes location={displayLocation} key={displayLocation.pathname + displayLocation.search}>
           {/* PUBLIC ROUTES */}
           <Route path="/" element={authenticatedBaseUrlElement} />
@@ -93,6 +99,7 @@ export const AppRouter = () => {
           <Route path="*" element={<Navigate to="/not-found" replace />} />
         </Routes>
       </main>
-    </>
+      <Footer />
+    </div>
   )
 }
