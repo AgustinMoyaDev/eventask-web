@@ -35,6 +35,7 @@ const TaskDetailPage = () => {
   const { assignCollaborator, removeCollaborator } = useEventActions()
 
   const [selectedDate, setSelectedDate] = useState(dayjs())
+  const isToday = selectedDate.isSame(dayjs(), 'day')
   const [draggedData, setDraggedData] = useState<ParticipantDragData | undefined>(undefined)
 
   const [allSegments, segmentsForDay] = useMemo(() => {
@@ -113,6 +114,7 @@ const TaskDetailPage = () => {
         onSelectDate={setSelectedDate}
       />
       <Schedule
+        isToday={isToday}
         segmentsForDay={segmentsForDay}
         onRequestNextDay={() => setSelectedDate(selectedDate.add(1, 'day'))}
       />

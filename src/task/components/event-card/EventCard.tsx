@@ -13,8 +13,8 @@ import styles from './EventCard.module.css'
 export const EventCard = ({ event, onEdit, onDelete }: EventCardProps) => {
   const { id, status, title, start, end, notes } = event
 
-  const formattedStart = `${dayjs(start).format('MMM-DD HH:mm')} h`
-  const formattedEnd = `${dayjs(end).format('MMM-DD HH:mm')} h`
+  const formattedStart = dayjs(start).format('MMM DD, h:mm A')
+  const formattedEnd = dayjs(end).format('MMM DD, h:mm A')
   const formattedNotes = notes.length > 30 ? `${notes.slice(0, 30)}...` : notes
 
   return (

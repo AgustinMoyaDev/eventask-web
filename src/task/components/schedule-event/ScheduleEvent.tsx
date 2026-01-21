@@ -37,6 +37,7 @@ export const ScheduleEvent = ({
   const top = offsetHours * rowHeight + labelHeight / 2
   const height = duration * rowHeight
   const { updateEventStatus, updatingStatus } = useEventActions()
+  const isSmallEvent = duration < 2.5
 
   const handleToggle = () => {
     const next = status === EVENT_STATUS.PENDING ? EVENT_STATUS.COMPLETED : EVENT_STATUS.PENDING
@@ -47,6 +48,7 @@ export const ScheduleEvent = ({
     <article
       className={clsx(
         styles.event,
+        isSmallEvent && styles.eventSmall,
         isStartSegment && styles.eventStart,
         isEndSegment && styles.eventEnd,
         status === EVENT_STATUS.COMPLETED && styles.eventCompleted
@@ -54,7 +56,7 @@ export const ScheduleEvent = ({
       style={{
         top: `${top}px`,
         height: `${height}px`,
-        animationDelay: `${index * 60}ms`,
+        animationDelay: `${index * 90}ms`,
       }}
       role="listitem"
     >
@@ -90,6 +92,7 @@ export const ScheduleEvent = ({
                   {collaborators.length === 1 ? 'Collaborator:' : 'Collaborators:'}
                 </span>
                 <UsersAvatars
+                  collapsed={false}
                   users={collaborators}
                   draggable={{
                     id: '', // populate with collaborator ID
@@ -102,6 +105,8 @@ export const ScheduleEvent = ({
               <Button
                 variant="fab"
                 className={styles.phoneBtn}
+                disabled
+                aria-label="Video call feature - Coming soon"
                 title="This feature is under development"
               >
                 <PhoneIcon />

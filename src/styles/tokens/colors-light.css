@@ -1,4 +1,4 @@
-/* COLOR: #5247ED (Indigo) */
+/* COLOR: #5b5991 (Indigo) */
 :root {
   --color-shimmer-effect: hsla(0, 0%, 100%, 0.4);
 
@@ -27,6 +27,9 @@
   --color-surface-variant: hsl(256, 22%, 90%);
   --color-surface-variant-hsla: hsla(256, 22%, 90%, 0.75);
   --color-on-surface-variant: hsl(247, 6%, 29%);
+
+  --color-surface-container-high: rgb(234 231 239);
+  --color-surface-container-highest: rgb(229 225 233);
 
   --color-outline: hsl(252, 4%, 48%);
   --color-outline-variant: hsl(256, 10%, 79%);

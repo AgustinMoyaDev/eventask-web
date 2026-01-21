@@ -74,7 +74,7 @@ export const MOCK_EVENTS: IEvent[] = MOCK_TASKS.flatMap(task =>
   task.events.map(event => ({
     ...event,
     taskId: task.id,
-    task: task,
+    task,
   }))
 )
 

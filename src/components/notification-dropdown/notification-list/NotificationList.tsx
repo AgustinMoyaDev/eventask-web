@@ -125,6 +125,7 @@ export const NotificationList = ({
   }
 
   const thereAreNotifications = notifications.length > 0
+  const moreThanFiveNotification = notifications.length >= 4
 
   return (
     <div className={styles.content}>
@@ -204,15 +205,18 @@ export const NotificationList = ({
                 <small>There are no new notifications.</small>
               </li>
             )}
-
-            {thereAreNotifications && (
-              <footer className={styles.footer}>
-                <ButtonLink className={styles.viewAll} to="/see-all?type=notifications">
-                  View all notifications
-                </ButtonLink>
-              </footer>
-            )}
           </ul>
+          {moreThanFiveNotification && (
+            <footer className={styles.footer}>
+              <ButtonLink
+                className={styles.viewAll}
+                to="/see-all?type=notifications"
+                role="menuitem"
+              >
+                View all notifications
+              </ButtonLink>
+            </footer>
+          )}
         </>
       )}
 

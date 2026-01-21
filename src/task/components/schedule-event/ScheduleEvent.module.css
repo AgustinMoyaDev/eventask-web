@@ -8,8 +8,28 @@
   flex-direction: column;
   position: absolute;
   width: 95%;
-  animation: fadeSlideIn var(--transition-slow) both;
-  overflow-y: auto;
+  animation: fadeSlideIn 0.3s both;
+  overflow-y: hidden;
+}
+
+.eventSmall {
+  transition:
+    z-index 0s,
+    box-shadow var(--transition-base);
+  z-index: var(--z-normal);
+}
+
+.eventSmall:hover {
+  min-height: fit-content;
+  z-index: var(--z-fixed);
+  box-shadow: var(--elevation-3);
+  overflow-y: visible;
+  mask-image: none;
+}
+
+/* Ensure that the content is not cut off when expanding */
+.eventSmall:hover .eventBody {
+  overflow: visible;
 }
 
 @keyframes fadeSlideIn {
@@ -113,14 +133,35 @@
   color: var(--color-on-primary);
 }
 
+.collaboratorsWrapper,
 .collaboratorsEmpty {
+  padding: var(--spacing-md);
+  border-radius: var(--spacing-md);
+  border: var(--stroke-width-1) dashed var(--color-on-surface-variant);
   color: var(--color-on-surface-variant);
+  background-color: var(--color-surface-variant);
+  height: max-content;
+  box-shadow:
+    inset 0 2px 6px var(--shadow-ambient-color),
+    inset 0 -2px 6px var(--shadow-ambient-color);
 }
 
+.collaboratorsEmpty {
+  display: grid;
+  place-items: center;
+}
+
+/* Hide follow button by default to prevent overlap in small events */
 .followBtn {
+  display: none;
+}
+
+.event:hover .followBtn {
+  display: flex;
   position: absolute;
   right: var(--spacing-md);
   bottom: var(--spacing-xl);
+  box-shadow: var(--elevation-3);
 }
 
 .followIcon {

@@ -1,15 +1,46 @@
 .schedule {
-  --schedule-height: 60vh;
+  --schedule-max-height: 55vh;
   --schedule-no-events-height: 5rem;
 
   display: grid;
   grid-template-columns: 4rem 1fr;
-  height: var(--schedule-height);
+  max-height: var(--schedule-max-height);
   overflow: auto;
   gap: var(--spacing-sm);
+  --fade-height: 2rem;
+
+  mask-image: linear-gradient(
+    to bottom,
+    transparent 0%,
+    var(--color-surface) var(--fade-height),
+    var(--color-surface) calc(100% - var(--fade-height)),
+    transparent 100%
+  );
+}
+
+.currentTimeLine {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 0;
+  border-top: 2px dotted var(--color-error);
+  z-index: var(--z-fixed);
+  pointer-events: none;
+}
+
+.currentTimeMarker {
+  position: absolute;
+  left: -10px;
+  top: -6px;
+  width: 12px;
+  height: 12px;
+  background-color: var(--color-error);
+  border-radius: 50%;
+  box-shadow: 0 0 0 2px var(--color-surface);
 }
 
 .scheduleTimescale {
+  position: relative;
   display: flex;
   flex-direction: column;
   row-gap: 7rem;

@@ -41,12 +41,11 @@
 }
 
 /* Native disabled state for <button> */
-.btn:disabled,
 /* Class-based disabled state for <a> (Link) */
-.btn.disabled {
+.btn:disabled,
+.disabled {
   opacity: var(--state-layer-disabled-opacity);
   cursor: not-allowed;
-  pointer-events: none;
 }
 
 .btn:disabled::before,

@@ -5,6 +5,7 @@
 interface EnvVariables {
   VITE_API_URL: string
   VITE_BACKEND_URL: string
+  VITE_GOOGLE_CLIENT_ID: string
   DEV: boolean
   MODE: string
   PROD: boolean

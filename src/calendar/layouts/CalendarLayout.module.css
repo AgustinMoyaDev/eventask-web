@@ -1,5 +1,4 @@
 .calendarLayout {
-  margin-top: var(--spacing-md-plus);
   display: flex;
   gap: var(--spacing-sm-plus);
   min-height: 100%;

@@ -64,7 +64,10 @@ const makeSegment = (
 export const getHoursSchedule = (segments: IEventSegment[]) => {
   if (!segments.length) {
     const now = dayjs().hour()
-    return [now, now + 1, now + 2]
+    // Show 2 hours before and 2 hours after current time when no events
+    const start = Math.max(0, now - 2)
+    const end = Math.min(23, now + 2)
+    return createInclusiveArray(start, end)
   }
 
   const minHStart = 24
@@ -79,14 +82,26 @@ export const getHoursSchedule = (segments: IEventSegment[]) => {
   )
   const [startH, endH] = hours
   const arrayHours = createInclusiveArray(startH, endH)
-  // Add an extra hour before the start (if startH > 0) and after the end
-  // (if endH < 24) so the timeline has some padding for better UX
-  if (startH > 0) {
-    arrayHours.unshift(startH - 1)
+  // Add padding hours before and after events for better context
+  const paddingBefore = 2 // Hours to show before first event
+  const paddingAfter = 2 // Hours to show after last event
+
+  // Add hours before (respecting 0 as minimum)
+  for (let i = 1; i <= paddingBefore; i++) {
+    const hour = startH - i
+    if (hour >= 0) {
+      arrayHours.unshift(hour)
+    }
   }
-  if (endH < 23) {
-    arrayHours.push(endH + 1)
+
+  // Add hours after (respecting 23 as maximum)
+  for (let i = 1; i <= paddingAfter; i++) {
+    const hour = endH + i
+    if (hour <= 23) {
+      arrayHours.push(hour)
+    }
   }
+
   // remove possible duplicates
   const uniqueHours = Array.from(new Set(arrayHours))
   return uniqueHours
