@@ -10,13 +10,14 @@ export const Footer = () => {
         <span className={styles.heart}>
           <HeartIcon />
         </span>
+        by
         <Link
           to="https://agustin-moya-dev.netlify.app/"
           target="_blank"
           rel="noopener noreferrer"
           className={styles.link}
         >
-          Agustin Moya
+          Agustin Moya.
         </Link>
       </p>
     </footer>
