@@ -1,113 +1,108 @@
-import { useEffect, useRef, useState } from 'react'
+import { useCallback, useEffect } from 'react'
+import { useForm, useWatch } from 'react-hook-form'
+import { zodResolver } from '@hookform/resolvers/zod'
 import dayjs from 'dayjs'
 
-import { useForm } from '@/hooks/useForm'
+import { eventSchema, type EventSchemaType } from '@/helpers/form-validations/eventSchema'
 import {
-  eventFormFields,
-  eventFormValidations,
   formatToDatetimeLocal,
   getNextStartDate,
   hasOverlap,
-} from '@/helpers/form-validations/getEventFormValidations'
-import { EVENT_STATUS, IEventForm, IEventLocal } from '@/types/IEvent'
+} from '@/helpers/form-validations/eventHelpers'
+import { EVENT_STATUS, IEventLocal } from '@/types/IEvent'
 import { ColorProgressType } from '@/types/ui/task'
 
 export function useEventFormLogic(
-  eventToEdit: IEventLocal | null,
-  existingEvents: IEventLocal[],
   onAddEvent: (evt: IEventLocal) => void,
-  onUpdateEvent: (evt: IEventLocal) => void
+  onUpdateEvent: (evt: IEventLocal) => void,
+  existingEvents: IEventLocal[] = [],
+  eventToEdit?: IEventLocal
 ) {
-  const originalFormRef = useRef<IEventForm | null>(null)
-  // Initialize the form with "raw" fields (ISO or empty)
+  // 1. Initialize React Hook Form
   const {
-    titleValid,
-    startValid,
-    endValid,
-    notesValid,
-    isFormValid,
-    touchedFields,
-    formState,
-    setFormState,
-    onInputChange,
-    onBlurField,
-    onResetForm,
-  } = useForm<IEventForm>(eventFormFields, eventFormValidations)
-  // computed data
+    register,
+    handleSubmit,
+    reset,
+    control,
+    formState: { errors, isValid, isDirty },
+  } = useForm<EventSchemaType>({
+    resolver: zodResolver(eventSchema),
+    mode: 'onBlur',
+    defaultValues: {
+      title: '',
+      notes: '',
+      // Dates will be set by the useEffect below
+    },
+  })
+
+  // 2. Watch fields for real-time conflict detection
+  const startValue = useWatch({ control, name: 'start' })
+  const endValue = useWatch({ control, name: 'end' })
+
+  // 3. Computed Status logic (Preserved from original)
   const currentStatus = eventToEdit?.status ?? EVENT_STATUS.PENDING
   const isStatusCompleted = currentStatus === EVENT_STATUS.COMPLETED
-  const colorChip: ColorProgressType =
-    currentStatus === EVENT_STATUS.COMPLETED
-      ? 'completed'
-      : currentStatus === EVENT_STATUS.PROGRESS
-        ? 'progress'
-        : 'pending'
+  const colorChip: ColorProgressType = isStatusCompleted ? 'completed' : 'pending'
 
-  // Generates formatted initial values
-  useEffect(() => {
+  const getInitialValues = useCallback((): EventSchemaType => {
     if (eventToEdit) {
-      const { start, end } = eventToEdit
-      setFormState({
-        ...eventToEdit,
-        start: formatToDatetimeLocal(start),
-        end: formatToDatetimeLocal(end),
-      })
-
-      originalFormRef.current = eventToEdit
-    } else {
-      const start = getNextStartDate(existingEvents)
-      const end = formatToDatetimeLocal(dayjs(start).add(1, 'hour'))
-      setFormState({ title: '', start, end, notes: '' })
+      return {
+        title: eventToEdit.title,
+        notes: eventToEdit.notes,
+        start: formatToDatetimeLocal(eventToEdit.start),
+        end: formatToDatetimeLocal(eventToEdit.end),
+      }
     }
-    return () => onResetForm()
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+
+    const start = getNextStartDate(existingEvents)
+    const end = formatToDatetimeLocal(dayjs(start).add(1, 'hour'))
+    return { title: '', notes: '', start, end }
   }, [eventToEdit, existingEvents])
 
-  const [hasConflict, setHasConflict] = useState(false)
+  // 4. Initialize or Reset Form Data
   useEffect(() => {
-    setHasConflict(hasOverlap(formState.start, formState.end, existingEvents, eventToEdit?.id))
-  }, [formState.start, formState.end, existingEvents, eventToEdit?.id])
+    reset(getInitialValues())
+  }, [getInitialValues, reset])
 
-  const handleResetForm = () => {
-    if (eventToEdit && originalFormRef?.current) {
-      setFormState(originalFormRef.current)
-      return
-    }
-    onResetForm()
-  }
+  // 5. Conflict Logic using watched values
+  const hasConflict = hasOverlap(startValue || '', endValue || '', existingEvents, eventToEdit?.id)
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault()
-    if (!isFormValid || hasConflict) return
+  // 6. Form Submission
+  const onSubmit = (data: EventSchemaType) => {
+    if (hasConflict) return
 
     const submitEvent: IEventLocal = {
-      ...formState,
+      ...data,
       id: eventToEdit?.id ?? crypto.randomUUID(),
       status: currentStatus,
     }
 
-    if (eventToEdit) onUpdateEvent(submitEvent)
-    else onAddEvent(submitEvent)
+    if (eventToEdit) {
+      onUpdateEvent(submitEvent)
+    } else {
+      onAddEvent(submitEvent)
+    }
+  }
 
-    onResetForm()
+  const handleResetForm = () => {
+    reset(getInitialValues())
   }
 
   return {
-    formState,
-    titleValid,
-    startValid,
-    endValid,
-    notesValid,
-    touchedFields,
-    isFormValid,
+    // RHF Props
+    register,
+    formErrors: errors,
+    isFormValid: isValid,
+    isDirty,
+
+    // Custom Logic Props
     hasConflict,
-    // computed
     isStatusCompleted,
     currentStatus,
     colorChip,
-    onInputChange,
-    onBlurField,
-    handleSubmit,
+
+    // Actions
+    handleSubmit: handleSubmit(onSubmit),
     handleResetForm,
   }
 }

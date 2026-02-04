@@ -16,7 +16,7 @@ import {
   taskFormFields,
   taskFormValidations,
 } from '@/helpers/form-validations/getTaskFormValidations'
-import { formatToDatetimeLocal } from '@/helpers/form-validations/getEventFormValidations'
+import { formatToDatetimeLocal } from '@/helpers/form-validations/eventHelpers'
 
 import { useForm } from '@/hooks/useForm'
 

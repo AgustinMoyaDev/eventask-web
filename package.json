@@ -52,6 +52,7 @@
     "@commitlint/config-conventional": "20.2.0",
     "@eslint/js": "9.39.2",
     "@faker-js/faker": "10.1.0",
+    "@hookform/resolvers": "5.2.2",
     "@testing-library/jest-dom": "6.9.1",
     "@testing-library/react": "16.3.1",
     "@testing-library/user-event": "14.6.1",
@@ -70,11 +71,13 @@
     "lint-staged": "16.2.7",
     "msw": "2.12.7",
     "prettier": "3.7.4",
+    "react-hook-form": "7.71.1",
     "typescript": "5.9.3",
     "typescript-eslint": "8.50.1",
     "vite": "7.3.1",
     "vite-tsconfig-paths": "6.0.3",
-    "vitest": "3.2.4"
+    "vitest": "3.2.4",
+    "zod": "4.3.6"
   },
   "msw": {
     "workerDirectory": [

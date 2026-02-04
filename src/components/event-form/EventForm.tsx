@@ -12,10 +12,10 @@ import { useEventFormLogic } from './useEventFormLogic'
 import styles from './EventForm.module.css'
 
 interface Props {
-  eventToEdit: IEventLocal | null
-  existingEvents?: IEventLocal[]
   onAddEvent: (event: IEventLocal) => void
   onUpdateEvent: (event: IEventLocal) => void
+  existingEvents?: IEventLocal[]
+  eventToEdit?: IEventLocal
 }
 
 export const EventForm = ({
@@ -25,22 +25,19 @@ export const EventForm = ({
   onUpdateEvent,
 }: Props) => {
   const {
-    formState: { title, start, end, notes },
-    titleValid,
-    startValid,
-    endValid,
-    notesValid,
-    touchedFields,
+    // 1. New props from RHF
+    register,
+    formErrors,
     isFormValid,
+    // 2. Custom logic props
     hasConflict,
     isStatusCompleted,
     colorChip,
     currentStatus,
-    onInputChange,
-    onBlurField,
+    // 3. Actions
     handleSubmit,
     handleResetForm,
-  } = useEventFormLogic(eventToEdit, existingEvents, onAddEvent, onUpdateEvent)
+  } = useEventFormLogic(onAddEvent, onUpdateEvent, existingEvents, eventToEdit)
 
   return (
     <form className={styles.eventForm} onSubmit={handleSubmit} aria-label="Event form">
@@ -64,57 +61,39 @@ export const EventForm = ({
       >
         <Input
           type="text"
-          name="title"
           label="Title"
           required
-          value={title}
           autoComplete="off"
-          error={titleValid}
-          touched={touchedFields.title}
-          onChange={onInputChange}
-          onBlur={() => onBlurField('title')}
+          {...register('title')}
+          error={formErrors.title?.message}
         />
 
         <Input
           type="datetime-local"
-          name="start"
           label="Start date"
           required
-          min={start}
-          value={start}
           step="900"
           autoComplete="off"
-          error={startValid}
-          touched={touchedFields.start}
-          onChange={onInputChange}
-          onBlur={() => onBlurField('start')}
+          {...register('start', { deps: ['end'] })}
+          error={formErrors.start?.message}
         />
 
         <Input
           type="datetime-local"
-          name="end"
           label="End date"
           required
-          min={start}
-          value={end}
           step="900"
           autoComplete="off"
-          error={endValid}
-          touched={touchedFields.end}
-          onChange={onInputChange}
-          onBlur={() => onBlurField('end')}
+          {...register('end')}
+          error={formErrors.end?.message}
         />
 
         <Textarea
           id="notes"
-          name="notes"
           label="Notes"
           required
-          value={notes || ''}
-          onChange={onInputChange}
-          error={notesValid}
-          touched={touchedFields.notes}
-          onBlur={() => onBlurField('notes')}
+          {...register('notes')}
+          error={formErrors.notes?.message}
         />
 
         <footer className={styles.eventFormFooter}>

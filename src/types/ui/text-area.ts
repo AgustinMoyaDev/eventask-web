@@ -2,7 +2,6 @@ export interface TextareaProps extends React.TextareaHTMLAttributes<HTMLTextArea
   id: string
   name: string
   label: string
-  value: string
   onChange: (event: React.ChangeEvent<HTMLTextAreaElement>) => void
   onBlur: (event: React.FocusEvent<HTMLTextAreaElement>) => void
   placeholder?: string
