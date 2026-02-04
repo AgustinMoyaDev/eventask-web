@@ -12,20 +12,28 @@ vi.mock('./useEventFormLogic')
 const mockUseEventFormLogic = vi.mocked(useEventFormLogic)
 
 const baseMockReturn = {
-  formState: { title: '', start: '', end: '', notes: '' },
-  titleValid: '',
-  startValid: '',
-  endValid: '',
-  notesValid: '',
-  touchedFields: { title: false, start: false, end: false, notes: false },
-  isFormValid: false,
+  // RHF Props
+  register: vi.fn(name => ({
+    name,
+    onChange: vi.fn(),
+    onBlur: vi.fn(),
+    ref: vi.fn(),
+  })),
+  formErrors: {},
+  isFormValid: true,
+  isDirty: false,
+
+  // Custom Props
   hasConflict: false,
   isStatusCompleted: false,
   colorChip: COLOR_PROGRESS.pending,
   currentStatus: EVENT_STATUS.PENDING,
-  onInputChange: vi.fn(),
-  onBlurField: vi.fn(),
-  handleSubmit: vi.fn((e: React.FormEvent) => e.preventDefault()),
+
+  // Actions
+  handleSubmit: vi.fn((e?: React.BaseSyntheticEvent) => {
+    e?.preventDefault()
+    return Promise.resolve()
+  }),
   handleResetForm: vi.fn(),
 }
 
@@ -66,11 +74,8 @@ describe('EventForm', () => {
   })
 
   it('should call handleSubmit when form is submitted', async () => {
-    const handleSubmit = vi.fn((e: React.FormEvent) => e.preventDefault())
-
     mockUseEventFormLogic.mockReturnValue({
       ...baseMockReturn,
-      handleSubmit,
       isFormValid: true,
     })
 
@@ -79,7 +84,7 @@ describe('EventForm', () => {
     const form = screen.getByRole('form', { name: /event form/i })
     fireEvent.submit(form)
 
-    expect(handleSubmit).toHaveBeenCalled()
+    expect(baseMockReturn.handleSubmit).toHaveBeenCalled()
   })
 
   it('should show conflict error message when hasConflict is true', () => {

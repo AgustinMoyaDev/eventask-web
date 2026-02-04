@@ -1,10 +1,10 @@
-import { EventStatus, IEventForm } from '../IEvent'
+import { EventStatus, EventForm } from '../IEvent'
 
-export interface IEventCreatePayload extends IEventForm {
+export interface IEventCreatePayload extends EventForm {
   taskId: string
 }
 
-export interface IEventUpdatePayload extends IEventForm {
+export interface IEventUpdatePayload extends EventForm {
   id: string
   status: EventStatus
 }

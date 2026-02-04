@@ -1,9 +1,9 @@
-import { IEventForm } from '../IEvent'
+import { EventForm } from '../IEvent'
 
 export interface ITaskCreatePayload {
   title: string
   categoryId: string
-  events: IEventForm[]
+  events: EventForm[]
   participantsIds: string[]
 }
 
