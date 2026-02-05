@@ -1,38 +1,20 @@
 import { Link } from 'react-router-dom'
-import { useForm } from 'react-hook-form'
-import { zodResolver } from '@hookform/resolvers/zod'
 
 import { Input } from '@/components/input/Input'
 import { Button } from '@/components/button/Button'
 import { EmailIcon, EyeIcon, EyeOffIcon } from '@/components/icons/Icons'
+import { Loader } from '@/components/loaders/loader/Loader'
 
-import { useAuthActions } from '@/store/hooks/useAuthActions'
-import { loginSchema, type LoginSchemaType } from '@/helpers/form-validations/authSchemas'
+import { useLoginFormLogic } from './useLoginFormLogic'
 
 import styles from './LoginForm.module.css'
 
 export const LoginForm = () => {
-  const { login, loginLoading, loginAuthError } = useAuthActions()
-
-  const {
-    register,
-    handleSubmit,
-    formState: { errors, isValid },
-  } = useForm<LoginSchemaType>({
-    resolver: zodResolver(loginSchema),
-    mode: 'onTouched',
-    defaultValues: {
-      email: '',
-      password: '',
-    },
-  })
-
-  const onSubmit = (data: LoginSchemaType) => {
-    login(data)
-  }
+  const { register, formErrors, isFormValid, loginLoading, loginAuthError, handleSubmit } =
+    useLoginFormLogic()
 
   return (
-    <form className={styles.loginForm} onSubmit={handleSubmit(onSubmit)} noValidate>
+    <form className={styles.loginForm} onSubmit={handleSubmit} noValidate>
       {loginAuthError?.message && <p className={styles.loginError}>{loginAuthError.message}</p>}
       <div className={styles.loginContent}>
         <Input
@@ -42,7 +24,7 @@ export const LoginForm = () => {
           autoComplete="email"
           hint="user@mail.com"
           {...register('email')}
-          error={errors.email?.message ?? loginAuthError?.fieldsValidations?.email}
+          error={formErrors.email?.message ?? loginAuthError?.fieldsValidations?.email}
           finalStateIcon={EmailIcon}
         />
 
@@ -52,7 +34,7 @@ export const LoginForm = () => {
           required
           autoComplete="current-password"
           {...register('password')}
-          error={errors.password?.message ?? loginAuthError?.fieldsValidations?.password}
+          error={formErrors.password?.message ?? loginAuthError?.fieldsValidations?.password}
           initialStateIcon={EyeIcon}
           finalStateIcon={EyeOffIcon}
         />
@@ -67,9 +49,15 @@ export const LoginForm = () => {
         variant="filled"
         size="lg"
         className={styles.loginButton}
-        disabled={!isValid || loginLoading}
+        disabled={!isFormValid || loginLoading}
       >
-        {loginLoading ? 'Loading ...' : 'Log in'}
+        {loginLoading ? (
+          <span className={styles.loginLoader}>
+            Loading <Loader />
+          </span>
+        ) : (
+          'Log in'
+        )}
       </Button>
     </form>
   )
