@@ -7,7 +7,7 @@ import { Textarea } from '../text-area/Textarea'
 import { Button } from '../button/Button'
 import { Chip } from '../chip/Chip'
 
-import { useEventFormLogic } from './useEventFormLogic'
+import { useEventForm } from './useEventForm'
 
 import styles from './EventForm.module.css'
 
@@ -15,12 +15,12 @@ interface Props {
   onAddEvent: (event: IEventLocal) => void
   onUpdateEvent: (event: IEventLocal) => void
   existingEvents?: IEventLocal[]
-  eventToEdit?: IEventLocal
+  eventToEdit?: IEventLocal | null
 }
 
 export const EventForm = ({
-  eventToEdit,
   existingEvents = [],
+  eventToEdit = null,
   onAddEvent,
   onUpdateEvent,
 }: Props) => {
@@ -37,7 +37,7 @@ export const EventForm = ({
     // 3. Actions
     handleSubmit,
     handleResetForm,
-  } = useEventFormLogic(onAddEvent, onUpdateEvent, existingEvents, eventToEdit)
+  } = useEventForm(existingEvents, eventToEdit, onAddEvent, onUpdateEvent)
 
   return (
     <form className={styles.eventForm} onSubmit={handleSubmit} aria-label="Event form">

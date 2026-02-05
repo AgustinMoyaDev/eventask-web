@@ -9,17 +9,16 @@ import {
   getNextStartDate,
   hasOverlap,
 } from '@/helpers/form-validations/eventHelpers'
-
 import { EVENT_STATUS, IEventLocal } from '@/types/IEvent'
 import { ColorProgressType } from '@/types/ui/task'
 
-export function useEventFormLogic(
+export function useEventForm(
   existingEvents: IEventLocal[] = [],
   eventToEdit: IEventLocal | null = null,
   onAddEvent: (evt: IEventLocal) => void,
   onUpdateEvent: (evt: IEventLocal) => void
 ) {
-  // Initialize React Hook Form
+  // 1. Initialize React Hook Form
   const {
     register,
     handleSubmit,
@@ -36,11 +35,11 @@ export function useEventFormLogic(
     },
   })
 
-  // Watch fields for real-time conflict detection
+  // 2. Watch fields for real-time conflict detection
   const startValue = useWatch({ control, name: 'start' })
   const endValue = useWatch({ control, name: 'end' })
 
-  // Computed Status logic
+  // 3. Computed Status logic (Preserved from original)
   const currentStatus = eventToEdit?.status ?? EVENT_STATUS.PENDING
   const isStatusCompleted = currentStatus === EVENT_STATUS.COMPLETED
   const colorChip: ColorProgressType = isStatusCompleted ? 'completed' : 'pending'
@@ -60,15 +59,15 @@ export function useEventFormLogic(
     return { title: '', notes: '', start, end }
   }, [eventToEdit, existingEvents])
 
-  // Initialize or Reset Form Data
+  // 4. Initialize or Reset Form Data
   useEffect(() => {
     reset(getInitialValues())
   }, [getInitialValues, reset])
 
-  // Conflict Logic using watched values
+  // 5. Conflict Logic using watched values
   const hasConflict = hasOverlap(startValue || '', endValue || '', existingEvents, eventToEdit?.id)
 
-  // Form Submission
+  // 6. Form Submission
   const onSubmit = (data: EventSchemaType) => {
     if (hasConflict) return
 

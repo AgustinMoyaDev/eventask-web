@@ -5,11 +5,11 @@ import { EVENT_STATUS } from '@/types/IEvent'
 import { COLOR_PROGRESS } from '@/types/ui/task'
 
 import { EventForm } from './EventForm'
-import { useEventFormLogic } from './useEventFormLogic'
+import { useEventForm } from './useEventForm'
 
-vi.mock('./useEventFormLogic')
+vi.mock('./useEventForm')
 
-const mockUseEventFormLogic = vi.mocked(useEventFormLogic)
+const mockUseEventForm = vi.mocked(useEventForm)
 
 const baseMockReturn = {
   // RHF Props
@@ -40,7 +40,7 @@ const baseMockReturn = {
 describe('EventForm', () => {
   beforeEach(() => {
     vi.clearAllMocks()
-    mockUseEventFormLogic.mockReturnValue(baseMockReturn)
+    mockUseEventForm.mockReturnValue(baseMockReturn)
   })
 
   it('should render all fields and buttons in creation mode', () => {
@@ -74,7 +74,7 @@ describe('EventForm', () => {
   })
 
   it('should call handleSubmit when form is submitted', async () => {
-    mockUseEventFormLogic.mockReturnValue({
+    mockUseEventForm.mockReturnValue({
       ...baseMockReturn,
       isFormValid: true,
     })
@@ -88,7 +88,7 @@ describe('EventForm', () => {
   })
 
   it('should show conflict error message when hasConflict is true', () => {
-    mockUseEventFormLogic.mockReturnValue({
+    mockUseEventForm.mockReturnValue({
       ...baseMockReturn,
       hasConflict: true,
     })
@@ -99,7 +99,7 @@ describe('EventForm', () => {
   })
 
   it(' should disable fieldset and submit button when isStatusCompleted is true', () => {
-    mockUseEventFormLogic.mockReturnValue({
+    mockUseEventForm.mockReturnValue({
       ...baseMockReturn,
       isStatusCompleted: true,
     })
@@ -112,7 +112,7 @@ describe('EventForm', () => {
   })
 
   it('should disable submit button when form is invalid or has conflict', () => {
-    mockUseEventFormLogic.mockReturnValue({
+    mockUseEventForm.mockReturnValue({
       ...baseMockReturn,
       isFormValid: false,
       hasConflict: true,
@@ -127,7 +127,7 @@ describe('EventForm', () => {
     const user = userEvent.setup()
     const handleResetForm = vi.fn()
 
-    mockUseEventFormLogic.mockReturnValue({
+    mockUseEventForm.mockReturnValue({
       ...baseMockReturn,
       handleResetForm,
     })

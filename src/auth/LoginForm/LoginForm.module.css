@@ -22,6 +22,12 @@
   margin-block: var(--spacing-xl);
 }
 
+.loginLoader {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+}
+
 .loginError {
   color: var(--color-error);
   padding-block: 0 var(--spacing-sm-plus);
