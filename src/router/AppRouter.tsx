@@ -64,7 +64,6 @@ export const AppRouter = () => {
         onAnimationEnd={handleTransitionEnd}
       >
         <Routes location={displayLocation} key={displayLocation.pathname + displayLocation.search}>
-          {/* PUBLIC ROUTES */}
           <Route path="/" element={authenticatedBaseUrlElement} />
           <Route
             path="/auth/*"
@@ -77,7 +76,6 @@ export const AppRouter = () => {
 
           <Route path="/not-found" element={<NotFoundPage />} />
 
-          {/* PRIVATE ROUTES */}
           <Route
             path="/calendar/*"
             element={

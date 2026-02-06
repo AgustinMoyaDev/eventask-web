@@ -50,3 +50,16 @@ export const forgotPasswordSchema = z.object({
 })
 
 export type ForgotPasswordSchemaType = z.infer<typeof forgotPasswordSchema>
+
+// --- RESET PASSWORD ---
+export const resetPasswordSchema = z
+  .object({
+    password: passwordValidation,
+    confirmPassword: z.string(),
+  })
+  .refine(data => data.password === data.confirmPassword, {
+    message: "Passwords don't match",
+    path: ['confirmPassword'],
+  })
+
+export type ResetPasswordSchemaType = z.infer<typeof resetPasswordSchema>
