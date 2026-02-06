@@ -1,8 +1,8 @@
 import { Link } from 'react-router-dom'
 
 import { AuthHeaderForm } from '@/auth/components/auth-header-form/AuthHeaderForm'
-import { LoginForm } from '@/auth/LoginForm/LoginForm'
-import { SocialLoginSection } from '@/auth/SocialLoginSection/SocialLoginSection'
+import { LoginForm } from '@/auth/components/login-form/LoginForm'
+import { SocialLoginSection } from '@/auth/components/social-login-section/SocialLoginSection'
 
 import styles from './LoginPage.module.css'
 

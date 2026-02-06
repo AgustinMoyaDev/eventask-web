@@ -5,13 +5,13 @@ import { Button } from '@/components/button/Button'
 import { EmailIcon, EyeIcon, EyeOffIcon } from '@/components/icons/Icons'
 import { Loader } from '@/components/loaders/loader/Loader'
 
-import { useLoginFormLogic } from './useLoginFormLogic'
+import { useLoginForm } from './useLoginForm'
 
 import styles from './LoginForm.module.css'
 
 export const LoginForm = () => {
   const { register, formErrors, isFormValid, loginLoading, loginAuthError, handleSubmit } =
-    useLoginFormLogic()
+    useLoginForm()
 
   return (
     <form className={styles.loginForm} onSubmit={handleSubmit} noValidate>
@@ -50,14 +50,10 @@ export const LoginForm = () => {
         size="lg"
         className={styles.loginButton}
         disabled={!isFormValid || loginLoading}
+        aria-busy={loginLoading}
+        {...(loginLoading && { 'aria-label': 'Logging in' })}
       >
-        {loginLoading ? (
-          <span className={styles.loginLoader}>
-            Loading <Loader />
-          </span>
-        ) : (
-          'Log in'
-        )}
+        {loginLoading ? <Loader text="Loading" /> : 'Log in'}
       </Button>
     </form>
   )

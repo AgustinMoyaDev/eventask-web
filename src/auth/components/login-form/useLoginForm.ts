@@ -4,7 +4,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { loginSchema, type LoginSchemaType } from '@/helpers/form-validations/authSchemas'
 import { useAuthActions } from '@/store/hooks/useAuthActions'
 
-export function useLoginFormLogic() {
+export function useLoginForm() {
   const { login, loginLoading, loginAuthError } = useAuthActions()
 
   const {
