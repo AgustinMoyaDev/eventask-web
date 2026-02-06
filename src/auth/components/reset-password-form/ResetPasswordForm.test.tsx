@@ -3,6 +3,7 @@ import userEvent from '@testing-library/user-event'
 import { vi, describe, it, expect, beforeEach } from 'vitest'
 
 import { ResetPasswordForm } from './ResetPasswordForm'
+import { MemoryRouter } from 'react-router-dom'
 
 const mockResetPassword = vi.fn()
 const mockAuthError = { message: '', fieldsValidations: {} }
@@ -26,7 +27,11 @@ describe('ResetPasswordForm Component', () => {
   })
 
   const renderComponent = () => {
-    render(<ResetPasswordForm token={fakeToken} onSuccess={mockOnSuccess} />)
+    render(
+      <MemoryRouter>
+        <ResetPasswordForm token={fakeToken} onSuccess={mockOnSuccess} />
+      </MemoryRouter>
+    )
   }
 
   it('renders password inputs and button', () => {
