@@ -8,7 +8,7 @@ import { useRegisterForm } from './useRegisterForm'
 import styles from './RegisterForm.module.css'
 
 export const RegisterForm = () => {
-  const { register, handleSubmit, errors, isValid, registerLoading, registerAuthError } =
+  const { register, handleSubmit, errors, isFormValid, registerLoading, registerAuthError } =
     useRegisterForm()
 
   return (
@@ -75,15 +75,11 @@ export const RegisterForm = () => {
         variant="filled"
         size="lg"
         className={styles.registerButton}
-        disabled={!isValid || registerLoading}
+        disabled={!isFormValid || registerLoading}
+        aria-busy={registerLoading}
+        {...(registerLoading && { 'aria-label': 'Creating account' })}
       >
-        {registerLoading ? (
-          <span className={styles.registerLoader}>
-            Loading <Loader />
-          </span>
-        ) : (
-          'Create account'
-        )}
+        {registerLoading ? <Loader text="Loading" /> : 'Create account'}
       </Button>
     </form>
   )

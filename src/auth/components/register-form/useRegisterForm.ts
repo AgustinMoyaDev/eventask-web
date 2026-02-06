@@ -33,7 +33,7 @@ export function useRegisterForm() {
     register,
     handleSubmit: handleSubmit(onSubmit),
     errors,
-    isValid,
+    isFormValid: isValid,
     registerLoading,
     registerAuthError,
   }

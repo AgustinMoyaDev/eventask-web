@@ -5,7 +5,7 @@ import styles from './AuthHeaderForm.module.css'
 interface AuthHeaderProps {
   logoSrc?: string
   title: string
-  subtitle?: string
+  subtitle?: string | null
 }
 
 export const AuthHeaderForm = ({ logoSrc, title, subtitle }: AuthHeaderProps) => {

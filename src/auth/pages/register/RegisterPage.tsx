@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom'
 
 import { AuthHeaderForm } from '@/auth/components/auth-header-form/AuthHeaderForm'
-import { RegisterForm } from '@/auth/RegisterForm/RegisterForm'
+import { RegisterForm } from '@/auth/components/register-form/RegisterForm'
 
 import styles from './RegisterPage.module.css'
 

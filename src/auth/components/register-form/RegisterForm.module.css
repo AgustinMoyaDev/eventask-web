@@ -8,12 +8,6 @@
   margin-block: var(--spacing-lg);
 }
 
-.registerLoader {
-  display: flex;
-  align-items: center;
-  gap: var(--spacing-sm);
-}
-
 .registerError {
   color: var(--color-error);
   padding-block: 0 var(--spacing-sm-plus);

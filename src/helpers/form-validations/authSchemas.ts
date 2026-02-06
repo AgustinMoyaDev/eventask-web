@@ -43,3 +43,10 @@ export const registerSchema = z
   })
 
 export type RegisterSchemaType = z.infer<typeof registerSchema>
+
+// --- FORGOT PASSWORD ---
+export const forgotPasswordSchema = z.object({
+  email: emailValidation,
+})
+
+export type ForgotPasswordSchemaType = z.infer<typeof forgotPasswordSchema>
