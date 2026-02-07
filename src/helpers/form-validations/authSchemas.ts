@@ -1,3 +1,9 @@
+/**
+ * Zod validation schemas for authentication forms.
+ *
+ * @module authSchemas
+ */
+
 import { z } from 'zod'
 
 const emailValidation = z
@@ -63,3 +69,33 @@ export const resetPasswordSchema = z
   })
 
 export type ResetPasswordSchemaType = z.infer<typeof resetPasswordSchema>
+
+// --- CHANGE PASSWORD ---
+export const changePasswordSchema = z
+  .object({
+    currentPassword: z.string().min(1, 'Current password is required'),
+    newPassword: passwordValidation,
+    confirmPassword: z.string(),
+  })
+  .refine(data => data.newPassword === data.confirmPassword, {
+    message: "Passwords don't match",
+    path: ['confirmPassword'],
+  })
+  .refine(data => data.newPassword !== data.currentPassword, {
+    message: 'New password must be different from current password',
+    path: ['newPassword'],
+  })
+
+export type ChangePasswordSchemaType = z.infer<typeof changePasswordSchema>
+
+export const setPasswordSchema = z
+  .object({
+    newPassword: passwordValidation,
+    confirmPassword: z.string(),
+  })
+  .refine(data => data.newPassword === data.confirmPassword, {
+    message: "Passwords don't match",
+    path: ['confirmPassword'],
+  })
+
+export type SetPasswordSchemaType = z.infer<typeof setPasswordSchema>

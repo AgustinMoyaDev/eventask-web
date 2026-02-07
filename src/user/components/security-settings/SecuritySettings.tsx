@@ -51,14 +51,19 @@ export const SecuritySettings = ({ user }: SecuritySettingsProps) => {
           <span className={styles.methodTitle}>Manual Password</span>
           {user.hasManualPassword ? (
             <>
-              <Button variant="fab" size="sm" onClick={() => openChange()}>
+              <Button
+                variant="fab"
+                size="sm"
+                onClick={() => openChange()}
+                aria-label="Edit password"
+              >
                 <EditIcon />
               </Button>
               <Chip label="Active" color="completed" />
             </>
           ) : (
             <>
-              <Button variant="fab" size="sm" onClick={() => openSet()}>
+              <Button variant="fab" size="sm" onClick={() => openSet()} aria-label="Set password">
                 <PlusIcon />
               </Button>
               <Chip label="Pending" color="pending" />

@@ -11,10 +11,14 @@ export const RegisterForm = () => {
   const { register, handleSubmit, errors, isFormValid, registerLoading, registerAuthError } =
     useRegisterForm()
 
+  const displayBackendError = registerAuthError?.message
+
   return (
     <form className={styles.registerForm} onSubmit={handleSubmit} noValidate>
-      {registerAuthError?.message && (
-        <p className={styles.registerError}>{registerAuthError.message}</p>
+      {displayBackendError && (
+        <p className={styles.registerError} role="alert" aria-live="polite">
+          {displayBackendError}
+        </p>
       )}
 
       <Input

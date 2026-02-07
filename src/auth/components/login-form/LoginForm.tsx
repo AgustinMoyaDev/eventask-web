@@ -13,9 +13,15 @@ export const LoginForm = () => {
   const { register, formErrors, isFormValid, loginLoading, loginAuthError, handleSubmit } =
     useLoginForm()
 
+  const displayBackendError = loginAuthError?.message
+
   return (
     <form className={styles.loginForm} onSubmit={handleSubmit} noValidate>
-      {loginAuthError?.message && <p className={styles.loginError}>{loginAuthError.message}</p>}
+      {displayBackendError && (
+        <p className={styles.loginError} role="alert" aria-live="polite">
+          {displayBackendError}
+        </p>
+      )}
       <div className={styles.loginContent}>
         <Input
           type="email"

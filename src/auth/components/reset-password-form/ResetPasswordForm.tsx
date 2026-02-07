@@ -30,11 +30,14 @@ export const ResetPasswordForm = ({ token, onSuccess }: ResetPasswordFormProps) 
     resetPasswordAuthError,
   } = useResetPasswordForm(token, onSuccess)
 
+  const displayBackendError = resetPasswordAuthError?.message
+
   return (
     <div className={styles.formContainer}>
-      {/* Backend Global Error */}
-      {resetPasswordAuthError?.message && (
-        <p className={styles.resetPasswordError}>{resetPasswordAuthError.message}</p>
+      {displayBackendError && (
+        <p className={styles.resetPasswordError} role="alert" aria-live="polite">
+          {displayBackendError}
+        </p>
       )}
 
       <form onSubmit={handleSubmit} noValidate>
