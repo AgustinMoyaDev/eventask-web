@@ -1,50 +1,30 @@
-import { ModalIds } from '@/types/ui/modal'
-
 import { Button } from '@/components/button/Button'
 import { Input } from '@/components/input/Input'
 import { EyeIcon, EyeOffIcon } from '@/components/icons/Icons'
+import { Loader } from '@/components/loaders/loader/Loader'
 
-import { useAuthActions } from '@/store/hooks/useAuthActions'
-import { useModalActions } from '@/store/hooks/useModalActions'
-
-import {
-  setPasswordFields,
-  setPasswordFormValidations,
-} from '@/helpers/form-validations/getSetPasswordFormValidations'
-import { useForm } from '@/hooks/useForm'
+import { useSetPasswordForm } from './useSetPasswordForm'
 
 import styles from './SetPasswordForm.module.css'
 
 export const SetPasswordForm = () => {
-  const { close } = useModalActions(ModalIds.SetPasswordForm)
-  const { setPassword, setPasswordLoading, setPasswordAuthError } = useAuthActions()
   const {
-    newPassword,
-    newPasswordValid,
-    confirmPassword,
-    confirmPasswordValid,
+    register,
+    formErrors,
     isFormValid,
-    touchedFields,
-    onInputChange,
-    onBlurField,
-  } = useForm(setPasswordFields, setPasswordFormValidations)
+    setPasswordLoading,
+    setPasswordAuthError,
+    handleSubmit,
+  } = useSetPasswordForm()
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault()
-    const result = await setPassword({ newPassword })
-    if (!result?.error) {
-      close()
-    }
-  }
-
-  const displayError = setPasswordAuthError?.message
+  const displayBackendError = setPasswordAuthError?.message
 
   return (
     <div className={styles.setPasswordContainer}>
       <h3 className={styles.setPasswordTitle}>Add Manual Password</h3>
-      {displayError && (
+      {displayBackendError && (
         <p className={styles.setPasswordFormBackendError} role="alert">
-          {displayError}
+          {displayBackendError}
         </p>
       )}
 
@@ -55,28 +35,25 @@ export const SetPasswordForm = () => {
       <form className={styles.setPasswordForm} onSubmit={handleSubmit}>
         <Input
           type="password"
-          name="newPassword"
           label="New Password"
           required
-          value={newPassword}
-          onChange={onInputChange}
-          onBlur={() => onBlurField('newPassword')}
-          error={newPasswordValid ?? setPasswordAuthError?.fieldsValidations?.newPassword}
-          touched={touchedFields.newPassword}
+          autoFocus
+          autoComplete="new-password"
+          {...register('newPassword')}
+          error={
+            formErrors.newPassword?.message ?? setPasswordAuthError?.fieldsValidations?.newPassword
+          }
           initialStateIcon={EyeIcon}
           finalStateIcon={EyeOffIcon}
         />
 
         <Input
           type="password"
-          name="confirmPassword"
           label="Confirm password"
           required
-          value={confirmPassword}
-          onChange={onInputChange}
-          onBlur={() => onBlurField('confirmPassword')}
-          error={confirmPasswordValid}
-          touched={touchedFields.confirmPassword}
+          autoComplete="new-password"
+          {...register('confirmPassword')}
+          error={formErrors.confirmPassword?.message}
           initialStateIcon={EyeIcon}
           finalStateIcon={EyeOffIcon}
         />
@@ -85,8 +62,10 @@ export const SetPasswordForm = () => {
           className={styles.setPasswordButton}
           type="submit"
           disabled={!isFormValid || setPasswordLoading}
+          aria-busy={setPasswordLoading}
+          {...(setPasswordLoading && { 'aria-label': 'Setting password' })}
         >
-          {setPasswordLoading ? 'Setting...' : 'Set Password'}
+          {setPasswordLoading ? <Loader text="Setting..." /> : 'Set Password'}
         </Button>
       </form>
     </div>

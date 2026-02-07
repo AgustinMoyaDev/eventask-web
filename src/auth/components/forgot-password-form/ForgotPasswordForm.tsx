@@ -25,11 +25,15 @@ export const ForgotPasswordForm = ({ onSuccess }: ForgotPasswordFormProps) => {
     forgotPasswordAuthError,
   } = useForgotPasswordForm(onSuccess)
 
+  const displayBackendError = forgotPasswordAuthError?.message
+
   return (
     <div className={styles.formContainer}>
-      <p className={styles.forgotPasswordError} role="alert" aria-live="polite">
-        {forgotPasswordAuthError?.message}
-      </p>
+      {displayBackendError && (
+        <p className={styles.forgotPasswordError} role="alert" aria-live="polite">
+          {displayBackendError}
+        </p>
+      )}
       <form onSubmit={handleSubmit}>
         <Input
           type="email"

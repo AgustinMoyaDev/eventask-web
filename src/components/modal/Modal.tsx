@@ -19,33 +19,17 @@ export const Modal = ({ title, isOpen, onClose, children }: ModalProps) => {
 
     if (isOpen) {
       if (!dialog.open) dialog.showModal()
-      // Focus the first element of the modal
-      const firstFocusable = dialog.querySelector<HTMLElement>(
-        'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
-      )
-      firstFocusable?.focus()
     } else {
       if (dialog.open) dialog.close()
     }
   }, [isOpen])
 
-  const handleKeydownCloseModal = (event: React.KeyboardEvent<HTMLDialogElement>) => {
-    if (event.key === 'Escape') onClose()
-  }
-
-  const handleBackdropClick = (e: React.MouseEvent<HTMLDialogElement>) => {
-    if (e.target === dialogRef.current) onClose()
+  const handleClose = () => {
+    onClose()
   }
 
   return createPortal(
-    <dialog
-      ref={dialogRef}
-      className={styles.modal}
-      aria-modal="true"
-      role="dialog"
-      onKeyDown={handleKeydownCloseModal}
-      onClick={handleBackdropClick}
-    >
+    <dialog ref={dialogRef} className={styles.modal} aria-modal="true" onClose={handleClose}>
       <div className={styles.modalContent}>
         <Button
           type="button"
