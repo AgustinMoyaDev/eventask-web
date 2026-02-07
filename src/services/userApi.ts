@@ -1,8 +1,8 @@
 import { baseApi } from './baseApi'
 
 import { IUser } from '../types/IUser'
-
 import { IUpdateUserDto } from '../types/dtos/user'
+
 import { IPaginationOptions, IPaginationResult } from '@/api/types/pagination'
 
 export const userApi = baseApi.injectEndpoints({
@@ -29,6 +29,7 @@ export const userApi = baseApi.injectEndpoints({
         method: 'POST',
         body: formData,
       }),
+      invalidatesTags: ['User'],
     }),
     updateProfile: builder.mutation<IUser, IUpdateUserDto>({
       query: data => ({
