@@ -1,10 +1,11 @@
 import { Button } from '@/components/button/Button'
 import { Input } from '@/components/input/Input'
 import { EyeIcon, EyeOffIcon } from '@/components/icons/Icons'
+import { Loader } from '@/components/loaders/loader/Loader'
+
+import { useChangePasswordForm } from './useChangePasswordForm'
 
 import styles from './ChangePasswordForm.module.css'
-import { useChangePasswordForm } from './useChangePasswordForm'
-import { Loader } from '@/components/loaders/loader/Loader'
 
 export const ChangePasswordForm = () => {
   const {
