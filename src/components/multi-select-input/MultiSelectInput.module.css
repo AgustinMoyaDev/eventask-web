@@ -2,10 +2,11 @@
   --multi-select-options-height: 12.5rem;
   display: flex;
   flex-direction: column;
-  gap: var(--spacing-sm);
+  gap: var(--spacing-md-plus);
 }
 
 .multiSelectLabel {
+  font-size: var(--font-body-lg-size);
   font-weight: var(--font-weight-medium);
 }
 
