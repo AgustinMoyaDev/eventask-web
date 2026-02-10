@@ -1,0 +1,35 @@
+.taskCreatePage {
+  height: 100vh;
+}
+
+.taskCreateForm {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  row-gap: var(--spacing-md);
+  margin-inline: auto;
+  max-width: 25rem;
+  margin-block: var(--spacing-md);
+  flex: 1;
+}
+
+.taskCreateFormError {
+  min-height: 1.25rem;
+  color: var(--color-error);
+  font-weight: var(--font-weight-bold);
+  text-align: center;
+}
+
+.taskCreateHeader {
+  margin-bottom: var(--spacing-md);
+}
+
+.taskCreateTitle {
+  font-size: var(--font-title-lg-size);
+}
+
+.taskCreateFooter {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: var(--spacing-md);
+}
