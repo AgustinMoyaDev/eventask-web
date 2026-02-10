@@ -1,6 +1,6 @@
 import dayjs, { Dayjs } from 'dayjs'
 
-import { EventForm, IEventLocal } from '@/types/IEvent'
+import { EventFormModel } from '@/types/models/event.model'
 
 /**
  * Formats a date (Date, ISO string or Dayjs) to the 'yyyy-MM-ddTHH:mm' format,
@@ -27,7 +27,7 @@ function ceilToQuarter(now: Dayjs): Dayjs {
   return now.add(toAdd, 'minute').second(0).millisecond(0)
 }
 
-function getLastEndDate(events: EventForm[]) {
+function getLastEndDate(events: EventFormModel[]) {
   const initialValue = events[0].end
   const lastEnd = events.reduce((latest, event) => {
     const eventEnd = dayjs(event.end)
@@ -41,7 +41,7 @@ function getLastEndDate(events: EventForm[]) {
  * @param events - Form events.
  * @returns Today's date-time string (YYYY-MM-DDTHH:mm) if events is an empty array, or the next rounded date-time otherwise.
  */
-export const getNextStartDate = (events: EventForm[] = []): string => {
+export const getNextStartDate = (events: EventFormModel[] = []): string => {
   const now = dayjs()
   const eventExists = events.length > 0
 
@@ -61,7 +61,7 @@ export const getNextStartDate = (events: EventForm[] = []): string => {
 export function hasOverlap(
   newStart: string,
   newEnd: string,
-  existingEvents: IEventLocal[],
+  existingEvents: EventFormModel[],
   editingId?: string
 ): boolean {
   const s = dayjs(newStart)

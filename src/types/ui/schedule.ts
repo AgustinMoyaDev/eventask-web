@@ -1,7 +1,7 @@
-import { IEventSegment } from './event-segment'
+import { EventSegment } from './event-segment'
 
 export interface ScheduleProps {
   isToday: boolean
-  segmentsForDay: IEventSegment[]
+  segmentsForDay: EventSegment[]
   onRequestNextDay: () => void
 }

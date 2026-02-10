@@ -2,7 +2,7 @@ import { useMemo } from 'react'
 
 import dayjs from 'dayjs'
 
-import { IEvent } from '@/types/IEvent'
+import { Event } from '@/types/entities/event'
 import { CalendarDayWithEvents } from '@/types/ui/calendar-day'
 
 import { computeCalendar } from '@/calendar/utils/computeCalendar'
@@ -20,7 +20,7 @@ import { useMonthlyEventsActions } from '@/store/hooks/useMonthlyEventsActions'
  * @returns {Function} resetActiveCalendarDay - Function to reset the active day selection
  * @returns {string} fullDateLabel - Full date in format "DD MMM YYYY"
  * @returns {string} todayDateLabel - Today's date in format "ddd, DD MMMM"
- * @returns {IEvent[]} eventsForActiveDay - Array of events for the selected day
+ * @returns {Event[]} eventsForActiveDay - Array of events for the selected day
  * @returns {CalendarDayWithEvents[]} calendarDays - Array of calendar days with their events
  */
 export const useCalendar = () => {
@@ -32,7 +32,7 @@ export const useCalendar = () => {
 
   // Group events by key YYYY-MM-DD
   const eventsByDay = useMemo(() => {
-    const map: Record<string, IEvent[]> = {}
+    const map: Record<string, Event[]> = {}
     monthlyEvents.forEach(evt => {
       const key = dayjs(evt.start).format('YYYY-MM-DD')
       map[key] = map[key] ? [...map[key], evt] : [evt]
@@ -54,7 +54,7 @@ export const useCalendar = () => {
   }, [baseDays, eventsByDay])
 
   // Events for the currently active day
-  const eventsForActiveDay = useMemo<IEvent[]>(() => {
+  const eventsForActiveDay = useMemo<Event[]>(() => {
     if (!activeCalendarDay) return []
 
     const { year, month, day } = activeCalendarDay

@@ -2,7 +2,7 @@ import { Dispatch, SetStateAction, useMemo, useState } from 'react'
 import dayjs, { Dayjs } from 'dayjs'
 import clsx from 'clsx'
 
-import { IEventSegment } from '@/types/ui/event-segment'
+import { EventSegment } from '@/types/ui/event-segment'
 
 import { Button } from '@/components/button/Button'
 import { ArrowLeftIcon, ArrowRightIcon } from '@/components/icons/Icons'
@@ -13,7 +13,7 @@ import { DatePill } from '../date-pill/DatePill'
 import styles from './DatePills.module.css'
 
 interface Props {
-  eventSegments: IEventSegment[]
+  eventSegments: EventSegment[]
   selectedDate: Dayjs
   onSelectDate: Dispatch<SetStateAction<Dayjs>>
 }

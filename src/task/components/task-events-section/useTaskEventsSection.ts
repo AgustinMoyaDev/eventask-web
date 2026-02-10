@@ -4,15 +4,16 @@ import { ModalIds } from '@/types/ui/modal'
 
 import { useEventActions } from '@/store/hooks/useEventActions'
 import { useModalActions } from '@/store/hooks/useModalActions'
-import { IEventCreatePayload, IEventUpdatePayload } from '@/types/dtos/event'
-import { EventForm } from '@/types/IEvent'
+
+import { CreateEventDto, UpdateEventDto } from '@/types/dtos/event.dto'
+import { EventFormModel } from '@/types/models/event.model'
 
 /**
  * Custom hook for managing task events section logic
  * Handles modal state and event CRUD operations
  */
 export const useTaskEventsSection = (taskId: string) => {
-  const [editingEvent, setEditingEvent] = useState<EventForm | null>(null)
+  const [editingEvent, setEditingEvent] = useState<EventFormModel | null>(null)
   const { isOpen, open, close } = useModalActions(ModalIds.EventForm)
   const { createEvent, updateEvent, deleteEvent, creating, updating } = useEventActions()
 
@@ -22,7 +23,7 @@ export const useTaskEventsSection = (taskId: string) => {
   }, [open])
 
   const handleOpenEdit = useCallback(
-    (event: EventForm) => {
+    (event: EventFormModel) => {
       setEditingEvent(event)
       open()
     },
@@ -35,11 +36,16 @@ export const useTaskEventsSection = (taskId: string) => {
   }, [close])
 
   const handleCreateEvent = useCallback(
-    async (event: IEventCreatePayload) => {
-      const result = await createEvent({
-        ...event,
+    async (event: EventFormModel) => {
+      const payload: CreateEventDto = {
+        title: event.title,
+        start: event.start,
+        end: event.end,
+        notes: event.notes,
         taskId,
-      })
+      }
+
+      const result = await createEvent(payload)
 
       if (!result?.error) {
         handleClose()
@@ -49,8 +55,18 @@ export const useTaskEventsSection = (taskId: string) => {
   )
 
   const handleUpdateEvent = useCallback(
-    async (event: IEventUpdatePayload) => {
-      const result = await updateEvent({ ...event, taskId })
+    async (event: EventFormModel) => {
+      const payload: UpdateEventDto = {
+        id: event.id,
+        title: event.title,
+        start: event.start,
+        end: event.end,
+        notes: event.notes,
+        status: event.status,
+        taskId,
+      }
+
+      const result = await updateEvent(payload)
       if (!result?.error) {
         handleClose()
       }
@@ -62,7 +78,7 @@ export const useTaskEventsSection = (taskId: string) => {
     async (eventId: string) => {
       await deleteEvent({ id: eventId, taskId })
     },
-    [deleteEvent, taskId]
+    [taskId, deleteEvent]
   )
 
   return {

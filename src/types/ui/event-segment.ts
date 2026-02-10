@@ -1,9 +1,9 @@
 import { Dayjs } from 'dayjs'
 
-import { IEvent } from '../IEvent'
+import { Event } from '@/types/entities/event'
 import { IUser } from '../IUser'
 
-export interface IEventSegment extends Omit<IEvent, 'start' | 'end'> {
+export interface EventSegment extends Omit<Event, 'start' | 'end'> {
   start: Dayjs
   end: Dayjs
   duration: number

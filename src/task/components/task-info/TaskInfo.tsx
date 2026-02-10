@@ -14,7 +14,7 @@ import { LinearProgress } from '@/components/linear-progress/LinearProgress'
 import { ModalIds } from '@/types/ui/modal'
 
 import { ITask } from '@/types/ITask'
-import { EVENT_STATUS } from '@/types/IEvent'
+import { EVENT_STATUS } from '@/types/entities/event'
 import { DRAGGABLE_ITEM_SRC, ORIGIN_NAME } from '@/types/ui/dragNdrop'
 import { getColorChipTask } from '@/types/ui/task'
 

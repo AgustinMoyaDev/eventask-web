@@ -1,10 +1,11 @@
-import type { IEvent, IEventLocal } from './IEvent'
+import type { Event } from './entities/event'
+import type { EventFormModel } from './models/event.model'
+
 import type { ICategory } from './ICategory'
 import type { IUser } from './IUser'
 import { IBase } from './IBase'
 
 export const TASK_STATUS = {
-  // ACTIVE: 'active',
   PENDING: 'pending',
   PROGRESS: 'in-progress',
   COMPLETED: 'completed',
@@ -29,14 +30,14 @@ export interface ITask extends IBase, TaskMetadata {
   category: ICategory
   creator: IUser
   participants: IUser[]
-  events: IEvent[]
+  events: Event[]
 }
 
 export interface ITaskForm {
   status?: TaskStatus
   title: string
   category: string
-  events: IEventLocal[]
+  events: EventFormModel[]
   participants: IUser[]
 }
 

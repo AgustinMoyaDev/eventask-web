@@ -1,7 +1,8 @@
 import clsx from 'clsx'
 import dayjs from 'dayjs'
 
-import { EVENT_STATUS, IEvent } from '@/types/IEvent'
+import { Event, EVENT_STATUS } from '@/types/entities/event'
+
 import { Button } from '@/components/button/Button'
 import { useEventActions } from '@/store/hooks/useEventActions'
 import { CheckIcon, DeleteIcon, EditIcon } from '@/components/icons/Icons'
@@ -9,8 +10,8 @@ import { CheckIcon, DeleteIcon, EditIcon } from '@/components/icons/Icons'
 import styles from './EventTimelineItem.module.css'
 
 interface Props {
-  event: IEvent
-  onEditEvent: (event: IEvent) => void
+  event: Event
+  onEditEvent: (event: Event) => void
   onDeleteEvent: (id: string) => void
 }
 

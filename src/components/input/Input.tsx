@@ -112,7 +112,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
             )}
             {hint && (
               <small id={hintId} className={styles.inputHint}>
-                {`Eg: ${hint}`}
+                {hint}
               </small>
             )}
           </div>

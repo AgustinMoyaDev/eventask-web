@@ -1,8 +1,9 @@
 import { delay, http, HttpResponse } from 'msw'
+import { faker } from '@faker-js/faker'
 
 import type { ITask } from '@/types/ITask'
 import { ITaskCreatePayload, ITaskUpdatePayload } from '@/types/dtos/task'
-import { EVENT_STATUS, IEvent } from '@/types/IEvent'
+import { Event, EVENT_STATUS } from '@/types/entities/event'
 import { IUser } from '@/types/IUser'
 
 import { createPaginatedResponse, getPaginationParams } from './shared'
@@ -79,7 +80,7 @@ export const taskHandlers = [
       .map(id => MOCK_CONTACTS.find(c => c.id === id))
       .filter((user): user is IUser => user !== undefined)
 
-    const events: IEvent[] = body.events.map(eventForm => ({
+    const events: Event[] = body.events.map(eventForm => ({
       id: crypto.randomUUID(),
       title: eventForm.title,
       start: eventForm.start,
@@ -144,13 +145,13 @@ export const taskHandlers = [
 
     const currentEventsMap = new Map(existingTask.events.map(e => [e.id, e]))
     const newEventIds: string[] = []
-    const updatedEvents: IEvent[] = []
+    const updatedEvents: Event[] = []
 
     for (const eventForm of body.events) {
       if (eventForm.id && currentEventsMap.has(eventForm.id)) {
         // UPDATE: preserve collaborators and other fields
         const existingEvent = currentEventsMap.get(eventForm.id)!
-        const updatedEvent: IEvent = {
+        const updatedEvent: Event = {
           ...existingEvent,
           title: eventForm.title,
           start: eventForm.start,
@@ -173,8 +174,9 @@ export const taskHandlers = [
         }
       } else {
         // CREATE: new event without collaborators
-        const newEvent: IEvent = {
-          id: crypto.randomUUID(),
+        const newEvent: Event = {
+          id: faker.string.uuid(),
+          taskId: faker.string.uuid(),
           title: eventForm.title,
           start: eventForm.start,
           end: eventForm.end,

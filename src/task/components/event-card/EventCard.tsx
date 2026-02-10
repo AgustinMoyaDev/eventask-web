@@ -2,11 +2,10 @@ import dayjs from 'dayjs'
 import clsx from 'clsx'
 
 import { EventCardProps } from '@/types/ui/event-card'
+import { EVENT_STATUS } from '@/types/entities/event'
 
 import { Button } from '@/components/button/Button'
 import { DeleteIcon, EditIcon, SeparatorIcon } from '@/components/icons/Icons'
-
-import { EVENT_STATUS } from '@/types/IEvent'
 
 import styles from './EventCard.module.css'
 

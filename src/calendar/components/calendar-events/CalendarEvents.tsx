@@ -6,7 +6,7 @@ import { ConfirmModal } from '@/components/confirm-modal/ConfirmModal'
 import { EventTimelineItem } from '@/calendar/components/event-timeline-item/EventTimelineItem'
 
 import { ModalIds } from '@/types/ui/modal'
-import { IEvent } from '@/types/IEvent'
+import { Event } from '@/types/entities/event'
 
 import { useCalendar } from '@/calendar/hooks/useCalendar'
 import { useModalActions } from '@/store/hooks/useModalActions'
@@ -42,7 +42,7 @@ export const CalendarEvents = () => {
   )
 
   const handleClickEditEvent = useCallback(
-    ({ taskId, id }: IEvent) => {
+    ({ taskId, id }: Event) => {
       if (!taskId) return
       navigate(`/task/${taskId}/edit?editEvent=${id}`, { replace: true })
     },

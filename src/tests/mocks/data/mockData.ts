@@ -1,6 +1,7 @@
 import { ITask } from '@/types/ITask'
 import { IUser } from '@/types/IUser'
-import { IEvent } from '@/types/IEvent'
+
+import { Event } from '@/types/entities/event'
 import { ICategoryWithTaskCount } from '@/types/ICategory'
 import { INotification } from '@/types/INotification'
 
@@ -70,7 +71,7 @@ export const MOCK_TASKS: ITask[] = createFakeTasks(10, {
  * Extract all events from mock tasks for event-specific endpoints
  * These are the same events embedded in MOCK_TASKS
  */
-export const MOCK_EVENTS: IEvent[] = MOCK_TASKS.flatMap(task =>
+export const MOCK_EVENTS: Event[] = MOCK_TASKS.flatMap(task =>
   task.events.map(event => ({
     ...event,
     taskId: task.id,

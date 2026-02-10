@@ -9,14 +9,16 @@ import {
   getNextStartDate,
   hasOverlap,
 } from '@/helpers/form-validations/eventHelpers'
-import { EVENT_STATUS, IEventLocal } from '@/types/IEvent'
+
+import { EVENT_STATUS } from '@/types/entities/event'
+import { EventFormModel } from '@/types/models/event.model'
 import { ColorProgressType } from '@/types/ui/task'
 
 export function useEventForm(
-  existingEvents: IEventLocal[] = [],
-  eventToEdit: IEventLocal | null = null,
-  onAddEvent: (evt: IEventLocal) => void,
-  onUpdateEvent: (evt: IEventLocal) => void
+  existingEvents: EventFormModel[] = [],
+  eventToEdit: EventFormModel | null = null,
+  onAddEvent: (evt: EventFormModel) => void,
+  onUpdateEvent: (evt: EventFormModel) => void
 ) {
   const {
     register,
@@ -68,7 +70,7 @@ export function useEventForm(
   const onSubmit = (data: EventSchemaType) => {
     if (hasConflict) return
 
-    const submitEvent: IEventLocal = {
+    const submitEvent: EventFormModel = {
       ...data,
       id: eventToEdit?.id ?? crypto.randomUUID(),
       status: currentStatus,

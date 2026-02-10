@@ -1,4 +1,4 @@
-import { IBase } from '@/types/IBase'
+import { IBase } from '@/types/Base'
 import { SortConfig, SortDirection } from '@/types/ui/table'
 
 /**

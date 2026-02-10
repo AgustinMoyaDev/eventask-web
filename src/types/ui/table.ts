@@ -1,4 +1,4 @@
-import { IBase } from '../IBase'
+import { IBase } from '../Base'
 
 export enum ViewType {
   TASKS = 'tasks',

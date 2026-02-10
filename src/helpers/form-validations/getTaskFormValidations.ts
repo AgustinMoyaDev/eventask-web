@@ -1,7 +1,8 @@
 import { ITaskForm } from '@/types/ITask'
 import { ITaskCreatePayload, ITaskUpdatePayload } from '@/types/dtos/task'
 import { ICategory } from '@/types/ICategory'
-import { EventForm, IEventLocal } from '@/types/IEvent'
+import { EventFormFields } from '@/types/dtos/event.dto'
+import { EventFormModel } from '@/types/models/event.model'
 
 import { FormValidations } from '@/hooks/useForm'
 
@@ -18,7 +19,7 @@ export const taskFormValidations: FormValidations<typeof taskFormFields> = {
   events: [[value => value.length === 0, 'You must add at least one event.']],
 }
 
-const mapEventLocalToEventForm = (events: IEventLocal[]): EventForm[] => {
+const mapEventLocalToEventForm = (events: EventFormModel[]): EventFormFields[] => {
   return events.map(evt => ({
     id: evt.id,
     title: evt.title,

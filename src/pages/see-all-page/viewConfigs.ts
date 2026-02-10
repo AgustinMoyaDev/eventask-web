@@ -2,7 +2,7 @@ import { NavigateFunction } from 'react-router-dom'
 
 import { ColumnConfig, ViewType } from '@/types/ui/table'
 import { IBase } from '@/types/IBase'
-import { IEvent } from '@/types/IEvent'
+import { Event } from '@/types/entities/event'
 import { IUser } from '@/types/IUser'
 import { ITask } from '@/types/ITask'
 import { ICategory } from '@/types/ICategory'
@@ -53,7 +53,7 @@ export interface ViewDetail {
     error: string | null
   }
   events: {
-    data: IEvent[]
+    data: Event[]
     total: number
     fetching: boolean
     error: string | null
@@ -70,7 +70,7 @@ interface SpecificViewConfigs {
   [ViewType.TASKS]: ViewConfig<ITask>
   [ViewType.CATEGORIES]: ViewConfig<ICategory>
   [ViewType.NOTIFICATIONS]: ViewConfig<INotification>
-  [ViewType.EVENTS]: ViewConfig<IEvent>
+  [ViewType.EVENTS]: ViewConfig<Event>
   [ViewType.CONTACTS]: ViewConfig<IUser>
 }
 

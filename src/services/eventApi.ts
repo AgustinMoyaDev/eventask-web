@@ -2,12 +2,18 @@ import { baseApi } from './baseApi'
 
 import { IPaginationOptions, IPaginationResult } from '../api/types/pagination'
 
-import { IEvent, IEventCalendarQueryParams, IEventCalendarResult } from '../types/IEvent'
-import { IEventCreatePayload, IEventStatusPayload, IEventUpdatePayload } from '../types/dtos/event'
+import { Event } from '../types/entities/event'
+import {
+  CreateEventDto,
+  UpdateEventDto,
+  UpdateEventStatusDto,
+  EventCalendarResponseDto,
+  EventCalendarQueryDto,
+} from '../types/dtos/event.dto'
 
 export const eventApi = baseApi.injectEndpoints({
   endpoints: builder => ({
-    fetchEventsByUser: builder.query<IPaginationResult<IEvent>, IPaginationOptions>({
+    fetchEventsByUser: builder.query<IPaginationResult<Event>, IPaginationOptions>({
       query: ({ page = 1, perPage = 10, sortBy, sortOrder } = {}) => ({
         url: '/events',
         method: 'GET',
@@ -18,7 +24,7 @@ export const eventApi = baseApi.injectEndpoints({
         ...(result?.items.map(evt => ({ type: 'Event' as const, id: evt.id })) ?? []),
       ],
     }),
-    fetchEventsByMonth: builder.query<IEventCalendarResult, IEventCalendarQueryParams>({
+    fetchEventsByMonth: builder.query<EventCalendarResponseDto, EventCalendarQueryDto>({
       query: ({ year, month }) => ({
         url: '/events/calendar',
         method: 'GET',
@@ -29,7 +35,7 @@ export const eventApi = baseApi.injectEndpoints({
         ...(result?.events.map(evt => ({ type: 'Event' as const, id: evt.id })) ?? []),
       ],
     }),
-    updateEventStatus: builder.mutation<IEvent, IEventStatusPayload>({
+    updateEventStatus: builder.mutation<Event, UpdateEventStatusDto>({
       query: ({ id, status }) => ({
         url: `/events/${id}/status`,
         method: 'PATCH',
@@ -41,11 +47,10 @@ export const eventApi = baseApi.injectEndpoints({
               { type: 'Event', id: 'LIST' },
               { type: 'Event', id: result.id },
               { type: 'Task', id: result.taskId },
-              { type: 'Task', id: 'LIST' },
             ]
           : [],
     }),
-    createEvent: builder.mutation<IEvent, IEventCreatePayload>({
+    createEvent: builder.mutation<Event, CreateEventDto>({
       query: newEvent => ({
         url: '/events',
         method: 'POST',
@@ -56,7 +61,7 @@ export const eventApi = baseApi.injectEndpoints({
         { type: 'Task', id: arg.taskId },
       ],
     }),
-    updateEvent: builder.mutation<IEvent, IEventUpdatePayload>({
+    updateEvent: builder.mutation<Event, UpdateEventDto>({
       query: event => ({
         url: `/events/${event.id}`,
         method: 'PUT',
@@ -76,7 +81,6 @@ export const eventApi = baseApi.injectEndpoints({
       invalidatesTags: (_result, _error, arg) => [
         { type: 'Event', id: 'LIST' },
         { type: 'Task', id: arg.taskId },
-        { type: 'Task', id: 'LIST' },
       ],
     }),
     /**

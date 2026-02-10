@@ -1,7 +1,7 @@
 import dayjs from 'dayjs'
 import localeData from 'dayjs/plugin/localeData'
 
-import { IEvent } from '../IEvent'
+import { Event } from '@/types/entities/event'
 
 dayjs.extend(localeData)
 
@@ -22,7 +22,7 @@ export interface CalendarDay {
 }
 
 export interface CalendarDayWithEvents extends CalendarDay {
-  events: IEvent[]
+  events: Event[]
 }
 
 export const WEEKDAYS = dayjs.weekdaysShort()

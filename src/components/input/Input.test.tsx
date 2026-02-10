@@ -49,7 +49,7 @@ describe('Input', () => {
 
   it('shows hint when provided and no error', () => {
     render(<Input {...baseProps} hint="Introduce tu usuario" />)
-    expect(screen.getByText(/eg: introduce tu usuario/i)).toBeInTheDocument()
+    expect(screen.getByText(/introduce tu usuario/i)).toBeInTheDocument()
   })
 
   it('renders as disabled when disabled prop is true', () => {
