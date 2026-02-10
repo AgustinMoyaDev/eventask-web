@@ -1,9 +1,9 @@
-import { EventForm, IEventLocal } from '../IEvent'
+import { EventFormModel } from '../models/event.model'
 
 export interface EventCardListProps {
-  events: IEventLocal[]
+  events: EventFormModel[]
   onOpenNewEventModal: () => void
-  onOpenEditEventModal: (evt: EventForm) => void
+  onOpenEditEventModal: (evt: EventFormModel) => void
   onDelete: (evtId: string) => void
   eventsValid?: boolean
 }

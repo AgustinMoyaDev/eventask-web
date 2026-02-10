@@ -2,7 +2,7 @@ import { ColumnConfig } from '@/types/ui/table'
 import { ITask } from '@/types/ITask'
 import { ICategory } from '@/types/ICategory'
 import { INotification } from '@/types/INotification'
-import { IEvent } from '@/types/IEvent'
+import { Event } from '@/types/entities/event'
 import { IUser } from '@/types/IUser'
 import { getColorChipTask } from '@/types/ui/task'
 
@@ -41,7 +41,7 @@ export const NOTIFICATION_COLUMNS: ColumnConfig<INotification>[] = [
   },
 ]
 
-export const EVENTS_COLUMNS: ColumnConfig<IEvent>[] = [
+export const EVENTS_COLUMNS: ColumnConfig<Event>[] = [
   { key: 'title', label: 'Title', sortable: true },
   {
     key: 'createdAt',

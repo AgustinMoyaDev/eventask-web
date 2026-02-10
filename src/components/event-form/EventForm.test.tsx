@@ -1,7 +1,7 @@
 import { fireEvent, render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 
-import { EVENT_STATUS } from '@/types/IEvent'
+import { Event, EVENT_STATUS } from '@/types/entities/event'
 import { COLOR_PROGRESS } from '@/types/ui/task'
 
 import { EventForm } from './EventForm'
@@ -57,13 +57,16 @@ describe('EventForm', () => {
   })
 
   it('should render edit mode when eventToEdit is provided', () => {
-    const eventToEdit = {
+    const eventToEdit: Event = {
       id: '1',
       title: 'Test Event',
       start: '2023-12-01T10:00',
       end: '2023-12-01T11:00',
       notes: 'Test notes',
       status: EVENT_STATUS.PENDING,
+      taskId: 'task-1',
+      createdBy: 'user-1',
+      createdAt: new Date(),
     }
 
     render(<EventForm eventToEdit={eventToEdit} onAddEvent={vi.fn()} onUpdateEvent={vi.fn()} />)

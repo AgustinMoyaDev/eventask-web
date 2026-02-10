@@ -3,9 +3,9 @@ import { createEntityAdapter, createSlice, PayloadAction } from '@reduxjs/toolki
 import { eventApi } from '@/services/eventApi'
 import { authApi } from '@/services/authApi'
 
-import { IEventLocal } from '@/types/IEvent'
+import { EventFormModel } from '@/types/models/event.model'
 
-export const eventsAdapter = createEntityAdapter<IEventLocal>({
+export const eventsAdapter = createEntityAdapter<EventFormModel>({
   sortComparer: (a, b) => a.start.localeCompare(b.start),
 })
 
@@ -53,7 +53,7 @@ export const eventSlice = createSlice({
         eventsAdapter.upsertOne(state, payload)
       })
       .addMatcher(deleteEvent.matchFulfilled, (state, action) => {
-        const deletedId = action.meta.arg.originalArgs
+        const deletedId = action.meta.arg.originalArgs.id
         eventsAdapter.removeOne(state, deletedId)
         if (state.activeEventId === deletedId) state.activeEventId = undefined
       })

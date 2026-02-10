@@ -1,7 +1,6 @@
 import clsx from 'clsx'
 
-import { IEventLocal } from '@/types/IEvent'
-import { IEventUpdatePayload } from '@/types/dtos/event'
+import { EventFormModel } from '@/types/models/event.model'
 
 import { Input } from '../input/Input'
 import { Textarea } from '../text-area/Textarea'
@@ -13,10 +12,10 @@ import { useEventForm } from './useEventForm'
 import styles from './EventForm.module.css'
 
 interface Props {
-  onAddEvent: (event: IEventLocal) => void
-  onUpdateEvent: (event: IEventLocal) => void
-  existingEvents?: IEventLocal[]
-  eventToEdit?: IEventUpdatePayload | null
+  onAddEvent: (event: EventFormModel) => void
+  onUpdateEvent: (event: EventFormModel) => void
+  existingEvents?: EventFormModel[]
+  eventToEdit?: EventFormModel | null
 }
 
 export const EventForm = ({

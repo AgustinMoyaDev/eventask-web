@@ -2,7 +2,7 @@
  * Shared helper functions for MSW handlers
  */
 import type { IPaginationResult } from '@/api/types/pagination'
-import { EVENT_STATUS } from '@/types/IEvent'
+import { EVENT_STATUS } from '@/types/entities/event'
 import { ITask, TASK_STATUS, TaskStatus } from '@/types/ITask'
 
 /**

@@ -12,7 +12,7 @@ dayjs.extend(minMax)
 import type { ITask, TaskStatus } from '@/types/ITask'
 import type { IUser } from '@/types/IUser'
 import { TASK_STATUS } from '@/types/ITask'
-import { EVENT_STATUS, IEvent } from '@/types/IEvent'
+import { Event, EVENT_STATUS } from '@/types/entities/event'
 
 import { createFakeUser } from './userFactory'
 import { createSequentialEvents } from './eventFactory'
@@ -158,7 +158,7 @@ function selectRandomParticipants(
  * @param events
  * @returns duration in hours
  */
-export function calculateTaskDuration(events: IEvent[]): number {
+export function calculateTaskDuration(events: Event[]): number {
   const starts = events.map(e => dayjs(e.start)).filter(e => e.isValid())
   const ends = events.map(e => dayjs(e.end)).filter(e => e.isValid())
 

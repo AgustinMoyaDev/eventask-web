@@ -6,7 +6,7 @@ import { ArrowRightIcon, CheckIcon, PhoneIcon } from '@/components/icons/Icons'
 import { UsersAvatars } from '@/components/users-avatars/UsersAvatars'
 import { DropZone } from '@/components/drag-n-drop/drop-zone/DropZone'
 
-import { EVENT_STATUS } from '@/types/IEvent'
+import { EVENT_STATUS } from '@/types/entities/event'
 import { ScheduleEventProps } from '@/types/ui/schedule-event'
 import { DROPPABLE_ITEM_TARGET, DRAGGABLE_ITEM_SRC, ORIGIN_NAME } from '@/types/ui/dragNdrop'
 

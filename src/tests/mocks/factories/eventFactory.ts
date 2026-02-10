@@ -1,6 +1,6 @@
 import { faker } from '@faker-js/faker'
 
-import { EVENT_STATUS, IEvent } from '@/types/IEvent'
+import { Event, EVENT_STATUS } from '@/types/entities/event'
 import { IUser } from '@/types/IUser'
 
 import { createFakeUser, createFakeUsers } from './userFactory'
@@ -146,11 +146,11 @@ function roundToQuarterHour(date: Date): Date {
 }
 
 /**
- * Creates a fake IEvent object with realistic data and relationships.
+ * Creates a fake Event object with realistic data and relationships.
  *
- * @param overwrites - Partial IEvent to override default generated values
+ * @param overwrites - Partial Event to override default generated values
  * @param availableUsers - Pool of users that can be assigned as collaborators
- * @returns A complete IEvent object with fake data
+ * @returns A complete Event object with fake data
  *
  * @example
  * ```typescript
@@ -164,10 +164,7 @@ function roundToQuarterHour(date: Date): Date {
  * })
  * ```
  */
-export function createFakeEvent(
-  overwrites: Partial<IEvent> = {},
-  availableUsers?: IUser[]
-): IEvent {
+export function createFakeEvent(overwrites: Partial<Event> = {}, availableUsers?: IUser[]): Event {
   // Generate creator and collaborators
   const creator =
     overwrites.createdBy && typeof overwrites.createdBy === 'object'
@@ -208,7 +205,7 @@ export function createFakeEvent(
     start = startDate.toISOString(),
     end = endDate.toISOString(),
     notes = faker.lorem.paragraph(),
-    taskId = undefined,
+    taskId = faker.string.uuid(),
     task = undefined,
     createdAt = faker.date.past(),
     updatedAt = faker.date.recent(),
@@ -231,12 +228,12 @@ export function createFakeEvent(
 }
 
 /**
- * Creates multiple fake IEvent objects.
+ * Creates multiple fake Event objects.
  *
  * @param count - Number of events to generate
- * @param overwrites - Partial IEvent applied to all generated events
+ * @param overwrites - Partial Event applied to all generated events
  * @param availableUsers - Pool of users that can be assigned as collaborators
- * @returns Array of IEvent objects
+ * @returns Array of Event objects
  *
  * @example
  * ```typescript
@@ -249,9 +246,9 @@ export function createFakeEvent(
  */
 export function createFakeEvents(
   count: number,
-  overwrites: Partial<IEvent> = {},
+  overwrites: Partial<Event> = {},
   availableUsers?: IUser[]
-): IEvent[] {
+): Event[] {
   return Array.from({ length: count }, () => createFakeEvent(overwrites, availableUsers))
 }
 
@@ -260,9 +257,9 @@ export function createFakeEvents(
  * Events are created sequentially with gaps between them.
  *
  * @param count - Number of events to generate
- * @param overwrites - Partial IEvent applied to all generated events
+ * @param overwrites - Partial Event applied to all generated events
  * @param availableUsers - Pool of users that can be assigned as collaborators
- * @returns Array of non-overlapping IEvent objects
+ * @returns Array of non-overlapping Event objects
  *
  * @example
  * ```typescript
@@ -275,11 +272,11 @@ export function createFakeEvents(
  */
 export function createSequentialEvents(
   count: number,
-  overwrites: Partial<IEvent> = {},
+  overwrites: Partial<Event> = {},
   availableUsers?: IUser[],
   categoryName?: string
-): IEvent[] {
-  const events: IEvent[] = []
+): Event[] {
+  const events: Event[] = []
   let currentDate = roundToQuarterHour(faker.date.soon({ days: 1 }))
 
   for (let i = 0; i < count; i++) {

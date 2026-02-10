@@ -1,7 +1,8 @@
 import dayjs, { Dayjs } from 'dayjs'
 
-import { IEvent } from '../types/IEvent'
-import { IEventSegment } from '../types/ui/event-segment'
+import { Event } from '@/types/entities/event'
+
+import { EventSegment } from '../types/ui/event-segment'
 
 /**
  * Split events into one or two segments:
@@ -10,8 +11,8 @@ import { IEventSegment } from '../types/ui/event-segment'
  *   • a first-day segment (isStartSegment=true)
  *   • a second-day segment (isStartSegment=false)
  */
-export const getEventsSegments = (events: IEvent[] = []): IEventSegment[] => {
-  const segments: IEventSegment[] = []
+export const getEventsSegments = (events: Event[] = []): EventSegment[] => {
+  const segments: EventSegment[] = []
   if (!events.length) return segments
 
   events.forEach(evt => {
@@ -35,17 +36,18 @@ export const getEventsSegments = (events: IEvent[] = []): IEventSegment[] => {
 }
 
 const makeSegment = (
-  event: IEvent,
+  event: Event,
   start: Dayjs,
   end: Dayjs,
   isStart: boolean,
   isEnd: boolean
-): IEventSegment => {
+): EventSegment => {
   const minutes = end.diff(start, 'minutes', true)
   const duration = minutes / 60
 
   return {
     id: event.id,
+    taskId: event.taskId,
     title: event.title,
     status: event.status,
     notes: event.notes,
@@ -61,7 +63,7 @@ const makeSegment = (
   }
 }
 
-export const getHoursSchedule = (segments: IEventSegment[]) => {
+export const getHoursSchedule = (segments: EventSegment[]) => {
   if (!segments.length) {
     const now = dayjs().hour()
     // Show 2 hours before and 2 hours after current time when no events

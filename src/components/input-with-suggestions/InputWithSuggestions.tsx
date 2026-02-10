@@ -144,9 +144,9 @@ export const InputWithSuggestions = forwardRef<HTMLInputElement, InputWithSugges
 
           {loading && <span>Loading...</span>}
           {hasError && !showSuggestions && (
-            <span id={errorId} className={inputStyles.inputErrorMessage} role="alert">
+            <small id={errorId} className={inputStyles.inputErrorMessage} role="alert">
               {error}
-            </span>
+            </small>
           )}
           {hint && !showSuggestions && !hasError && (
             <small id={hintId} className={inputStyles.inputHint}>

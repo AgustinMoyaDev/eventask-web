@@ -1,7 +1,12 @@
 import { delay, http, HttpResponse } from 'msw'
 
-import { IEvent, IEventCalendarResult } from '@/types/IEvent'
-import { IEventUpdatePayload, IEventStatusPayload } from '@/types/dtos/event'
+import { Event } from '@/types/entities/event'
+import {
+  EventCalendarResponseDto,
+  UpdateEventDto,
+  UpdateEventStatusDto,
+} from '@/types/dtos/event.dto'
+
 import { createPaginatedResponse, getPaginationParams, recalculateTaskProgress } from './shared'
 import { MOCK_EVENTS, MOCK_TASKS, MOCK_CONTACTS } from '../data/mockData'
 import { DELAYS } from '../utils/delays'
@@ -27,7 +32,7 @@ function getCalendarEventsParams(url: URL) {
 /**
  * Filter events by year and month
  */
-function filterEventsByMonth(events: IEvent[], year: number, month: number): IEvent[] {
+function filterEventsByMonth(events: Event[], year: number, month: number) {
   return events.filter(event => {
     const eventDate = new Date(event.start)
     return eventDate.getFullYear() === year && eventDate.getMonth() + 1 === month
@@ -38,7 +43,7 @@ export const eventHandlers = [
   http.get('*api/events', ({ request }) => {
     const url = new URL(request.url)
     const { page, perPage, sortBy, sortOrder } = getPaginationParams(url)
-    const response = createPaginatedResponse<IEvent>(MOCK_EVENTS, page, perPage, sortBy, sortOrder)
+    const response = createPaginatedResponse<Event>(MOCK_EVENTS, page, perPage, sortBy, sortOrder)
     // Remove circular references from all events
     const cleanItems = response.items.map(({ task: _, ...evt }) => evt)
     return HttpResponse.json({ ...response, items: cleanItems })
@@ -48,7 +53,7 @@ export const eventHandlers = [
     const url = new URL(request.url)
     const { year, month } = getCalendarEventsParams(url)
     const filteredEvents = filterEventsByMonth(MOCK_EVENTS, year, month)
-    const response: IEventCalendarResult = {
+    const response: EventCalendarResponseDto = {
       events: filteredEvents,
       year,
       month,
@@ -70,7 +75,7 @@ export const eventHandlers = [
   http.put('*/api/events/:id', async ({ request, params }) => {
     await delay(DELAYS.NORMAL)
     const { id } = params
-    const body = (await request.json()) as IEventUpdatePayload
+    const body = (await request.json()) as UpdateEventDto
 
     const eventIndex = MOCK_EVENTS.findIndex(e => e.id === id)
     if (eventIndex === -1) {
@@ -79,7 +84,7 @@ export const eventHandlers = [
 
     const existingEvent = MOCK_EVENTS[eventIndex]
 
-    const updatedEvent: IEvent = {
+    const updatedEvent: Event = {
       ...existingEvent,
       title: body.title,
       start: body.start,
@@ -111,7 +116,7 @@ export const eventHandlers = [
   http.patch('*/api/events/:id/status', async ({ request, params }) => {
     await delay(DELAYS.FAST)
     const { id } = params
-    const body = (await request.json()) as { status: IEventStatusPayload['status'] }
+    const body = (await request.json()) as UpdateEventStatusDto
 
     const eventIndex = MOCK_EVENTS.findIndex(e => e.id === id)
     if (eventIndex === -1) {
@@ -121,7 +126,7 @@ export const eventHandlers = [
     const existingEvent = MOCK_EVENTS[eventIndex]
 
     // Update only status
-    const updatedEvent: IEvent = {
+    const updatedEvent: Event = {
       ...existingEvent,
       status: body.status,
       updatedAt: new Date(),
