@@ -18,7 +18,7 @@ import styles from './Sidebar.module.css'
 const menuItems = [
   { to: '/home', label: 'Home', icon: <HomeIcon className={styles.sidebarIcon} /> },
   {
-    to: '/task-form',
+    to: '/task/new',
     label: 'New Task',
     icon: <PlusIcon className={styles.sidebarIcon} />,
   },
