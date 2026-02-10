@@ -29,14 +29,6 @@ export const eventApi = baseApi.injectEndpoints({
         ...(result?.events.map(evt => ({ type: 'Event' as const, id: evt.id })) ?? []),
       ],
     }),
-    createEvent: builder.mutation<IEvent, IEventCreatePayload>({
-      query: newEvent => ({
-        url: '/events',
-        method: 'POST',
-        body: newEvent,
-      }),
-      invalidatesTags: ['Event'],
-    }),
     updateEventStatus: builder.mutation<IEvent, IEventStatusPayload>({
       query: ({ id, status }) => ({
         url: `/events/${id}/status`,
@@ -48,10 +40,21 @@ export const eventApi = baseApi.injectEndpoints({
           ? [
               { type: 'Event', id: 'LIST' },
               { type: 'Event', id: result.id },
-              { type: 'Task', id: result.taskId! },
+              { type: 'Task', id: result.taskId },
               { type: 'Task', id: 'LIST' },
             ]
           : [],
+    }),
+    createEvent: builder.mutation<IEvent, IEventCreatePayload>({
+      query: newEvent => ({
+        url: '/events',
+        method: 'POST',
+        body: newEvent,
+      }),
+      invalidatesTags: (_result, _error, arg) => [
+        { type: 'Event', id: 'LIST' },
+        { type: 'Task', id: arg.taskId },
+      ],
     }),
     updateEvent: builder.mutation<IEvent, IEventUpdatePayload>({
       query: event => ({
@@ -59,18 +62,20 @@ export const eventApi = baseApi.injectEndpoints({
         method: 'PUT',
         body: event,
       }),
-      invalidatesTags: (_r, _e, arg) => [
+      invalidatesTags: (_result, _error, arg) => [
         { type: 'Event', id: 'LIST' },
         { type: 'Event', id: arg.id },
+        { type: 'Task', id: arg.taskId },
       ],
     }),
-    deleteEvent: builder.mutation<{ id: string }, string>({
-      query: id => ({
+    deleteEvent: builder.mutation<{ id: string }, { id: string; taskId: string }>({
+      query: ({ id }) => ({
         url: `/events/${id}`,
         method: 'DELETE',
       }),
-      invalidatesTags: () => [
+      invalidatesTags: (_result, _error, arg) => [
         { type: 'Event', id: 'LIST' },
+        { type: 'Task', id: arg.taskId },
         { type: 'Task', id: 'LIST' },
       ],
     }),
