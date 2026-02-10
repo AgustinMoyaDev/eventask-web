@@ -7,6 +7,7 @@ export interface IEventCreatePayload extends EventForm {
 export interface IEventUpdatePayload extends EventForm {
   id: string
   status: EventStatus
+  taskId: string
 }
 
 export interface IEventStatusPayload {

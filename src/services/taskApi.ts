@@ -28,7 +28,10 @@ export const taskApi = baseApi.injectEndpoints({
         method: 'POST',
         body: newTask,
       }),
-      invalidatesTags: [{ type: 'Task', id: 'LIST' }],
+      invalidatesTags: [
+        { type: 'Task', id: 'LIST' },
+        { type: 'Category', id: 'LIST-COUNT' },
+      ],
     }),
     updateTask: builder.mutation<ITask, ITaskUpdatePayload>({
       query: task => ({
@@ -52,6 +55,28 @@ export const taskApi = baseApi.injectEndpoints({
       }),
       invalidatesTags: () => [{ type: 'Task', id: 'LIST' }],
     }),
+    assignParticipant: builder.mutation<ITask, { taskId: string; participantId: string }>({
+      query: ({ taskId, participantId }) => ({
+        url: `/tasks/${taskId}/participants/${participantId}`,
+        method: 'POST',
+      }),
+      // Optimistic update
+      // async onQueryStarted({ taskId, participantId }, { dispatch, queryFulfilled }) {
+      // TODO: Update cache optimistically
+      // },
+      invalidatesTags: (_result, _error, { taskId }) => [{ type: 'Task', id: taskId }],
+    }),
+    removeParticipant: builder.mutation<ITask, { taskId: string; participantId: string }>({
+      query: ({ taskId, participantId }) => ({
+        url: `/tasks/${taskId}/participants/${participantId}`,
+        method: 'DELETE',
+      }),
+      // Optimistic update
+      // async onQueryStarted({ taskId, participantId }, { dispatch, queryFulfilled }) {
+      // TODO: Update cache optimistically
+      // },
+      invalidatesTags: (_result, _error, { taskId }) => [{ type: 'Task', id: taskId }],
+    }),
   }),
   overrideExisting: false,
 })
@@ -62,4 +87,6 @@ export const {
   useCreateTaskMutation,
   useUpdateTaskMutation,
   useDeleteTaskMutation,
+  useAssignParticipantMutation,
+  useRemoveParticipantMutation,
 } = taskApi

@@ -5,7 +5,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { useUserActions } from '@/store/hooks/useUserActions'
 import { useInvitationActions } from '@/store/hooks/useInvitationActions'
 
-import { userProfileSchema, UserProfileSchemaType } from '@/helpers/form-validations/userSchemas'
+import { userProfileSchema, UserProfileSchemaType } from '@/helpers/form-validations/userSchema'
 
 /**
  * Custom hook for user profile form logic.

@@ -44,14 +44,14 @@ export const CalendarEvents = () => {
   const handleClickEditEvent = useCallback(
     ({ taskId, id }: IEvent) => {
       if (!taskId) return
-      navigate(`/task-form/${taskId}?editEvent=${id}`, { replace: true })
+      navigate(`/task/${taskId}/edit?editEvent=${id}`, { replace: true })
     },
     [navigate]
   )
 
   const handleConfirmDelete = useCallback(async () => {
     if (!activeEvent) return
-    await deleteEvent(activeEvent.id)
+    await deleteEvent({ id: activeEvent.id, taskId: activeEvent.taskId! })
     clearActiveEvent()
     close()
   }, [activeEvent, deleteEvent, clearActiveEvent, close])

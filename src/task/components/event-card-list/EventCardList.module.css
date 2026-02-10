@@ -21,17 +21,6 @@
   row-gap: var(--spacing-sm);
 }
 
-.eventCardListHeader {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: var(--spacing-sm);
-}
-
-.eventCardListTitle {
-  font-weight: var(--font-weight-medium);
-}
-
 .eventCardListScrollable {
   overflow-y: auto;
   display: flex;
@@ -45,10 +34,6 @@
   color: var(--color-outline);
   text-align: center;
   margin-block: var(--spacing-sm-plus);
-}
-
-.eventCardListError {
-  color: var(--color-error);
 }
 
 [data-theme='dark'] .eventCardList {

@@ -3,8 +3,9 @@ import { Navigate, Route, Routes } from 'react-router-dom'
 
 import {
   HomePage,
-  TaskFormPage,
   TaskDetailPage,
+  TaskCreatePage,
+  TaskEditPage,
   UserProfilePage,
   SeeAllPage,
 } from '../router/lazyPages'
@@ -26,9 +27,9 @@ export const RootLayout = () => {
         <Suspense fallback={<GenericContentSkeleton />}>
           <Routes>
             <Route path="home" element={<HomePage />} />
+            <Route path="task/new" element={<TaskCreatePage />} />
+            <Route path="task/:id/edit" element={<TaskEditPage />} />
             <Route path="task/:id" element={<TaskDetailPage />} />
-            <Route path="task-form" element={<TaskFormPage />} />
-            <Route path="task-form/:id" element={<TaskFormPage />} />
             <Route path="profile" element={<UserProfilePage />} />
             <Route path="see-all" element={<SeeAllPage />} />
             <Route path="*" element={<Navigate to="/not-found" replace />} />

@@ -23,7 +23,7 @@ export const categoryApi = baseApi.injectEndpoints({
         method: 'GET',
       }),
       providesTags: result => [
-        { type: 'Category', id: 'LIST' },
+        { type: 'Category', id: 'LIST-COUNT' },
         ...(result?.map(c => ({ type: 'Category' as const, id: c.id })) ?? []),
       ],
     }),
@@ -33,7 +33,7 @@ export const categoryApi = baseApi.injectEndpoints({
         method: 'POST',
         body: newCategory,
       }),
-      invalidatesTags: [{ type: 'Category', id: 'LIST' }],
+      invalidatesTags: [{ type: 'Category', id: 'LIST-COUNT' }],
     }),
     updateCategory: builder.mutation<ICategory, ICategoryUpdatePayload>({
       query: updatedCategory => ({

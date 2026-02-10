@@ -1,6 +1,7 @@
 import clsx from 'clsx'
 
 import { IEventLocal } from '@/types/IEvent'
+import { IEventUpdatePayload } from '@/types/dtos/event'
 
 import { Input } from '../input/Input'
 import { Textarea } from '../text-area/Textarea'
@@ -15,7 +16,7 @@ interface Props {
   onAddEvent: (event: IEventLocal) => void
   onUpdateEvent: (event: IEventLocal) => void
   existingEvents?: IEventLocal[]
-  eventToEdit?: IEventLocal | null
+  eventToEdit?: IEventUpdatePayload | null
 }
 
 export const EventForm = ({

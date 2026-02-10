@@ -1,0 +1,43 @@
+.taskEditPage {
+  display: flex;
+  justify-content: center;
+}
+
+.taskEditContainer {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xl);
+  width: 100%;
+  max-width: 30rem;
+}
+
+.taskEditHeader {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+}
+
+.taskEditTitle {
+  font-size: var(--font-headline-lg-size);
+  font-weight: var(--font-weight-medium);
+}
+
+.taskEditSubtitle {
+  color: var(--color-on-surface-variant);
+}
+
+.taskEditInfo {
+  background-color: var(--color-surface-container-low);
+  border-radius: var(--shape-corner-medium);
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm-plus);
+}
+
+.taskEditInfo h2 {
+  font-size: var(--font-title-lg-size);
+}
+
+.taskEditInfo p {
+  color: var(--color-on-surface-variant);
+}

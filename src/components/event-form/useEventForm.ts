@@ -18,7 +18,6 @@ export function useEventForm(
   onAddEvent: (evt: IEventLocal) => void,
   onUpdateEvent: (evt: IEventLocal) => void
 ) {
-  // 1. Initialize React Hook Form
   const {
     register,
     handleSubmit,
@@ -35,11 +34,11 @@ export function useEventForm(
     },
   })
 
-  // 2. Watch fields for real-time conflict detection
+  // Watch fields for real-time conflict detection
   const startValue = useWatch({ control, name: 'start' })
   const endValue = useWatch({ control, name: 'end' })
 
-  // 3. Computed Status logic (Preserved from original)
+  // Computed Status logic (Preserved from original)
   const currentStatus = eventToEdit?.status ?? EVENT_STATUS.PENDING
   const isStatusCompleted = currentStatus === EVENT_STATUS.COMPLETED
   const colorChip: ColorProgressType = isStatusCompleted ? 'completed' : 'pending'
@@ -59,15 +58,13 @@ export function useEventForm(
     return { title: '', notes: '', start, end }
   }, [eventToEdit, existingEvents])
 
-  // 4. Initialize or Reset Form Data
+  // Initialize or Reset Form Data
   useEffect(() => {
     reset(getInitialValues())
   }, [getInitialValues, reset])
 
-  // 5. Conflict Logic using watched values
   const hasConflict = hasOverlap(startValue || '', endValue || '', existingEvents, eventToEdit?.id)
 
-  // 6. Form Submission
   const onSubmit = (data: EventSchemaType) => {
     if (hasConflict) return
 

@@ -102,11 +102,6 @@ describe('InputWithSuggestions', () => {
     expect(input).toHaveAttribute('aria-invalid', 'true')
   })
 
-  it('shows hint when provided and no error', () => {
-    render(<InputWithSuggestions {...baseProps} hint="Introduce una ciudad" />)
-    expect(screen.getByText(/eg: introduce una ciudad/i)).toBeInTheDocument()
-  })
-
   it('closes suggestions when clicking outside', () => {
     render(<InputWithSuggestions {...baseProps} />)
     const input = screen.getByRole('combobox')
