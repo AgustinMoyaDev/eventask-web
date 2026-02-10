@@ -1,5 +1,7 @@
-export interface InputProps
-  extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'onChange' | 'onBlur'> {
+export interface InputProps extends Omit<
+  React.InputHTMLAttributes<HTMLInputElement>,
+  'onChange' | 'onBlur'
+> {
   id?: string
   name: string
   label: string
@@ -13,10 +15,12 @@ export interface InputProps
   onBlur?: (event: React.FocusEvent<HTMLInputElement>) => void
 }
 
-export interface InputWithSuggestionsProps
-  extends Omit<InputProps, 'initialStateIcon' | 'finalStateIcon'> {
+export interface InputWithSuggestionsProps extends Omit<
+  InputProps,
+  'initialStateIcon' | 'finalStateIcon'
+> {
   suggestionData: string[]
-  allowCreateIfNotExists: boolean
+  allowCreateIfNotExists?: boolean
   loading?: boolean
   onSuggestionClick?: (value: string) => void
   onCreateNew?: (value: string) => void

@@ -114,7 +114,7 @@ export const TaskInfo = ({ task }: Props) => {
           <span className={styles.taskInfoText}>Calendar</span>
         </ButtonLink>
 
-        <ButtonLink className={styles.actionBtn} variant="filled" to={`/task-form/${id}`}>
+        <ButtonLink className={styles.actionBtn} variant="filled" to={`/task/${id}/edit`}>
           <EditIcon />
           <span className={styles.taskInfoText}>Edit task</span>
         </ButtonLink>
