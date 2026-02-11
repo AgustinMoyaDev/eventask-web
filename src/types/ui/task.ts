@@ -1,4 +1,4 @@
-import { TASK_STATUS, TaskStatus } from '../ITask'
+import { TASK_STATUS, TaskStatus } from '../entities/task'
 
 export const COLOR_PROGRESS = {
   default: 'default',

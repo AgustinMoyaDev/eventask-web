@@ -1,17 +1,17 @@
 import { baseApi } from './baseApi'
 
-import { IUser } from '../types/IUser'
-import { IUpdateUserDto } from '../types/dtos/user'
+import { User } from '../types/entities/user'
 
-import { IPaginationOptions, IPaginationResult } from '@/api/types/pagination'
+import { PaginationOptions, PaginationResult } from '@/types/dtos/api/pagination'
+import { UpdateUserDto } from '@/types/dtos/user.dto'
 
 export const userApi = baseApi.injectEndpoints({
   endpoints: builder => ({
-    getProfile: builder.query<IUser, void>({
+    getProfile: builder.query<User, void>({
       query: () => ({ url: '/users/me', method: 'GET' }),
       providesTags: () => [{ type: 'User' }],
     }),
-    fetchContacts: builder.query<IPaginationResult<IUser>, IPaginationOptions>({
+    fetchContacts: builder.query<PaginationResult<User>, PaginationOptions>({
       query: ({ page = 1, perPage = 10, sortBy, sortOrder } = {}) => ({
         url: '/users/me/contacts',
         method: 'GET',
@@ -31,7 +31,7 @@ export const userApi = baseApi.injectEndpoints({
       }),
       invalidatesTags: ['User'],
     }),
-    updateProfile: builder.mutation<IUser, IUpdateUserDto>({
+    updateProfile: builder.mutation<User, UpdateUserDto>({
       query: data => ({
         url: '/users/me',
         method: 'PUT',

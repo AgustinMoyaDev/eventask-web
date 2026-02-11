@@ -1,6 +1,6 @@
 import { baseApi } from './baseApi'
 
-import { IInvitation } from '../types/IInvitation'
+import { Invitation } from '../types/entities/invitation'
 
 export const invitationApi = baseApi.injectEndpoints({
   endpoints: builder => ({
@@ -8,7 +8,7 @@ export const invitationApi = baseApi.injectEndpoints({
      * Send invitation to user by email to become a contact
      * @param email - Target email address for invitation
      */
-    inviteContact: builder.mutation<IInvitation, { email: string }>({
+    inviteContact: builder.mutation<Invitation, { email: string }>({
       query: ({ email }) => ({
         url: '/invitations/invite',
         method: 'POST',
@@ -20,7 +20,7 @@ export const invitationApi = baseApi.injectEndpoints({
      * Accept a pending invitation and create bidirectional contact relationship
      * @param invitationId - ID of invitation to accept
      */
-    acceptInvitation: builder.mutation<IInvitation, { invitationId: string }>({
+    acceptInvitation: builder.mutation<Invitation, { invitationId: string }>({
       query: ({ invitationId }) => ({
         url: `/invitations/${invitationId}/accept`,
         method: 'PUT',
@@ -31,7 +31,7 @@ export const invitationApi = baseApi.injectEndpoints({
      * Reject a pending invitation
      * @param invitationId - ID of invitation to reject
      */
-    rejectInvitation: builder.mutation<IInvitation, { invitationId: string }>({
+    rejectInvitation: builder.mutation<Invitation, { invitationId: string }>({
       query: ({ invitationId }) => ({
         url: `/invitations/${invitationId}/reject`,
         method: 'PUT',

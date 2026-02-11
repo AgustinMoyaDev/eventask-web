@@ -1,6 +1,6 @@
 import { useCallback, useMemo } from 'react'
 
-import { IUser } from '@/types/IUser'
+import { User } from '@/types/entities/user'
 
 import { useUserActions } from '@/store/hooks/useUserActions'
 
@@ -10,7 +10,7 @@ import { useAssignParticipantMutation, useRemoveParticipantMutation } from '@/se
  * Custom hook for managing task participants section logic
  * Handles adding and removing participants from a task
  */
-export const useTaskParticipantsSection = (taskId: string, currentParticipants: IUser[]) => {
+export const useTaskParticipantsSection = (taskId: string, currentParticipants: User[]) => {
   const { user, fetchingProfile } = useUserActions()
 
   const [assignParticipant, { isLoading: isAssigning }] = useAssignParticipantMutation()
@@ -25,7 +25,7 @@ export const useTaskParticipantsSection = (taskId: string, currentParticipants: 
   }, [user, currentParticipants])
 
   const handleAddParticipant = useCallback(
-    async (participant: IUser) => {
+    async (participant: User) => {
       await assignParticipant({
         taskId,
         participantId: participant.id.toString(),
@@ -35,7 +35,7 @@ export const useTaskParticipantsSection = (taskId: string, currentParticipants: 
   )
 
   const handleRemoveParticipant = useCallback(
-    async (participant: IUser) => {
+    async (participant: User) => {
       await removeParticipant({
         taskId,
         participantId: participant.id.toString(),

@@ -1,13 +1,12 @@
 import { clsx } from 'clsx'
 
 import { SearchIcon } from '@/components/icons/Icons'
-
-import { useSearch } from '@/hooks/useSearch'
+import { useSearch } from '@/context/search/SearchContext'
 
 import styles from './Search.module.css'
 
 export const Search: React.FC = () => {
-  const { search, updateSearch } = useSearch()
+  const { search, setSearch } = useSearch()
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>): void => {
     event.preventDefault()
@@ -18,7 +17,7 @@ export const Search: React.FC = () => {
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const newQuery = event.target.value
     if (startWithBlanks(newQuery)) return
-    updateSearch(newQuery)
+    setSearch(newQuery)
   }
 
   return (

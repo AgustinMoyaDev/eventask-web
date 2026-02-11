@@ -2,8 +2,8 @@ import { render, screen, fireEvent, waitFor } from '@testing-library/react'
 
 import { useInvitationActions } from '@/store/hooks/useInvitationActions'
 import type { InvitationDetailViewProps } from '@/types/ui/dropdown'
-import { INotification, NOTIFICATION_TYPE } from '@/types/INotification'
-import { ParsedError } from '@/api/helpers/getErrorMessage'
+import { Notification, NOTIFICATION_TYPE } from '@/types/entities/notification'
+import { ParsedError } from '@/services/utils/getErrorMessage'
 
 import { InvitationDetailView } from './InvitationDetailView'
 
@@ -17,7 +17,7 @@ vi.mock('@/services/baseApi', () => ({
 
 vi.mock('@/store/hooks/useInvitationActions')
 
-const baseNotification: INotification = {
+const baseNotification: Notification = {
   id: 'notif-1',
   title: 'Contact invitation',
   message: 'Jhon has invited you to connect.',

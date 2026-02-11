@@ -1,21 +1,18 @@
-import { createContext, Dispatch, SetStateAction, useContext } from 'react'
+import { createContext, useContext } from 'react'
 
 interface SearchContextType {
   search: string
-  updateSearch: Dispatch<SetStateAction<string>>
+  setSearch: (value: string) => void
 }
 
-export const SearchContext = createContext<SearchContextType>({
-  search: '',
-  updateSearch: () => {
-    /* no-op */
-  },
-})
+export const SearchContext = createContext<SearchContextType | null>(null)
 
-export const useSearchContext = () => {
+export const useSearch = () => {
   const context = useContext(SearchContext)
+
   if (!context) {
-    throw new Error('useSearchContext must be used within a SearchProvider')
+    throw new Error('useSearch must be used within a SearchProvider')
   }
+
   return context
 }

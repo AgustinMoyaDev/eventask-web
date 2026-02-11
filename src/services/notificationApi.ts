@@ -1,7 +1,7 @@
 import { baseApi } from './baseApi'
 
-import { INotification, INotificationQueryOptions } from '../types/INotification'
-import { IPaginationResult } from '@/api/types/pagination'
+import { Notification, NotificationQueryOptions } from '../types/entities/notification'
+import { PaginationResult } from '@/types/dtos/api/pagination'
 
 /**
  * Notification API endpoints using RTK Query
@@ -13,10 +13,7 @@ export const notificationApi = baseApi.injectEndpoints({
      * Get user notifications with pagination
      * @param params - Pagination parameters (limit, offset)
      */
-    getUserNotifications: builder.query<
-      IPaginationResult<INotification>,
-      INotificationQueryOptions
-    >({
+    getUserNotifications: builder.query<PaginationResult<Notification>, NotificationQueryOptions>({
       query: ({ page = 1, perPage = 10, sortBy, sortOrder, read, type } = {}) => ({
         url: '/notifications',
         method: 'GET',
@@ -25,7 +22,7 @@ export const notificationApi = baseApi.injectEndpoints({
           perPage,
           ...(sortBy && { sortBy }),
           ...(sortOrder && { sortOrder }),
-          ...(read && { read }),
+          ...(read !== undefined && { read }),
           ...(type && { type }),
         },
       }),
@@ -49,7 +46,7 @@ export const notificationApi = baseApi.injectEndpoints({
      * Mark specific notification as read
      * @param notificationId - ID of notification to mark as read
      */
-    markAsRead: builder.mutation<INotification, string>({
+    markAsRead: builder.mutation<Notification, string>({
       query: notificationId => ({
         url: `/notifications/${notificationId}/read`,
         method: 'PUT',

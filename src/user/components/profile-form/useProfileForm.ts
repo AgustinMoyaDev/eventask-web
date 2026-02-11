@@ -5,7 +5,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { useUserActions } from '@/store/hooks/useUserActions'
 import { useInvitationActions } from '@/store/hooks/useInvitationActions'
 
-import { userProfileSchema, UserProfileSchemaType } from '@/helpers/form-validations/userSchema'
+import { profileSchema, ProfileSchemaType } from './profileSchema'
 
 /**
  * Custom hook for user profile form logic.
@@ -35,8 +35,8 @@ export const useProfileForm = () => {
     handleSubmit,
     reset,
     formState: { errors, isDirty, isValid },
-  } = useForm<UserProfileSchemaType>({
-    resolver: zodResolver(userProfileSchema),
+  } = useForm<ProfileSchemaType>({
+    resolver: zodResolver(profileSchema),
     mode: 'onTouched',
     defaultValues: {
       email: '',
@@ -62,7 +62,7 @@ export const useProfileForm = () => {
     await uploadAvatar(formData)
   }
 
-  const onSubmit = async (data: UserProfileSchemaType) => {
+  const onSubmit = async (data: ProfileSchemaType) => {
     await updateProfile({
       firstName: data.firstName.trim(),
       lastName: data.lastName.trim(),

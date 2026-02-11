@@ -1,12 +1,12 @@
-import { ITask } from '@/types/ITask'
-import { IUser } from '@/types/IUser'
+import { Task } from '@/types/entities/task'
+import { User } from '@/types/entities/user'
 
 import { MultiSelectInput } from '@/components/multi-select-input/MultiSelectInput'
 
 import { useTaskParticipantsSection } from './useTaskParticipantsSection'
 
 interface TaskParticipantsSectionProps {
-  task: ITask
+  task: Task
 }
 
 /**
@@ -24,7 +24,7 @@ export const TaskParticipantsSection = ({ task }: TaskParticipantsSectionProps) 
   } = useTaskParticipantsSection(task.id, task.participants)
 
   return (
-    <MultiSelectInput<IUser>
+    <MultiSelectInput<User>
       label="Participants"
       typeOption="email"
       options={availableContacts}
@@ -32,8 +32,8 @@ export const TaskParticipantsSection = ({ task }: TaskParticipantsSectionProps) 
       loading={isLoadingContacts || isAssigning || isRemoving}
       onAddItem={handleAddParticipant}
       onRemoveItem={handleRemoveParticipant}
-      getOptionLabel={(user: IUser) => user.email}
-      getOptionKey={(user: IUser) => user.id}
+      getOptionLabel={(user: User) => user.email}
+      getOptionKey={(user: User) => user.id}
     />
   )
 }

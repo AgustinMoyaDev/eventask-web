@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
 
-import { Categories } from '@/task/components/categories/Categories'
+import { Categories } from '@/category/components/categories/Categories'
 import { OngoingTasks } from '@/task/components/ongoing-tasks/OngoingTasks'
 import { Search } from '@/task/components/search/Search'
 
@@ -47,10 +47,12 @@ function HomePage() {
   }, [showWelcome, handleNextStep, handlePreviousStep])
 
   return (
-    <SearchProvider>
-      <Search />
-      <OngoingTasks />
-      <Categories />
+    <>
+      <SearchProvider>
+        <Search />
+        <OngoingTasks />
+        <Categories />
+      </SearchProvider>
       <WelcomeSlide isOpen={showWelcome} onClose={handleCloseWelcome}>
         <WelcomeSlideContent
           step={ONBOARDING_STEPS[currentStepIndex]}
@@ -64,7 +66,7 @@ function HomePage() {
           onAnimationEnd={handleAnimationEnd}
         />
       </WelcomeSlide>
-    </SearchProvider>
+    </>
   )
 }
 

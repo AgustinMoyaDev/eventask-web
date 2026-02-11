@@ -3,8 +3,8 @@ import { http, HttpResponse, delay } from 'msw'
 import { DELAYS } from '../utils/delays'
 import { MOCK_CONTACTS, MOCK_NOTIFICATIONS } from '../data/mockData'
 
-import { INVITATION_STATUS } from '@/types/IInvitation'
-import { NOTIFICATION_TYPE } from '@/types/INotification'
+import { INVITATION_STATUS } from '@/types/entities/invitation'
+import { NOTIFICATION_TYPE } from '@/types/entities/notification'
 
 export const invitationHandlers = [
   /**

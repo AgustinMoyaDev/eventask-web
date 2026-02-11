@@ -1,16 +1,16 @@
-import { ITask } from '@/types/ITask'
+import { Task } from '@/types/entities/task'
 
 import { Button } from '@/components/button/Button'
 import { Modal } from '@/components/modal/Modal'
-import { EventForm } from '@/components/event-form/EventForm'
-import { EventCardList } from '@/task/components/event-card-list/EventCardList'
+import { EventForm } from '@/event/components/event-form/EventForm'
+import { EventCardList } from '@/event/components/event-card-list/EventCardList'
 
 import { useTaskEventsSection } from './useTaskEventsSection'
 
 import styles from './TaskEventsSection.module.css'
 
 interface TaskEventsSectionProps {
-  task: ITask
+  task: Task
 }
 
 /**

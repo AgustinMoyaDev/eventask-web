@@ -88,6 +88,7 @@ export const changePasswordSchema = z
 
 export type ChangePasswordSchemaType = z.infer<typeof changePasswordSchema>
 
+// --- SET PASSWORD ---
 export const setPasswordSchema = z
   .object({
     newPassword: passwordValidation,

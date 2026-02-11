@@ -8,15 +8,15 @@ import {
   BaseQueryApi,
 } from '@reduxjs/toolkit/query/react'
 
-import { IAuthResponseDto } from '@/types/dtos/auth'
-import { HTTP_STATUS } from '@/api/types/http-status'
+import { AuthResponseDto } from '@/types/dtos/auth.dto'
+import { HTTP_STATUS } from '@/types/dtos/api/httpStatus'
 
 import type { RootState } from '@/store/store'
 import { setCredentials } from '@/store/slices/auth/authActions'
 import { setCsrfToken } from '@/store/slices/security/security'
 
 import { getEnvVariables } from '@/helpers/getEnvVariables'
-import { ApiResponse } from '@/api/types/response'
+import { ApiResponse } from '@/types/dtos/api/response'
 
 /**
  * Development logging utilities for auth flow
@@ -29,7 +29,7 @@ const { DEV, VITE_API_URL } = getEnvVariables()
  * Only the first request executes refresh, others wait for the same promise result
  * @see https://redux-toolkit.js.org/rtk-query/usage/customizing-queries#preventing-duplicate-requests
  */
-let refreshPromise: Promise<QueryReturnValue<IAuthResponseDto, FetchBaseQueryError>> | null = null
+let refreshPromise: Promise<QueryReturnValue<AuthResponseDto, FetchBaseQueryError>> | null = null
 
 /**
  * Promise Deduplication Pattern for logout operations
@@ -88,7 +88,7 @@ function logRefreshStatus(isNewRefresh: boolean): void {
  */
 async function handleRefreshSuccess(
   api: BaseQueryApi,
-  refreshData: IAuthResponseDto,
+  refreshData: AuthResponseDto,
   originalArgs: string | FetchArgs,
   extraOptions: Parameters<BaseQueryFn>[2]
 ) {
@@ -137,11 +137,9 @@ async function handleRefreshError(error: unknown, api: BaseQueryApi): Promise<vo
  */
 export async function executeLogout(
   api: BaseQueryApi
-): Promise<QueryReturnValue<IAuthResponseDto, FetchBaseQueryError>> {
+): Promise<QueryReturnValue<AuthResponseDto, FetchBaseQueryError>> {
   const args: FetchArgs = { url: '/auth/logout', method: 'POST' }
-  return baseQuery(args, api, {}) as Promise<
-    QueryReturnValue<IAuthResponseDto, FetchBaseQueryError>
-  >
+  return baseQuery(args, api, {}) as Promise<QueryReturnValue<AuthResponseDto, FetchBaseQueryError>>
 }
 
 /**
@@ -153,9 +151,9 @@ export async function executeLogout(
 function executeRefresh(
   api: BaseQueryApi,
   extraOptions: Parameters<BaseQueryFn>[2]
-): Promise<QueryReturnValue<IAuthResponseDto, FetchBaseQueryError>> {
+): Promise<QueryReturnValue<AuthResponseDto, FetchBaseQueryError>> {
   return baseQuery({ url: '/auth/refresh', method: 'POST' }, api, extraOptions) as Promise<
-    QueryReturnValue<IAuthResponseDto, FetchBaseQueryError>
+    QueryReturnValue<AuthResponseDto, FetchBaseQueryError>
   >
 }
 

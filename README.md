@@ -499,7 +499,7 @@ EvenTask follows strict coding standards enforced by **ESLint**, **TypeScript st
 
 - Components: PascalCase (`Button.tsx`)
 - Hooks: camelCase with `use` prefix (`useForm.ts`)
-- Types/Interfaces: PascalCase with `I` prefix (`ITask.ts`)
+- Types/Interfaces: PascalCase (`Task.ts`)
 - Constants: UPPER_SNAKE_CASE
 - Variables/Functions: camelCase with descriptive verbs
 

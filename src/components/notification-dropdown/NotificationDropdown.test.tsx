@@ -1,9 +1,9 @@
 import { render, screen } from '@testing-library/react'
 
-import { NOTIFICATION_TYPE } from '@/types/INotification'
-import { INVITATION_STATUS } from '@/types/IInvitation'
+import { NOTIFICATION_TYPE } from '@/types/entities/notification'
+import { INVITATION_STATUS } from '@/types/entities/invitation'
 
-import { ParsedError } from '@/api/helpers/getErrorMessage'
+import { ParsedError } from '@/services/utils/getErrorMessage'
 
 import { NotificationDropdown } from './NotificationDropdown'
 

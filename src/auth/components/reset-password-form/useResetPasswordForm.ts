@@ -5,7 +5,7 @@ import {
   resetPasswordSchema,
   type ResetPasswordSchemaType,
 } from '@/helpers/form-validations/authSchemas'
-import { TOKEN_TYPE } from '@/types/IToken'
+import { TOKEN_TYPE } from '@/types/entities/token'
 
 import { useAuthActions } from '@/store/hooks/useAuthActions'
 

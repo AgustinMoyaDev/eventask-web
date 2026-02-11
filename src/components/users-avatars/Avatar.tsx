@@ -1,10 +1,10 @@
-import { IUser } from '@/types/IUser'
+import { User } from '@/types/entities/user'
 import { DraggableUserAvatar } from '../draggable-user-avatar/DraggableUserAvatar'
 import { UserAvatar } from '../user-avatar/UserAvatar'
 import { DraggableData } from '@/types/ui/dragNdrop'
 
 interface AvatarProps {
-  user: IUser
+  user: User
   draggable?: DraggableData
   className?: string
 }

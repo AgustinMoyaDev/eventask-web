@@ -12,7 +12,7 @@ import {
   useUpdateCategoryMutation,
 } from '@/services/categoryApi'
 
-import { getErrorMessage, OperationError } from '@/api/helpers/getErrorMessage'
+import { getErrorMessage, OperationError } from '@/services/utils/getErrorMessage'
 
 import { useAppSelector } from '../reduxStore'
 

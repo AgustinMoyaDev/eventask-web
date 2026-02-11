@@ -1,6 +1,6 @@
 import { delay, http, HttpResponse } from 'msw'
 
-import type { INotification } from '@/types/INotification'
+import type { Notification } from '@/types/entities/notification'
 
 import { createPaginatedResponse, getPaginationParams } from './shared'
 import { MOCK_NOTIFICATIONS } from '../data/mockData'
@@ -15,7 +15,7 @@ export const notificationHandlers = [
     const url = new URL(request.url)
     const { page, perPage, sortBy, sortOrder } = getPaginationParams(url)
 
-    const response = createPaginatedResponse<INotification>(
+    const response = createPaginatedResponse<Notification>(
       MOCK_NOTIFICATIONS,
       page,
       perPage,

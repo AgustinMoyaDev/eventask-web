@@ -1,4 +1,4 @@
-import { INotification } from '../INotification'
+import { Notification } from '../entities/notification'
 import { Size } from './size'
 
 export interface NotificationDropdownProps {
@@ -13,7 +13,7 @@ export interface NotificationDropdownProps {
   /** Size variant for the notification icon */
   size?: Size
   /** Callback when notification is clicked */
-  onNotificationClick?: (notification: INotification) => void
+  onNotificationClick?: (notification: Notification) => void
   /** Callback when "Mark all as read" is clicked */
   onMarkAllAsRead?: () => void
 }
@@ -24,7 +24,7 @@ export enum DropdownView {
 }
 
 export interface InvitationDetailViewProps {
-  notification: INotification
+  notification: Notification
   isProcessing?: { accepting: boolean; rejecting: boolean }
   onBack: () => void
 }

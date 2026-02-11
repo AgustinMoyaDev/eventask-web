@@ -3,15 +3,15 @@ import { createEntityAdapter, createSlice, PayloadAction } from '@reduxjs/toolki
 import { taskApi } from '@/services/taskApi'
 import { authApi } from '@/services/authApi'
 
-import { ITask } from '@/types/ITask'
+import { Task } from '@/types/entities/task'
 
-export const tasksAdapter = createEntityAdapter<ITask>()
+export const tasksAdapter = createEntityAdapter<Task>()
 
-export interface ITaskState {
+export interface TaskState {
   activeTaskId?: string
 }
 
-const initialState = tasksAdapter.getInitialState<ITaskState>({
+const initialState = tasksAdapter.getInitialState<TaskState>({
   activeTaskId: undefined,
 })
 

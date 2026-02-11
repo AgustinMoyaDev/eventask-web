@@ -1,7 +1,7 @@
 import { delay, http, HttpResponse } from 'msw'
 
-import { IUser } from '@/types/IUser'
-import { IUpdateUserDto } from '@/types/dtos/user'
+import { User } from '@/types/entities/user'
+import { UpdateUserDto } from '@/types/dtos/user.dto'
 
 import { createPaginatedResponse, getPaginationParams } from './shared'
 
@@ -21,7 +21,7 @@ export const userHandlers = [
   http.get('*/api/users/me/contacts', ({ request }) => {
     const url = new URL(request.url)
     const { page, perPage, sortBy, sortOrder } = getPaginationParams(url)
-    const response = createPaginatedResponse<IUser>(MOCK_CONTACTS, page, perPage, sortBy, sortOrder)
+    const response = createPaginatedResponse<User>(MOCK_CONTACTS, page, perPage, sortBy, sortOrder)
     return HttpResponse.json(response)
   }),
   /**
@@ -48,7 +48,7 @@ export const userHandlers = [
    */
   http.put('*/api/users/me', async ({ request }) => {
     await delay(DELAYS.NORMAL)
-    const updates = (await request.json()) as IUpdateUserDto
+    const updates = (await request.json()) as UpdateUserDto
 
     if (updates.firstName !== undefined) MOCK_LOGGED_USER.firstName = updates.firstName
     if (updates.lastName !== undefined) MOCK_LOGGED_USER.lastName = updates.lastName

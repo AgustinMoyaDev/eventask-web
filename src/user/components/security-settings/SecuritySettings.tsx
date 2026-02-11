@@ -1,5 +1,5 @@
 import { ModalIds } from '@/types/ui/modal'
-import { IUser } from '@/types/IUser'
+import { User } from '@/types/entities/user'
 
 import { useModalActions } from '@/store/hooks/useModalActions'
 
@@ -14,7 +14,7 @@ import { ChangePasswordForm } from '../change-password-form/ChangePasswordForm'
 import styles from './SecuritySettings.module.css'
 
 interface SecuritySettingsProps {
-  user: IUser
+  user: User
 }
 
 export const SecuritySettings = ({ user }: SecuritySettingsProps) => {

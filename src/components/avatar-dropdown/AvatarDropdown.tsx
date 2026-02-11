@@ -5,7 +5,7 @@ import { Dropdown } from '@/components/dropdown/Dropdown'
 import { ButtonTheme } from '@/components/button-theme/ButtonTheme'
 import { UserAvatar } from '@/components/user-avatar/UserAvatar'
 
-import { TASK_STATUS } from '@/types/ITask'
+import { TASK_STATUS } from '@/types/entities/task'
 
 import { useAuthActions } from '@/store/hooks/useAuthActions'
 import { useUserActions } from '@/store/hooks/useUserActions'

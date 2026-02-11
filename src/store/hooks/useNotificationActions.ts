@@ -7,7 +7,7 @@ import {
   useMarkAsReadMutation,
   useMarkAllAsReadMutation,
 } from '@/services/notificationApi'
-import { getErrorMessage, OperationError } from '@/api/helpers/getErrorMessage'
+import { getErrorMessage, OperationError } from '@/services/utils/getErrorMessage'
 
 import { useAppSelector } from '../reduxStore'
 import { SortConfig } from '@/types/ui/table'

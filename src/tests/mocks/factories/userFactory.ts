@@ -1,16 +1,16 @@
 /**
  * User Factory
- * Generates fake IUser objects using Faker.js
+ * Generates fake User objects using Faker.js
  * @see https://fakerjs.dev/guide/usage.html#create-complex-objects
  */
 import { faker } from '@faker-js/faker'
-import type { IUser } from '@/types/IUser'
+import type { User } from '@/types/entities/user'
 
 /**
- * Creates a fake IUser object with realistic data.
+ * Creates a fake User object with realistic data.
  *
- * @param overwrites - Partial IUser to override default generated values
- * @returns A complete IUser object with fake data
+ * @param overwrites - Partial User to override default generated values
+ * @returns A complete User object with fake data
  *
  * @example
  * ```typescript
@@ -26,7 +26,7 @@ import type { IUser } from '@/types/IUser'
  * })
  * ```
  */
-export function createFakeUser(overwrites: Partial<IUser> = {}): IUser {
+export function createFakeUser(overwrites: Partial<User> = {}): User {
   const {
     id = faker.string.uuid(),
     firstName = faker.person.firstName(),
@@ -55,11 +55,11 @@ export function createFakeUser(overwrites: Partial<IUser> = {}): IUser {
 }
 
 /**
- * Creates multiple fake IUser objects.
+ * Creates multiple fake User objects.
  *
  * @param count - Number of users to generate
- * @param overwrites - Partial IUser applied to all generated users
- * @returns Array of IUser objects
+ * @param overwrites - Partial User applied to all generated users
+ * @returns Array of User objects
  *
  * @example
  * ```typescript
@@ -70,6 +70,6 @@ export function createFakeUser(overwrites: Partial<IUser> = {}): IUser {
  * const manualUsers = createFakeUsers(5, { hasManualPassword: true })
  * ```
  */
-export function createFakeUsers(count: number, overwrites: Partial<IUser> = {}): IUser[] {
+export function createFakeUsers(count: number, overwrites: Partial<User> = {}): User[] {
   return Array.from({ length: count }, () => createFakeUser(overwrites))
 }

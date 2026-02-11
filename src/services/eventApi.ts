@@ -1,6 +1,6 @@
 import { baseApi } from './baseApi'
 
-import { IPaginationOptions, IPaginationResult } from '../api/types/pagination'
+import { PaginationOptions, PaginationResult } from '../types/dtos/api/pagination'
 
 import { Event } from '../types/entities/event'
 import {
@@ -13,7 +13,7 @@ import {
 
 export const eventApi = baseApi.injectEndpoints({
   endpoints: builder => ({
-    fetchEventsByUser: builder.query<IPaginationResult<Event>, IPaginationOptions>({
+    fetchEventsByUser: builder.query<PaginationResult<Event>, PaginationOptions>({
       query: ({ page = 1, perPage = 10, sortBy, sortOrder } = {}) => ({
         url: '/events',
         method: 'GET',

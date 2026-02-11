@@ -3,8 +3,8 @@ import { render, screen, fireEvent, waitFor } from '@testing-library/react'
 
 import { NotificationList } from './NotificationList'
 
-import { INotification, NOTIFICATION_TYPE } from '@/types/INotification'
-import { INVITATION_STATUS } from '@/types/IInvitation'
+import { Notification, NOTIFICATION_TYPE } from '@/types/entities/notification'
+import { INVITATION_STATUS } from '@/types/entities/invitation'
 
 import styles from './NotificationList.module.css'
 
@@ -16,7 +16,7 @@ vi.mock('@/services/baseApi', () => ({
   },
 }))
 
-const baseNotification: INotification = {
+const baseNotification: Notification = {
   id: 'notif-1',
   title: 'Contact invitation',
   message: 'Joe has invited you to connect.',
@@ -31,7 +31,7 @@ const baseNotification: INotification = {
   userId: '123',
 }
 
-const readNotification: INotification = {
+const readNotification: Notification = {
   ...baseNotification,
   id: 'notif-2',
   title: 'Assigned Task',
@@ -41,7 +41,7 @@ const readNotification: INotification = {
   data: undefined,
 }
 
-const acceptedNotification: INotification = {
+const acceptedNotification: Notification = {
   ...baseNotification,
   id: 'notif-3',
   read: true,
@@ -52,7 +52,7 @@ const acceptedNotification: INotification = {
   },
 }
 
-const rejectedNotification: INotification = {
+const rejectedNotification: Notification = {
   ...baseNotification,
   id: 'notif-4',
   read: true,

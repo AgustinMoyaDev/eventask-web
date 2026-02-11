@@ -1,4 +1,4 @@
-import { IBase } from '../Base'
+import { Base } from '../entities/base'
 
 export enum ViewType {
   TASKS = 'tasks',
@@ -13,7 +13,7 @@ export enum SortDirection {
   DESC = 'desc',
 }
 
-export interface ColumnConfig<T extends IBase> {
+export interface ColumnConfig<T extends Base> {
   label: string
   sortable?: boolean
   key: keyof T | string
@@ -31,7 +31,7 @@ export interface SortConfig {
   direction: SortDirection | null
 }
 
-export interface TableProps<T extends IBase> {
+export interface TableProps<T extends Base> {
   columns: ColumnConfig<T>[]
   data: T[]
   getItemId: (item: T) => string

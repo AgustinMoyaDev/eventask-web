@@ -8,7 +8,7 @@ import dayjs from 'dayjs'
 import { DragEndEvent, DragStartEvent } from '@dnd-kit/core'
 import { DragProviders } from '@/context/drag/DragProviders'
 
-import { TaskId } from '@/types/ITask'
+import { TaskId } from '@/types/entities/task'
 import {
   DRAGGABLE_ITEM_SRC,
   DROPPABLE_ITEM_TARGET,
@@ -22,7 +22,7 @@ import { TaskInfo } from '@/task/components/task-info/TaskInfo'
 import { DatePills } from '@/task/components/date-pills-list/DatePills'
 import { Schedule } from '@/task/components/schedule/Schedule'
 
-import { getEventsSegments } from '@/utils/computedEvents'
+import { getEventsSegments } from '@/task/utils/computedEvents'
 import { useEventActions } from '@/store/hooks/useEventActions'
 
 import { useFetchTaskByIdQuery } from '@/services/taskApi'

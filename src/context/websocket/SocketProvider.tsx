@@ -6,7 +6,7 @@ import socket, { connectSocket, disconnectSocket } from '@/services/websocket/So
 
 import { useAppDispatch, useAppSelector } from '@/store/reduxStore'
 
-import { INotification } from '@/types/INotification'
+import { Notification } from '@/types/entities/notification'
 
 interface SocketContextType {
   isConnected: boolean
@@ -51,7 +51,7 @@ export const SocketProvider = ({ children }: SocketProviderProps) => {
       console.error('Socket connection error:', error.message)
     }
 
-    const handleNotification = (notification: INotification) => {
+    const handleNotification = (notification: Notification) => {
       if (!notification) return
       dispatch(baseApi.util.invalidateTags(['Notification', 'User', 'Task', 'Event']))
     }

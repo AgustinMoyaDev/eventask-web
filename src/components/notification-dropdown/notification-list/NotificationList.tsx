@@ -9,14 +9,14 @@ import { InvitationDetailView } from '../invitation-detail-view/InvitationDetail
 import { ArrowRightIcon } from '@/components/icons/Icons'
 
 import { DropdownView } from '@/types/ui/dropdown'
-import { INotification, NOTIFICATION_TYPE } from '@/types/INotification'
-import { INVITATION_STATUS } from '@/types/IInvitation'
+import { Notification, NOTIFICATION_TYPE } from '@/types/entities/notification'
+import { INVITATION_STATUS } from '@/types/entities/invitation'
 
 import styles from './NotificationList.module.css'
 
 interface NotificationListProps {
   unreadCount: number
-  notifications: INotification[]
+  notifications: Notification[]
   markAsRead: (id: string) => Promise<void>
   markAllAsRead: () => Promise<void>
   fetchingNotifications: boolean
@@ -30,7 +30,7 @@ export const NotificationList = ({
   fetchingNotifications,
 }: NotificationListProps) => {
   const [currentView, setCurrentView] = useState<DropdownView>(DropdownView.LIST)
-  const [notificationDetail, setNotificationDetail] = useState<INotification | null>(null)
+  const [notificationDetail, setNotificationDetail] = useState<Notification | null>(null)
 
   /**
    * Navigate back to notification list from detail view
@@ -45,12 +45,12 @@ export const NotificationList = ({
    * @param notification - Clicked notification
    * @param e - Click event
    */
-  const handleNotificationClick = async (notification: INotification) => {
+  const handleNotificationClick = async (notification: Notification) => {
     const { read, id } = notification
     if (!read) await markAsRead(id)
   }
 
-  const handleShowDetails = (notification: INotification) => {
+  const handleShowDetails = (notification: Notification) => {
     const { data, type } = notification
 
     if (!data) return
@@ -108,10 +108,10 @@ export const NotificationList = ({
     return date.toLocaleDateString()
   }
 
-  const showDetailButton = (notification: INotification) =>
+  const showDetailButton = (notification: Notification) =>
     notification && notification.data?.invitationStatus === INVITATION_STATUS.PENDING
 
-  const showResolvedNotification = (notification: INotification) => {
+  const showResolvedNotification = (notification: Notification) => {
     if (
       !notification?.data?.actionUrl ||
       notification.data.invitationStatus === INVITATION_STATUS.PENDING
@@ -151,7 +151,7 @@ export const NotificationList = ({
                 Loading notifications...
               </div>
             ) : thereAreNotifications ? (
-              notifications.map((notification: INotification) => {
+              notifications.map((notification: Notification) => {
                 const { id, title, message, createdAt, read, type } = notification
 
                 const isInvitationRejected =
