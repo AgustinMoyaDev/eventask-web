@@ -3,8 +3,9 @@ import { clsx } from 'clsx'
 import { ScrollableContainer } from '@/components/scrollable-container/ScrollableContainer'
 import { ButtonLink } from '@/components/button-link/ButtonLink'
 
-import { useSearch } from '@/hooks/useSearch'
 import { useCategoryActions } from '@/store/hooks/useCategoryActions'
+
+import { useSearch } from '@/context/search/SearchContext'
 
 import { Category, CategorySkeleton } from '../category/Category'
 

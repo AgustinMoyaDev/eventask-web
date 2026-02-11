@@ -9,7 +9,7 @@ import {
   useUpdateProfileMutation,
   useUploadAvatarMutation,
 } from '@/services/userApi'
-import { getErrorMessage, OperationError } from '@/api/helpers/getErrorMessage'
+import { getErrorMessage, OperationError } from '@/services/utils/getErrorMessage'
 
 import { useAppSelector } from '../reduxStore'
 

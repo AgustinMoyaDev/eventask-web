@@ -1,18 +1,16 @@
 import { useNavigate } from 'react-router-dom'
-
 import dayjs from 'dayjs'
 
 import { CalendarIcon } from '@/components/icons/Icons'
+import { CircularProgress } from '@/components/circular-progress/CircularProgress'
 import { UsersAvatars } from '@/components/users-avatars/UsersAvatars'
 
-import { TaskProps } from '@/types/entities/task'
-
-import { CircularProgress } from '../circular-progress/CircularProgress'
+import { OngoingTaskProps } from './task.types'
 
 import styles from './OngoingTask.module.css'
 
-export const OngoingTask = ({ task }: TaskProps) => {
-  const { id, title, duration, beginningDate, completionDate, progress, participants } = task
+export const OngoingTask = ({ task }: OngoingTaskProps) => {
+  const { id, title, duration, beginningDate, completionDate, progress, participants = [] } = task
 
   const formattedBeginningDate = dayjs(beginningDate).format('DD MMM')
   const formattedCompletionDate = dayjs(completionDate).format('DD MMM')

@@ -7,11 +7,11 @@ import { Task } from '@/types/entities/task'
 
 export const tasksAdapter = createEntityAdapter<Task>()
 
-export interface ITaskState {
+export interface TaskState {
   activeTaskId?: string
 }
 
-const initialState = tasksAdapter.getInitialState<ITaskState>({
+const initialState = tasksAdapter.getInitialState<TaskState>({
   activeTaskId: undefined,
 })
 

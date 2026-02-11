@@ -3,7 +3,7 @@ import { skipToken } from '@reduxjs/toolkit/query'
 
 import { SortConfig } from '@/types/ui/table'
 
-import { getErrorMessage, OperationError } from '@/api/helpers/getErrorMessage'
+import { getErrorMessage, OperationError } from '@/services/utils/getErrorMessage'
 
 import {
   useFetchTasksQuery,

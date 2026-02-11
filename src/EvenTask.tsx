@@ -4,17 +4,17 @@ import { Provider } from 'react-redux'
 
 import { GoogleOAuthProvider } from '@react-oauth/google'
 
+import { store } from '@/store/store'
+
 import { getEnvVariables } from '@/helpers/getEnvVariables'
 
-import { useServerWarmup } from '@/hooks/useServerWarmup'
-
 import { AppRouter } from '@/router/AppRouter'
-import { NavigationProvider } from '@/context/navigation/NavigationProvider'
 
-import { store } from '@/store/store'
-import { ToastContainer } from '@/components/toast/ToastContainer'
+import { NavigationProvider } from '@/context/navigation/NavigationProvider'
 import { SocketProvider } from '@/context/websocket/SocketProvider'
 import { SidebarProvider } from '@/context/sidebar/SidebarProvider'
+
+import { ToastContainer } from '@/components/toast-container/ToastContainer'
 
 const v7DocDisabledWarnings = {
   v7_startTransition: true,
@@ -23,7 +23,6 @@ const v7DocDisabledWarnings = {
 
 function EvenTask() {
   const { VITE_GOOGLE_CLIENT_ID } = getEnvVariables()
-  useServerWarmup()
 
   return (
     <GoogleOAuthProvider clientId={VITE_GOOGLE_CLIENT_ID}>

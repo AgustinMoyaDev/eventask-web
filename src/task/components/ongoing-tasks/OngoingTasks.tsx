@@ -5,7 +5,8 @@ import { PlusIcon } from '@/components/icons/Icons'
 import { ScrollableContainer } from '@/components/scrollable-container/ScrollableContainer'
 import { ButtonLink } from '@/components/button-link/ButtonLink'
 
-import { useSearch } from '@/hooks/useSearch'
+import { useSearch } from '@/context/search/SearchContext'
+
 import { useTaskActions } from '@/store/hooks/useTaskActions'
 
 import { OngoingTask } from '../ongoing-task/OngoingTask'

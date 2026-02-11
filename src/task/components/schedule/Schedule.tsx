@@ -1,19 +1,19 @@
 import { useRef } from 'react'
 import clsx from 'clsx'
+import dayjs from 'dayjs'
 
 import { DROPPABLE_ITEM_TARGET } from '@/types/ui/dragNdrop'
 import { ScheduleProps } from '@/types/ui/schedule'
 
 import { DropZone } from '@/components/drag-n-drop/drop-zone/DropZone'
 
-import { getHoursSchedule } from '@/utils/computedEvents'
+import { getHoursSchedule } from '@/task/utils/computedEvents'
 
 import { ScheduleEvent } from '../schedule-event/ScheduleEvent'
 
 import { useRowHeight } from './hooks/useRowHeight'
 
 import styles from './Schedule.module.css'
-import dayjs from 'dayjs'
 
 export const Schedule = ({ isToday, segmentsForDay, onRequestNextDay }: ScheduleProps) => {
   const timescaleRef = useRef<HTMLElement>(null)

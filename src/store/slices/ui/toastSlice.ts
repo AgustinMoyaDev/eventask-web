@@ -1,11 +1,9 @@
 import { createSlice, nanoid, PayloadAction } from '@reduxjs/toolkit'
 
-import { TOAST_STATUS, ToastStatus } from '@/types/ui/toast'
-
-import { IToast } from '@/types/ui/toast'
+import { Toast, TOAST_STATUS, ToastStatus } from '@/components/toast/toast.types'
 
 interface ToastState {
-  toasts: IToast[]
+  toasts: Toast[]
 }
 
 const initialState: ToastState = {
@@ -21,7 +19,7 @@ export const toastSlice = createSlice({
         message: string,
         status: ToastStatus = TOAST_STATUS.LOADING,
         duration = 3000
-      ): { payload: IToast } => ({
+      ): { payload: Toast } => ({
         payload: {
           id: nanoid(),
           message,
@@ -29,11 +27,11 @@ export const toastSlice = createSlice({
           duration,
         },
       }),
-      reducer: (state, { payload }: PayloadAction<IToast>) => {
+      reducer: (state, { payload }: PayloadAction<Toast>) => {
         state.toasts.push(payload)
       },
     },
-    onUpdateToastStatus: (state, { payload }: PayloadAction<IToast>) => {
+    onUpdateToastStatus: (state, { payload }: PayloadAction<Toast>) => {
       const toast = state.toasts.find(t => t.id === payload.id)
       if (toast) {
         toast.status = payload.status

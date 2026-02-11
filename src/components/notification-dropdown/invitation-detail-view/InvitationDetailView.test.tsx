@@ -3,7 +3,7 @@ import { render, screen, fireEvent, waitFor } from '@testing-library/react'
 import { useInvitationActions } from '@/store/hooks/useInvitationActions'
 import type { InvitationDetailViewProps } from '@/types/ui/dropdown'
 import { Notification, NOTIFICATION_TYPE } from '@/types/entities/notification'
-import { ParsedError } from '@/api/helpers/getErrorMessage'
+import { ParsedError } from '@/services/utils/getErrorMessage'
 
 import { InvitationDetailView } from './InvitationDetailView'
 

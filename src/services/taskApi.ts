@@ -2,7 +2,7 @@ import { baseApi } from './baseApi'
 
 import { PaginationOptions, PaginationResult } from '../types/dtos/api/pagination'
 
-import { ITaskCreatePayload, ITaskUpdatePayload } from '../types/dtos/task'
+import { CreateTaskDto, UpdateTaskDto } from '../types/dtos/task.dto'
 import { Task, TaskId } from '../types/entities/task'
 
 export const taskApi = baseApi.injectEndpoints({
@@ -22,7 +22,7 @@ export const taskApi = baseApi.injectEndpoints({
       query: id => `/tasks/${id}`,
       providesTags: (_result, _error, id) => [{ type: 'Task', id }],
     }),
-    createTask: builder.mutation<Task, ITaskCreatePayload>({
+    createTask: builder.mutation<Task, CreateTaskDto>({
       query: newTask => ({
         url: '/tasks',
         method: 'POST',
@@ -33,7 +33,7 @@ export const taskApi = baseApi.injectEndpoints({
         { type: 'Category', id: 'LIST-COUNT' },
       ],
     }),
-    updateTask: builder.mutation<Task, ITaskUpdatePayload>({
+    updateTask: builder.mutation<Task, UpdateTaskDto>({
       query: task => ({
         url: `/tasks/${task.id}`,
         method: 'PUT',

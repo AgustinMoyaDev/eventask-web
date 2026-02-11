@@ -3,10 +3,11 @@ import { http, HttpResponse, delay } from 'msw'
 import { DELAYS } from '../utils/delays'
 import { generateMockJWT } from '../utils/jwtMock'
 
+import { LoginDto } from '@/types/dtos/auth.dto'
+import { ResetPasswordDto } from '@/types/dtos/token.dto'
+
 import { MOCK_CONTACTS, MOCK_LOGGED_USER, MOCK_SESSION } from '../data/mockData'
-import { ILoginDto } from '@/types/dtos/auth'
 import { createFakeUser } from '../factories/userFactory'
-import { IResetPasswordDto } from '@/types/dtos/token'
 
 /**
  * Authentication domain handlers
@@ -40,7 +41,7 @@ export const authHandlers = [
   http.post('*/api/auth/login', async ({ request }) => {
     // Simulate network delay
     await delay(DELAYS.NORMAL)
-    const body = (await request.json()) as ILoginDto
+    const body = (await request.json()) as LoginDto
 
     // In demo mode, any password works for demo user
     if (body.email === MOCK_LOGGED_USER.email) {
@@ -183,7 +184,7 @@ export const authHandlers = [
    */
   http.post('*/api/auth/reset-password', async ({ request }) => {
     await delay(DELAYS.NORMAL)
-    const body = (await request.json()) as IResetPasswordDto
+    const body = (await request.json()) as ResetPasswordDto
 
     if (!body.token || !body.newPassword) {
       return HttpResponse.json(

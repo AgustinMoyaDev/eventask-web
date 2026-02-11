@@ -17,8 +17,8 @@ import { Pagination } from '@/components/pagination/Pagination'
 
 import SeeAllPageSkeleton from './SeeAllPageSkeleton'
 
-import { VIEW_CONFIGS, ViewDetail } from './viewConfigs'
-import { sortData } from './sortingData'
+import { VIEW_CONFIGS, ViewDetail } from '../utils/viewConfigs'
+import { sortData } from '../utils/sortingData'
 
 import styles from './SeeAllPage.module.css'
 

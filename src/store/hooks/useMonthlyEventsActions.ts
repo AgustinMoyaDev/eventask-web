@@ -2,7 +2,7 @@ import { useMemo } from 'react'
 import { skipToken } from '@reduxjs/toolkit/query'
 
 import { useFetchEventsByMonthQuery } from '@/services/eventApi'
-import { getErrorMessage, OperationError } from '@/api/helpers/getErrorMessage'
+import { getErrorMessage, OperationError } from '@/services/utils/getErrorMessage'
 
 import { useAppSelector } from '../reduxStore'
 

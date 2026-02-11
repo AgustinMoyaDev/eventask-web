@@ -1,6 +1,10 @@
 import styles from './CircularProgress.module.css'
 
-export const CircularProgress = ({ progress }: { progress: number }) => {
+interface CircularProgressProps {
+  progress: number
+}
+
+export const CircularProgress = ({ progress }: CircularProgressProps) => {
   return (
     <div
       className={styles.circularProgress}

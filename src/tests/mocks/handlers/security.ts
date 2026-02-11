@@ -8,12 +8,4 @@ export const securityHandlers = [
   http.get('*/api/security/csrf-token', () => {
     return HttpResponse.json({ csrfToken: 'fake-csrf-token' })
   }),
-
-  /**
-   * GET /api/health - Server Warmup
-   * Used by useServerWarmup hook
-   */
-  http.get('*/api/health', () => {
-    return HttpResponse.json({ status: 'ok', uptime: 100 })
-  }),
 ]

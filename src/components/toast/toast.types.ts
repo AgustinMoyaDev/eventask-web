@@ -6,7 +6,7 @@ export const TOAST_STATUS = {
 
 export type ToastStatus = (typeof TOAST_STATUS)[keyof typeof TOAST_STATUS]
 
-export interface IToast {
+export interface Toast {
   id: string
   message: string
   status: ToastStatus
@@ -14,6 +14,6 @@ export interface IToast {
 }
 
 export interface ToastProps {
-  toast: IToast
+  toast: Toast
   removeToast: (id: string) => void
 }

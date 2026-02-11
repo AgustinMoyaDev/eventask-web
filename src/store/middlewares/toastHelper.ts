@@ -1,6 +1,6 @@
 import { UnknownAction } from '@reduxjs/toolkit'
 
-import { TOAST_STATUS } from '@/types/ui/toast'
+import { TOAST_STATUS } from '@/components/toast/toast.types'
 
 import { startAppListening } from './listenerMiddleware'
 import { onShowToast, onUpdateToastStatus } from '../slices/ui/toastSlice'

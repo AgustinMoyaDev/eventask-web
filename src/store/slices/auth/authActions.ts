@@ -1,6 +1,6 @@
 import { createAction } from '@reduxjs/toolkit'
 
-import { IAuthResponseDto } from '@/types/dtos/auth'
+import { AuthResponseDto } from '@/types/dtos/auth.dto'
 
 /**
  * Standalone action for updating auth credentials.
@@ -12,4 +12,4 @@ import { IAuthResponseDto } from '@/types/dtos/auth'
  * - Dispatched by baseApi.ts (in refresh logic)
  * - Listened by authSlice.ts (via extraReducers)
  */
-export const setCredentials = createAction<IAuthResponseDto>('auth/setCredentials')
+export const setCredentials = createAction<AuthResponseDto>('auth/setCredentials')

@@ -1,7 +1,7 @@
 import { delay, http, HttpResponse } from 'msw'
 
 import { Category } from '@/types/entities/category'
-import { CategoryCreatePayload, CategoryUpdatePayload } from '@/types/dtos/category'
+import { CreateCategoryDto, UpdateCategoryDto } from '@/types/dtos/category.dto'
 
 import { createPaginatedResponse, getPaginationParams } from './shared'
 
@@ -35,7 +35,7 @@ export const categoryHandlers = [
    */
   http.post('*/api/categories', async ({ request }) => {
     await delay(DELAYS.NORMAL)
-    const body = (await request.json()) as CategoryCreatePayload
+    const body = (await request.json()) as CreateCategoryDto
 
     // Validate required fields
     if (!body.name || body.name.trim() === '') {
@@ -53,8 +53,8 @@ export const categoryHandlers = [
     const newCategory: Category = {
       id: crypto.randomUUID(),
       name: body.name.trim(),
-      createdAt: new Date(),
-      updatedAt: new Date(),
+      createdAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString(),
     }
 
     MOCK_CATEGORIES.push(newCategory)
@@ -73,7 +73,7 @@ export const categoryHandlers = [
   http.put('*/api/categories/:id', async ({ request, params }) => {
     await delay(DELAYS.NORMAL)
     const { id } = params
-    const body = (await request.json()) as CategoryUpdatePayload
+    const body = (await request.json()) as UpdateCategoryDto
 
     // Find category
     const categoryIndex = MOCK_CATEGORIES.findIndex(c => c.id === id)
@@ -101,7 +101,7 @@ export const categoryHandlers = [
     const updatedCategory: Category = {
       ...MOCK_CATEGORIES[categoryIndex],
       name: body.name.trim(),
-      updatedAt: new Date(),
+      updatedAt: new Date().toISOString(),
     }
 
     MOCK_CATEGORIES[categoryIndex] = updatedCategory
@@ -112,7 +112,7 @@ export const categoryHandlers = [
       MOCK_CATEGORIES_TASK_COUNT[taskCountIndex] = {
         ...MOCK_CATEGORIES_TASK_COUNT[taskCountIndex],
         name: body.name.trim(),
-        updatedAt: new Date(),
+        updatedAt: new Date().toISOString(),
       }
     }
 

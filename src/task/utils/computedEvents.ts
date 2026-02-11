@@ -2,38 +2,7 @@ import dayjs, { Dayjs } from 'dayjs'
 
 import { Event } from '@/types/entities/event'
 
-import { EventSegment } from '../types/ui/event-segment'
-
-/**
- * Split events into one or two segments:
- * - single-day events produce one segment with isStartSegment=true
- * - overnight events produce:
- *   • a first-day segment (isStartSegment=true)
- *   • a second-day segment (isStartSegment=false)
- */
-export const getEventsSegments = (events: Event[] = []): EventSegment[] => {
-  const segments: EventSegment[] = []
-  if (!events.length) return segments
-
-  events.forEach(evt => {
-    const start = dayjs(evt.start)
-    const end = dayjs(evt.end)
-
-    // single event segment
-    if (end.isSame(start, 'day')) {
-      segments.push(makeSegment(evt, start, end, false, false))
-    } else {
-      // first event segment
-      const endOfDay = start.endOf('day')
-      segments.push(makeSegment(evt, start, endOfDay, true, false))
-      // overnight: second event segment
-      const startOfNextDay = end.startOf('day')
-      segments.push(makeSegment(evt, startOfNextDay, end, false, true))
-    }
-  })
-
-  return segments
-}
+import { EventSegment } from '../../types/ui/event-segment'
 
 const makeSegment = (
   event: Event,
@@ -61,6 +30,10 @@ const makeSegment = (
     createdAt: event.createdAt,
     updatedAt: event.updatedAt,
   }
+}
+
+const createInclusiveArray = (start: number, end: number): number[] => {
+  return Array.from({ length: end - start + 1 }, (_, i) => start + i)
 }
 
 export const getHoursSchedule = (segments: EventSegment[]) => {
@@ -109,6 +82,33 @@ export const getHoursSchedule = (segments: EventSegment[]) => {
   return uniqueHours
 }
 
-const createInclusiveArray = (start: number, end: number): number[] => {
-  return Array.from({ length: end - start + 1 }, (_, i) => start + i)
+/**
+ * Split events into one or two segments:
+ * - single-day events produce one segment with isStartSegment=true
+ * - overnight events produce:
+ *   • a first-day segment (isStartSegment=true)
+ *   • a second-day segment (isStartSegment=false)
+ */
+export const getEventsSegments = (events: Event[] = []): EventSegment[] => {
+  const segments: EventSegment[] = []
+  if (!events.length) return segments
+
+  events.forEach(evt => {
+    const start = dayjs(evt.start)
+    const end = dayjs(evt.end)
+
+    // single event segment
+    if (end.isSame(start, 'day')) {
+      segments.push(makeSegment(evt, start, end, false, false))
+    } else {
+      // first event segment
+      const endOfDay = start.endOf('day')
+      segments.push(makeSegment(evt, start, endOfDay, true, false))
+      // overnight: second event segment
+      const startOfNextDay = end.startOf('day')
+      segments.push(makeSegment(evt, startOfNextDay, end, false, true))
+    }
+  })
+
+  return segments
 }

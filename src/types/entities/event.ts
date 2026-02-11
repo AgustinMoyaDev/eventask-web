@@ -19,12 +19,13 @@ export type EventStatus = (typeof EVENT_STATUS)[keyof typeof EVENT_STATUS]
  */
 export interface Event extends Base {
   title: string
+  status: EventStatus
+  notes: string
   start: string
   end: string
-  notes: string
-  status: EventStatus
   taskId: string
   createdBy: string
+  collaboratorsIds?: string[]
   // Optional relations (populated based on API query)
   task?: Task
   collaborators?: User[]

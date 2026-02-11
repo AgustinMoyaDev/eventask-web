@@ -2,7 +2,7 @@ import { render, screen } from '@testing-library/react'
 import { vi } from 'vitest'
 
 import { ToastContainer } from './ToastContainer'
-import { IToast, TOAST_STATUS } from '@/types/ui/toast'
+import { Toast, TOAST_STATUS } from '../toast/toast.types'
 
 import styles from './ToastContainer.module.css'
 
@@ -51,7 +51,7 @@ describe('ToastContainer', () => {
   })
 
   it('should render single toast', () => {
-    const toast: IToast = {
+    const toast: Toast = {
       id: '1',
       message: 'Test message',
       status: TOAST_STATUS.SUCCESS,
@@ -69,7 +69,7 @@ describe('ToastContainer', () => {
   })
 
   it('should render multiple toasts in order', () => {
-    const toasts: IToast[] = [
+    const toasts: Toast[] = [
       {
         id: '1',
         message: 'First toast',

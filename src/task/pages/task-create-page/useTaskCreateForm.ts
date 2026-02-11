@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useNavigate } from 'react-router-dom'
 
-import { taskSchema, TaskSchemaType } from '@/task/schemas/taskSchema'
+import { taskSchema, TaskSchemaType } from '@/task/pages/task-create-page/taskSchema'
 import { useTaskActions } from '@/store/hooks/useTaskActions'
 import { useCategoryActions } from '@/store/hooks/useCategoryActions'
 
@@ -58,8 +58,6 @@ export const useTaskCreateForm = () => {
     const result = await createTask({
       title: data.title.trim(),
       categoryId: categoryToUse.id,
-      events: [],
-      participantsIds: [],
     })
 
     if (result?.data) {

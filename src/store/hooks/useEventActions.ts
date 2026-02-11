@@ -10,7 +10,7 @@ import {
   useAssignCollaboratorMutation,
   useRemoveCollaboratorMutation,
 } from '@/services/eventApi'
-import { getErrorMessage, OperationError } from '@/api/helpers/getErrorMessage'
+import { getErrorMessage, OperationError } from '@/services/utils/getErrorMessage'
 
 import { SortConfig } from '@/types/ui/table'
 

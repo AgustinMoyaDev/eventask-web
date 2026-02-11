@@ -22,7 +22,7 @@ import { TaskInfo } from '@/task/components/task-info/TaskInfo'
 import { DatePills } from '@/task/components/date-pills-list/DatePills'
 import { Schedule } from '@/task/components/schedule/Schedule'
 
-import { getEventsSegments } from '@/utils/computedEvents'
+import { getEventsSegments } from '@/task/utils/computedEvents'
 import { useEventActions } from '@/store/hooks/useEventActions'
 
 import { useFetchTaskByIdQuery } from '@/services/taskApi'

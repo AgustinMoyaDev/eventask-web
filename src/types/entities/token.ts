@@ -1,3 +1,5 @@
+import { Base } from './base'
+
 export const TOKEN_TYPE = {
   ACCESS: 'access',
   REFRESH: 'refresh',
@@ -6,9 +8,9 @@ export const TOKEN_TYPE = {
 
 export type TokenType = (typeof TOKEN_TYPE)[keyof typeof TOKEN_TYPE]
 
-export interface Token {
+export interface Token extends Base {
   token: string
   userId: string
-  expiresAt: Date
+  expiresAt: string // ISO 8601 String
   type: TokenType
 }

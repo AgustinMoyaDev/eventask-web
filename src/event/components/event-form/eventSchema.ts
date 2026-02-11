@@ -35,7 +35,6 @@ export const eventSchema = z
       return
     }
 
-    // Logic: Duration > 8 hours
     if (end.diff(start, 'hours', true) > MAX_EVENT_HOURS) {
       ctx.addIssue({
         code: 'custom',

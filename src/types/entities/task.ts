@@ -3,8 +3,6 @@ import type { Base } from './base'
 import type { User } from './user'
 import type { Category } from './category'
 
-import type { EventFormModel } from '../models/event.model'
-
 export const TASK_STATUS = {
   PENDING: 'pending',
   PROGRESS: 'in-progress',
@@ -24,27 +22,17 @@ export interface TaskMetadata {
 export interface Task extends Base, TaskMetadata {
   title: string
   categoryId: string
-  participantsIds: string[]
-  eventsIds: string[]
   createdBy: string
-  category: Category
-  creator: User
-  participants: User[]
-  events: Event[]
-}
+  eventsIds?: string[]
+  participantsIds?: string[]
 
-export interface TaskForm {
-  status?: TaskStatus
-  title: string
-  category: string
-  events: EventFormModel[]
-  participants: User[]
+  // virtual fields
+  category?: Category
+  creator?: User
+  events?: Event[]
+  participants?: User[]
 }
 
 export type TaskId = Task['id']
 export type TaskTitle = Pick<Task, 'title'>
 export type Tasks = Task[]
-
-export interface TaskProps {
-  task: Task
-}

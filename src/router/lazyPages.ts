@@ -18,4 +18,4 @@ export const TaskCreatePage = React.lazy(
 )
 export const TaskEditPage = React.lazy(() => import('../task/pages/task-edit-page/TaskEditPage'))
 export const CalendarPage = React.lazy(() => import('../calendar/pages/calendar-page/CalendarPage'))
-export const SeeAllPage = React.lazy(() => import('../pages/see-all-page/SeeAllPage'))
+export const SeeAllPage = React.lazy(() => import('../dashboard/see-all-page/SeeAllPage'))

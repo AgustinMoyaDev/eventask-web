@@ -12,7 +12,7 @@ import {
   useChangePasswordMutation,
 } from '@/services/authApi'
 import { AUTH_STATUS } from '@/types/ui/auth-status'
-import { getErrorMessage, OperationError } from '@/api/helpers/getErrorMessage'
+import { getErrorMessage, OperationError } from '@/services/utils/getErrorMessage'
 
 import { useAppSelector } from '../reduxStore'
 

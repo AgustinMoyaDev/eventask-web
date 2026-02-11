@@ -1,7 +1,7 @@
 import { delay, http, HttpResponse } from 'msw'
 
 import { User } from '@/types/entities/user'
-import { IUpdateUserDto } from '@/types/dtos/user'
+import { UpdateUserDto } from '@/types/dtos/user.dto'
 
 import { createPaginatedResponse, getPaginationParams } from './shared'
 
@@ -48,7 +48,7 @@ export const userHandlers = [
    */
   http.put('*/api/users/me', async ({ request }) => {
     await delay(DELAYS.NORMAL)
-    const updates = (await request.json()) as IUpdateUserDto
+    const updates = (await request.json()) as UpdateUserDto
 
     if (updates.firstName !== undefined) MOCK_LOGGED_USER.firstName = updates.firstName
     if (updates.lastName !== undefined) MOCK_LOGGED_USER.lastName = updates.lastName

@@ -1,33 +1,38 @@
 import { baseApi } from './baseApi'
 
-import { ILoginDto } from '../types/dtos/auth'
-import { IAuthResponseDto, IRegisterDto } from '../types/dtos/auth'
-import { IResetPasswordDto } from '../types/dtos/token'
+import {
+  AuthResponseDto,
+  ResetPasswordDto,
+  ChangePasswordDto,
+  LoginDto,
+  RegisterDto,
+  SetPasswordDto,
+} from '@/types/dtos/auth.dto'
 
 export const authApi = baseApi.injectEndpoints({
   endpoints: builder => ({
-    login: builder.mutation<IAuthResponseDto, ILoginDto>({
+    login: builder.mutation<AuthResponseDto, LoginDto>({
       query: creds => ({
         url: '/auth/login',
         method: 'POST',
         body: creds,
       }),
     }),
-    loginWithGoogle: builder.mutation<IAuthResponseDto, { idToken: string }>({
+    loginWithGoogle: builder.mutation<AuthResponseDto, { idToken: string }>({
       query: ({ idToken }) => ({
         url: '/auth/google-login',
         method: 'POST',
         body: { idToken },
       }),
     }),
-    register: builder.mutation<IAuthResponseDto, IRegisterDto>({
+    register: builder.mutation<AuthResponseDto, RegisterDto>({
       query: form => ({
         url: '/auth/register',
         method: 'POST',
         body: form,
       }),
     }),
-    refresh: builder.mutation<IAuthResponseDto, void>({
+    refresh: builder.mutation<AuthResponseDto, void>({
       query: () => ({ url: '/auth/refresh', method: 'POST' }),
     }),
     logout: builder.mutation<void, void>({
@@ -40,14 +45,14 @@ export const authApi = baseApi.injectEndpoints({
         body: { email },
       }),
     }),
-    resetPassword: builder.mutation<void, IResetPasswordDto>({
+    resetPassword: builder.mutation<void, ResetPasswordDto>({
       query: ({ token, newPassword, type }) => ({
         url: '/auth/reset-password',
         method: 'POST',
         body: { token, newPassword, type },
       }),
     }),
-    setPassword: builder.mutation<void, { newPassword: string }>({
+    setPassword: builder.mutation<void, SetPasswordDto>({
       query: ({ newPassword }) => ({
         url: '/auth/set-password',
         method: 'POST',
@@ -55,7 +60,7 @@ export const authApi = baseApi.injectEndpoints({
       }),
       invalidatesTags: (_result, error) => (error ? [] : ['User']),
     }),
-    changePassword: builder.mutation<void, { currentPassword: string; newPassword: string }>({
+    changePassword: builder.mutation<void, ChangePasswordDto>({
       query: ({ currentPassword, newPassword }) => ({
         url: '/auth/change-password',
         method: 'POST',

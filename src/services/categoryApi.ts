@@ -1,8 +1,8 @@
 import { baseApi } from './baseApi'
 
-import { Category, CategoryWithTaskCount } from '../types/entities/category'
-import { CategoryCreatePayload, CategoryUpdatePayload } from '../types/dtos/category'
-import { PaginationOptions, PaginationResult } from '../types/dtos/api/pagination'
+import { Category, CategoryWithTaskCount } from '@/types/entities/category'
+import { CreateCategoryDto, UpdateCategoryDto } from '@/types/dtos/category.dto'
+import { PaginationOptions, PaginationResult } from '@/types/dtos/api/pagination'
 
 export const categoryApi = baseApi.injectEndpoints({
   endpoints: builder => ({
@@ -27,7 +27,7 @@ export const categoryApi = baseApi.injectEndpoints({
         ...(result?.map(c => ({ type: 'Category' as const, id: c.id })) ?? []),
       ],
     }),
-    createCategory: builder.mutation<Category, CategoryCreatePayload>({
+    createCategory: builder.mutation<Category, CreateCategoryDto>({
       query: newCategory => ({
         url: '/categories',
         method: 'POST',
@@ -35,7 +35,7 @@ export const categoryApi = baseApi.injectEndpoints({
       }),
       invalidatesTags: [{ type: 'Category', id: 'LIST-COUNT' }],
     }),
-    updateCategory: builder.mutation<Category, CategoryUpdatePayload>({
+    updateCategory: builder.mutation<Category, UpdateCategoryDto>({
       query: updatedCategory => ({
         url: `/categories/${updatedCategory.id}`,
         method: 'PUT',

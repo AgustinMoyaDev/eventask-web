@@ -6,7 +6,7 @@ import {
   useRejectInvitationMutation,
 } from '@/services/invitationApi'
 
-import { getErrorMessage, OperationError } from '@/api/helpers/getErrorMessage'
+import { getErrorMessage, OperationError } from '@/services/utils/getErrorMessage'
 
 /**
  * Custom hook for managing invitation-related state and operations

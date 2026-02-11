@@ -1,5 +1,6 @@
 import { useToastActions } from '@/store/hooks/useToastActions'
-import { Toast } from './Toast'
+
+import { Toast } from '@/components/toast/Toast'
 
 import styles from './ToastContainer.module.css'
 

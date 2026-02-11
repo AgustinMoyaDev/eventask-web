@@ -1,40 +1,33 @@
 import clsx from 'clsx'
 
-import { EventFormModel } from '@/types/models/event.model'
+import { Input } from '@/components/input/Input'
+import { Textarea } from '@/components/text-area/Textarea'
+import { Button } from '@/components/button/Button'
+import { Chip } from '@/components/chip/Chip'
 
-import { Input } from '../../../components/input/Input'
-import { Textarea } from '../../../components/text-area/Textarea'
-import { Button } from '../../../components/button/Button'
-import { Chip } from '../../../components/chip/Chip'
+import { EventFormProps } from './event.types'
 
 import { useEventForm } from './useEventForm'
 
 import styles from './EventForm.module.css'
-
-interface Props {
-  onAddEvent: (event: EventFormModel) => void
-  onUpdateEvent: (event: EventFormModel) => void
-  existingEvents?: EventFormModel[]
-  eventToEdit?: EventFormModel | null
-}
 
 export const EventForm = ({
   existingEvents = [],
   eventToEdit = null,
   onAddEvent,
   onUpdateEvent,
-}: Props) => {
+}: EventFormProps) => {
   const {
-    // 1. New props from RHF
+    // RHF
     register,
     formErrors,
     isFormValid,
-    // 2. Custom logic props
+    // Custom logic props
     hasConflict,
     isStatusCompleted,
     colorChip,
     currentStatus,
-    // 3. Actions
+    // Actions
     handleSubmit,
     handleResetForm,
   } = useEventForm(existingEvents, eventToEdit, onAddEvent, onUpdateEvent)

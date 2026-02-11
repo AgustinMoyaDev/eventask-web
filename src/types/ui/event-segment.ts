@@ -1,7 +1,7 @@
 import { Dayjs } from 'dayjs'
 
 import { Event } from '@/types/entities/event'
-import { User } from '../entities/user'
+import { User } from '@/types/entities/user'
 
 export interface EventSegment extends Omit<Event, 'start' | 'end'> {
   start: Dayjs

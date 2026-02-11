@@ -6,10 +6,10 @@ const nameValidation = z
   .max(50, 'Must be less than 50 characters')
   .regex(/^[a-zA-Z\s]*$/, 'Only letters are allowed')
 
-export const userProfileSchema = z.object({
+export const profileSchema = z.object({
   firstName: nameValidation,
   lastName: nameValidation,
   email: z.string().email().readonly(),
 })
 
-export type UserProfileSchemaType = z.infer<typeof userProfileSchema>
+export type ProfileSchemaType = z.infer<typeof profileSchema>

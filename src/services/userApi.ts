@@ -1,9 +1,9 @@
 import { baseApi } from './baseApi'
 
 import { User } from '../types/entities/user'
-import { IUpdateUserDto } from '../types/dtos/user'
 
 import { PaginationOptions, PaginationResult } from '@/types/dtos/api/pagination'
+import { UpdateUserDto } from '@/types/dtos/user.dto'
 
 export const userApi = baseApi.injectEndpoints({
   endpoints: builder => ({
@@ -31,7 +31,7 @@ export const userApi = baseApi.injectEndpoints({
       }),
       invalidatesTags: ['User'],
     }),
-    updateProfile: builder.mutation<User, IUpdateUserDto>({
+    updateProfile: builder.mutation<User, UpdateUserDto>({
       query: data => ({
         url: '/users/me',
         method: 'PUT',
