@@ -5,7 +5,7 @@ import dayjs from 'dayjs'
 import { CalendarIcon } from '@/components/icons/Icons'
 import { UsersAvatars } from '@/components/users-avatars/UsersAvatars'
 
-import { TaskProps } from '@/types/ITask'
+import { TaskProps } from '@/types/entities/task'
 
 import { CircularProgress } from '../circular-progress/CircularProgress'
 

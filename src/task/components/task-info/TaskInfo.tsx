@@ -13,7 +13,7 @@ import { LinearProgress } from '@/components/linear-progress/LinearProgress'
 
 import { ModalIds } from '@/types/ui/modal'
 
-import { ITask } from '@/types/ITask'
+import { Task } from '@/types/entities/task'
 import { EVENT_STATUS } from '@/types/entities/event'
 import { DRAGGABLE_ITEM_SRC, ORIGIN_NAME } from '@/types/ui/dragNdrop'
 import { getColorChipTask } from '@/types/ui/task'
@@ -26,7 +26,7 @@ import { Clock } from '../clock/Clock'
 import styles from './TaskInfo.module.css'
 
 interface Props {
-  task: ITask
+  task: Task
 }
 
 export const TaskInfo = ({ task }: Props) => {

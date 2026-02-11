@@ -1,5 +1,5 @@
 import { EVENT_NAMES, EventName } from '../sys-events/sys-events'
-import { NOTIFICATION_TYPE, NotificationType } from '../types/INotification'
+import { NOTIFICATION_TYPE, NotificationType } from '../types/entities/notification'
 
 /**
  * Maps event types to their corresponding notification types.

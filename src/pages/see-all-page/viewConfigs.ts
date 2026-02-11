@@ -1,12 +1,12 @@
 import { NavigateFunction } from 'react-router-dom'
 
 import { ColumnConfig, ViewType } from '@/types/ui/table'
-import { IBase } from '@/types/IBase'
+import { Base } from '@/types/entities/base'
 import { Event } from '@/types/entities/event'
-import { IUser } from '@/types/IUser'
-import { ITask } from '@/types/ITask'
-import { ICategory } from '@/types/ICategory'
-import { INotification } from '@/types/INotification'
+import { User } from '@/types/entities/user'
+import { Task } from '@/types/entities/task'
+import { Category } from '@/types/entities/category'
+import { Notification } from '@/types/entities/notification'
 import {
   CATEGORY_COLUMNS,
   CONTACTS_COLUMNS,
@@ -15,7 +15,7 @@ import {
   TASK_COLUMNS,
 } from '@/components/table/tableConfigs'
 
-interface ViewConfig<T extends IBase> {
+interface ViewConfig<T extends Base> {
   columns: ColumnConfig<T>[]
   hasPagination?: boolean
   getData: (detail: ViewDetail) => T[]
@@ -35,19 +35,19 @@ interface ViewConfig<T extends IBase> {
  */
 export interface ViewDetail {
   tasks: {
-    data: ITask[]
+    data: Task[]
     total: number
     fetching: boolean
     error: string | null
   }
   categories: {
-    data: ICategory[]
+    data: Category[]
     total: number
     fetching: boolean
     error: string | null
   }
   notifications: {
-    data: INotification[]
+    data: Notification[]
     total: number
     fetching: boolean
     error: string | null
@@ -59,7 +59,7 @@ export interface ViewDetail {
     error: string | null
   }
   contacts: {
-    data: IUser[]
+    data: User[]
     total: number
     fetching: boolean
     error: string | null
@@ -67,11 +67,11 @@ export interface ViewDetail {
 }
 
 interface SpecificViewConfigs {
-  [ViewType.TASKS]: ViewConfig<ITask>
-  [ViewType.CATEGORIES]: ViewConfig<ICategory>
-  [ViewType.NOTIFICATIONS]: ViewConfig<INotification>
+  [ViewType.TASKS]: ViewConfig<Task>
+  [ViewType.CATEGORIES]: ViewConfig<Category>
+  [ViewType.NOTIFICATIONS]: ViewConfig<Notification>
   [ViewType.EVENTS]: ViewConfig<Event>
-  [ViewType.CONTACTS]: ViewConfig<IUser>
+  [ViewType.CONTACTS]: ViewConfig<User>
 }
 
 export const VIEW_CONFIGS: SpecificViewConfigs = {

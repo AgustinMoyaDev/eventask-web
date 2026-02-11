@@ -1,6 +1,6 @@
-import { IBase } from './IBase'
+import { Base } from './base'
 
-export interface ICategory extends IBase {
+export interface Category extends Base {
   name: string
 }
 
@@ -8,6 +8,6 @@ export interface ICategory extends IBase {
  * Category with count of associated tasks.
  * Used for analytics and category usage statistics.
  */
-export interface ICategoryWithTaskCount extends ICategory {
+export interface CategoryWithTaskCount extends Category {
   taskCount: number
 }

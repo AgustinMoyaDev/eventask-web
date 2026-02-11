@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
 
-import { Categories } from '@/task/components/categories/Categories'
+import { Categories } from '@/category/components/categories/Categories'
 import { OngoingTasks } from '@/task/components/ongoing-tasks/OngoingTasks'
 import { Search } from '@/task/components/search/Search'
 

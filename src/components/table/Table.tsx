@@ -1,6 +1,6 @@
 import clsx from 'clsx'
 
-import { IBase } from '@/types/IBase'
+import { Base } from '@/types/entities/base'
 import { SortDirection, TableProps } from '@/types/ui/table'
 
 import {
@@ -15,7 +15,7 @@ import { Button } from '@/components/button/Button'
 
 import styles from './Table.module.css'
 
-export function Table<T extends IBase>({
+export function Table<T extends Base>({
   columns = [],
   data,
   getItemId,

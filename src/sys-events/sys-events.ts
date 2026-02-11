@@ -1,4 +1,4 @@
-import { INVITATION_STATUS } from '../types/IInvitation'
+import { INVITATION_STATUS } from '../types/entities/invitation'
 
 /**
  * Base interface for invitation events with common properties.

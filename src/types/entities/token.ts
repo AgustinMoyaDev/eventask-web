@@ -6,7 +6,7 @@ export const TOKEN_TYPE = {
 
 export type TokenType = (typeof TOKEN_TYPE)[keyof typeof TOKEN_TYPE]
 
-export interface IToken {
+export interface Token {
   token: string
   userId: string
   expiresAt: Date

@@ -1,4 +1,4 @@
-import { IUser } from '../IUser'
+import { User } from '../entities/user'
 import { DraggableData } from './dragNdrop'
 import { Size } from './size'
 
@@ -28,7 +28,7 @@ export interface UserAvatarProps {
 }
 
 export interface UsersAvatarsProps {
-  users: IUser[]
+  users: User[]
   className?: string
   draggable?: DraggableData
   collapsed?: boolean

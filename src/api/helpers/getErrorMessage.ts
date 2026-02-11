@@ -1,7 +1,7 @@
 import { FetchBaseQueryError } from '@reduxjs/toolkit/query'
 import { SerializedError } from '@reduxjs/toolkit'
 
-import { ApiResponseBody } from '@/api/types/response'
+import { ApiResponseBody } from '@/types/dtos/api/response'
 
 export enum OperationError {
   ACCEPT = 'accept',

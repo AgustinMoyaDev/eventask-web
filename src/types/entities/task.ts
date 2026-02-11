@@ -1,9 +1,9 @@
-import type { Event } from './entities/event'
-import type { EventFormModel } from './models/event.model'
+import type { Event } from './event'
+import type { Base } from './base'
+import type { User } from './user'
+import type { Category } from './category'
 
-import type { ICategory } from './ICategory'
-import type { IUser } from './IUser'
-import { IBase } from './IBase'
+import type { EventFormModel } from '../models/event.model'
 
 export const TASK_STATUS = {
   PENDING: 'pending',
@@ -21,30 +21,30 @@ export interface TaskMetadata {
   status: TaskStatus
 }
 
-export interface ITask extends IBase, TaskMetadata {
+export interface Task extends Base, TaskMetadata {
   title: string
   categoryId: string
   participantsIds: string[]
   eventsIds: string[]
   createdBy: string
-  category: ICategory
-  creator: IUser
-  participants: IUser[]
+  category: Category
+  creator: User
+  participants: User[]
   events: Event[]
 }
 
-export interface ITaskForm {
+export interface TaskForm {
   status?: TaskStatus
   title: string
   category: string
   events: EventFormModel[]
-  participants: IUser[]
+  participants: User[]
 }
 
-export type TaskId = ITask['id']
-export type TaskTitle = Pick<ITask, 'title'>
-export type Tasks = ITask[]
+export type TaskId = Task['id']
+export type TaskTitle = Pick<Task, 'title'>
+export type Tasks = Task[]
 
 export interface TaskProps {
-  task: ITask
+  task: Task
 }

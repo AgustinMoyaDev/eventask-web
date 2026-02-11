@@ -1,7 +1,6 @@
-import { IPaginationOptions } from '@/api/types/pagination'
-import { IBase } from './IBase'
-
-import { InvitationStatus } from './IInvitation'
+import type { PaginationOptions } from '@/types/dtos/api/pagination'
+import type { Base } from './base'
+import type { InvitationStatus } from './invitation'
 
 /**
  * Notification type enumeration
@@ -20,12 +19,12 @@ export type NotificationType = (typeof NOTIFICATION_TYPE)[keyof typeof NOTIFICAT
  * Notification entity interface.
  * Represents a single notification in the system.
  */
-export interface INotification extends IBase {
+export interface Notification extends Base {
   userId: string // User receiving the notification
   type: NotificationType
   title: string
   message: string
-  data?: INotificationData // Additional context data
+  data?: NotificationData // Additional context data
   read: boolean // Whether user has read it
 }
 
@@ -33,7 +32,7 @@ export interface INotification extends IBase {
  * Additional data that can be attached to notifications.
  * Provides context for specific notification types.
  */
-export interface INotificationData {
+export interface NotificationData {
   invitationStatus?: InvitationStatus
   invitationId?: string // For invitation notifications
   taskId?: string // For task notifications
@@ -46,7 +45,7 @@ export interface INotificationData {
 /**
  * Query options for notification filtering.
  */
-export interface INotificationQueryOptions extends IPaginationOptions {
+export interface NotificationQueryOptions extends PaginationOptions {
   read?: boolean
   type?: string
 }

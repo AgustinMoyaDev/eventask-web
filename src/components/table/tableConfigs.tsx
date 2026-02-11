@@ -1,15 +1,15 @@
 import { ColumnConfig } from '@/types/ui/table'
-import { ITask } from '@/types/ITask'
-import { ICategory } from '@/types/ICategory'
-import { INotification } from '@/types/INotification'
+import { Task } from '@/types/entities/task'
+import { Category } from '@/types/entities/category'
+import { Notification } from '@/types/entities/notification'
 import { Event } from '@/types/entities/event'
-import { IUser } from '@/types/IUser'
+import { User } from '@/types/entities/user'
 import { getColorChipTask } from '@/types/ui/task'
 
 import { Chip } from '@/components/chip/Chip'
 import { Avatar } from '@/components/users-avatars/Avatar'
 
-export const TASK_COLUMNS: ColumnConfig<ITask>[] = [
+export const TASK_COLUMNS: ColumnConfig<Task>[] = [
   { key: 'title', label: 'Title', sortable: true },
   {
     key: 'status',
@@ -25,12 +25,12 @@ export const TASK_COLUMNS: ColumnConfig<ITask>[] = [
   },
 ]
 
-export const CATEGORY_COLUMNS: ColumnConfig<ICategory>[] = [
+export const CATEGORY_COLUMNS: ColumnConfig<Category>[] = [
   { key: 'name', label: 'Name', sortable: true },
   { key: 'description', label: 'Description', sortable: false },
 ]
 
-export const NOTIFICATION_COLUMNS: ColumnConfig<INotification>[] = [
+export const NOTIFICATION_COLUMNS: ColumnConfig<Notification>[] = [
   { key: 'title', label: 'Title', sortable: true },
   { key: 'message', label: 'Message', sortable: true },
   {
@@ -63,7 +63,7 @@ export const EVENTS_COLUMNS: ColumnConfig<Event>[] = [
   },
 ]
 
-export const CONTACTS_COLUMNS: ColumnConfig<IUser>[] = [
+export const CONTACTS_COLUMNS: ColumnConfig<User>[] = [
   { key: 'firstName', label: 'First name', sortable: true },
   { key: 'lastName', label: 'Last name', sortable: true },
   { key: 'email', label: 'Email', sortable: true },

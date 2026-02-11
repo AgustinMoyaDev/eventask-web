@@ -1,4 +1,4 @@
-import { TokenType } from '../IToken'
+import { TokenType } from '../entities/token'
 
 export interface IResetPasswordDto {
   token: string

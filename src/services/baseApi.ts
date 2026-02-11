@@ -9,14 +9,14 @@ import {
 } from '@reduxjs/toolkit/query/react'
 
 import { IAuthResponseDto } from '@/types/dtos/auth'
-import { HTTP_STATUS } from '@/api/types/http-status'
+import { HTTP_STATUS } from '@/types/dtos/api/http-status'
 
 import type { RootState } from '@/store/store'
 import { setCredentials } from '@/store/slices/auth/authActions'
 import { setCsrfToken } from '@/store/slices/security/security'
 
 import { getEnvVariables } from '@/helpers/getEnvVariables'
-import { ApiResponse } from '@/api/types/response'
+import { ApiResponse } from '@/types/dtos/api/response'
 
 /**
  * Development logging utilities for auth flow

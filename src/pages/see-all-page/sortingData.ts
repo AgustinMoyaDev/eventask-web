@@ -1,4 +1,4 @@
-import { IBase } from '@/types/Base'
+import { Base } from '@/types/entities/base'
 import { SortConfig, SortDirection } from '@/types/ui/table'
 
 /**
@@ -9,7 +9,7 @@ import { SortConfig, SortDirection } from '@/types/ui/table'
  * @param sortConfig - Sort configuration (key and direction)
  * @returns Sorted array (new reference, does not mutate original)
  */
-export function sortData<T extends IBase>(data: T[], sortConfig: SortConfig): T[] {
+export function sortData<T extends Base>(data: T[], sortConfig: SortConfig): T[] {
   if (!sortConfig.key || !sortConfig.direction) return data
 
   const direction = sortConfig.direction === SortDirection.ASC ? 1 : -1

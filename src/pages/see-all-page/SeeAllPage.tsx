@@ -2,7 +2,7 @@ import { useMemo, useState } from 'react'
 import { useNavigate, useSearchParams } from 'react-router-dom'
 import clsx from 'clsx'
 
-import { IBase } from '@/types/IBase'
+import { Base } from '@/types/entities/base'
 import { ColumnConfig, SortConfig, SortDirection, ViewType } from '@/types/ui/table'
 
 import { useCategoryActions } from '@/store/hooks/useCategoryActions'
@@ -187,7 +187,7 @@ const SeeAllPage = () => {
   // - Without pagination: sort in client (client-side)
   const sortedData = config.hasPagination
     ? rawData // Already sorted by backend
-    : sortData(rawData as IBase[], sortConfig) // Sort locally
+    : sortData(rawData as Base[], sortConfig) // Sort locally
 
   const totalPages = config.getTotal ? Math.ceil(config.getTotal(hooks) / itemsPerPage) : 0
 
@@ -257,9 +257,9 @@ const SeeAllPage = () => {
   return (
     <div className={clsx(styles.seeAllPage, 'section')}>
       <section className={styles.tableView}>
-        <Table<IBase>
+        <Table<Base>
           data={sortedData}
-          columns={config.columns as ColumnConfig<IBase>[]}
+          columns={config.columns as ColumnConfig<Base>[]}
           getItemId={item => item.id}
           onView={actions?.onView}
           onEdit={actions?.onEdit}

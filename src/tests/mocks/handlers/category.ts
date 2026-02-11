@@ -1,7 +1,7 @@
 import { delay, http, HttpResponse } from 'msw'
 
-import { ICategory } from '@/types/ICategory'
-import { ICategoryCreatePayload, ICategoryUpdatePayload } from '@/types/dtos/category'
+import { Category } from '@/types/entities/category'
+import { CategoryCreatePayload, CategoryUpdatePayload } from '@/types/dtos/category'
 
 import { createPaginatedResponse, getPaginationParams } from './shared'
 
@@ -15,7 +15,7 @@ export const categoryHandlers = [
   http.get('*/api/categories', ({ request }) => {
     const url = new URL(request.url)
     const { page, perPage, sortBy, sortOrder } = getPaginationParams(url)
-    const response = createPaginatedResponse<ICategory>(
+    const response = createPaginatedResponse<Category>(
       MOCK_CATEGORIES,
       page,
       perPage,
@@ -35,7 +35,7 @@ export const categoryHandlers = [
    */
   http.post('*/api/categories', async ({ request }) => {
     await delay(DELAYS.NORMAL)
-    const body = (await request.json()) as ICategoryCreatePayload
+    const body = (await request.json()) as CategoryCreatePayload
 
     // Validate required fields
     if (!body.name || body.name.trim() === '') {
@@ -50,7 +50,7 @@ export const categoryHandlers = [
       return HttpResponse.json({ ok: false, message: 'Category already exists' }, { status: 409 })
     }
 
-    const newCategory: ICategory = {
+    const newCategory: Category = {
       id: crypto.randomUUID(),
       name: body.name.trim(),
       createdAt: new Date(),
@@ -73,7 +73,7 @@ export const categoryHandlers = [
   http.put('*/api/categories/:id', async ({ request, params }) => {
     await delay(DELAYS.NORMAL)
     const { id } = params
-    const body = (await request.json()) as ICategoryUpdatePayload
+    const body = (await request.json()) as CategoryUpdatePayload
 
     // Find category
     const categoryIndex = MOCK_CATEGORIES.findIndex(c => c.id === id)
@@ -98,7 +98,7 @@ export const categoryHandlers = [
     }
 
     // Update category
-    const updatedCategory: ICategory = {
+    const updatedCategory: Category = {
       ...MOCK_CATEGORIES[categoryIndex],
       name: body.name.trim(),
       updatedAt: new Date(),

@@ -1,6 +1,6 @@
-import { IBase } from '../IBase'
-import { ITask } from '../ITask'
-import { IUser } from '../IUser'
+import { Base } from './base'
+import { User } from './user'
+import { Task } from './task'
 
 /**
  * Event status enumeration
@@ -17,15 +17,16 @@ export type EventStatus = (typeof EVENT_STATUS)[keyof typeof EVENT_STATUS]
  * Represents a complete event as returned by the API
  * @entity
  */
-export interface Event extends IBase {
+export interface Event extends Base {
   title: string
   start: string
   end: string
   notes: string
   status: EventStatus
   taskId: string
-  createdBy: string | IUser
+  createdBy: string
   // Optional relations (populated based on API query)
-  task?: ITask
-  collaborators?: IUser[]
+  task?: Task
+  collaborators?: User[]
+  creator?: User
 }

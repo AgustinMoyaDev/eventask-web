@@ -1,13 +1,13 @@
 import { baseApi } from './baseApi'
 
-import { IPaginationOptions, IPaginationResult } from '../api/types/pagination'
+import { PaginationOptions, PaginationResult } from '../types/dtos/api/pagination'
 
 import { ITaskCreatePayload, ITaskUpdatePayload } from '../types/dtos/task'
-import { ITask, TaskId } from '../types/ITask'
+import { Task, TaskId } from '../types/entities/task'
 
 export const taskApi = baseApi.injectEndpoints({
   endpoints: builder => ({
-    fetchTasks: builder.query<IPaginationResult<ITask>, IPaginationOptions>({
+    fetchTasks: builder.query<PaginationResult<Task>, PaginationOptions>({
       query: ({ page = 1, perPage = 10, sortBy, sortOrder } = {}) => ({
         url: '/tasks',
         method: 'GET',
@@ -18,11 +18,11 @@ export const taskApi = baseApi.injectEndpoints({
         ...(result?.items.map(({ id }) => ({ type: 'Task' as const, id })) ?? []),
       ],
     }),
-    fetchTaskById: builder.query<ITask, TaskId>({
+    fetchTaskById: builder.query<Task, TaskId>({
       query: id => `/tasks/${id}`,
       providesTags: (_result, _error, id) => [{ type: 'Task', id }],
     }),
-    createTask: builder.mutation<ITask, ITaskCreatePayload>({
+    createTask: builder.mutation<Task, ITaskCreatePayload>({
       query: newTask => ({
         url: '/tasks',
         method: 'POST',
@@ -33,7 +33,7 @@ export const taskApi = baseApi.injectEndpoints({
         { type: 'Category', id: 'LIST-COUNT' },
       ],
     }),
-    updateTask: builder.mutation<ITask, ITaskUpdatePayload>({
+    updateTask: builder.mutation<Task, ITaskUpdatePayload>({
       query: task => ({
         url: `/tasks/${task.id}`,
         method: 'PUT',
@@ -55,7 +55,7 @@ export const taskApi = baseApi.injectEndpoints({
       }),
       invalidatesTags: () => [{ type: 'Task', id: 'LIST' }],
     }),
-    assignParticipant: builder.mutation<ITask, { taskId: string; participantId: string }>({
+    assignParticipant: builder.mutation<Task, { taskId: string; participantId: string }>({
       query: ({ taskId, participantId }) => ({
         url: `/tasks/${taskId}/participants/${participantId}`,
         method: 'POST',
@@ -66,7 +66,7 @@ export const taskApi = baseApi.injectEndpoints({
       // },
       invalidatesTags: (_result, _error, { taskId }) => [{ type: 'Task', id: taskId }],
     }),
-    removeParticipant: builder.mutation<ITask, { taskId: string; participantId: string }>({
+    removeParticipant: builder.mutation<Task, { taskId: string; participantId: string }>({
       query: ({ taskId, participantId }) => ({
         url: `/tasks/${taskId}/participants/${participantId}`,
         method: 'DELETE',

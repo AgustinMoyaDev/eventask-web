@@ -1,10 +1,10 @@
 import { delay, http, HttpResponse } from 'msw'
 import { faker } from '@faker-js/faker'
 
-import type { ITask } from '@/types/ITask'
+import type { Task } from '@/types/entities/task'
 import { ITaskCreatePayload, ITaskUpdatePayload } from '@/types/dtos/task'
 import { Event, EVENT_STATUS } from '@/types/entities/event'
-import { IUser } from '@/types/IUser'
+import { User } from '@/types/entities/user'
 
 import { createPaginatedResponse, getPaginationParams } from './shared'
 import {
@@ -29,7 +29,7 @@ export const taskHandlers = [
   http.get('*/api/tasks', ({ request }) => {
     const url = new URL(request.url)
     const { page, perPage, sortBy, sortOrder } = getPaginationParams(url)
-    const response = createPaginatedResponse<ITask>(MOCK_TASKS, page, perPage, sortBy, sortOrder)
+    const response = createPaginatedResponse<Task>(MOCK_TASKS, page, perPage, sortBy, sortOrder)
 
     // Remove circular references from all tasks
     const cleanItems = response.items.map(task => {
@@ -78,7 +78,7 @@ export const taskHandlers = [
 
     const participants = body.participantsIds
       .map(id => MOCK_CONTACTS.find(c => c.id === id))
-      .filter((user): user is IUser => user !== undefined)
+      .filter((user): user is User => user !== undefined)
 
     const events: Event[] = body.events.map(eventForm => ({
       id: crypto.randomUUID(),
@@ -141,7 +141,7 @@ export const taskHandlers = [
 
     const participants = body.participantsIds
       .map(id => MOCK_CONTACTS.find(c => c.id === id))
-      .filter((user): user is IUser => user !== undefined)
+      .filter((user): user is User => user !== undefined)
 
     const currentEventsMap = new Map(existingTask.events.map(e => [e.id, e]))
     const newEventIds: string[] = []

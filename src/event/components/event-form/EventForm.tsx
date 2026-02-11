@@ -2,10 +2,10 @@ import clsx from 'clsx'
 
 import { EventFormModel } from '@/types/models/event.model'
 
-import { Input } from '../input/Input'
-import { Textarea } from '../text-area/Textarea'
-import { Button } from '../button/Button'
-import { Chip } from '../chip/Chip'
+import { Input } from '../../../components/input/Input'
+import { Textarea } from '../../../components/text-area/Textarea'
+import { Button } from '../../../components/button/Button'
+import { Chip } from '../../../components/chip/Chip'
 
 import { useEventForm } from './useEventForm'
 

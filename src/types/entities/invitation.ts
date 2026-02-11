@@ -1,4 +1,4 @@
-import { IBase } from './Base'
+import { Base } from './base'
 
 export const INVITATION_STATUS = {
   PENDING: 'pending',
@@ -8,7 +8,7 @@ export const INVITATION_STATUS = {
 
 export type InvitationStatus = (typeof INVITATION_STATUS)[keyof typeof INVITATION_STATUS]
 
-export interface IInvitation extends IBase {
+export interface Invitation extends Base {
   from: string
   to?: string
   email: string

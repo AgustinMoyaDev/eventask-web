@@ -1,7 +1,7 @@
 import { faker } from '@faker-js/faker'
 
 import { Event, EVENT_STATUS } from '@/types/entities/event'
-import { IUser } from '@/types/IUser'
+import { User } from '@/types/entities/user'
 
 import { createFakeUser, createFakeUsers } from './userFactory'
 
@@ -164,7 +164,7 @@ function roundToQuarterHour(date: Date): Date {
  * })
  * ```
  */
-export function createFakeEvent(overwrites: Partial<Event> = {}, availableUsers?: IUser[]): Event {
+export function createFakeEvent(overwrites: Partial<Event> = {}, availableUsers?: User[]): Event {
   // Generate creator and collaborators
   const creator =
     overwrites.createdBy && typeof overwrites.createdBy === 'object'
@@ -247,7 +247,7 @@ export function createFakeEvent(overwrites: Partial<Event> = {}, availableUsers?
 export function createFakeEvents(
   count: number,
   overwrites: Partial<Event> = {},
-  availableUsers?: IUser[]
+  availableUsers?: User[]
 ): Event[] {
   return Array.from({ length: count }, () => createFakeEvent(overwrites, availableUsers))
 }
@@ -273,7 +273,7 @@ export function createFakeEvents(
 export function createSequentialEvents(
   count: number,
   overwrites: Partial<Event> = {},
-  availableUsers?: IUser[],
+  availableUsers?: User[],
   categoryName?: string
 ): Event[] {
   const events: Event[] = []

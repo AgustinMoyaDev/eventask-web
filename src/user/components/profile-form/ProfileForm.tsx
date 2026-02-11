@@ -8,7 +8,7 @@ import { MultiSelectInput } from '@/components/multi-select-input/MultiSelectInp
 
 import { SecuritySettings } from '@/user/components/security-settings/SecuritySettings'
 
-import { IUser } from '@/types/IUser'
+import { User } from '@/types/entities/user'
 
 import styles from './ProfileForm.module.css'
 
@@ -81,7 +81,7 @@ export const EditProfileForm = () => {
         error={formErrors.lastName?.message}
       />
 
-      <MultiSelectInput<IUser>
+      <MultiSelectInput<User>
         label="Contacts"
         typeOption="email"
         options={user.contacts ?? []}

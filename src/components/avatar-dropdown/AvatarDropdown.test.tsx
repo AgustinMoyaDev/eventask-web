@@ -2,7 +2,7 @@ import { render, screen, fireEvent } from '@testing-library/react'
 import { vi } from 'vitest'
 import { MemoryRouter } from 'react-router-dom'
 
-import { TASK_STATUS } from '@/types/ITask'
+import { TASK_STATUS } from '@/types/entities/task'
 
 import { AvatarDropdown } from './AvatarDropdown'
 

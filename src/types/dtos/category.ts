@@ -1,8 +1,8 @@
-export interface ICategoryCreatePayload {
+export interface CategoryCreatePayload {
   name: string
 }
 
-export interface ICategoryUpdatePayload {
+export interface CategoryUpdatePayload {
   id: string
   name: string
 }

@@ -1,6 +1,6 @@
 import { delay, http, HttpResponse } from 'msw'
 
-import { IUser } from '@/types/IUser'
+import { User } from '@/types/entities/user'
 import { IUpdateUserDto } from '@/types/dtos/user'
 
 import { createPaginatedResponse, getPaginationParams } from './shared'
@@ -21,7 +21,7 @@ export const userHandlers = [
   http.get('*/api/users/me/contacts', ({ request }) => {
     const url = new URL(request.url)
     const { page, perPage, sortBy, sortOrder } = getPaginationParams(url)
-    const response = createPaginatedResponse<IUser>(MOCK_CONTACTS, page, perPage, sortBy, sortOrder)
+    const response = createPaginatedResponse<User>(MOCK_CONTACTS, page, perPage, sortBy, sortOrder)
     return HttpResponse.json(response)
   }),
   /**

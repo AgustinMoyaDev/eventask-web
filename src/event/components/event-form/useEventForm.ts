@@ -3,12 +3,8 @@ import { useForm, useWatch } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import dayjs from 'dayjs'
 
-import { eventSchema, type EventSchemaType } from '@/helpers/form-validations/eventSchema'
-import {
-  formatToDatetimeLocal,
-  getNextStartDate,
-  hasOverlap,
-} from '@/helpers/form-validations/eventHelpers'
+import { eventSchema, type EventSchemaType } from '@/event/components/event-form/eventSchema'
+import { formatToDatetimeLocal, getNextStartDate, hasOverlap } from '@/event/helpers/event'
 
 import { EVENT_STATUS } from '@/types/entities/event'
 import { EventFormModel } from '@/types/models/event.model'

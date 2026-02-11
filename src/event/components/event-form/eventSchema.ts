@@ -25,12 +25,12 @@ export const eventSchema = z
       ctx.addIssue({
         code: 'custom',
         message: 'The start date cannot be later than the end date.',
-        path: ['start'], // Error attaches to 'start' input
+        path: ['start'],
       })
       ctx.addIssue({
         code: 'custom',
         message: 'The end date cannot be earlier than the start date.',
-        path: ['end'], // Error attaches to 'end' input
+        path: ['end'],
       })
       return
     }
@@ -45,5 +45,4 @@ export const eventSchema = z
     }
   })
 
-// Extract the Type directly from the Schema (DRY)
 export type EventSchemaType = z.infer<typeof eventSchema>

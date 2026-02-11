@@ -1,12 +1,12 @@
 import { baseApi } from './baseApi'
 
-import { ICategory, ICategoryWithTaskCount } from '../types/ICategory'
-import { ICategoryCreatePayload, ICategoryUpdatePayload } from '../types/dtos/category'
-import { IPaginationOptions, IPaginationResult } from '../api/types/pagination'
+import { Category, CategoryWithTaskCount } from '../types/entities/category'
+import { CategoryCreatePayload, CategoryUpdatePayload } from '../types/dtos/category'
+import { PaginationOptions, PaginationResult } from '../types/dtos/api/pagination'
 
 export const categoryApi = baseApi.injectEndpoints({
   endpoints: builder => ({
-    fetchCategories: builder.query<IPaginationResult<ICategory>, IPaginationOptions | void>({
+    fetchCategories: builder.query<PaginationResult<Category>, PaginationOptions | void>({
       query: ({ page = 1, perPage = 5 } = {}) => ({
         url: '/categories',
         method: 'GET',
@@ -17,7 +17,7 @@ export const categoryApi = baseApi.injectEndpoints({
         ...(result?.items.map(c => ({ type: 'Category' as const, id: c.id })) ?? []),
       ],
     }),
-    getCategoriesWithTaskCount: builder.query<ICategoryWithTaskCount[], void>({
+    getCategoriesWithTaskCount: builder.query<CategoryWithTaskCount[], void>({
       query: () => ({
         url: '/categories/task-count',
         method: 'GET',
@@ -27,7 +27,7 @@ export const categoryApi = baseApi.injectEndpoints({
         ...(result?.map(c => ({ type: 'Category' as const, id: c.id })) ?? []),
       ],
     }),
-    createCategory: builder.mutation<ICategory, ICategoryCreatePayload>({
+    createCategory: builder.mutation<Category, CategoryCreatePayload>({
       query: newCategory => ({
         url: '/categories',
         method: 'POST',
@@ -35,7 +35,7 @@ export const categoryApi = baseApi.injectEndpoints({
       }),
       invalidatesTags: [{ type: 'Category', id: 'LIST-COUNT' }],
     }),
-    updateCategory: builder.mutation<ICategory, ICategoryUpdatePayload>({
+    updateCategory: builder.mutation<Category, CategoryUpdatePayload>({
       query: updatedCategory => ({
         url: `/categories/${updatedCategory.id}`,
         method: 'PUT',

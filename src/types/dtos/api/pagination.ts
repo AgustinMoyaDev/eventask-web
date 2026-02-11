@@ -1,11 +1,11 @@
-export interface IPaginationOptions {
+export interface PaginationOptions {
   page?: number
   perPage?: number
   sortBy?: string
   sortOrder?: 'asc' | 'desc'
 }
 
-export interface IPaginationResult<T> {
+export interface PaginationResult<T> {
   items: T[]
   total: number
   page: number

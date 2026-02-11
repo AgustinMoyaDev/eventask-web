@@ -1,6 +1,6 @@
 /**
  * Task Factory
- * Generates fake ITask objects using Faker.js
+ * Generates fake Task objects using Faker.js
  * @see https://fakerjs.dev/guide/usage.html#create-complex-objects
  */
 import { faker } from '@faker-js/faker'
@@ -9,9 +9,9 @@ import dayjs from 'dayjs'
 import minMax from 'dayjs/plugin/minMax.js'
 dayjs.extend(minMax)
 
-import type { ITask, TaskStatus } from '@/types/ITask'
-import type { IUser } from '@/types/IUser'
-import { TASK_STATUS } from '@/types/ITask'
+import type { Task, TaskStatus } from '@/types/entities/task'
+import type { User } from '@/types/entities/user'
+import { TASK_STATUS } from '@/types/entities/task'
 import { Event, EVENT_STATUS } from '@/types/entities/event'
 
 import { createFakeUser } from './userFactory'
@@ -137,10 +137,10 @@ function generateTaskTitle(categoryName: string): string {
  * @returns Array of selected users always including the creator
  */
 function selectRandomParticipants(
-  availableUsers: IUser[],
+  availableUsers: User[],
   minParticipants = 2,
   maxParticipants = 5
-): IUser[] {
+): User[] {
   if (availableUsers.length === 0) return []
 
   const count = faker.number.int({ min: minParticipants, max: maxParticipants })
@@ -182,10 +182,10 @@ export function calculateTaskDuration(events: Event[]): number {
 }
 
 /**
- * Creates a fake ITask object with realistic data and relationships.
+ * Creates a fake Task object with realistic data and relationships.
  *
- * @param overwrites - Partial ITask to override default generated values
- * @returns A complete ITask object with fake data
+ * @param overwrites - Partial Task to override default generated values
+ * @returns A complete Task object with fake data
  *
  * @example
  * ```typescript
@@ -201,7 +201,7 @@ export function calculateTaskDuration(events: Event[]): number {
  * })
  * ```
  */
-export function createFakeTask(overwrites: Partial<ITask> = {}): ITask {
+export function createFakeTask(overwrites: Partial<Task> = {}): Task {
   const category = overwrites.category ?? faker.helpers.arrayElement(MOCK_CATEGORIES)
   const creator = overwrites.creator ?? createFakeUser()
 
@@ -264,11 +264,11 @@ export function createFakeTask(overwrites: Partial<ITask> = {}): ITask {
 }
 
 /**
- * Creates multiple fake ITask objects.
+ * Creates multiple fake Task objects.
  *
  * @param count - Number of tasks to generate
- * @param overwrites - Partial ITask applied to all generated tasks
- * @returns Array of ITask objects
+ * @param overwrites - Partial Task applied to all generated tasks
+ * @returns Array of Task objects
  *
  * @example
  * ```typescript
@@ -279,6 +279,6 @@ export function createFakeTask(overwrites: Partial<ITask> = {}): ITask {
  * const pendingTasks = createFakeTasks(5, { status: 'pending' })
  * ```
  */
-export function createFakeTasks(count: number, overwrites: Partial<ITask> = {}): ITask[] {
+export function createFakeTasks(count: number, overwrites: Partial<Task> = {}): Task[] {
   return Array.from({ length: count }, () => createFakeTask(overwrites))
 }
