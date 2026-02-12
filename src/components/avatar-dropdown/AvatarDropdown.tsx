@@ -10,7 +10,7 @@ import { TASK_STATUS } from '@/types/entities/task'
 import { useAuthState } from '@/auth/hooks/useAuthState'
 import { useAuthMutations } from '@/auth/hooks/useAuthMutations'
 
-import { useUserActions } from '@/store/hooks/useUserActions'
+import { useUserProfile } from '@/user/hooks/useUserProfile'
 import { useTaskActions } from '@/store/hooks/useTaskActions'
 
 import { LogoutIcon, UserSettingIcon } from '../icons/Icons'
@@ -26,7 +26,7 @@ export const AvatarDropdown = () => {
   const { currentUserId } = useAuthState()
   const { logout } = useAuthMutations()
 
-  const { user } = useUserActions()
+  const { user } = useUserProfile()
   const { tasks } = useTaskActions()
   const navigate = useNavigate()
 

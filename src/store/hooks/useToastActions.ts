@@ -1,6 +1,6 @@
 import { useCallback } from 'react'
 
-import { ToastStatus } from '@/types/ui/toast'
+import { ToastStatus } from '@/components/toast/toast.types'
 
 import { useAppDispatch, useAppSelector } from '../reduxStore'
 import { onShowToast, onUpdateToastStatus, onRemoveToast } from '../slices/ui/toastSlice'

@@ -9,7 +9,7 @@ import { useCategoryActions } from '@/store/hooks/useCategoryActions'
 import { useTaskActions } from '@/store/hooks/useTaskActions'
 import { useNotificationActions } from '@/store/hooks/useNotificationActions'
 import { useEventActions } from '@/store/hooks/useEventActions'
-import { useUserActions } from '@/store/hooks/useUserActions'
+import { useUserContacts } from '@/user/hooks/useUserContacts'
 
 import { Button } from '@/components/button/Button'
 import { Table } from '@/components/table/Table'
@@ -78,7 +78,7 @@ const SeeAllPage = () => {
     fetching: contactsFetching,
     fetchContactsError,
     refetchContacts,
-  } = useUserActions(
+  } = useUserContacts(
     validatedPage,
     itemsPerPage,
     shouldFetchContacts,

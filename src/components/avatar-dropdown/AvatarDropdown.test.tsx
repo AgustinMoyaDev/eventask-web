@@ -9,13 +9,15 @@ import { AvatarDropdown } from './AvatarDropdown'
 // Define global mocks for the hooks
 vi.mock('@/auth/hooks/useAuthState')
 vi.mock('@/auth/hooks/useAuthMutations')
-vi.mock('@/store/hooks/useUserActions')
+vi.mock('@/user/hooks/useUserProfile')
+vi.mock('@/user/hooks/useUserContacts')
 vi.mock('@/store/hooks/useTaskActions')
 
 // Import mocked references (intercepted above)
 import { useAuthState } from '@/auth/hooks/useAuthState'
 import { useAuthMutations } from '@/auth/hooks/useAuthMutations'
-import { useUserActions } from '@/store/hooks/useUserActions'
+import { useUserProfile } from '@/user/hooks/useUserProfile'
+import { useUserContacts } from '@/user/hooks/useUserContacts'
 import { useTaskActions } from '@/store/hooks/useTaskActions'
 
 // --- Auxiliary mocks --- //
@@ -59,34 +61,39 @@ const mockAuthMutations = {
   logoutError: undefined,
 }
 
-const mockUserActions = {
-  user: {
-    firstName: 'John',
-    lastName: 'Doe',
-    profileImageURL: '',
-    email: '',
-    contacts: [],
-    id: '',
-    createdAt: new Date().toISOString(),
-    hasManualPassword: true,
-    contactsIds: [],
-    isEmailVerified: true,
-  },
+const user = {
+  firstName: 'John',
+  lastName: 'Doe',
+  profileImageURL: '',
+  email: '',
   contacts: [],
-  total: 0,
-  fetching: false,
+  id: '',
+  createdAt: new Date().toISOString(),
+  hasManualPassword: true,
+  contactsIds: [],
+  isEmailVerified: true,
+}
+
+const mockUserProfile = {
+  user,
   fetchingProfile: false,
-  updatingProfile: false,
-  uploadingAvatar: false,
-  updateSuccess: true,
-  uploadSuccess: true,
   refetchProfile: vi.fn(),
-  refetchContacts: vi.fn(),
+  updatingProfile: false,
+  updateSuccess: true,
   updateProfile: vi.fn(),
+  uploadSuccess: true,
+  uploadingAvatar: false,
   uploadAvatar: vi.fn(),
   fetchUserError: { message: '', fieldsValidations: {} },
   updateUserError: { message: '', fieldsValidations: {} },
   uploadUserAvatarError: { message: '', fieldsValidations: {} },
+}
+
+const mockUserContacts = {
+  contacts: [],
+  total: 0,
+  fetching: false,
+  refetchContacts: vi.fn(),
   fetchContactsError: { message: '', fieldsValidations: {} },
 }
 
@@ -184,19 +191,22 @@ describe('AvatarDropdown', () => {
     vi.clearAllMocks()
     vi.mocked(useAuthState).mockReturnValue(mockAuthState)
     vi.mocked(useAuthMutations).mockReturnValue(mockAuthMutations)
-    vi.mocked(useUserActions).mockReturnValue(mockUserActions)
+    vi.mocked(useUserProfile).mockReturnValue(mockUserProfile)
+    vi.mocked(useUserContacts).mockReturnValue(mockUserContacts)
     vi.mocked(useTaskActions).mockReturnValue(mockTasksActions)
   })
 
-  it('returns null if no user or currentUserId', () => {
+  it('returns null if no currentUserId', () => {
     vi.mocked(useAuthState).mockReturnValue({
       ...mockAuthState,
       currentUserId: undefined,
     })
-    vi.mocked(useUserActions).mockReturnValue({
-      ...mockUserActions,
+
+    vi.mocked(useUserProfile).mockReturnValue({
+      ...mockUserProfile,
       user: undefined,
     })
+
     vi.mocked(useTaskActions).mockReturnValue(mockTasksActions)
 
     renderWithRouter(<AvatarDropdown />)
