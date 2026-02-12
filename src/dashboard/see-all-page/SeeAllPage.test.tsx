@@ -6,15 +6,15 @@ import { describe, test, expect } from 'vitest'
 import { screen, waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { delay, http, HttpResponse } from 'msw'
+import { Route, Routes } from 'react-router-dom'
+
+import { AUTH_STATUS } from '@/auth/constants/auth-status'
 
 import { server } from '@/tests/mocks/server'
 import { renderWithProviders } from '@/tests/utils/test-utils'
 import { createFakeTasks } from '@/tests/mocks/factories/taskFactory'
 
 import SeeAllPage from './SeeAllPage'
-import { Route, Routes } from 'react-router-dom'
-
-import { AUTH_STATUS } from '@/types/ui/auth-status'
 
 const authenticatedState = {
   auth: {

@@ -3,7 +3,7 @@ import { io, ManagerOptions, SocketOptions } from 'socket.io-client'
 import { AuthenticatedSocket, ConnectionData } from './SocketTypes'
 
 import { store } from '@/store/store'
-import { setCredentials } from '@/store/slices/auth/authSlice'
+import { setCredentials } from '@/auth/store/authSlice'
 
 import { authApi } from '../authApi'
 

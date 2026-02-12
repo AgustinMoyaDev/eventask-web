@@ -6,12 +6,11 @@ import { vi, describe, it, expect, beforeEach } from 'vitest'
 
 import { LoginForm } from './LoginForm'
 
-// useAuthActions Mock
 const mockLogin = vi.fn()
 const mockLoginAuthError = { message: '', fieldsValidations: {} }
 
-vi.mock('@/store/hooks/useAuthActions', () => ({
-  useAuthActions: () => ({
+vi.mock('@/auth/hooks/useAuthMutations', () => ({
+  useAuthMutations: () => ({
     login: mockLogin,
     loginLoading: false,
     loginAuthError: mockLoginAuthError,

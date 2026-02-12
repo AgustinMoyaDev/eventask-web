@@ -12,7 +12,7 @@ import { AuthResponseDto } from '@/types/dtos/auth.dto'
 import { HTTP_STATUS } from '@/types/dtos/api/httpStatus'
 
 import type { RootState } from '@/store/store'
-import { setCredentials } from '@/store/slices/auth/authActions'
+import { setCredentials } from '@/auth/store/authActions'
 import { setCsrfToken } from '@/store/slices/security/security'
 
 import { getEnvVariables } from '@/helpers/getEnvVariables'

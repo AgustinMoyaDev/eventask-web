@@ -6,23 +6,31 @@ import { TASK_STATUS } from '@/types/entities/task'
 
 import { AvatarDropdown } from './AvatarDropdown'
 
-// Definimos mocks globales de los hooks
-vi.mock('@/store/hooks/useAuthActions')
+// Define global mocks for the hooks
+vi.mock('@/auth/hooks/useAuthState')
+vi.mock('@/auth/hooks/useAuthMutations')
 vi.mock('@/store/hooks/useUserActions')
 vi.mock('@/store/hooks/useTaskActions')
 
-// Importamos las referencias mockeadas (ya interceptadas arriba)
-import { useAuthActions } from '@/store/hooks/useAuthActions'
+// Import mocked references (intercepted above)
+import { useAuthState } from '@/auth/hooks/useAuthState'
+import { useAuthMutations } from '@/auth/hooks/useAuthMutations'
 import { useUserActions } from '@/store/hooks/useUserActions'
 import { useTaskActions } from '@/store/hooks/useTaskActions'
 
-// --- Mocks auxiliares --- //
+// --- Auxiliary mocks --- //
 const mockLogout = vi.fn()
 
-const valueMockAuthActions = {
+const mockAuthState = {
   status: 'authenticated',
   currentUserId: '123',
   isAuthenticated: true,
+  isChecking: false,
+  isNotAuthenticated: false,
+  accessToken: 'fake-token',
+}
+
+const mockAuthMutations = {
   loginLoading: false,
   loginWithGoogleLoading: false,
   registerLoading: false,
@@ -51,7 +59,7 @@ const valueMockAuthActions = {
   logoutError: undefined,
 }
 
-const valueMockUserActions = {
+const mockUserActions = {
   user: {
     firstName: 'John',
     lastName: 'Doe',
@@ -59,8 +67,10 @@ const valueMockUserActions = {
     email: '',
     contacts: [],
     id: '',
-    createdAt: new Date(),
+    createdAt: new Date().toISOString(),
     hasManualPassword: true,
+    contactsIds: [],
+    isEmailVerified: true,
   },
   contacts: [],
   total: 0,
@@ -80,34 +90,40 @@ const valueMockUserActions = {
   fetchContactsError: { message: '', fieldsValidations: {} },
 }
 
-const valueMockTasksActions = {
+const creator = {
+  id: '1',
+  firstName: 'Creator',
+  lastName: '1',
+  profileImageURL: '',
+  email: '',
+  contacts: [],
+  contactsIds: [],
+  createdAt: new Date().toISOString(),
+  hasManualPassword: true,
+  isEmailVerified: true,
+}
+
+const category = {
+  id: 'cat1',
+  name: 'Design',
+  createdAt: new Date().toISOString(),
+  updatedAt: new Date().toISOString(),
+}
+
+const mockTasksActions = {
   tasks: [
     {
       id: '2',
       status: TASK_STATUS.PENDING,
       title: 'Task 2',
-      createdAt: new Date(),
-      updatedAt: new Date(),
+      createdAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString(),
       categoryId: '',
       participantsIds: [],
       eventsIds: [],
       createdBy: '123',
-      category: {
-        id: 'cat2',
-        name: 'Category 2',
-        createdAt: new Date(),
-        updatedAt: new Date(),
-      },
-      creator: {
-        id: '1',
-        firstName: 'Creator',
-        lastName: '1',
-        profileImageURL: '',
-        email: '',
-        contacts: [],
-        createdAt: new Date(),
-        hasManualPassword: true,
-      },
+      category: category,
+      creator,
       participants: [],
       events: [],
       beginningDate: '',
@@ -119,28 +135,14 @@ const valueMockTasksActions = {
       id: '1',
       status: TASK_STATUS.PENDING,
       title: 'Task 1',
-      createdAt: new Date(),
-      updatedAt: new Date(),
+      createdAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString(),
       categoryId: '',
       participantsIds: [],
       eventsIds: [],
       createdBy: '123',
-      category: {
-        id: 'cat1',
-        name: 'Category 1',
-        createdAt: new Date(),
-        updatedAt: new Date(),
-      },
-      creator: {
-        id: '1',
-        firstName: 'Creator',
-        lastName: '1',
-        profileImageURL: '',
-        email: '',
-        contacts: [],
-        createdAt: new Date(),
-        hasManualPassword: false,
-      },
+      category: category,
+      creator,
       participants: [],
       events: [],
       beginningDate: '',
@@ -180,21 +182,22 @@ function renderWithRouter(ui: React.ReactNode) {
 describe('AvatarDropdown', () => {
   beforeEach(() => {
     vi.clearAllMocks()
-    vi.mocked(useAuthActions).mockReturnValue(valueMockAuthActions)
-    vi.mocked(useUserActions).mockReturnValue(valueMockUserActions)
-    vi.mocked(useTaskActions).mockReturnValue(valueMockTasksActions)
+    vi.mocked(useAuthState).mockReturnValue(mockAuthState)
+    vi.mocked(useAuthMutations).mockReturnValue(mockAuthMutations)
+    vi.mocked(useUserActions).mockReturnValue(mockUserActions)
+    vi.mocked(useTaskActions).mockReturnValue(mockTasksActions)
   })
 
   it('returns null if no user or currentUserId', () => {
-    vi.mocked(useAuthActions).mockReturnValue({
-      ...valueMockAuthActions,
+    vi.mocked(useAuthState).mockReturnValue({
+      ...mockAuthState,
       currentUserId: undefined,
     })
     vi.mocked(useUserActions).mockReturnValue({
-      ...valueMockUserActions,
+      ...mockUserActions,
       user: undefined,
     })
-    vi.mocked(useTaskActions).mockReturnValue(valueMockTasksActions)
+    vi.mocked(useTaskActions).mockReturnValue(mockTasksActions)
 
     renderWithRouter(<AvatarDropdown />)
 

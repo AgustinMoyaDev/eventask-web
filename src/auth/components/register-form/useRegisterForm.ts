@@ -1,11 +1,11 @@
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 
-import { useAuthActions } from '@/store/hooks/useAuthActions'
+import { useAuthMutations } from '@/auth/hooks/useAuthMutations'
 import { registerSchema, type RegisterSchemaType } from '@/helpers/form-validations/authSchemas'
 
 export function useRegisterForm() {
-  const { register: registerUser, registerLoading, registerAuthError } = useAuthActions()
+  const { register: registerUser, registerLoading, registerAuthError } = useAuthMutations()
 
   const {
     register,

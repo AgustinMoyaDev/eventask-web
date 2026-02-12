@@ -7,8 +7,8 @@ import { RegisterForm } from './RegisterForm'
 const mockRegister = vi.fn()
 const mockRegisterAuthError = { message: '', fieldsValidations: {} }
 
-vi.mock('@/store/hooks/useAuthActions', () => ({
-  useAuthActions: () => ({
+vi.mock('@/auth/hooks/useAuthMutations', () => ({
+  useAuthMutations: () => ({
     register: mockRegister,
     registerLoading: false,
     registerAuthError: mockRegisterAuthError,

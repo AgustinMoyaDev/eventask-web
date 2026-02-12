@@ -7,10 +7,10 @@ import {
 } from '@/helpers/form-validations/authSchemas'
 import { TOKEN_TYPE } from '@/types/entities/token'
 
-import { useAuthActions } from '@/store/hooks/useAuthActions'
+import { useAuthMutations } from '@/auth/hooks/useAuthMutations'
 
 export function useResetPasswordForm(token: string, onSuccess: () => void) {
-  const { resetPassword, resetPasswordLoading, resetPasswordAuthError } = useAuthActions()
+  const { resetPassword, resetPasswordLoading, resetPasswordAuthError } = useAuthMutations()
 
   const {
     register,

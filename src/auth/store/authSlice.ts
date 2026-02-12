@@ -1,8 +1,8 @@
 import { createSlice, isAnyOf } from '@reduxjs/toolkit'
 
-import { AUTH_STATUS } from '@/types/ui/auth-status'
-
+import { AUTH_STATUS } from '@/auth/constants/auth-status'
 import { authApi } from '@/services/authApi'
+
 import { setCredentials } from './authActions'
 
 export interface AuthState {

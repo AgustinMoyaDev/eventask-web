@@ -1,21 +1,23 @@
+import { useForm } from 'react-hook-form'
+import { zodResolver } from '@hookform/resolvers/zod'
+
 import {
   forgotPasswordSchema,
   ForgotPasswordSchemaType,
 } from '@/helpers/form-validations/authSchemas'
-import { useAuthActions } from '@/store/hooks/useAuthActions'
-import { zodResolver } from '@hookform/resolvers/zod'
-import { useForm } from 'react-hook-form'
+
+import { useAuthMutations } from '@/auth/hooks/useAuthMutations'
 
 /**
  * Custom hook for forgot password form logic.
  *
- * Integrates React Hook Form with Zod validation and Redux auth actions.
+ * Integrates React Hook Form with Zod validation and Redux auth mutations.
  *
  * @param onSuccess - Callback invoked after password reset email sent successfully
  * @returns Form methods, validation state, and loading/error states
  */
 export function useForgotPasswordForm(onSuccess: () => void) {
-  const { forgotPassword, forgotPasswordLoading, forgotPasswordAuthError } = useAuthActions()
+  const { forgotPassword, forgotPasswordLoading, forgotPasswordAuthError } = useAuthMutations()
 
   const {
     register,

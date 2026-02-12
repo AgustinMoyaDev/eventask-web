@@ -10,14 +10,14 @@ import { AvatarDropdown } from '@/components/avatar-dropdown/AvatarDropdown'
 import { Button } from '@/components/button/Button'
 import { MenuIcon } from '@/components/icons/Icons'
 
-import { useAuthActions } from '@/store/hooks/useAuthActions'
+import { useAuthState } from '@/auth/hooks/useAuthState'
 
 import { useSidebarContext } from '@/context/sidebar/SidebarContext'
 
 import styles from './Header.module.css'
 
 export const Header = () => {
-  const { isAuthenticated } = useAuthActions()
+  const { isAuthenticated } = useAuthState()
   const { toggleSidebar } = useSidebarContext()
   const location = useLocation()
 

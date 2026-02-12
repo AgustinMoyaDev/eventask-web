@@ -1,4 +1,4 @@
-import { TokenType } from '../entities/token'
+import { TokenType } from '@/types/entities/token'
 
 export interface LoginDto {
   email: string
