@@ -1,15 +1,17 @@
 import { render, screen, waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { vi, describe, it, expect, beforeEach } from 'vitest'
+import { MemoryRouter } from 'react-router-dom'
+
+import { TOKEN_TYPE } from '@/types/entities/token'
 
 import { ResetPasswordForm } from './ResetPasswordForm'
-import { MemoryRouter } from 'react-router-dom'
 
 const mockResetPassword = vi.fn()
 const mockAuthError = { message: '', fieldsValidations: {} }
 
-vi.mock('@/store/hooks/useAuthActions', () => ({
-  useAuthActions: () => ({
+vi.mock('@/auth/hooks/useAuthMutations', () => ({
+  useAuthMutations: () => ({
     resetPassword: mockResetPassword,
     resetPasswordLoading: false,
     resetPasswordAuthError: mockAuthError,
@@ -70,7 +72,7 @@ describe('ResetPasswordForm Component', () => {
       expect(mockResetPassword).toHaveBeenCalledWith({
         token: fakeToken,
         newPassword: 'newSecret123',
-        type: expect.anything(), // or TOKEN_TYPE.RESET
+        type: TOKEN_TYPE.RESET,
       })
 
       expect(mockOnSuccess).toHaveBeenCalled()

@@ -1,11 +1,11 @@
 import { type CredentialResponse, GoogleLogin } from '@react-oauth/google'
 
-import { useAuthActions } from '@/store/hooks/useAuthActions'
+import { useAuthMutations } from '@/auth/hooks/useAuthMutations'
 
 import styles from './SocialLoginSection.module.css'
 
 export const SocialLoginSection = () => {
-  const { loginWithGoogle, loginWithGoogleAuthError } = useAuthActions()
+  const { loginWithGoogle, loginWithGoogleAuthError } = useAuthMutations()
 
   const handleGoogleSuccess = async (credentialResponse: CredentialResponse) => {
     if (!credentialResponse.credential) {

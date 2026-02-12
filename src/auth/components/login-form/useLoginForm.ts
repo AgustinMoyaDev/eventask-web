@@ -2,10 +2,10 @@ import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 
 import { loginSchema, type LoginSchemaType } from '@/helpers/form-validations/authSchemas'
-import { useAuthActions } from '@/store/hooks/useAuthActions'
+import { useAuthMutations } from '@/auth/hooks/useAuthMutations'
 
 export function useLoginForm() {
-  const { login, loginLoading, loginAuthError } = useAuthActions()
+  const { login, loginLoading, loginAuthError } = useAuthMutations()
 
   const {
     register,

@@ -1,3 +1,9 @@
+/**
+ * Authentication Status Constants
+ *
+ * Represents the possible states of the authentication flow.
+ * Used by the auth slice, guards, and routing logic.
+ */
 export const AUTH_STATUS = {
   CHECKING: 'checking',
   AUTHENTICATED: 'authenticated',

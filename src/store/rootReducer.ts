@@ -2,7 +2,7 @@ import { combineReducers } from '@reduxjs/toolkit'
 
 import { baseApi } from '../services/baseApi'
 
-import { authSlice } from './slices/auth/authSlice'
+import { authSlice } from '@/auth/store/authSlice'
 import { userSlice } from './slices/user/userSlice'
 import { taskSlice } from './slices/task/taskSlice'
 import { calendarDaySlice } from './slices/calendar/calendarDaySlice'

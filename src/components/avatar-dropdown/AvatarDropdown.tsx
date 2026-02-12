@@ -7,7 +7,9 @@ import { UserAvatar } from '@/components/user-avatar/UserAvatar'
 
 import { TASK_STATUS } from '@/types/entities/task'
 
-import { useAuthActions } from '@/store/hooks/useAuthActions'
+import { useAuthState } from '@/auth/hooks/useAuthState'
+import { useAuthMutations } from '@/auth/hooks/useAuthMutations'
+
 import { useUserActions } from '@/store/hooks/useUserActions'
 import { useTaskActions } from '@/store/hooks/useTaskActions'
 
@@ -21,7 +23,8 @@ import styles from './AvatarDropdown.module.css'
  * @returns JSX.Element - Avatar dropdown with user menu
  */
 export const AvatarDropdown = () => {
-  const { currentUserId, logout } = useAuthActions()
+  const { currentUserId } = useAuthState()
+  const { logout } = useAuthMutations()
 
   const { user } = useUserActions()
   const { tasks } = useTaskActions()

@@ -11,18 +11,26 @@ import {
   useSetPasswordMutation,
   useChangePasswordMutation,
 } from '@/services/authApi'
-import { AUTH_STATUS } from '@/types/ui/auth-status'
 import { getErrorMessage, OperationError } from '@/services/utils/getErrorMessage'
 
-import { useAppSelector } from '../reduxStore'
-
-export const useAuthActions = () => {
-  const { status, currentUserId } = useAppSelector(state => state.auth)
-
-  const [logout, { isLoading: logoutLoading, error: logoutError }] = useLogoutMutation()
+/**
+ * Auth Mutations Hook
+ *
+ * Provides authentication operations (login, logout, register, etc.)
+ * with loading states and error handling.
+ *
+ * Use this hook when you need to perform auth actions.
+ *
+ * @example
+ * ```tsx
+ * const { login, loginLoading, loginAuthError } = useAuthMutations()
+ * ```
+ */
+export const useAuthMutations = () => {
   const [login, { isLoading: loginLoading, error: loginError }] = useLoginMutation()
   const [loginWithGoogle, { isLoading: loginWithGoogleLoading, error: loginWithGoogleError }] =
     useLoginWithGoogleMutation()
+  const [logout, { isLoading: logoutLoading, error: logoutError }] = useLogoutMutation()
   const [register, { isLoading: registerLoading, error: registerError }] = useRegisterMutation()
   const [refresh, { error: refreshError }] = useRefreshMutation()
   const [forgotPassword, { isLoading: forgotPasswordLoading, error: forgotPasswordError }] =
@@ -68,30 +76,28 @@ export const useAuthActions = () => {
   )
 
   return {
-    // STATE - Optimized auth data only
-    status,
-    currentUserId,
-    isAuthenticated: status === AUTH_STATUS.AUTHENTICATED,
-    // Data y flags RTKQ
-    loginLoading,
-    loginWithGoogleLoading,
-    registerLoading,
-    logoutLoading,
-    forgotPasswordLoading,
-    resetPasswordLoading,
-    setPasswordLoading,
-    changePasswordLoading,
-    // Mutations RTKQ
+    // Mutations
+    login,
+    loginWithGoogle,
+    logout,
+    register,
+    refresh,
     forgotPassword,
     resetPassword,
     setPassword,
     changePassword,
-    logout,
-    login,
-    loginWithGoogle,
-    register,
-    refresh,
-    // RTKQ errors
+
+    // Loading flags
+    loginLoading,
+    loginWithGoogleLoading,
+    logoutLoading,
+    registerLoading,
+    forgotPasswordLoading,
+    resetPasswordLoading,
+    setPasswordLoading,
+    changePasswordLoading,
+
+    // Errors
     loginAuthError,
     loginWithGoogleAuthError,
     registerAuthError,

@@ -4,13 +4,15 @@ import { Navigate, Route, Routes } from 'react-router-dom'
 
 import clsx from 'clsx'
 
-import { AUTH_STATUS } from '@/types/ui/auth-status'
+import { AUTH_STATUS } from '@/auth/constants/auth-status'
 
 import { AuthLayout } from '@/auth/layout/AuthLayout'
 import { CalendarLayout } from '@/calendar/layouts/CalendarLayout'
 import { RootLayout } from '@/layouts/RootLayout'
 
-import { useAuthActions } from '@/store/hooks/useAuthActions'
+import { useAuthState } from '@/auth/hooks/useAuthState'
+import { useAuthMutations } from '@/auth/hooks/useAuthMutations'
+
 import { useTransitionPage } from '@/hooks/useTransitionPage'
 
 import { Header } from '@/components/header/Header'
@@ -28,7 +30,8 @@ import { PrivateRoute } from './PrivateRoute'
 import styles from './AppRouter.module.css'
 
 export const AppRouter = () => {
-  const { status, refresh } = useAuthActions()
+  const { status } = useAuthState()
+  const { refresh } = useAuthMutations()
   const { location, displayLocation, transitionPage, handleTransitionEnd } = useTransitionPage()
 
   useEffect(() => {
