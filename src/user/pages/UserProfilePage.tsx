@@ -1,6 +1,6 @@
 import { clsx } from 'clsx'
 
-import { useUserActions } from '@/store/hooks/useUserActions'
+import { useUserProfile } from '@/user/hooks/useUserProfile'
 
 import { useFirstTimeUser } from '@/components/welcome-onboarding/useFirstTimeUser'
 import { Button } from '@/components/button/Button'
@@ -12,7 +12,7 @@ import UserProfilePageSkeleton from './UserProfilePageSkeleton'
 import styles from './UserProfilePage.module.css'
 
 const UserProfilePage = () => {
-  const { user, fetchingProfile } = useUserActions()
+  const { user, fetchingProfile } = useUserProfile()
   const { showWelcome, resetWelcome } = useFirstTimeUser()
 
   if (fetchingProfile || !user) return <UserProfilePageSkeleton />

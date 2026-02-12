@@ -3,7 +3,6 @@ import { combineReducers } from '@reduxjs/toolkit'
 import { baseApi } from '../services/baseApi'
 
 import { authSlice } from '@/auth/store/authSlice'
-import { userSlice } from './slices/user/userSlice'
 import { taskSlice } from './slices/task/taskSlice'
 import { calendarDaySlice } from './slices/calendar/calendarDaySlice'
 import { eventSlice } from './slices/event/eventSlice'
@@ -17,7 +16,6 @@ export const rootReducer = combineReducers({
   // Reducers de slices
   security: securitySlice.reducer,
   auth: authSlice.reducer,
-  user: userSlice.reducer,
   task: taskSlice.reducer,
   event: eventSlice.reducer,
   calendarDay: calendarDaySlice.reducer,

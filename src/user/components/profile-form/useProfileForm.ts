@@ -2,7 +2,7 @@ import { useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 
-import { useUserActions } from '@/store/hooks/useUserActions'
+import { useUserProfile } from '@/user/hooks/useUserProfile'
 import { useInvitationActions } from '@/store/hooks/useInvitationActions'
 
 import { profileSchema, ProfileSchemaType } from './profileSchema'
@@ -26,7 +26,7 @@ export const useProfileForm = () => {
     fetchUserError,
     updateUserError,
     uploadUserAvatarError,
-  } = useUserActions()
+  } = useUserProfile()
 
   const { inviteContact, inviting, inviteContactError } = useInvitationActions()
 
