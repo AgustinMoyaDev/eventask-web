@@ -11,7 +11,7 @@ import { Event } from '@/types/entities/event'
 import { useCalendar } from '@/calendar/hooks/useCalendar'
 import { useModalActions } from '@/store/hooks/useModalActions'
 import { useEventActions } from '@/store/hooks/useEventActions'
-import { useCalendarActions } from '@/store/hooks/useCalendarActions'
+import { useCalendarActions } from '@/calendar/hooks/useCalendarActions'
 
 import { CalendarEventsSkeleton } from './CalendarEventsSkeleton'
 

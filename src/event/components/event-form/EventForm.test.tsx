@@ -1,8 +1,8 @@
 import { fireEvent, render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 
+import { CHIP_COLOR } from '@/components/chip/chip.types'
 import { Event, EVENT_STATUS } from '@/types/entities/event'
-import { COLOR_PROGRESS } from '@/types/ui/task'
 
 import { EventForm } from './EventForm'
 import { useEventForm } from './useEventForm'
@@ -26,7 +26,7 @@ const baseMockReturn = {
   // Custom Props
   hasConflict: false,
   isStatusCompleted: false,
-  colorChip: COLOR_PROGRESS.pending,
+  colorChip: CHIP_COLOR.pending,
   currentStatus: EVENT_STATUS.PENDING,
 
   // Actions
@@ -66,7 +66,7 @@ describe('EventForm', () => {
       status: EVENT_STATUS.PENDING,
       taskId: 'task-1',
       createdBy: 'user-1',
-      createdAt: new Date(),
+      createdAt: new Date().toISOString(),
     }
 
     render(<EventForm eventToEdit={eventToEdit} onAddEvent={vi.fn()} onUpdateEvent={vi.fn()} />)

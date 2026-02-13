@@ -4,10 +4,10 @@ import { Category } from '@/types/entities/category'
 import { Notification } from '@/types/entities/notification'
 import { Event } from '@/types/entities/event'
 import { User } from '@/types/entities/user'
-import { getColorChipTask } from '@/types/ui/task'
 
 import { Chip } from '@/components/chip/Chip'
 import { Avatar } from '@/components/users-avatars/Avatar'
+import { PROGRESS_STATUS } from '@/task/components/task-info/helpers/getColorChip'
 
 export const TASK_COLUMNS: ColumnConfig<Task>[] = [
   { key: 'title', label: 'Title', sortable: true },
@@ -15,7 +15,7 @@ export const TASK_COLUMNS: ColumnConfig<Task>[] = [
     key: 'status',
     label: 'Status',
     sortable: true,
-    render: task => <Chip label={task.status} color={getColorChipTask(task.status)} />,
+    render: task => <Chip label={task.status} color={PROGRESS_STATUS[task.status].color} />,
   },
   {
     key: 'createdAt',

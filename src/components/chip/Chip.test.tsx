@@ -1,7 +1,6 @@
 import { render, screen } from '@testing-library/react'
 
-import { COLOR_PROGRESS } from '@/types/ui/task'
-import { VARIANT } from '@/types/ui/button'
+import { CHIP_COLOR, CHIP_VARIANT } from './chip.types'
 
 import { Chip } from './Chip'
 
@@ -12,8 +11,8 @@ describe('Chip', () => {
     render(<Chip label="Default Chip" role="status" />)
     const chip = screen.getByRole('status')
     expect(chip).toBeInTheDocument()
-    expect(chip).toHaveClass(styles[COLOR_PROGRESS.default])
-    expect(chip).toHaveClass(styles[VARIANT.filled])
+    expect(chip).toHaveClass(styles[CHIP_COLOR.default])
+    expect(chip).toHaveClass(styles[CHIP_VARIANT.filled])
   })
 
   it('should render with custom color and variant', () => {
@@ -21,13 +20,13 @@ describe('Chip', () => {
       <Chip
         label="Custom Chip"
         role="status"
-        color={COLOR_PROGRESS.completed}
-        variant={VARIANT.outlined}
+        color={CHIP_COLOR.completed}
+        variant={CHIP_VARIANT.outlined}
       />
     )
     const chip = screen.getByRole('status')
-    expect(chip).toHaveClass(styles[COLOR_PROGRESS.completed])
-    expect(chip).toHaveClass(styles[VARIANT.outlined])
+    expect(chip).toHaveClass(styles[CHIP_COLOR.completed])
+    expect(chip).toHaveClass(styles[CHIP_VARIANT.outlined])
   })
 
   it('should apply custom className', () => {

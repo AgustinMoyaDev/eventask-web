@@ -1,17 +1,13 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+import dayjs from 'dayjs'
 
-import dayjs, { Dayjs } from 'dayjs'
-import localeData from 'dayjs/plugin/localeData'
-
-import { CALENDAR_DAY_TYPE, WEEKDAYS, CalendarDay } from '@/types/ui/calendar-day'
+import { CALENDAR_DAY_TYPE, CalendarDay } from '../types/calendar.types'
+import { WEEKDAYS } from '../constants/calendar.constants'
 
 import { computeCalendar } from '@/calendar/utils/computeCalendar'
 
-dayjs.extend(localeData)
 const now = dayjs()
 export interface CalendarDayState {
-  today: Dayjs
-  weekDays: string[]
   month: number
   year: number
   calendarDays: CalendarDay[]
@@ -19,8 +15,6 @@ export interface CalendarDayState {
 }
 
 const initialState: CalendarDayState = {
-  today: now,
-  weekDays: WEEKDAYS,
   month: now.month(),
   year: now.year(),
   calendarDays: computeCalendar(now.month(), now.year()),
@@ -37,9 +31,6 @@ export const calendarDaySlice = createSlice({
   name: 'calendarDay',
   initialState,
   reducers: {
-    onGenerateCalendar: state => {
-      state.calendarDays = computeCalendar(state.month, state.year)
-    },
     onSetMonth: (state, { payload }: PayloadAction<number>) => {
       state.month = payload
       state.calendarDays = computeCalendar(state.month, state.year)
@@ -75,9 +66,7 @@ export const calendarDaySlice = createSlice({
   },
 })
 
-// Action creators are generated for each case reducer function
 export const {
-  onGenerateCalendar,
   onGetNextMonth,
   onGetPreviousMonth,
   onSetActiveCalendarDay,

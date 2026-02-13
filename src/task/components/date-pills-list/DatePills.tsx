@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction, useMemo, useState } from 'react'
+import { useMemo, useState } from 'react'
 import dayjs, { Dayjs } from 'dayjs'
 import clsx from 'clsx'
 
@@ -15,7 +15,7 @@ import styles from './DatePills.module.css'
 interface Props {
   eventSegments: EventSegment[]
   selectedDate: Dayjs
-  onSelectDate: Dispatch<SetStateAction<Dayjs>>
+  onSelectDate: (date: Dayjs) => void
 }
 
 export const DatePills = ({ eventSegments, selectedDate, onSelectDate }: Props) => {

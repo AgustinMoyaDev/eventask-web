@@ -1,19 +1,19 @@
 import { Link } from 'react-router-dom'
-
 import clsx from 'clsx'
 
-import { SeparatorIcon } from '../icons/Icons'
-
-import { useNavigation } from '@/components/breadcrumb/useNavigation'
-
+import { useBreadcrumbContext } from '@/context/breadcrumb/BreadcrumbContext'
 import { useSidebarContext } from '@/context/sidebar/SidebarContext'
+
+import { SeparatorIcon } from '@/components/icons/Icons'
 
 import styles from './Breadcrumb.module.css'
 
 export const Breadcrumb = () => {
   const { isSidebarCollapsed } = useSidebarContext()
-  const { breadcrumbs } = useNavigation()
+  const { breadcrumbs } = useBreadcrumbContext()
   const lastCrumbIndex = breadcrumbs?.length - 1
+
+  if (!breadcrumbs.length) return null
 
   return (
     <nav

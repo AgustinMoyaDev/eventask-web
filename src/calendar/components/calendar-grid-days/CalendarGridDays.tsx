@@ -1,42 +1,27 @@
 import { useEffect, useState } from 'react'
 
-import clsx from 'clsx'
 import dayjs from 'dayjs'
+
+import { WEEKDAYS } from '@/calendar/constants/calendar.constants'
 
 import { Button } from '@/components/button/Button'
 import { ArrowLeftIcon, ArrowRightIcon } from '@/components/icons/Icons'
 import { SlideTransition } from '@/components/slide-transition/SlideTransition'
-
-import { CALENDAR_DAY_TYPE, CalendarDay } from '@/types/ui/calendar-day'
-
-import { isActiveDay, isToday } from '@/calendar/utils/validateManagmentDate'
+import { CalendarDay } from '../calendar-day/CalendarDay'
 
 import { useCalendar } from '@/calendar/hooks/useCalendar'
-import { useCalendarActions } from '@/store/hooks/useCalendarActions'
+import { useCalendarActions } from '@/calendar/hooks/useCalendarActions'
 
 import styles from './CalendarGridDays.module.css'
 
 export const CalendarGridDays = () => {
   const [slideDirection, setSlideDirection] = useState<'left' | 'right' | 'center' | null>(null)
   const { calendarDays, todayDateLabel, resetActiveCalendarDay } = useCalendar()
-  const {
-    weekDays,
-    activeCalendarDay,
-    setActiveCalendarDay,
-    setMonth,
-    setYear,
-    getPreviousMonth,
-    getNextMonth,
-  } = useCalendarActions()
+  const { setMonth, setYear, getPreviousMonth, getNextMonth } = useCalendarActions()
 
   useEffect(() => {
     return () => resetActiveCalendarDay()
   }, [resetActiveCalendarDay])
-
-  const handleDayClick = (day: CalendarDay) => {
-    if (day.type !== CALENDAR_DAY_TYPE.CURRENT) return
-    setActiveCalendarDay(day)
-  }
 
   const handleClickGoToday = () => {
     setSlideDirection('center')
@@ -82,7 +67,7 @@ export const CalendarGridDays = () => {
       </section>
 
       <section className={styles.calendarWeekdays}>
-        {weekDays.map(dayName => (
+        {WEEKDAYS.map(dayName => (
           <span key={dayName} className={styles.calendarWeekday}>
             {dayName}
           </span>
@@ -92,25 +77,8 @@ export const CalendarGridDays = () => {
       <SlideTransition direction={slideDirection} onAnimationEnd={() => setSlideDirection(null)}>
         <section className={styles.calendarDays}>
           {calendarDays.map(calendarDay => {
-            const { day, month, year, type, events } = calendarDay
-            const dayHasEvents = events.length > 0
-
-            return (
-              <div
-                key={`${type}-${year}-${month}-${day}`}
-                onClick={() => handleDayClick(calendarDay)}
-                className={clsx(
-                  styles.calendarDay,
-                  type === CALENDAR_DAY_TYPE.PREVIOUS && styles.calendarDayPrev,
-                  type === CALENDAR_DAY_TYPE.NEXT && styles.calendarDayNext,
-                  isActiveDay(activeCalendarDay!, calendarDay) && styles.calendarDayActive,
-                  isToday(calendarDay) && styles.calendarDayToday,
-                  dayHasEvents && styles.calendarDayEvent
-                )}
-              >
-                {day}
-              </div>
-            )
+            const { day, month, year, type } = calendarDay
+            return <CalendarDay key={`${type}-${year}-${month}-${day}`} calendarDay={calendarDay} />
           })}
         </section>
       </SlideTransition>

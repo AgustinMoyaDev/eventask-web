@@ -43,93 +43,6 @@
   flex-wrap: wrap;
 }
 
-.calendarDay {
-  color: var(--color-on-primary-container);
-  background-color: transparent;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 14.28%;
-  aspect-ratio: 1 / 1;
-  cursor: pointer;
-  transition:
-    transform var(--transition-base),
-    background-color var(--transition-base),
-    color var(--transition-base);
-  will-change: transform, background-color;
-}
-
-.calendarDay::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  border-radius: inherit;
-  background-color: transparent;
-  z-index: var(--z-deep);
-}
-
-.calendarDayActive,
-.calendarDay {
-  border-radius: var(--radius-full);
-}
-
-.calendarDayPrev,
-.calendarDayNext {
-  color: var(--color-outline);
-}
-
-.calendarDayPrev:hover,
-.calendarDayNext:hover {
-  cursor: not-allowed;
-}
-
-.calendarDay:not(
-    .calendarDayPrev,
-    .calendarDayNext,
-    .calendarDayActive,
-    .calendarDayToday
-  ):hover::before {
-  color: var(--color-on-primary-container);
-  background-color: var(--color-surface);
-  border: var(--stroke-width-1) solid var(--color-on-secondary-container);
-}
-
-.calendarDayActive::before {
-  border: var(--stroke-width-2) dashed var(--color-on-secondary-container);
-  background-color: var(--color-surface);
-}
-
-.calendarDayToday:not(.calendarDayActive)::before {
-  box-shadow: var(--elevation-1);
-  background-color: var(--color-surface);
-  z-index: var(--z-deep);
-}
-
-.calendarDayActive,
-.calendarDayEvent {
-  position: relative;
-}
-
-.calendarDayEvent::after {
-  content: '';
-  position: absolute;
-  bottom: 15%;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 10%;
-  height: 10%;
-  border-radius: var(--radius-sm);
-  background-color: var(--color-on-surface);
-}
-
-.calendarDayEvent:hover::after {
-  background-color: var(--color-on-secondary-container);
-}
-
-.calendarDayActive.calendarDayEvent::after {
-  background-color: var(--color-on-secondary-container);
-}
-
 @media screen and (min-width: 576px) {
   .calendar {
     margin-right: 40%;
@@ -152,9 +65,5 @@
     height: 92%;
     right: calc(100% + 5px);
     background-color: var(--color-page-2-calendar);
-  }
-
-  .calendarDay::before {
-    inset: 3%;
   }
 }

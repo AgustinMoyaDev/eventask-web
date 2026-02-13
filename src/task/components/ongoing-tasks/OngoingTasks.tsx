@@ -1,16 +1,14 @@
 import { useMemo } from 'react'
 import clsx from 'clsx'
 
+import { useSearch } from '@/context/search/SearchContext'
+import { useTaskActions } from '@/store/hooks/useTaskActions'
+
 import { PlusIcon } from '@/components/icons/Icons'
 import { ScrollableContainer } from '@/components/scrollable-container/ScrollableContainer'
 import { ButtonLink } from '@/components/button-link/ButtonLink'
-
-import { useSearch } from '@/context/search/SearchContext'
-
-import { useTaskActions } from '@/store/hooks/useTaskActions'
-
 import { OngoingTask } from '../ongoing-task/OngoingTask'
-import { OngoingTaskSkeleton } from '../ongoing-task/OngoinkTaskSkeleton'
+import { OngoingTaskSkeleton } from '../ongoing-task/OngoingTaskSkeleton'
 
 import styles from './OngoingTasks.module.css'
 
@@ -43,7 +41,7 @@ export const OngoingTasks = () => {
             <PlusIcon />
           </ButtonLink>
         </div>
-        <ButtonLink variant="text" to="/see-all?type=tasks">
+        <ButtonLink variant="text" to="/see-all?type=tasks" disabled>
           See all
         </ButtonLink>
       </header>

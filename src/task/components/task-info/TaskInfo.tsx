@@ -3,27 +3,26 @@ import { clsx } from 'clsx'
 
 import dayjs from 'dayjs'
 
-import { ArrowRightIcon, CalendarIcon, DeleteIcon, EditIcon } from '@/components/icons/Icons'
-import { Button } from '@/components/button/Button'
-import { ConfirmModal } from '@/components/confirm-modal/ConfirmModal'
-import { ButtonLink } from '@/components/button-link/ButtonLink'
-import { Chip } from '@/components/chip/Chip'
-import { UsersAvatars } from '@/components/users-avatars/UsersAvatars'
-import { LinearProgress } from '@/components/linear-progress/LinearProgress'
-
 import { ModalIds } from '@/types/ui/modal'
+import { DRAGGABLE_ITEM_SRC, ORIGIN_NAME } from '@/types/ui/dragNdrop'
 
 import { Task } from '@/types/entities/task'
 import { EVENT_STATUS } from '@/types/entities/event'
-import { DRAGGABLE_ITEM_SRC, ORIGIN_NAME } from '@/types/ui/dragNdrop'
-import { getColorChipTask } from '@/types/ui/task'
 
 import { useTaskActions } from '@/store/hooks/useTaskActions'
 import { useModalActions } from '@/store/hooks/useModalActions'
 
-import { Clock } from '../clock/Clock'
+import { ArrowRightIcon, CalendarIcon, DeleteIcon, EditIcon } from '@/components/icons/Icons'
+import { Button } from '@/components/button/Button'
+import { ButtonLink } from '@/components/button-link/ButtonLink'
+import { Chip } from '@/components/chip/Chip'
+import { Clock } from '@/components/clock/Clock'
+import { ConfirmModal } from '@/components/confirm-modal/ConfirmModal'
+import { LinearProgress } from '@/components/linear-progress/LinearProgress'
+import { UsersAvatars } from '@/components/users-avatars/UsersAvatars'
 
 import styles from './TaskInfo.module.css'
+import { PROGRESS_STATUS } from './helpers/getColorChip'
 
 interface Props {
   task: Task
@@ -50,7 +49,7 @@ export const TaskInfo = ({ task }: Props) => {
   const completeEvents = events?.filter(e => e.status === EVENT_STATUS.COMPLETED).length ?? 0
   const eventProgresTask = `${completeEvents}/${totalEvents}`
 
-  const colorChip = getColorChipTask(status)
+  const chipConfig = PROGRESS_STATUS[status]
 
   const handleConfirmDelete = async () => {
     const result = await deleteTask(id)
@@ -67,7 +66,7 @@ export const TaskInfo = ({ task }: Props) => {
           <h2 className="text-title-lg">{title}</h2>
           <div className={styles.taskInfoMeta}>
             <Chip label={category?.name} variant="outlined" role="category" />
-            <Chip label={status} color={colorChip} />
+            <Chip label={chipConfig.label} color={chipConfig.color} />
 
             <span className={styles.taskInfoDates}>
               {dayjs(beginningDate).format('DD MMM')}

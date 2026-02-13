@@ -24,9 +24,3 @@ export interface CalendarDay {
 export interface CalendarDayWithEvents extends CalendarDay {
   events: Event[]
 }
-
-export const WEEKDAYS = dayjs.weekdaysShort()
-
-export const MONTHS = Array.from({ length: 12 }, (_, i) =>
-  new Intl.DateTimeFormat('en-US', { month: 'long' }).format(new Date(2000, i))
-)

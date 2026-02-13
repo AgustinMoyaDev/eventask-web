@@ -1,5 +1,3 @@
-import { LinkProps } from 'react-router-dom'
-
 export const VARIANT = {
   filled: 'filled',
   elevated: 'elevated',
@@ -11,17 +9,10 @@ export const VARIANT = {
 } as const
 
 export type VariantType = (typeof VARIANT)[keyof typeof VARIANT]
+export type ButtonSize = 'sm' | 'md' | 'lg'
 
 export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: VariantType
-  size?: 'sm' | 'md' | 'lg'
+  size?: ButtonSize
   children: React.ReactNode
-}
-
-export interface ButtonLinkProps extends LinkProps {
-  variant?: VariantType
-  size?: 'sm' | 'md' | 'lg'
-  disabled?: boolean
-  children: React.ReactNode
-  className?: string
 }

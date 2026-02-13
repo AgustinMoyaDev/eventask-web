@@ -1,6 +1,6 @@
 import dayjs from 'dayjs'
 
-import { CalendarDay } from '@/types/ui/calendar-day'
+import { CalendarDay } from '../types/calendar.types'
 
 export const computeCalendar = (month: number, year: number): CalendarDay[] => {
   // First day and last day of the month
