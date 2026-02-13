@@ -25,7 +25,7 @@ const baseNotification: Notification = {
   userId: '',
   type: NOTIFICATION_TYPE.TASK,
   read: false,
-  createdAt: new Date(),
+  createdAt: new Date().toISOString(),
 }
 
 const baseProps: InvitationDetailViewProps = {

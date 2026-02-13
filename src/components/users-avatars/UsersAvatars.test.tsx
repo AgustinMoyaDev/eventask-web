@@ -27,7 +27,9 @@ const users = [
     lastName: 'Lovelace',
     email: 'ada@lovelace.com',
     contacts: [],
-    createdAt: new Date(),
+    contactsIds: [],
+    isEmailVerified: true,
+    createdAt: new Date().toISOString(),
     hasManualPassword: true,
   },
   {
@@ -37,7 +39,9 @@ const users = [
     lastName: 'Turing',
     email: 'ada@lovelace.com',
     contacts: [],
-    createdAt: new Date(),
+    contactsIds: [],
+    isEmailVerified: true,
+    createdAt: new Date().toISOString(),
     hasManualPassword: true,
   },
   {
@@ -47,7 +51,9 @@ const users = [
     lastName: 'Hopper',
     email: 'ada@lovelace.com',
     contacts: [],
-    createdAt: new Date(),
+    contactsIds: [],
+    isEmailVerified: true,
+    createdAt: new Date().toISOString(),
     hasManualPassword: true,
   },
   {
@@ -57,7 +63,9 @@ const users = [
     lastName: 'Torvalds',
     email: 'ada@lovelace.com',
     contacts: [],
-    createdAt: new Date(),
+    contactsIds: [],
+    isEmailVerified: true,
+    createdAt: new Date().toISOString(),
     hasManualPassword: true,
   },
 ]

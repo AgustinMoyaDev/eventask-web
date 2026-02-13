@@ -2,7 +2,7 @@ import { forwardRef, useEffect, useId, useMemo, useRef, useState } from 'react'
 
 import clsx from 'clsx'
 
-import { InputWithSuggestionsProps } from '@/types/ui/input'
+import { InputWithSuggestionsProps } from './input-with-suggestions.types'
 
 import styles from './InputWithSuggestions.module.css'
 import inputStyles from '../input/Input.module.css'

@@ -1,9 +1,10 @@
-import { ColumnConfig } from '@/types/ui/table'
 import { Task } from '@/types/entities/task'
 import { Category } from '@/types/entities/category'
 import { Notification } from '@/types/entities/notification'
 import { Event } from '@/types/entities/event'
 import { User } from '@/types/entities/user'
+
+import { ColumnConfig } from './table.types'
 
 import { Chip } from '@/components/chip/Chip'
 import { Avatar } from '@/components/users-avatars/Avatar'

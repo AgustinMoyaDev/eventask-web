@@ -1,29 +1,19 @@
 import { User } from '../entities/user'
 import { DraggableData } from './dragNdrop'
-import { Size } from './size'
+
+export type UserAvatarSize = 'sm' | 'md' | 'lg'
 
 export interface UserAvatarProps {
-  /** User ID */
   userId?: string
-  /** User's profile image URL (server path or blob URL) */
   imageUrl?: string
-  /** MIME type of the image (required for blob URLs to verify origin) */
   imageType?: string
-  /** User's first name for initials fallback */
   firstName: string
-  /** User's last name for initials fallback */
   lastName: string
-  /** Size variant of the avatar */
-  size?: Size
-  /** Whether the avatar is clickable (for file upload) */
+  size?: UserAvatarSize
   editable?: boolean
-  /** Loading state for upload operations */
   loading?: boolean
-  /** Additional CSS classes */
   className?: string
-  /** Accessibility label */
   ariaLabel?: string
-  /** File change handler for editable avatars */
   onFileChange?: (file: File) => void
 }
 

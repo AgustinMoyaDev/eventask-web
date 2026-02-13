@@ -1,6 +1,6 @@
 import { NavigateFunction } from 'react-router-dom'
 
-import { ColumnConfig, ViewType } from '@/types/ui/table'
+import { ColumnConfig, ViewType } from '../table.types'
 import { Base } from '@/types/entities/base'
 import { Event } from '@/types/entities/event'
 import { User } from '@/types/entities/user'

@@ -72,7 +72,6 @@
   justify-content: center;
 }
 
-/* Size-specific text sizing for initials */
 .sm .userAvatarInitials {
   font-size: var(--font-title-md-size);
 }

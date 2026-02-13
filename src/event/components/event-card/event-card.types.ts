@@ -1,4 +1,4 @@
-import { EventFormModel } from '../models/event.model'
+import { EventFormModel } from '@/types/models/event.model'
 
 export interface EventCardProps {
   event: EventFormModel

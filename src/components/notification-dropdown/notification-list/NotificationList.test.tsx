@@ -20,7 +20,7 @@ const baseNotification: Notification = {
   id: 'notif-1',
   title: 'Contact invitation',
   message: 'Joe has invited you to connect.',
-  createdAt: new Date(),
+  createdAt: new Date().toISOString(),
   read: false,
   type: NOTIFICATION_TYPE.INVITATION,
   data: {

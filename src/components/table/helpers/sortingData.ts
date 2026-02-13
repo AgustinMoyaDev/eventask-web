@@ -1,5 +1,5 @@
 import { Base } from '@/types/entities/base'
-import { SortConfig, SortDirection } from '@/types/ui/table'
+import { SortConfig, SortDirection } from '../table.types'
 
 /**
  * Generic sorting function for any data type

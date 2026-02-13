@@ -1,4 +1,4 @@
-import { Base } from '../entities/base'
+import { Base } from '@/types/entities/base'
 
 export enum ViewType {
   TASKS = 'tasks',

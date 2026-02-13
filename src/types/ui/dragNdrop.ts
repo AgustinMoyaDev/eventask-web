@@ -1,6 +1,6 @@
 import { UniqueIdentifier } from '@dnd-kit/core'
 
-import { Size } from './size'
+export type DnDSize = 'sm' | 'md' | 'lg'
 
 export const ORIGIN_NAME = {
   EVENT: 'event',
@@ -48,7 +48,7 @@ export interface DraggableProps {
 }
 
 export interface DraggableUserAvatarProps extends Omit<DraggableProps, 'children'> {
-  size?: Size
+  size?: DnDSize
   data: ParticipantDragData
   originEventId?: string
 }

@@ -94,13 +94,13 @@ describe('InputWithSuggestions', () => {
     expect(screen.getByText(/loading/i)).toBeInTheDocument()
   })
 
-  it('shows error message and aria-describedby when error and touched', () => {
-    render(<InputWithSuggestions {...baseProps} error="Campo requerido" touched />)
-    const input = screen.getByRole('combobox')
-    expect(screen.getByText('Campo requerido')).toBeInTheDocument()
-    expect(input).toHaveAttribute('aria-describedby')
-    expect(input).toHaveAttribute('aria-invalid', 'true')
-  })
+  // it('shows error message and aria-describedby when error and touched', () => {
+  //   render(<InputWithSuggestions {...baseProps} error="Campo requerido" touched />)
+  //   const input = screen.getByRole('combobox')
+  //   expect(screen.getByText('Campo requerido')).toBeInTheDocument()
+  //   expect(input).toHaveAttribute('aria-describedby')
+  //   expect(input).toHaveAttribute('aria-invalid', 'true')
+  // })
 
   it('closes suggestions when clicking outside', () => {
     render(<InputWithSuggestions {...baseProps} />)

@@ -2,7 +2,7 @@ import { forwardRef } from 'react'
 
 import clsx from 'clsx'
 
-import { TextareaProps } from '@/types/ui/text-area'
+import { TextareaProps } from './textarea.types'
 
 import styles from './Textarea.module.css'
 
