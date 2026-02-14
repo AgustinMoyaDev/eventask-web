@@ -1,4 +1,4 @@
-import { DraggableData } from '@/types/ui/dragNdrop'
+import { DraggableData } from '@/components/drag-n-drop/types/drag-n-drop.types'
 
 /**
  * Drag data for user participants/collaborators

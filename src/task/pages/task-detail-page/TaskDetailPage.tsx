@@ -12,7 +12,7 @@ import { USER_DRAG_TYPES } from '@/user/constants/user-drag.constants'
 import { EVENT_DRAG_CONSTANTS } from '@/event/constants/event-drag.constants'
 
 import { TaskId } from '@/types/entities/task'
-import { DroppableData } from '@/types/ui/dragNdrop'
+import { DroppableData } from '@/components/drag-n-drop/types/drag-n-drop.types'
 import { ParticipantDragData } from '@/user/types/user-drag.types'
 
 import { getEventsSegments } from '@/event/helpers/computedEvents'
