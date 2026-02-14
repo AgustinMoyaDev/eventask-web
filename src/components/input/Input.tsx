@@ -2,7 +2,7 @@ import { forwardRef, useId, useState } from 'react'
 
 import clsx from 'clsx'
 
-import { InputProps } from '@/types/ui/input'
+import { InputProps } from './input.types'
 
 import styles from './Input.module.css'
 

@@ -1,8 +1,8 @@
 import { useEffect } from 'react'
 
-import { Categories } from '@/category/components/categories/Categories'
-import { OngoingTasks } from '@/task/components/ongoing-tasks/OngoingTasks'
-import { Search } from '@/task/components/search/Search'
+import { Search } from '@/components/search/Search'
+import { CategoryList } from '@/category/components/categories/CategoryList'
+import { OngoingTaskList } from '@/task/components/ongoing-task-list/OngoingTaskList'
 
 import { WelcomeSlide } from '@/components/welcome-onboarding/WelcomeSlide'
 import { WelcomeSlideContent } from '@/components/welcome-onboarding/WelcomeSlideContent'
@@ -50,8 +50,8 @@ function HomePage() {
     <>
       <SearchProvider>
         <Search />
-        <OngoingTasks />
-        <Categories />
+        <OngoingTaskList />
+        <CategoryList />
       </SearchProvider>
       <WelcomeSlide isOpen={showWelcome} onClose={handleCloseWelcome}>
         <WelcomeSlideContent

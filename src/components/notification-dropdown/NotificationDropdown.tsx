@@ -1,10 +1,10 @@
-import { NotificationDropdownProps } from '@/types/ui/dropdown'
+import { NotificationDropdownProps } from './notification-dropdown.types'
 
 import { useNotificationActions } from '@/store/hooks/useNotificationActions'
 
-import { NotificationIcon } from '../icons/Icons'
-import { Dropdown } from '../dropdown/Dropdown'
-import { NotificationList } from './notification-list/NotificationList'
+import { NotificationIcon } from '@/components/icons/Icons'
+import { Dropdown } from '@/components/dropdown/Dropdown'
+import { NotificationList } from '@/components/notification-list/NotificationList'
 
 import styles from './NotificationDropdown.module.css'
 

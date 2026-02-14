@@ -1,27 +1,27 @@
 import { useNavigate } from 'react-router-dom'
 import { clsx } from 'clsx'
-
 import dayjs from 'dayjs'
 
-import { ArrowRightIcon, CalendarIcon, DeleteIcon, EditIcon } from '@/components/icons/Icons'
-import { Button } from '@/components/button/Button'
-import { ConfirmModal } from '@/components/confirm-modal/ConfirmModal'
-import { ButtonLink } from '@/components/button-link/ButtonLink'
-import { Chip } from '@/components/chip/Chip'
-import { UsersAvatars } from '@/components/users-avatars/UsersAvatars'
-import { LinearProgress } from '@/components/linear-progress/LinearProgress'
-
-import { ModalIds } from '@/types/ui/modal'
+import { USER_DRAG_TYPES } from '@/user/constants/user-drag.constants'
+import { TASK_DRAG_CONSTANTS } from '@/task/constants/task-drag.constants'
 
 import { Task } from '@/types/entities/task'
 import { EVENT_STATUS } from '@/types/entities/event'
-import { DRAGGABLE_ITEM_SRC, ORIGIN_NAME } from '@/types/ui/dragNdrop'
-import { getColorChipTask } from '@/types/ui/task'
+
+import { PROGRESS_STATUS } from './helpers/getColorChip'
 
 import { useTaskActions } from '@/store/hooks/useTaskActions'
 import { useModalActions } from '@/store/hooks/useModalActions'
 
-import { Clock } from '../clock/Clock'
+import { UserAvatarList } from '@/user/components/user-avatar-list/UserAvatarList'
+import { ModalIds } from '@/components/modal/modal.types'
+import { ArrowRightIcon, CalendarIcon, DeleteIcon, EditIcon } from '@/components/icons/Icons'
+import { Button } from '@/components/button/Button'
+import { ButtonLink } from '@/components/button-link/ButtonLink'
+import { Chip } from '@/components/chip/Chip'
+import { Clock } from '@/components/clock/Clock'
+import { ConfirmModal } from '@/components/confirm-modal/ConfirmModal'
+import { LinearProgress } from '@/components/linear-progress/LinearProgress'
 
 import styles from './TaskInfo.module.css'
 
@@ -38,8 +38,8 @@ export const TaskInfo = ({ task }: Props) => {
     title,
     status,
     category,
-    events,
-    participants,
+    events = [],
+    participants = [],
     beginningDate,
     completionDate,
     progress,
@@ -50,7 +50,7 @@ export const TaskInfo = ({ task }: Props) => {
   const completeEvents = events?.filter(e => e.status === EVENT_STATUS.COMPLETED).length ?? 0
   const eventProgresTask = `${completeEvents}/${totalEvents}`
 
-  const colorChip = getColorChipTask(status)
+  const chipConfig = PROGRESS_STATUS[status]
 
   const handleConfirmDelete = async () => {
     const result = await deleteTask(id)
@@ -66,8 +66,8 @@ export const TaskInfo = ({ task }: Props) => {
         <div className={styles.taskInfoTitleBlock}>
           <h2 className="text-title-lg">{title}</h2>
           <div className={styles.taskInfoMeta}>
-            <Chip label={category?.name} variant="outlined" role="category" />
-            <Chip label={status} color={colorChip} />
+            <Chip label={category?.name ?? 'Uncategorized'} variant="outlined" role="category" />
+            <Chip label={chipConfig.label} color={chipConfig.color} />
 
             <span className={styles.taskInfoDates}>
               {dayjs(beginningDate).format('DD MMM')}
@@ -92,14 +92,13 @@ export const TaskInfo = ({ task }: Props) => {
           <>
             <span className={styles.taskInfoParticipantsLabel}>Participants:</span>
 
-            <UsersAvatars
+            <UserAvatarList
               collapsed={false}
               users={participants}
               draggable={{
-                id: '', // populate with participant ID
-                type: DRAGGABLE_ITEM_SRC.PARTICIPANT,
+                type: USER_DRAG_TYPES.PARTICIPANT,
                 originId: id,
-                originName: ORIGIN_NAME.TASK,
+                originName: TASK_DRAG_CONSTANTS.ORIGIN,
               }}
             />
           </>

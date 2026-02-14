@@ -2,7 +2,7 @@ import { render, screen } from '@testing-library/react'
 
 import { vi } from 'vitest'
 
-import { VARIANT } from '@/types/ui/button'
+import { VARIANT } from './button.types'
 
 import { Button } from './Button'
 

@@ -2,11 +2,10 @@ import { useEffect, useRef } from 'react'
 import { createPortal } from 'react-dom'
 import clsx from 'clsx'
 
-import { ModalProps } from '@/types/ui/modal'
+import { ModalProps } from './modal.types'
 
 import { Button } from '@/components/button/Button'
-
-import { CloseIcon } from '../icons/Icons'
+import { CloseIcon } from '@/components/icons/Icons'
 
 import styles from './Modal.module.css'
 

@@ -4,7 +4,7 @@ import { CloseIcon } from '../icons/Icons'
 import { Button } from '../button/Button'
 import { Loader } from '../loaders/loader/Loader'
 
-import { MultiSelectProps } from '@/types/ui/input'
+import { MultiSelectProps } from './multi-select-input.types'
 
 import styles from './MultiSelectInput.module.css'
 

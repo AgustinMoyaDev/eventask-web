@@ -1,6 +1,6 @@
-import { EventCard } from '../../../event/components/event-card/EventCard'
+import { EventCard } from '@/event/components/event-card/EventCard'
 
-import { EventCardListProps } from '@/types/ui/event-card-list'
+import { EventCardListProps } from './event-card-list.types'
 
 import styles from './EventCardList.module.css'
 

@@ -1,7 +1,7 @@
 import dayjs from 'dayjs'
 
-import { CalendarDay } from '@/types/ui/calendar-day'
 import { Event } from '@/types/entities/event'
+import { CalendarDay } from '../types/calendar.types'
 
 export const isSameDay = (event: Event, cd: CalendarDay): boolean => {
   const eventStartDayjs = dayjs(event.start)

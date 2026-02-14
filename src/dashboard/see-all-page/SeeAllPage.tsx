@@ -3,7 +3,9 @@ import { useNavigate, useSearchParams } from 'react-router-dom'
 import clsx from 'clsx'
 
 import { Base } from '@/types/entities/base'
-import { ColumnConfig, SortConfig, SortDirection, ViewType } from '@/types/ui/table'
+import { ColumnConfig, SortConfig, SortDirection, ViewType } from '@/components/table/table.types'
+import { VIEW_CONFIGS, ViewDetail } from '@/components/table/helpers/viewConfigs'
+import { sortData } from '@/components/table/helpers/sortingData'
 
 import { useCategoryActions } from '@/store/hooks/useCategoryActions'
 import { useTaskActions } from '@/store/hooks/useTaskActions'
@@ -14,11 +16,7 @@ import { useUserContacts } from '@/user/hooks/useUserContacts'
 import { Button } from '@/components/button/Button'
 import { Table } from '@/components/table/Table'
 import { Pagination } from '@/components/pagination/Pagination'
-
 import SeeAllPageSkeleton from './SeeAllPageSkeleton'
-
-import { VIEW_CONFIGS, ViewDetail } from '../utils/viewConfigs'
-import { sortData } from '../utils/sortingData'
 
 import styles from './SeeAllPage.module.css'
 

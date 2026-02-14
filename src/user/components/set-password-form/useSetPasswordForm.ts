@@ -1,7 +1,7 @@
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 
-import { ModalIds } from '@/types/ui/modal'
+import { ModalIds } from '@/components/modal/modal.types'
 
 import { useAuthMutations } from '@/auth/hooks/useAuthMutations'
 import { useModalActions } from '@/store/hooks/useModalActions'

@@ -4,7 +4,7 @@ import { baseApi } from '../services/baseApi'
 
 import { authSlice } from '@/auth/store/authSlice'
 import { taskSlice } from './slices/task/taskSlice'
-import { calendarDaySlice } from './slices/calendar/calendarDaySlice'
+import { calendarDaySlice } from '../calendar/store/calendarDaySlice'
 import { eventSlice } from './slices/event/eventSlice'
 import { modalSlice } from './slices/ui/modalSlice'
 import { toastSlice } from './slices/ui/toastSlice'

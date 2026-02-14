@@ -3,7 +3,8 @@ import userEvent from '@testing-library/user-event'
 
 import { useDraggable } from '@dnd-kit/core'
 
-import { DRAGGABLE_ITEM_SRC, ORIGIN_NAME } from '@/types/ui/dragNdrop'
+import { USER_DRAG_TYPES } from '@/user/constants/user-drag.constants'
+import { TASK_DRAG_CONSTANTS } from '@/task/constants/task-drag.constants'
 
 import { Draggable } from './Draggable'
 
@@ -40,12 +41,12 @@ beforeEach(() => {
   vi.mocked(useDraggable).mockReturnValue(valueMockUseDraggable)
 })
 
-const dragablePropObj = {
+const draggablePropObj = {
   data: {
     id: '1',
-    type: DRAGGABLE_ITEM_SRC.PARTICIPANT,
+    type: USER_DRAG_TYPES.PARTICIPANT,
     originId: 'event-1',
-    originName: ORIGIN_NAME.TASK,
+    originName: TASK_DRAG_CONSTANTS.ORIGIN,
   },
   disabled: false,
   className: 'custom-class',
@@ -54,20 +55,20 @@ const dragablePropObj = {
 
 describe('Draggable', () => {
   it('should render children and applies draggable class', () => {
-    render(<Draggable {...dragablePropObj} />)
+    render(<Draggable {...draggablePropObj} />)
     expect(screen.getByText('Draggable Content')).toBeInTheDocument()
     const wrapper = screen.getByText('Draggable Content').closest(`.${styles.draggable}`)
     expect(wrapper).toBeInTheDocument()
   })
 
   it('applies custom className', () => {
-    render(<Draggable {...dragablePropObj} />)
+    render(<Draggable {...draggablePropObj} />)
     const wrapper = screen.getByText('Draggable Content').closest(`.${styles.draggable}`)
     expect(wrapper).toHaveClass('custom-class')
   })
 
   it('should not apply draggable class or listeners when disabled', () => {
-    render(<Draggable {...dragablePropObj} disabled />)
+    render(<Draggable {...draggablePropObj} disabled />)
     const wrapper = screen.getByText('Draggable Content').closest('.custom-class')
     expect(wrapper).not.toHaveClass('draggable')
   })
@@ -77,19 +78,19 @@ describe('Draggable', () => {
       ...valueMockUseDraggable,
       isDragging: true,
     })
-    render(<Draggable {...dragablePropObj} />)
+    render(<Draggable {...draggablePropObj} />)
     const wrapper = screen.getByText('Draggable Content').closest(`.${styles.draggable}`)
     expect(wrapper).toHaveClass(styles.draggableActive)
   })
 
   it('should forward ref and listeners to root element', () => {
-    render(<Draggable {...dragablePropObj} />)
+    render(<Draggable {...draggablePropObj} />)
     expect(mockSetNodeRef).toHaveBeenCalled()
     // Listeners are spread on the root element, but can't be directly tested without user-event
   })
 
   it('should call onPointerDown listener when user clicks', async () => {
-    render(<Draggable {...dragablePropObj} />)
+    render(<Draggable {...draggablePropObj} />)
     const wrapper = screen.getByText('Draggable Content').closest(`.${styles.draggable}`)
     await userEvent.pointer({ keys: '[MouseLeft]', target: wrapper! })
     expect(mockListeners.onPointerDown).toHaveBeenCalled()

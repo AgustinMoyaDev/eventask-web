@@ -1,6 +1,6 @@
 import clsx from 'clsx'
 
-import { SkeletonProps } from '@/types/ui/skeleton'
+import { SkeletonProps } from './skeleton.types'
 
 import styles from './Skeleton.module.css'
 

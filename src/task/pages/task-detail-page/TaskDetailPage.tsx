@@ -8,24 +8,21 @@ import dayjs from 'dayjs'
 import { DragEndEvent, DragStartEvent } from '@dnd-kit/core'
 import { DragProviders } from '@/context/drag/DragProviders'
 
+import { USER_DRAG_TYPES } from '@/user/constants/user-drag.constants'
+import { EVENT_DRAG_CONSTANTS } from '@/event/constants/event-drag.constants'
+
 import { TaskId } from '@/types/entities/task'
-import {
-  DRAGGABLE_ITEM_SRC,
-  DROPPABLE_ITEM_TARGET,
-  DroppableData,
-  ParticipantDragData,
-} from '@/types/ui/dragNdrop'
+import { DroppableData } from '@/types/ui/dragNdrop'
+import { ParticipantDragData } from '@/user/types/user-drag.types'
+
+import { getEventsSegments } from '@/event/helpers/computedEvents'
+import { useEventActions } from '@/store/hooks/useEventActions'
+import { useFetchTaskByIdQuery } from '@/services/taskApi'
 
 import { DragOverlayContent } from '@/components/drag-n-drop/drag-overlay/DragOverlayContent'
-
 import { TaskInfo } from '@/task/components/task-info/TaskInfo'
-import { DatePills } from '@/task/components/date-pills-list/DatePills'
-import { Schedule } from '@/task/components/schedule/Schedule'
-
-import { getEventsSegments } from '@/task/utils/computedEvents'
-import { useEventActions } from '@/store/hooks/useEventActions'
-
-import { useFetchTaskByIdQuery } from '@/services/taskApi'
+import { DatePills } from '@/event/components/date-pills-list/DatePills'
+import { Schedule } from '@/event/components/schedule/Schedule'
 
 import { TaskDetailSkeleton } from './TaskDetailSkeleton'
 
@@ -66,8 +63,8 @@ const TaskDetailPage = () => {
 
     // Assign collaborator (drag participant to event)
     if (
-      src.type === DRAGGABLE_ITEM_SRC.PARTICIPANT &&
-      target.type === DROPPABLE_ITEM_TARGET.EVENT
+      src.type === USER_DRAG_TYPES.PARTICIPANT &&
+      target.type === EVENT_DRAG_CONSTANTS.DROP_TARGETS.EVENT
     ) {
       const collaboratorId = src.id.toString()
       const eventId = target.id.toString()
@@ -79,8 +76,8 @@ const TaskDetailPage = () => {
 
     // Remove collaborator (drag collaborator to trash)
     if (
-      src.type === DRAGGABLE_ITEM_SRC.COLLABORATOR &&
-      target.type === DROPPABLE_ITEM_TARGET.TRASH
+      src.type === USER_DRAG_TYPES.COLLABORATOR &&
+      target.type === EVENT_DRAG_CONSTANTS.DROP_TARGETS.TRASH
     ) {
       const collaboratorId = src.id.toString()
       const eventId = src.originId?.toString()

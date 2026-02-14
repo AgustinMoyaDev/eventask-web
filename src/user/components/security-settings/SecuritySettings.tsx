@@ -1,4 +1,4 @@
-import { ModalIds } from '@/types/ui/modal'
+import { ModalIds } from '@/components/modal/modal.types'
 import { User } from '@/types/entities/user'
 
 import { useModalActions } from '@/store/hooks/useModalActions'
@@ -7,7 +7,6 @@ import { Chip } from '@/components/chip/Chip'
 import { Button } from '@/components/button/Button'
 import { GoogleIcon, LockIcon, EditIcon, PlusIcon } from '@/components/icons/Icons'
 import { Modal } from '@/components/modal/Modal'
-
 import { SetPasswordForm } from '../set-password-form/SetPasswordForm'
 import { ChangePasswordForm } from '../change-password-form/ChangePasswordForm'
 

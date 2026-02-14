@@ -1,7 +1,7 @@
 import clsx from 'clsx'
 
 import { Base } from '@/types/entities/base'
-import { SortDirection, TableProps } from '@/types/ui/table'
+import { SortDirection, TableProps } from './table.types'
 
 import {
   SortAscIcon,

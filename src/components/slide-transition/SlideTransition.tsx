@@ -1,7 +1,7 @@
 import React from 'react'
 import clsx from 'clsx'
 
-import { SlideTransitionProps } from '@/types/ui/slide-transition'
+import { SlideTransitionProps } from './slide-transition.types'
 
 import styles from './SlideTransition.module.css'
 

@@ -10,7 +10,7 @@ import { getEnvVariables } from '@/helpers/getEnvVariables'
 
 import { AppRouter } from '@/router/AppRouter'
 
-import { NavigationProvider } from '@/context/navigation/NavigationProvider'
+import { BreadcrumbProvider } from '@/context/breadcrumb/BreadcrumbProvider'
 import { SocketProvider } from '@/context/websocket/SocketProvider'
 import { SidebarProvider } from '@/context/sidebar/SidebarProvider'
 
@@ -25,22 +25,22 @@ function EvenTask() {
   const { VITE_GOOGLE_CLIENT_ID } = getEnvVariables()
 
   return (
-    <GoogleOAuthProvider clientId={VITE_GOOGLE_CLIENT_ID}>
-      <Provider store={store}>
-        <ToastContainer />
-        <SocketProvider>
-          <NavigationProvider>
-            <BrowserRouter future={v7DocDisabledWarnings}>
+    <BrowserRouter future={v7DocDisabledWarnings}>
+      <GoogleOAuthProvider clientId={VITE_GOOGLE_CLIENT_ID}>
+        <Provider store={store}>
+          <ToastContainer />
+          <SocketProvider>
+            <BreadcrumbProvider>
               <SidebarProvider>
                 <StrictMode>
                   <AppRouter />
                 </StrictMode>
               </SidebarProvider>
-            </BrowserRouter>
-          </NavigationProvider>
-        </SocketProvider>
-      </Provider>
-    </GoogleOAuthProvider>
+            </BreadcrumbProvider>
+          </SocketProvider>
+        </Provider>
+      </GoogleOAuthProvider>
+    </BrowserRouter>
   )
 }
 
