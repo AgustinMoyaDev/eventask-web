@@ -1,44 +1,31 @@
 import { UniqueIdentifier } from '@dnd-kit/core'
 
+/**
+ * Base drag and drop types - Generic and feature-agnostic
+ * Features should extend these with their specific implementations
+ */
+
 export type DnDSize = 'sm' | 'md' | 'lg'
 
-export const ORIGIN_NAME = {
-  EVENT: 'event',
-  TASK: 'task',
-} as const
-
-export const DRAGGABLE_ITEM_SRC = {
-  PARTICIPANT: 'participant',
-  COLLABORATOR: 'collaborator',
-} as const
-
-export const DROPPABLE_ITEM_TARGET = {
-  EVENT: 'event',
-  TRASH: 'trash',
-} as const
-
-export type OriginName = (typeof ORIGIN_NAME)[keyof typeof ORIGIN_NAME]
-export type DraggableItemSrc = (typeof DRAGGABLE_ITEM_SRC)[keyof typeof DRAGGABLE_ITEM_SRC]
-export type DroppableItemTarget = (typeof DROPPABLE_ITEM_TARGET)[keyof typeof DROPPABLE_ITEM_TARGET]
-
+/**
+ * Generic draggable data structure
+ * Features can extend this to add domain-specific fields
+ */
 export interface DraggableData {
   id: UniqueIdentifier
-  type: DraggableItemSrc
+  type: string
   originId?: UniqueIdentifier
-  originName?: OriginName
+  originName?: string
 }
 
 export interface DroppableData {
   id: UniqueIdentifier
-  type: DroppableItemTarget
+  type: string
 }
 
-export interface ParticipantDragData extends DraggableData {
-  firstName: string
-  lastName: string
-  imageUrl: string
-}
-
+/**
+ * Props for draggable component wrapper
+ */
 export interface DraggableProps {
   data: DraggableData
   disabled?: boolean
@@ -47,12 +34,9 @@ export interface DraggableProps {
   children: React.ReactNode
 }
 
-export interface DraggableUserAvatarProps extends Omit<DraggableProps, 'children'> {
-  size?: DnDSize
-  data: ParticipantDragData
-  originEventId?: string
-}
-
+/**
+ * Props for drop zone component
+ */
 export interface DropZoneProps {
   itemId: string
   itemType: string
@@ -60,6 +44,10 @@ export interface DropZoneProps {
   children?: React.ReactNode
 }
 
+/**
+ * Props for drag overlay content renderer
+ * Features can pass their specific extended data types
+ */
 export interface DragOverlayContentProps {
-  data: DraggableData | ParticipantDragData
+  data: DraggableData
 }

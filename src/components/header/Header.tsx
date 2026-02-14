@@ -1,18 +1,15 @@
 import { useEffect, useState } from 'react'
-
+import { Link, useLocation } from 'react-router-dom'
 import clsx from 'clsx'
 
-import { Link, useLocation } from 'react-router-dom'
+import { useAuthState } from '@/auth/hooks/useAuthState'
+import { useSidebarContext } from '@/context/sidebar/SidebarContext'
 
+import { UserAvatarDropdown } from '@/user/components/user-avatar-dropdown/UserAvatarDropdown'
 import { ButtonTheme } from '@/components/button-theme/ButtonTheme'
 import { NotificationDropdown } from '@/components/notification-dropdown/NotificationDropdown'
-import { AvatarDropdown } from '@/components/avatar-dropdown/AvatarDropdown'
 import { Button } from '@/components/button/Button'
 import { MenuIcon } from '@/components/icons/Icons'
-
-import { useAuthState } from '@/auth/hooks/useAuthState'
-
-import { useSidebarContext } from '@/context/sidebar/SidebarContext'
 
 import styles from './Header.module.css'
 
@@ -72,7 +69,7 @@ export const Header = () => {
         {isAuthenticated ? (
           <div className={styles.headerAppActions}>
             <NotificationDropdown size="md" maxNotifications={5} />
-            <AvatarDropdown />
+            <UserAvatarDropdown />
           </div>
         ) : (
           <ButtonTheme />

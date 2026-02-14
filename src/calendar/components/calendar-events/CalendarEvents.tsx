@@ -2,18 +2,17 @@ import { useCallback, useMemo } from 'react'
 
 import { useNavigate } from 'react-router-dom'
 
+import { ModalIds } from '@/components/modal/modal.types'
+import { Event } from '@/types/entities/event'
+
 import { ConfirmModal } from '@/components/confirm-modal/ConfirmModal'
 import { EventTimelineItem } from '@/calendar/components/event-timeline-item/EventTimelineItem'
-
-import { ModalIds } from '@/types/ui/modal'
-import { Event } from '@/types/entities/event'
+import { CalendarEventsSkeleton } from './CalendarEventsSkeleton'
 
 import { useCalendar } from '@/calendar/hooks/useCalendar'
 import { useModalActions } from '@/store/hooks/useModalActions'
 import { useEventActions } from '@/store/hooks/useEventActions'
 import { useCalendarActions } from '@/calendar/hooks/useCalendarActions'
-
-import { CalendarEventsSkeleton } from './CalendarEventsSkeleton'
 
 import styles from './CalendarEvents.module.css'
 

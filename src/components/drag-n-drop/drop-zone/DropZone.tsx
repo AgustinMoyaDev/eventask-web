@@ -2,12 +2,9 @@ import clsx from 'clsx'
 
 import { useDroppable } from '@dnd-kit/core'
 
-import {
-  DRAGGABLE_ITEM_SRC,
-  DraggableItemSrc,
-  DROPPABLE_ITEM_TARGET,
-  DropZoneProps,
-} from '@/types/ui/dragNdrop'
+import { DropZoneProps } from '@/types/ui/dragNdrop'
+import { USER_DRAG_TYPES } from '@/user/constants/user-drag.constants'
+import { EVENT_DRAG_CONSTANTS } from '@/event/constants/event-drag.constants'
 
 import styles from './DropZone.module.css'
 
@@ -32,7 +29,7 @@ export const DropZone = ({ itemId, itemType, children, label }: DropZoneProps) =
     data: { type: itemType, id: itemId },
   })
 
-  const srcType = active?.data?.current?.type as DraggableItemSrc
+  const srcType = active?.data?.current?.type as string
 
   const commonClassName = clsx(
     styles.dropZone,
@@ -42,8 +39,8 @@ export const DropZone = ({ itemId, itemType, children, label }: DropZoneProps) =
 
   switch (itemType) {
     // assign participant from task to event
-    case DROPPABLE_ITEM_TARGET.EVENT: {
-      const showEventZone = !!active && srcType === DRAGGABLE_ITEM_SRC.PARTICIPANT
+    case EVENT_DRAG_CONSTANTS.DROP_TARGETS.EVENT: {
+      const showEventZone = !!active && srcType === USER_DRAG_TYPES.PARTICIPANT
       const classNameEvent = clsx(showEventZone && commonClassName, styles.dropZoneEvent)
       return (
         <DroppableComponent
@@ -57,8 +54,8 @@ export const DropZone = ({ itemId, itemType, children, label }: DropZoneProps) =
       )
     }
     // remove collaborator from event to trash
-    case DROPPABLE_ITEM_TARGET.TRASH: {
-      const showTrashZone = !!active && srcType === DRAGGABLE_ITEM_SRC.COLLABORATOR
+    case EVENT_DRAG_CONSTANTS.DROP_TARGETS.TRASH: {
+      const showTrashZone = !!active && srcType === USER_DRAG_TYPES.COLLABORATOR
       const classNameTrash = clsx(showTrashZone && commonClassName, styles.dropZoneTrash)
       return (
         <DroppableComponent

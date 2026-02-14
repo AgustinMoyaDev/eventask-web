@@ -3,7 +3,7 @@ import dayjs from 'dayjs'
 
 import { CalendarIcon } from '@/components/icons/Icons'
 import { CircularProgress } from '@/components/circular-progress/CircularProgress'
-import { UsersAvatars } from '@/components/users-avatars/UsersAvatars'
+import { UserAvatarList } from '@/user/components/user-avatar-list/UserAvatarList'
 
 import { OngoingTaskProps } from './task.types'
 
@@ -31,7 +31,7 @@ export const OngoingTask = ({ task }: OngoingTaskProps) => {
       {participants.length > 0 && (
         <section className={styles.ongoingTaskBody}>
           <small className={styles.ongoingTaskCollaborators}>Collaborators</small>
-          <UsersAvatars users={participants} />
+          <UserAvatarList users={participants} />
         </section>
       )}
       <footer className={styles.ongoingTaskFooter}>

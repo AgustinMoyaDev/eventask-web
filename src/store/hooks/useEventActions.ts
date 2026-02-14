@@ -12,7 +12,7 @@ import {
 } from '@/services/eventApi'
 import { getErrorMessage, OperationError } from '@/services/utils/getErrorMessage'
 
-import { SortConfig } from '@/types/ui/table'
+import { SortConfig } from '@/components/table/table.types'
 
 import { useAppSelector, useAppDispatch } from '../reduxStore'
 import { selectActiveEvent } from '../selectors/event'

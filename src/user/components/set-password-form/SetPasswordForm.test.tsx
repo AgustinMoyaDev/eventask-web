@@ -2,8 +2,9 @@ import { render, screen, waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { vi, describe, it, expect, beforeEach } from 'vitest'
 
+import { ModalIds } from '@/components/modal/modal.types'
+
 import { SetPasswordForm } from './SetPasswordForm'
-import { ModalIds } from '@/types/ui/modal'
 
 const mockSetPassword = vi.fn()
 const mockAuthError = { message: '', fieldsValidations: {} }

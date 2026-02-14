@@ -1,6 +1,6 @@
 import { useProfileForm } from '@/user/components/profile-form/useProfileForm'
 
-import { UserAvatar } from '@/components/user-avatar/UserAvatar'
+import { UserAvatar } from '@/user/components/user-avatar/UserAvatar'
 import { Input } from '@/components/input/Input'
 import { Button } from '@/components/button/Button'
 import { ButtonLink } from '@/components/button-link/ButtonLink'

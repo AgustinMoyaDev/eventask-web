@@ -1,6 +1,7 @@
 import { render, screen } from '@testing-library/react'
 
-import { DRAGGABLE_ITEM_SRC, DROPPABLE_ITEM_TARGET } from '@/types/ui/dragNdrop'
+import { USER_DRAG_TYPES } from '@/user/constants/user-drag.constants'
+import { EVENT_DRAG_CONSTANTS } from '@/event/constants/event-drag.constants'
 
 import { useDroppable } from '@dnd-kit/core'
 
@@ -29,7 +30,11 @@ describe('DropZone', () => {
 
   it('should render children and label for EVENT drop zone (no drag active)', () => {
     render(
-      <DropZone itemId="1" itemType={DROPPABLE_ITEM_TARGET.EVENT} label="Assign participant">
+      <DropZone
+        itemId="1"
+        itemType={EVENT_DRAG_CONSTANTS.DROP_TARGETS.EVENT}
+        label="Assign participant"
+      >
         <span>Content</span>
       </DropZone>
     )
@@ -43,7 +48,7 @@ describe('DropZone', () => {
       ...baseDroppable,
       active: {
         id: 'mock-id',
-        data: { current: { type: DRAGGABLE_ITEM_SRC.PARTICIPANT } },
+        data: { current: { type: USER_DRAG_TYPES.PARTICIPANT } },
         rect: {
           current: {
             initial: null,
@@ -54,7 +59,11 @@ describe('DropZone', () => {
       isOver: true,
     })
     render(
-      <DropZone itemId="2" itemType={DROPPABLE_ITEM_TARGET.EVENT} label="Assign participant">
+      <DropZone
+        itemId="2"
+        itemType={EVENT_DRAG_CONSTANTS.DROP_TARGETS.EVENT}
+        label="Assign participant"
+      >
         <span>Content</span>
       </DropZone>
     )
@@ -74,7 +83,7 @@ describe('DropZone', () => {
       ...baseDroppable,
       active: {
         id: 'mock-id',
-        data: { current: { type: DRAGGABLE_ITEM_SRC.COLLABORATOR } },
+        data: { current: { type: USER_DRAG_TYPES.COLLABORATOR } },
         rect: {
           current: {
             initial: null,
@@ -85,7 +94,11 @@ describe('DropZone', () => {
       isOver: true,
     })
     render(
-      <DropZone itemId="3" itemType={DROPPABLE_ITEM_TARGET.TRASH} label="Remove collaborator">
+      <DropZone
+        itemId="3"
+        itemType={EVENT_DRAG_CONSTANTS.DROP_TARGETS.TRASH}
+        label="Remove collaborator"
+      >
         <span>Trash content</span>
       </DropZone>
     )
@@ -105,7 +118,7 @@ describe('DropZone', () => {
       ...baseDroppable,
       active: {
         id: 'mock-id',
-        data: { current: { type: DRAGGABLE_ITEM_SRC.COLLABORATOR } },
+        data: { current: { type: USER_DRAG_TYPES.COLLABORATOR } },
         rect: {
           current: {
             initial: null,
@@ -117,7 +130,11 @@ describe('DropZone', () => {
       setNodeRef: mockSetNodeRef,
     })
     render(
-      <DropZone itemId="4" itemType={DROPPABLE_ITEM_TARGET.EVENT} label="Must not appear">
+      <DropZone
+        itemId="4"
+        itemType={EVENT_DRAG_CONSTANTS.DROP_TARGETS.EVENT}
+        label="Must not appear"
+      >
         <span>Content</span>
       </DropZone>
     )
@@ -126,7 +143,7 @@ describe('DropZone', () => {
 
   it('should apply ref to section', () => {
     render(
-      <DropZone itemId="5" itemType={DROPPABLE_ITEM_TARGET.EVENT}>
+      <DropZone itemId="5" itemType={EVENT_DRAG_CONSTANTS.DROP_TARGETS.EVENT}>
         <span>Content</span>
       </DropZone>
     )
@@ -139,7 +156,7 @@ describe('DropZone', () => {
       ...baseDroppable,
       active: {
         id: 'mock-id',
-        data: { current: { type: DRAGGABLE_ITEM_SRC.PARTICIPANT } },
+        data: { current: { type: USER_DRAG_TYPES.PARTICIPANT } },
         rect: {
           current: {
             initial: null,
@@ -150,7 +167,7 @@ describe('DropZone', () => {
       isOver: true,
     })
     render(
-      <DropZone itemId="6" itemType={DROPPABLE_ITEM_TARGET.EVENT}>
+      <DropZone itemId="6" itemType={EVENT_DRAG_CONSTANTS.DROP_TARGETS.EVENT}>
         <span>Content</span>
       </DropZone>
     )

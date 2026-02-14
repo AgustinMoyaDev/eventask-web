@@ -1,4 +1,4 @@
-import { PaginationProps } from '@/types/ui/pagination'
+import { PaginationProps } from './pagination.types'
 
 import { Button } from '../button/Button'
 import { ArrowLeftIcon, ArrowRightIcon } from '../icons/Icons'

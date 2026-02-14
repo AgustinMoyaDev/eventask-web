@@ -7,7 +7,7 @@ import { User } from '@/types/entities/user'
 import { ColumnConfig } from './table.types'
 
 import { Chip } from '@/components/chip/Chip'
-import { Avatar } from '@/components/users-avatars/Avatar'
+import { UserAvatar } from '@/user/components/user-avatar/UserAvatar'
 import { PROGRESS_STATUS } from '@/task/components/task-info/helpers/getColorChip'
 
 export const TASK_COLUMNS: ColumnConfig<Task>[] = [
@@ -72,6 +72,14 @@ export const CONTACTS_COLUMNS: ColumnConfig<User>[] = [
     key: 'profileImageURL',
     label: 'Profile Image',
     sortable: false,
-    render: user => <Avatar user={user} />,
+    render: user => (
+      <UserAvatar
+        userId={user.id.toString()}
+        imageUrl={user.profileImageURL}
+        firstName={user.firstName}
+        lastName={user.lastName}
+        ariaLabel={`${user.firstName} ${user.lastName} avatar`}
+      />
+    ),
   },
 ]

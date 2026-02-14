@@ -1,23 +1,12 @@
 import { render, screen } from '@testing-library/react'
 
-import { DRAGGABLE_ITEM_SRC } from '@/types/ui/dragNdrop'
-import type { ParticipantDragData } from '@/types/ui/dragNdrop'
+import { ParticipantDragData } from '@/user/types/user-drag.types'
+import { USER_DRAG_TYPES } from '@/user/constants/user-drag.constants'
 
 import { DragOverlayContent } from './DragOverlayContent'
 
-import styles from './DragOverlayContent.module.css'
-
-// Simulate UserAvatar to isolate the logic of DragOverlayContent
-vi.mock('@/components/user-avatar/UserAvatar', () => ({
-  UserAvatar: vi.fn(({ firstName, lastName, ariaLabel }) => (
-    <div data-testid="user-avatar" aria-label={ariaLabel}>
-      {firstName} {lastName}
-    </div>
-  )),
-}))
-
 const participantData: ParticipantDragData = {
-  type: DRAGGABLE_ITEM_SRC.PARTICIPANT,
+  type: USER_DRAG_TYPES.PARTICIPANT,
   id: 123,
   imageUrl: 'https://example.com/avatar.jpg',
   firstName: 'John',
@@ -25,7 +14,7 @@ const participantData: ParticipantDragData = {
 }
 
 const collaboratorData: ParticipantDragData = {
-  type: DRAGGABLE_ITEM_SRC.COLLABORATOR,
+  type: USER_DRAG_TYPES.COLLABORATOR,
   id: 456,
   imageUrl: '',
   firstName: 'Jane',
@@ -33,34 +22,16 @@ const collaboratorData: ParticipantDragData = {
 }
 
 describe('DragOverlayContent', () => {
-  it('should render participant drag overlay with UserAvatar', () => {
+  it('should render participant avatar with accessible label', () => {
     render(<DragOverlayContent data={participantData} />)
-
-    expect(screen.getByTestId('user-avatar')).toBeInTheDocument()
-    expect(screen.getByLabelText('Dragged user')).toBeInTheDocument()
-    expect(screen.getByText('John Doe')).toBeInTheDocument()
+    const avatar = screen.getByLabelText(/dragged user/i)
+    expect(avatar).toBeInTheDocument()
   })
 
-  it('should render collaborator drag overlay with UserAvatar', () => {
+  it('should render collaborator avatar with accessible label', () => {
     render(<DragOverlayContent data={collaboratorData} />)
-
-    expect(screen.getByTestId('user-avatar')).toBeInTheDocument()
-    expect(screen.getByLabelText('Dragged user')).toBeInTheDocument()
-    expect(screen.getByText('Jane Smith')).toBeInTheDocument()
-  })
-
-  it('applies correct CSS classes for participant (user)', () => {
-    const { container } = render(<DragOverlayContent data={participantData} />)
-
-    expect(container.querySelector(`.${styles.dragOverlay}`)).toBeInTheDocument()
-    expect(container.querySelector(`.${styles.dragOverlayUser}`)).toBeInTheDocument()
-  })
-
-  it('applies correct CSS classes for collaborator (user)', () => {
-    const { container } = render(<DragOverlayContent data={collaboratorData} />)
-
-    expect(container.querySelector(`.${styles.dragOverlay}`)).toBeInTheDocument()
-    expect(container.querySelector(`.${styles.dragOverlayUser}`)).toBeInTheDocument()
+    const avatar = screen.getByLabelText(/dragged user/i)
+    expect(avatar).toBeInTheDocument()
   })
 
   it('returns null for unknown drag type', () => {

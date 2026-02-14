@@ -1,6 +1,6 @@
 import { useState, useCallback } from 'react'
 
-import { ModalIds } from '@/types/ui/modal'
+import { ModalIds } from '@/components/modal/modal.types'
 
 import { useEventActions } from '@/store/hooks/useEventActions'
 import { useModalActions } from '@/store/hooks/useModalActions'

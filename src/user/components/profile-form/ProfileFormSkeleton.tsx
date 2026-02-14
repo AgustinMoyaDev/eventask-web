@@ -1,5 +1,5 @@
 import { Skeleton } from '@/components/skeletons/Skeleton'
-import { UserAvatarSkeleton } from '@/components/user-avatar/UserAvatarSkeleton'
+import { UserAvatarSkeleton } from '@/user/components/user-avatar/UserAvatarSkeleton'
 
 import styles from './ProfileForm.module.css'
 
