@@ -6,7 +6,7 @@ import {
   ForgotPasswordSchemaType,
 } from '@/helpers/form-validations/authSchemas'
 
-import { useAuthMutations } from '@/auth/hooks/useAuthMutations'
+import { useAuthMutations } from '@/auth/store/useAuthMutations'
 
 /**
  * Custom hook for forgot password form logic.
@@ -17,7 +17,7 @@ import { useAuthMutations } from '@/auth/hooks/useAuthMutations'
  * @returns Form methods, validation state, and loading/error states
  */
 export function useForgotPasswordForm(onSuccess: () => void) {
-  const { forgotPassword, forgotPasswordLoading, forgotPasswordAuthError } = useAuthMutations()
+  const { forgotPassword, forgotPasswordLoading, forgotPasswordError } = useAuthMutations()
 
   const {
     register,
@@ -44,6 +44,6 @@ export function useForgotPasswordForm(onSuccess: () => void) {
     errors,
     isFormValid: isValid,
     forgotPasswordLoading,
-    forgotPasswordAuthError,
+    forgotPasswordError,
   }
 }

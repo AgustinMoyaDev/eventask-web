@@ -3,10 +3,10 @@ import { useNavigate } from 'react-router-dom'
 
 import { TASK_STATUS } from '@/types/entities/task'
 
-import { useAuthState } from '@/auth/hooks/useAuthState'
-import { useAuthMutations } from '@/auth/hooks/useAuthMutations'
-import { useUserProfile } from '@/user/hooks/useUserProfile'
-import { useTaskActions } from '@/store/hooks/useTaskActions'
+import { useAuthState } from '@/auth/store/useAuthState'
+import { useAuthMutations } from '@/auth/store/useAuthMutations'
+import { useUserProfileQueries } from '@/user/store/useUserProfileQueries'
+import { useTaskQueries } from '@/task/store/useTaskQueries'
 
 import { LogoutIcon, UserSettingIcon } from '@/components/icons/Icons'
 import { Dropdown } from '@/components/dropdown/Dropdown'
@@ -24,8 +24,8 @@ export const UserAvatarDropdown = () => {
   const { currentUserId } = useAuthState()
   const { logout } = useAuthMutations()
 
-  const { user } = useUserProfile()
-  const { tasks } = useTaskActions()
+  const { user } = useUserProfileQueries()
+  const { tasks } = useTaskQueries()
   const navigate = useNavigate()
 
   /**

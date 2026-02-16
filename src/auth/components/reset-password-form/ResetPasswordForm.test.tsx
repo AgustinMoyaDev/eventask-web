@@ -8,13 +8,13 @@ import { TOKEN_TYPE } from '@/types/entities/token'
 import { ResetPasswordForm } from './ResetPasswordForm'
 
 const mockResetPassword = vi.fn()
-const mockAuthError = { message: '', fieldsValidations: {} }
+const mockAuthError = { message: '', fieldErrors: {} }
 
-vi.mock('@/auth/hooks/useAuthMutations', () => ({
+vi.mock('@/auth/store/useAuthMutations', () => ({
   useAuthMutations: () => ({
     resetPassword: mockResetPassword,
     resetPasswordLoading: false,
-    resetPasswordAuthError: mockAuthError,
+    resetPasswordError: mockAuthError,
   }),
 }))
 
@@ -25,7 +25,7 @@ describe('ResetPasswordForm Component', () => {
   beforeEach(() => {
     vi.clearAllMocks()
     mockAuthError.message = ''
-    mockAuthError.fieldsValidations = {}
+    mockAuthError.fieldErrors = {}
   })
 
   const renderComponent = () => {

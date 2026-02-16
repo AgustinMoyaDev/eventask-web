@@ -302,7 +302,7 @@ All API calls are managed through RTK Query with automatic caching, deduplicatio
 - **Automatic Token Refresh**: Intercepts 401 responses and refreshes JWT tokens
 - **CSRF Protection**: Includes CSRF token in all state-changing requests
 - **Promise Deduplication**: Prevents multiple simultaneous refresh calls
-- **Error Handling**: Centralized error transformation with `getErrorMessage()`
+- **Error Handling**: Centralized error transformation with `parseRTKError()`
 
 API services are organized by domain (auth, task, event, category, user, invitation, notification, security)
 with standard CRUD operations injected into the base API using RTK Query's code splitting pattern.

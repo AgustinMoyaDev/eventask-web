@@ -1,6 +1,6 @@
 import clsx from 'clsx'
 
-import { DragOverlayContentProps } from '@/types/ui/dragNdrop'
+import { DragOverlayContentProps } from '@/components/drag-n-drop/types/drag-n-drop.types'
 import { ParticipantDragData } from '@/user/types/user-drag.types'
 import { USER_DRAG_TYPES } from '@/user/constants/user-drag.constants'
 

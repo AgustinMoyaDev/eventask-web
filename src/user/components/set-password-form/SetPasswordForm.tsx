@@ -8,16 +8,10 @@ import { useSetPasswordForm } from './useSetPasswordForm'
 import styles from './SetPasswordForm.module.css'
 
 export const SetPasswordForm = () => {
-  const {
-    register,
-    formErrors,
-    isFormValid,
-    setPasswordLoading,
-    setPasswordAuthError,
-    handleSubmit,
-  } = useSetPasswordForm()
+  const { register, formErrors, isFormValid, setPasswordLoading, setPasswordError, handleSubmit } =
+    useSetPasswordForm()
 
-  const displayBackendError = setPasswordAuthError?.message
+  const displayBackendError = setPasswordError?.message
 
   return (
     <div className={styles.setPasswordContainer}>
@@ -40,9 +34,7 @@ export const SetPasswordForm = () => {
           autoFocus
           autoComplete="new-password"
           {...register('newPassword')}
-          error={
-            formErrors.newPassword?.message ?? setPasswordAuthError?.fieldsValidations?.newPassword
-          }
+          error={formErrors.newPassword?.message ?? setPasswordError?.fieldErrors?.newPassword}
           initialStateIcon={EyeIcon}
           finalStateIcon={EyeOffIcon}
         />

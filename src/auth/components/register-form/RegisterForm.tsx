@@ -8,10 +8,10 @@ import { useRegisterForm } from './useRegisterForm'
 import styles from './RegisterForm.module.css'
 
 export const RegisterForm = () => {
-  const { register, handleSubmit, errors, isFormValid, registerLoading, registerAuthError } =
+  const { register, handleSubmit, errors, isFormValid, registerLoading, registerError } =
     useRegisterForm()
 
-  const displayBackendError = registerAuthError?.message
+  const displayBackendError = registerError?.message
 
   return (
     <form className={styles.registerForm} onSubmit={handleSubmit} noValidate>
@@ -27,7 +27,7 @@ export const RegisterForm = () => {
         placeholder=""
         autoComplete="given-name"
         {...register('firstName')}
-        error={errors.firstName?.message ?? registerAuthError?.fieldsValidations?.firstName}
+        error={errors.firstName?.message ?? registerError?.fieldErrors?.firstName}
         finalStateIcon={CardIdIcon}
       />
 
@@ -37,7 +37,7 @@ export const RegisterForm = () => {
         placeholder=""
         autoComplete="family-name"
         {...register('lastName')}
-        error={errors.lastName?.message ?? registerAuthError?.fieldsValidations?.lastName}
+        error={errors.lastName?.message ?? registerError?.fieldErrors?.lastName}
         finalStateIcon={CardIdIcon}
       />
 
@@ -48,7 +48,7 @@ export const RegisterForm = () => {
         autoComplete="email"
         hint="user@mail.com"
         {...register('email')}
-        error={errors.email?.message ?? registerAuthError?.fieldsValidations?.email}
+        error={errors.email?.message ?? registerError?.fieldErrors?.email}
         finalStateIcon={EmailIcon}
       />
 
@@ -58,7 +58,7 @@ export const RegisterForm = () => {
         placeholder=""
         autoComplete="new-password"
         {...register('password')}
-        error={errors.password?.message ?? registerAuthError?.fieldsValidations?.password}
+        error={errors.password?.message ?? registerError?.fieldErrors?.password}
         initialStateIcon={EyeIcon}
         finalStateIcon={EyeOffIcon}
       />

@@ -5,21 +5,21 @@ import { vi, describe, it, expect, beforeEach } from 'vitest'
 import { RegisterForm } from './RegisterForm'
 
 const mockRegister = vi.fn()
-const mockRegisterAuthError = { message: '', fieldsValidations: {} }
+const mockRegisterError = { message: '', fieldErrors: {} }
 
-vi.mock('@/auth/hooks/useAuthMutations', () => ({
+vi.mock('@/auth/store/useAuthMutations', () => ({
   useAuthMutations: () => ({
     register: mockRegister,
     registerLoading: false,
-    registerAuthError: mockRegisterAuthError,
+    registerError: mockRegisterError,
   }),
 }))
 
 describe('RegisterForm Component', () => {
   beforeEach(() => {
     vi.clearAllMocks()
-    mockRegisterAuthError.message = ''
-    mockRegisterAuthError.fieldsValidations = {}
+    mockRegisterError.message = ''
+    mockRegisterError.fieldErrors = {}
   })
 
   const renderComponent = () => {

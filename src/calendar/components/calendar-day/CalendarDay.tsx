@@ -1,6 +1,6 @@
 import clsx from 'clsx'
 
-import { CALENDAR_DAY_TYPE, CalendarDayWithEvents } from '../../types/calendar.types'
+import { CALENDAR_DAY_TYPE, CalendarDayWithEvents } from '@/calendar/types/calendar.types'
 
 import { isActiveDay, isToday } from '@/calendar/utils/validateManagmentDate'
 
@@ -12,7 +12,7 @@ export interface CalendarDayProps {
   calendarDay: CalendarDayWithEvents
 }
 
-export const CalendarDay = ({ calendarDay }: { calendarDay: CalendarDayWithEvents }) => {
+export const CalendarDay = ({ calendarDay }: CalendarDayProps) => {
   const { day, type, events } = calendarDay
   const dayHasEvents = events.length > 0
 

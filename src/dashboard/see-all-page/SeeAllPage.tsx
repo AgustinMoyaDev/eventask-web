@@ -7,11 +7,12 @@ import { ColumnConfig, SortConfig, SortDirection, ViewType } from '@/components/
 import { VIEW_CONFIGS, ViewDetail } from '@/components/table/helpers/viewConfigs'
 import { sortData } from '@/components/table/helpers/sortingData'
 
-import { useCategoryActions } from '@/store/hooks/useCategoryActions'
-import { useTaskActions } from '@/store/hooks/useTaskActions'
-import { useNotificationActions } from '@/store/hooks/useNotificationActions'
-import { useEventActions } from '@/store/hooks/useEventActions'
-import { useUserContacts } from '@/user/hooks/useUserContacts'
+import { useCategoryQueries } from '@/category/store/useCategoryQueries'
+
+import { useTaskQueries } from '@/task/store/useTaskQueries'
+import { useNotificationQueries } from '@/notification/store/useNotificationQueries'
+import { useEventQueries } from '@/event/store/useEventQueries'
+import { useUserContactsQueries } from '@/user/store/useUserContactsQueries'
 
 import { Button } from '@/components/button/Button'
 import { Table } from '@/components/table/Table'
@@ -61,22 +62,18 @@ const SeeAllPage = () => {
   const {
     categories,
     total: totalCategories,
-    fetching: categoriesFetching,
+    isFetching: categoriesFetching,
     fetchCategoryError,
     refetch: refetchCategories,
-  } = useCategoryActions(
-    validatedPage,
-    itemsPerPage,
-    shouldFetchCategories,
-    shouldFetchCategories ? sortConfig : undefined
-  )
+  } = useCategoryQueries(validatedPage, itemsPerPage, shouldFetchCategories, sortConfig)
+
   const {
     contacts,
     total: totalContacts,
     fetching: contactsFetching,
     fetchContactsError,
     refetchContacts,
-  } = useUserContacts(
+  } = useUserContactsQueries(
     validatedPage,
     itemsPerPage,
     shouldFetchContacts,
@@ -86,9 +83,9 @@ const SeeAllPage = () => {
     events,
     total: totalEvents,
     fetching: eventsFetching,
-    fetchAllEventsError,
+    fetchEventsError: fetchAllEventsError,
     refetch: refetchEvents,
-  } = useEventActions(
+  } = useEventQueries(
     validatedPage,
     itemsPerPage,
     shouldFetchEvents,
@@ -98,9 +95,9 @@ const SeeAllPage = () => {
     notifications,
     total: totalNotifications,
     fetchingNotifications,
-    fetchNotificationError,
+    fetchNotificationsError,
     refetchNotifications,
-  } = useNotificationActions(
+  } = useNotificationQueries(
     validatedPage,
     itemsPerPage,
     shouldFetchNotifications,
@@ -112,7 +109,7 @@ const SeeAllPage = () => {
     fetching: tasksFetching,
     fetchTaskError,
     refetch: refetchTasks,
-  } = useTaskActions(
+  } = useTaskQueries(
     validatedPage,
     itemsPerPage,
     shouldFetchTasks,
@@ -163,7 +160,7 @@ const SeeAllPage = () => {
       data: notifications,
       total: totalNotifications,
       fetching: fetchingNotifications,
-      error: fetchNotificationError?.message,
+      error: fetchNotificationsError?.message,
     },
     events: {
       data: events,

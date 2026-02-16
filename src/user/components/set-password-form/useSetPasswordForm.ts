@@ -3,14 +3,14 @@ import { zodResolver } from '@hookform/resolvers/zod'
 
 import { ModalIds } from '@/components/modal/modal.types'
 
-import { useAuthMutations } from '@/auth/hooks/useAuthMutations'
-import { useModalActions } from '@/store/hooks/useModalActions'
+import { useAuthMutations } from '@/auth/store/useAuthMutations'
+import { useModalActions } from '@/components/modal/store/useModalActions'
 
 import { setPasswordSchema, SetPasswordSchemaType } from '@/helpers/form-validations/authSchemas'
 
 export const useSetPasswordForm = () => {
   const { close } = useModalActions(ModalIds.SetPasswordForm)
-  const { setPassword, setPasswordLoading, setPasswordAuthError } = useAuthMutations()
+  const { setPassword, setPasswordLoading, setPasswordError } = useAuthMutations()
 
   const {
     register,
@@ -38,7 +38,7 @@ export const useSetPasswordForm = () => {
     formErrors: errors,
     isFormValid: isValid,
     setPasswordLoading,
-    setPasswordAuthError,
+    setPasswordError,
     handleSubmit: handleSubmit(onSubmit),
   }
 }

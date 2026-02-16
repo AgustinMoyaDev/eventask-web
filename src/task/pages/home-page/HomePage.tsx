@@ -1,7 +1,7 @@
 import { useEffect } from 'react'
 
 import { Search } from '@/components/search/Search'
-import { CategoryList } from '@/category/components/categories/CategoryList'
+import { CategoryList } from '@/category/components/category-list/CategoryList'
 import { OngoingTaskList } from '@/task/components/ongoing-task-list/OngoingTaskList'
 
 import { WelcomeSlide } from '@/components/welcome-onboarding/WelcomeSlide'

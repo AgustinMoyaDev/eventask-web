@@ -3,8 +3,8 @@ import { zodResolver } from '@hookform/resolvers/zod'
 
 import { ModalIds } from '@/components/modal/modal.types'
 
-import { useAuthMutations } from '@/auth/hooks/useAuthMutations'
-import { useModalActions } from '@/store/hooks/useModalActions'
+import { useAuthMutations } from '@/auth/store/useAuthMutations'
+import { useModalActions } from '@/components/modal/store/useModalActions'
 
 import {
   changePasswordSchema,
@@ -20,7 +20,7 @@ import {
  */
 export const useChangePasswordForm = () => {
   const { close } = useModalActions(ModalIds.ChangePasswordForm)
-  const { changePassword, changePasswordLoading, changePasswordAuthError } = useAuthMutations()
+  const { changePassword, changePasswordLoading, changePasswordError } = useAuthMutations()
   const {
     register,
     handleSubmit,
@@ -50,7 +50,7 @@ export const useChangePasswordForm = () => {
     formErrors: errors,
     isFormValid: isValid,
     changePasswordLoading,
-    changePasswordAuthError,
+    changePasswordError,
     handleSubmit: handleSubmit(onSubmit),
   }
 }

@@ -89,7 +89,7 @@ export const EditProfileForm = () => {
         actionLabel="Invite"
         actionMethod={handleInviteContact}
         loading={isInviting}
-        error={inviteError?.fieldsValidations?.email ?? inviteError?.message}
+        error={inviteError?.fieldErrors?.email ?? inviteError?.message}
         getOptionLabel={contact => contact.email}
         getOptionKey={contact => contact.id}
       />

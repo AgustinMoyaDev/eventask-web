@@ -4,7 +4,7 @@ import dayjs from 'dayjs'
 import { Event, EVENT_STATUS } from '@/types/entities/event'
 
 import { Button } from '@/components/button/Button'
-import { useEventActions } from '@/store/hooks/useEventActions'
+import { useEventMutations } from '@/event/store/useEventMutations'
 import { CheckIcon, DeleteIcon, EditIcon } from '@/components/icons/Icons'
 
 import styles from './EventTimelineItem.module.css'
@@ -17,7 +17,7 @@ interface Props {
 
 export const EventTimelineItem = ({ event, onEditEvent, onDeleteEvent }: Props) => {
   const { id, status, title, task } = event
-  const { updating, deleting } = useEventActions()
+  const { updating, deleting } = useEventMutations()
 
   return (
     <li

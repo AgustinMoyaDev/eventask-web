@@ -2,7 +2,7 @@ import { useMemo } from 'react'
 import clsx from 'clsx'
 
 import { useSearch } from '@/context/search/SearchContext'
-import { useTaskActions } from '@/store/hooks/useTaskActions'
+import { useTaskQueries } from '@/task/store/useTaskQueries'
 
 import { PlusIcon } from '@/components/icons/Icons'
 import { ScrollableContainer } from '@/components/scrollable-container/ScrollableContainer'
@@ -14,7 +14,7 @@ import styles from './OngoingTaskList.module.css'
 
 export const OngoingTaskList = () => {
   const { search } = useSearch()
-  const { fetching, tasks = [] } = useTaskActions()
+  const { fetching, tasks } = useTaskQueries()
 
   const filteredTasks = useMemo(() => {
     return tasks.filter(({ title }) => title.toLowerCase().includes(search.toLowerCase()))
@@ -27,7 +27,7 @@ export const OngoingTaskList = () => {
   const thereAreOngoingTasks = tasksList.length > 0
 
   return (
-    <section className={clsx(styles.ongoingTask, 'section')}>
+    <section className={clsx(styles.ongoingTasks, 'section')}>
       <header className={styles.ongoingTasksHeader}>
         <div className={styles.ongoingTasksHeaderInfo}>
           <h2 className="text-title-lg">Ongoing Tasks</h2>

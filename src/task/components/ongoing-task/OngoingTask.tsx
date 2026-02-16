@@ -5,7 +5,7 @@ import { CalendarIcon } from '@/components/icons/Icons'
 import { CircularProgress } from '@/components/circular-progress/CircularProgress'
 import { UserAvatarList } from '@/user/components/user-avatar-list/UserAvatarList'
 
-import { OngoingTaskProps } from './task.types'
+import { OngoingTaskProps } from './ongoing-task.types'
 
 import styles from './OngoingTask.module.css'
 

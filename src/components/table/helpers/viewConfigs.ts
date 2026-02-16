@@ -22,7 +22,7 @@ interface ViewConfig<T extends Base> {
   getTotal?: (detail: ViewDetail) => number
   isLoading: (detail: ViewDetail) => boolean
   hasError: (detail: ViewDetail) => boolean
-  getErrorMessage?: (detail: ViewDetail) => string | null
+  getErrorMessage?: (detail: ViewDetail) => string | undefined
   createActions?: (navigate: NavigateFunction) => {
     onView?: (id: string) => void
     onEdit?: (id: string) => void
@@ -38,31 +38,31 @@ export interface ViewDetail {
     data: Task[]
     total: number
     fetching: boolean
-    error: string | null
+    error?: string
   }
   categories: {
     data: Category[]
     total: number
     fetching: boolean
-    error: string | null
+    error?: string
   }
   notifications: {
     data: Notification[]
     total: number
     fetching: boolean
-    error: string | null
+    error?: string
   }
   events: {
     data: Event[]
     total: number
     fetching: boolean
-    error: string | null
+    error?: string
   }
   contacts: {
     data: User[]
     total: number
     fetching: boolean
-    error: string | null
+    error?: string
   }
 }
 
@@ -82,7 +82,7 @@ export const VIEW_CONFIGS: SpecificViewConfigs = {
     hasPagination: true,
     isLoading: detail => detail.tasks.fetching,
     hasError: detail => !!detail.tasks.error,
-    getErrorMessage: detail => detail.tasks.error ?? null,
+    getErrorMessage: detail => detail.tasks.error,
     createActions: navigate => ({
       onView: id => navigate(`/task/${id}`),
       onEdit: id => navigate(`/task/${id}/edit`),

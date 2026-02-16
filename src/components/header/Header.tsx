@@ -2,12 +2,12 @@ import { useEffect, useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import clsx from 'clsx'
 
-import { useAuthState } from '@/auth/hooks/useAuthState'
+import { useAuthState } from '@/auth/store/useAuthState'
 import { useSidebarContext } from '@/context/sidebar/SidebarContext'
 
 import { UserAvatarDropdown } from '@/user/components/user-avatar-dropdown/UserAvatarDropdown'
 import { ButtonTheme } from '@/components/button-theme/ButtonTheme'
-import { NotificationDropdown } from '@/components/notification-dropdown/NotificationDropdown'
+import { NotificationDropdown } from '@/notification/components/notification-dropdown/NotificationDropdown'
 import { Button } from '@/components/button/Button'
 import { MenuIcon } from '@/components/icons/Icons'
 

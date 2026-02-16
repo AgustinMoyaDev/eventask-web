@@ -7,21 +7,21 @@ import { vi, describe, it, expect, beforeEach } from 'vitest'
 import { LoginForm } from './LoginForm'
 
 const mockLogin = vi.fn()
-const mockLoginAuthError = { message: '', fieldsValidations: {} }
+const mockLoginError = { message: '', fieldErrors: {} }
 
-vi.mock('@/auth/hooks/useAuthMutations', () => ({
+vi.mock('@/auth/store/useAuthMutations', () => ({
   useAuthMutations: () => ({
     login: mockLogin,
     loginLoading: false,
-    loginAuthError: mockLoginAuthError,
+    loginError: mockLoginError,
   }),
 }))
 
 describe('LoginForm Component', () => {
   beforeEach(() => {
     vi.clearAllMocks()
-    mockLoginAuthError.message = ''
-    mockLoginAuthError.fieldsValidations = {}
+    mockLoginError.message = ''
+    mockLoginError.fieldErrors = {}
   })
 
   const renderComponent = () => {

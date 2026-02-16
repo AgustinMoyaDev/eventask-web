@@ -1,8 +1,7 @@
 import { useDraggable } from '@dnd-kit/core'
-
 import clsx from 'clsx'
 
-import { DraggableProps } from '@/types/ui/dragNdrop'
+import { DraggableProps } from '@/components/drag-n-drop/types/drag-n-drop.types'
 
 import styles from './Draggable.module.css'
 

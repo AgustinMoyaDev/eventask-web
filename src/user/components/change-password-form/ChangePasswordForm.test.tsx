@@ -7,29 +7,27 @@ import { ModalIds } from '@/components/modal/modal.types'
 import { ChangePasswordForm } from './ChangePasswordForm'
 
 const mockChangePassword = vi.fn()
-const mockAuthError = { message: '', fieldsValidations: {} }
+const mockAuthError = { message: '', fieldErrors: {} }
 const mockCloseModal = vi.fn()
 
-vi.mock('@/auth/hooks/useAuthMutations', () => ({
+vi.mock('@/auth/store/useAuthMutations', () => ({
   useAuthMutations: () => ({
     changePassword: mockChangePassword,
     changePasswordLoading: false,
-    changePasswordAuthError: mockAuthError,
+    changePasswordError: mockAuthError,
   }),
 }))
 
-vi.mock('@/store/hooks/useModalActions', () => ({
-  useModalActions: (modalId: string) => {
-    if (modalId !== ModalIds.ChangePasswordForm) return {}
-    return { close: mockCloseModal }
-  },
+vi.mock('@/components/modal/store/useModalActions', () => ({
+  useModalActions: (id: string) =>
+    id === ModalIds.ChangePasswordForm ? { close: mockCloseModal, open: vi.fn() } : {},
 }))
 
 describe('ChangePasswordForm Component', () => {
   beforeEach(() => {
     vi.clearAllMocks()
     mockAuthError.message = ''
-    mockAuthError.fieldsValidations = {}
+    mockAuthError.fieldErrors = {}
   })
 
   const renderComponent = () => render(<ChangePasswordForm />)

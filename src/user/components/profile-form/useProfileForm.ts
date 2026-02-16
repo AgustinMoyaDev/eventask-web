@@ -2,8 +2,9 @@ import { useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 
-import { useUserProfile } from '@/user/hooks/useUserProfile'
-import { useInvitationActions } from '@/store/hooks/useInvitationActions'
+import { useUserProfileQueries } from '@/user/store/useUserProfileQueries'
+import { useUserProfileMutations } from '@/user/store/useUserProfileMutations'
+import { useInvitationMutations } from '@/invitation/store/useInvitationMutations'
 
 import { profileSchema, ProfileSchemaType } from './profileSchema'
 
@@ -16,19 +17,17 @@ import { profileSchema, ProfileSchemaType } from './profileSchema'
  * @returns Form state, handlers, and loading states
  */
 export const useProfileForm = () => {
+  const { user, fetchingProfile, fetchUserError } = useUserProfileQueries()
   const {
-    user,
-    fetchingProfile,
     updatingProfile,
     uploadingAvatar,
     updateProfile,
     uploadAvatar,
-    fetchUserError,
     updateUserError,
     uploadUserAvatarError,
-  } = useUserProfile()
+  } = useUserProfileMutations()
 
-  const { inviteContact, inviting, inviteContactError } = useInvitationActions()
+  const { inviteContact, inviting, inviteContactError } = useInvitationMutations()
 
   const {
     register,
@@ -77,7 +76,7 @@ export const useProfileForm = () => {
   }
 
   const displayBackendError =
-    fetchUserError?.message || updateUserError?.message || uploadUserAvatarError?.message
+    fetchUserError?.message ?? updateUserError?.message ?? uploadUserAvatarError?.message
 
   return {
     // Data & State

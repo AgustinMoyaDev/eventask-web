@@ -2,7 +2,7 @@ import clsx from 'clsx'
 
 import { useDroppable } from '@dnd-kit/core'
 
-import { DropZoneProps } from '@/types/ui/dragNdrop'
+import { DropZoneProps } from '@/components/drag-n-drop/types/drag-n-drop.types'
 import { USER_DRAG_TYPES } from '@/user/constants/user-drag.constants'
 import { EVENT_DRAG_CONSTANTS } from '@/event/constants/event-drag.constants'
 
