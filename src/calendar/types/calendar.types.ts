@@ -1,9 +1,4 @@
-import dayjs from 'dayjs'
-import localeData from 'dayjs/plugin/localeData'
-
 import { Event } from '@/types/entities/event'
-
-dayjs.extend(localeData)
 
 export const CALENDAR_DAY_TYPE = {
   PREVIOUS: 'prev',

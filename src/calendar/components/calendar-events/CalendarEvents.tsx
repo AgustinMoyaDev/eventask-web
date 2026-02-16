@@ -10,8 +10,11 @@ import { EventTimelineItem } from '@/calendar/components/event-timeline-item/Eve
 import { CalendarEventsSkeleton } from './CalendarEventsSkeleton'
 
 import { useCalendar } from '@/calendar/hooks/useCalendar'
-import { useModalActions } from '@/store/hooks/useModalActions'
-import { useEventActions } from '@/store/hooks/useEventActions'
+import { useModalState } from '@/components/modal/store/useModalState'
+import { useModalActions } from '@/components/modal/store/useModalActions'
+import { useEventActions } from '@/event/store/useEventActions'
+import { useEventState } from '@/event/store/useEventState'
+import { useEventMutations } from '@/event/store/useEventMutations'
 import { useCalendarActions } from '@/calendar/hooks/useCalendarActions'
 
 import styles from './CalendarEvents.module.css'
@@ -26,9 +29,13 @@ import styles from './CalendarEvents.module.css'
  */
 export const CalendarEvents = () => {
   const navigate = useNavigate()
-  const { isOpen, open, close } = useModalActions(ModalIds.Confirm)
+  const { open, close } = useModalActions(ModalIds.Confirm)
+  const { isOpen } = useModalState(ModalIds.Confirm)
   const { activeCalendarDay } = useCalendarActions()
-  const { activeEvent, setActiveEvent, clearActiveEvent, deleteEvent } = useEventActions()
+
+  const { activeEvent } = useEventState()
+  const { setActiveEvent, clearActiveEvent } = useEventActions()
+  const { deleteEvent } = useEventMutations()
   const { fetchingMonthlyEvents, eventsForActiveDay, activeCalendarDayName, fullDateLabel } =
     useCalendar()
 

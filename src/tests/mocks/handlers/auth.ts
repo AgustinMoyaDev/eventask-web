@@ -3,8 +3,7 @@ import { http, HttpResponse, delay } from 'msw'
 import { DELAYS } from '../utils/delays'
 import { generateMockJWT } from '../utils/jwtMock'
 
-import { LoginDto } from '@/types/dtos/auth.dto'
-import { ResetPasswordDto } from '@/types/dtos/token.dto'
+import { LoginDto, ResetPasswordDto } from '@/types/dtos/auth.dto'
 
 import { MOCK_CONTACTS, MOCK_LOGGED_USER, MOCK_SESSION } from '../data/mockData'
 import { createFakeUser } from '../factories/userFactory'

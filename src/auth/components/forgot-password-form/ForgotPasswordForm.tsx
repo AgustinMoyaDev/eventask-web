@@ -22,10 +22,10 @@ export const ForgotPasswordForm = ({ onSuccess }: ForgotPasswordFormProps) => {
     errors,
     isFormValid,
     forgotPasswordLoading,
-    forgotPasswordAuthError,
+    forgotPasswordError,
   } = useForgotPasswordForm(onSuccess)
 
-  const displayBackendError = forgotPasswordAuthError?.message
+  const displayBackendError = forgotPasswordError?.message
 
   return (
     <div className={styles.formContainer}>
@@ -41,7 +41,7 @@ export const ForgotPasswordForm = ({ onSuccess }: ForgotPasswordFormProps) => {
           required
           autoComplete="email"
           {...register('email')}
-          error={errors.email?.message ?? forgotPasswordAuthError?.fieldsValidations?.email}
+          error={errors.email?.message ?? forgotPasswordError?.fieldErrors?.email}
         />
 
         <div className={styles.forgotPasswordActions}>

@@ -6,18 +6,18 @@ import { Toast, TOAST_STATUS } from '../toast/toast.types'
 
 import styles from './ToastContainer.module.css'
 
-vi.mock('@/store/hooks/useToastActions')
+vi.mock('@/components/toast/store/useToast')
 
-import { useToastActions } from '@/store/hooks/useToastActions'
+import { useToast } from '@/components/toast/store/useToast'
 
-const mockUseToastActions = vi.mocked(useToastActions)
+const mockUseToast = vi.mocked(useToast)
 
 const mockShowToast = vi.fn()
 const mockRemoveToast = vi.fn()
 const mockUpdateToastStatus = vi.fn()
 
-const valueMockToastActions = {
-  toasts: [],
+const valueMockToast = {
+  toastList: [],
   showToast: mockShowToast,
   removeToast: mockRemoveToast,
   updateToastStatus: mockUpdateToastStatus,
@@ -26,12 +26,12 @@ const valueMockToastActions = {
 describe('ToastContainer', () => {
   beforeEach(() => {
     vi.clearAllMocks()
-    mockUseToastActions.mockReturnValue(valueMockToastActions)
+    mockUseToast.mockReturnValue(valueMockToast)
   })
 
-  it('should call useToastActions hook', () => {
+  it('should call useToast hook', () => {
     render(<ToastContainer />)
-    expect(mockUseToastActions).toHaveBeenCalledTimes(1)
+    expect(mockUseToast).toHaveBeenCalledTimes(1)
   })
 
   it('should render container with correct ARIA attributes', () => {
@@ -58,9 +58,9 @@ describe('ToastContainer', () => {
       duration: 3000,
     }
 
-    mockUseToastActions.mockReturnValue({
-      ...valueMockToastActions,
-      toasts: [toast],
+    mockUseToast.mockReturnValue({
+      ...valueMockToast,
+      toastList: [toast],
     })
 
     render(<ToastContainer />)
@@ -69,7 +69,7 @@ describe('ToastContainer', () => {
   })
 
   it('should render multiple toasts in order', () => {
-    const toasts: Toast[] = [
+    const toastList: Toast[] = [
       {
         id: '1',
         message: 'First toast',
@@ -89,9 +89,9 @@ describe('ToastContainer', () => {
       },
     ]
 
-    mockUseToastActions.mockReturnValue({
-      ...valueMockToastActions,
-      toasts: toasts,
+    mockUseToast.mockReturnValue({
+      ...valueMockToast,
+      toastList,
     })
 
     render(<ToastContainer />)

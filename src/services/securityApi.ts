@@ -1,4 +1,4 @@
-import { setCsrfToken } from '../store/slices/security/security'
+import { setCsrfToken } from '../store/slices/security/securitySlice'
 import { baseApi } from './baseApi'
 
 export const securityApi = baseApi.injectEndpoints({

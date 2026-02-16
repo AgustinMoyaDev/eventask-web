@@ -2,7 +2,7 @@ import { useCallback, useMemo } from 'react'
 
 import { User } from '@/types/entities/user'
 
-import { useUserProfile } from '@/user/hooks/useUserProfile'
+import { useUserProfileQueries } from '@/user/store/useUserProfileQueries'
 
 import { useAssignParticipantMutation, useRemoveParticipantMutation } from '@/services/taskApi'
 
@@ -11,7 +11,7 @@ import { useAssignParticipantMutation, useRemoveParticipantMutation } from '@/se
  * Handles adding and removing participants from a task
  */
 export const useTaskParticipantsSection = (taskId: string, currentParticipants: User[]) => {
-  const { user, fetchingProfile } = useUserProfile()
+  const { user, fetchingProfile } = useUserProfileQueries()
 
   const [assignParticipant, { isLoading: isAssigning }] = useAssignParticipantMutation()
   const [removeParticipant, { isLoading: isRemoving }] = useRemoveParticipantMutation()

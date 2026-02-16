@@ -3,12 +3,12 @@ import { combineReducers } from '@reduxjs/toolkit'
 import { baseApi } from '../services/baseApi'
 
 import { authSlice } from '@/auth/store/authSlice'
-import { taskSlice } from './slices/task/taskSlice'
+import { taskSlice } from '../task/store/slice/taskSlice'
 import { calendarDaySlice } from '../calendar/store/calendarDaySlice'
-import { eventSlice } from './slices/event/eventSlice'
-import { modalSlice } from './slices/ui/modalSlice'
-import { toastSlice } from './slices/ui/toastSlice'
-import { securitySlice } from './slices/security/security'
+import { eventSlice } from '../event/store/slice/eventSlice'
+import { securitySlice } from './slices/security/securitySlice'
+import { modalSlice } from '@/components/modal/store/modalSlice'
+import { toastSlice } from '@/components/toast/store/toastSlice'
 
 export const rootReducer = combineReducers({
   // Reducer de RTK Query para baseApi

@@ -1,4 +1,4 @@
-import { useToastActions } from '@/store/hooks/useToastActions'
+import { useToast } from '@/components/toast/store/useToast'
 
 import { Toast } from '@/components/toast/Toast'
 
@@ -9,11 +9,11 @@ import styles from './ToastContainer.module.css'
  * a polite live region for screen readers.
  */
 export const ToastContainer = () => {
-  const { toasts, removeToast } = useToastActions()
+  const { toastList, removeToast } = useToast()
 
   return (
     <div className={styles.toastContainer} role="status" aria-live="polite">
-      {toasts.map(toast => (
+      {toastList.map(toast => (
         <Toast key={toast.id} toast={toast} removeToast={removeToast} />
       ))}
     </div>

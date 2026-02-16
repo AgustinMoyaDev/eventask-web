@@ -7,18 +7,18 @@ import { TASK_STATUS } from '@/types/entities/task'
 import { UserAvatarDropdown } from './UserAvatarDropdown'
 
 // Define global mocks for the hooks
-vi.mock('@/auth/hooks/useAuthState')
-vi.mock('@/auth/hooks/useAuthMutations')
-vi.mock('@/user/hooks/useUserProfile')
-vi.mock('@/user/hooks/useUserContacts')
-vi.mock('@/store/hooks/useTaskActions')
+vi.mock('@/auth/store/useAuthState')
+vi.mock('@/auth/store/useAuthMutations')
+vi.mock('@/user/store/useUserProfileQueries')
+vi.mock('@/user/store/useUserContactsQueries')
+vi.mock('@/task/store/useTaskQueries')
 
 // Import mocked references (intercepted above)
-import { useAuthState } from '@/auth/hooks/useAuthState'
-import { useAuthMutations } from '@/auth/hooks/useAuthMutations'
-import { useUserProfile } from '@/user/hooks/useUserProfile'
-import { useUserContacts } from '@/user/hooks/useUserContacts'
-import { useTaskActions } from '@/store/hooks/useTaskActions'
+import { useAuthState } from '@/auth/store/useAuthState'
+import { useAuthMutations } from '@/auth/store/useAuthMutations'
+import { useUserProfileQueries } from '@/user/store/useUserProfileQueries'
+import { useUserContactsQueries } from '@/user/store/useUserContactsQueries'
+import { useTaskQueries } from '@/task/store/useTaskQueries'
 
 // --- Auxiliary mocks --- //
 const mockLogout = vi.fn()
@@ -50,15 +50,15 @@ const mockAuthMutations = {
   resetPassword: vi.fn(),
   setPassword: vi.fn(),
   changePassword: vi.fn(),
-  loginAuthError: { message: '', fieldsValidations: {} },
-  loginWithGoogleAuthError: { message: '', fieldsValidations: {} },
-  registerAuthError: { message: '', fieldsValidations: {} },
-  refreshAuthError: { message: '', fieldsValidations: {} },
-  forgotPasswordAuthError: { message: '', fieldsValidations: {} },
-  resetPasswordAuthError: { message: '', fieldsValidations: {} },
-  setPasswordAuthError: { message: '', fieldsValidations: {} },
-  changePasswordAuthError: { message: '', fieldsValidations: {} },
-  logoutError: undefined,
+  loginError: { message: '', fieldErrors: {} },
+  loginWithGoogleError: { message: '', fieldErrors: {} },
+  registerError: { message: '', fieldErrors: {} },
+  refreshError: { message: '', fieldErrors: {} },
+  forgotPasswordError: { message: '', fieldErrors: {} },
+  resetPasswordError: { message: '', fieldErrors: {} },
+  setPasswordError: { message: '', fieldErrors: {} },
+  changePasswordError: { message: '', fieldErrors: {} },
+  logoutError: { message: '', fieldErrors: {} },
 }
 
 const user = {
@@ -84,9 +84,9 @@ const mockUserProfile = {
   uploadSuccess: true,
   uploadingAvatar: false,
   uploadAvatar: vi.fn(),
-  fetchUserError: { message: '', fieldsValidations: {} },
-  updateUserError: { message: '', fieldsValidations: {} },
-  uploadUserAvatarError: { message: '', fieldsValidations: {} },
+  fetchUserError: { message: '', fieldErrors: {} },
+  updateUserError: { message: '', fieldErrors: {} },
+  uploadUserAvatarError: { message: '', fieldErrors: {} },
 }
 
 const mockUserContacts = {
@@ -94,7 +94,7 @@ const mockUserContacts = {
   total: 0,
   fetching: false,
   refetchContacts: vi.fn(),
-  fetchContactsError: { message: '', fieldsValidations: {} },
+  fetchContactsError: { message: '', fieldErrors: {} },
 }
 
 const creator = {
@@ -117,7 +117,7 @@ const category = {
   updatedAt: new Date().toISOString(),
 }
 
-const mockTasksActions = {
+const mockTasksQueries = {
   tasks: [
     {
       id: '2',
@@ -160,26 +160,8 @@ const mockTasksActions = {
   ],
   total: 2,
   fetching: false,
-  creating: false,
-  updating: false,
-  deleting: false,
-  createSuccess: false,
-  updateSuccess: false,
-  deleteSuccess: false,
-  setActiveTaskId: Object.assign(vi.fn(), {
-    type: 'task/setActiveTaskId' as const,
-    match: (
-      _action: unknown
-    ): _action is { payload: string | undefined; type: 'task/setActiveTaskId' } => false,
-  }),
   refetch: vi.fn(),
-  createTask: vi.fn(),
-  updateTask: vi.fn(),
-  deleteTask: vi.fn(),
-  fetchTaskError: { message: '', fieldsValidations: {} },
-  createTaskError: { message: '', fieldsValidations: {} },
-  updateTaskError: { message: '', fieldsValidations: {} },
-  deleteTaskError: { message: '', fieldsValidations: {} },
+  fetchTaskError: { message: '', fieldErrors: {} },
 }
 
 function renderWithRouter(ui: React.ReactNode) {
@@ -191,9 +173,9 @@ describe('AvatarDropdown', () => {
     vi.clearAllMocks()
     vi.mocked(useAuthState).mockReturnValue(mockAuthState)
     vi.mocked(useAuthMutations).mockReturnValue(mockAuthMutations)
-    vi.mocked(useUserProfile).mockReturnValue(mockUserProfile)
-    vi.mocked(useUserContacts).mockReturnValue(mockUserContacts)
-    vi.mocked(useTaskActions).mockReturnValue(mockTasksActions)
+    vi.mocked(useUserProfileQueries).mockReturnValue(mockUserProfile)
+    vi.mocked(useUserContactsQueries).mockReturnValue(mockUserContacts)
+    vi.mocked(useTaskQueries).mockReturnValue(mockTasksQueries)
   })
 
   it('returns null if no currentUserId', () => {
@@ -202,12 +184,12 @@ describe('AvatarDropdown', () => {
       currentUserId: undefined,
     })
 
-    vi.mocked(useUserProfile).mockReturnValue({
+    vi.mocked(useUserProfileQueries).mockReturnValue({
       ...mockUserProfile,
       user: undefined,
     })
 
-    vi.mocked(useTaskActions).mockReturnValue(mockTasksActions)
+    vi.mocked(useTaskQueries).mockReturnValue(mockTasksQueries)
 
     renderWithRouter(<UserAvatarDropdown />)
 

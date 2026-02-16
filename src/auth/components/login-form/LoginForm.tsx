@@ -10,10 +10,10 @@ import { useLoginForm } from './useLoginForm'
 import styles from './LoginForm.module.css'
 
 export const LoginForm = () => {
-  const { register, formErrors, isFormValid, loginLoading, loginAuthError, handleSubmit } =
+  const { register, formErrors, isFormValid, loginLoading, loginError, handleSubmit } =
     useLoginForm()
 
-  const displayBackendError = loginAuthError?.message
+  const displayBackendError = loginError?.message
 
   return (
     <form className={styles.loginForm} onSubmit={handleSubmit} noValidate>
@@ -30,7 +30,7 @@ export const LoginForm = () => {
           autoComplete="email"
           hint="user@mail.com"
           {...register('email')}
-          error={formErrors.email?.message ?? loginAuthError?.fieldsValidations?.email}
+          error={formErrors.email?.message ?? loginError?.fieldErrors?.email}
           finalStateIcon={EmailIcon}
         />
 
@@ -40,7 +40,7 @@ export const LoginForm = () => {
           required
           autoComplete="current-password"
           {...register('password')}
-          error={formErrors.password?.message ?? loginAuthError?.fieldsValidations?.password}
+          error={formErrors.password?.message ?? loginError?.fieldErrors?.password}
           initialStateIcon={EyeIcon}
           finalStateIcon={EyeOffIcon}
         />

@@ -7,27 +7,34 @@ import { ModalIds } from '@/components/modal/modal.types'
 import { SetPasswordForm } from './SetPasswordForm'
 
 const mockSetPassword = vi.fn()
-const mockAuthError = { message: '', fieldsValidations: {} }
+const mockAuthError = {
+  message: 'General error message',
+  fieldErrors: {
+    newPassword: 'Too weak',
+    email: 'Invalid format',
+  },
+}
 const mockCloseModal = vi.fn()
 
-vi.mock('@/auth/hooks/useAuthMutations', () => ({
+vi.mock('@/auth/store/useAuthMutations', () => ({
   useAuthMutations: () => ({
     setPassword: mockSetPassword,
     setPasswordLoading: false,
-    setPasswordAuthError: mockAuthError,
+    setPasswordError: mockAuthError,
   }),
 }))
 
-vi.mock('@/store/hooks/useModalActions', () => ({
+vi.mock('@/components/modal/store/useModalState')
+vi.mock('@/components/modal/store/useModalActions', () => ({
   useModalActions: (id: string) =>
-    id === ModalIds.SetPasswordForm ? { close: mockCloseModal } : {},
+    id === ModalIds.SetPasswordForm ? { close: mockCloseModal, open: vi.fn() } : {},
 }))
 
 describe('SetPasswordForm Component', () => {
   beforeEach(() => {
     vi.clearAllMocks()
     mockAuthError.message = ''
-    mockAuthError.fieldsValidations = {}
+    mockAuthError.fieldErrors = { newPassword: '', email: '' }
   })
 
   const renderComponent = () => render(<SetPasswordForm />)
@@ -78,12 +85,12 @@ describe('SetPasswordForm Component', () => {
   })
 
   it('displays backend error message as an alert', () => {
-    mockAuthError.message = 'Password is too weak'
+    mockAuthError.message = 'Backend error message'
 
     renderComponent()
 
     const alert = screen.getByRole('alert')
     expect(alert).toBeInTheDocument()
-    expect(alert).toHaveTextContent(/password is too weak/i)
+    expect(alert).toHaveTextContent(/Backend error message/i)
   })
 })

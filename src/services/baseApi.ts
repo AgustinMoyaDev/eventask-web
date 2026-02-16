@@ -13,7 +13,8 @@ import { HTTP_STATUS } from '@/types/dtos/api/httpStatus'
 
 import type { RootState } from '@/store/store'
 import { setCredentials } from '@/auth/store/authActions'
-import { setCsrfToken } from '@/store/slices/security/security'
+import { setCsrfToken } from '@/store/slices/security/securitySlice'
+import { selectCsrfToken } from '@/store/slices/security/selectors'
 
 import { getEnvVariables } from '@/helpers/getEnvVariables'
 import { ApiResponse } from '@/types/dtos/api/response'
@@ -162,7 +163,7 @@ function executeRefresh(
  */
 async function ensureCsrfToken(api: BaseQueryApi, extraOptions: Parameters<BaseQueryFn>[2]) {
   const state = api.getState() as RootState
-  const currentToken = state.security.csrfToken
+  const currentToken = selectCsrfToken(state)
 
   if (currentToken) return
 
@@ -186,7 +187,7 @@ const baseQuery = fetchBaseQuery({
   baseUrl: VITE_API_URL,
   prepareHeaders: (headers, { getState }) => {
     const accessToken = (getState() as RootState).auth.accessToken
-    const csrfToken = (getState() as RootState).security.csrfToken
+    const csrfToken = selectCsrfToken(getState() as RootState)
 
     if (accessToken) headers.set('authorization', `Bearer ${accessToken}`)
     if (csrfToken) headers.set('x-csrf-token', csrfToken)

@@ -5,7 +5,7 @@ import type { Category } from './category'
 
 export const TASK_STATUS = {
   PENDING: 'pending',
-  PROGRESS: 'progress',
+  PROGRESS: 'in-progress',
   COMPLETED: 'completed',
 } as const
 

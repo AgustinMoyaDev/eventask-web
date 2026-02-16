@@ -6,7 +6,7 @@ import { WEEKDAYS } from '../constants/calendar.constants'
 
 import { computeCalendar } from '@/calendar/utils/computeCalendar'
 
-const now = dayjs()
+const NOW = dayjs()
 export interface CalendarDayState {
   month: number
   year: number
@@ -15,14 +15,14 @@ export interface CalendarDayState {
 }
 
 const initialState: CalendarDayState = {
-  month: now.month(),
-  year: now.year(),
-  calendarDays: computeCalendar(now.month(), now.year()),
+  month: NOW.month(),
+  year: NOW.year(),
+  calendarDays: computeCalendar(NOW.month(), NOW.year()),
   activeCalendarDay: {
-    day: now.date(),
-    dayName: WEEKDAYS[now.day()],
-    month: now.month(),
-    year: now.year(),
+    day: NOW.date(),
+    dayName: WEEKDAYS[NOW.day()],
+    month: NOW.month(),
+    year: NOW.year(),
     type: CALENDAR_DAY_TYPE.CURRENT,
   },
 }

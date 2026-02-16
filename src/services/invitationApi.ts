@@ -14,7 +14,7 @@ export const invitationApi = baseApi.injectEndpoints({
         method: 'POST',
         body: { email },
       }),
-      invalidatesTags: ['User'], // Refresh contacts after sending
+      invalidatesTags: ['User'],
     }),
     /**
      * Accept a pending invitation and create bidirectional contact relationship

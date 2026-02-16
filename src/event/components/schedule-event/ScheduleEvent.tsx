@@ -5,7 +5,7 @@ import { ScheduleEventProps } from './schedule-event.types'
 import { USER_DRAG_TYPES } from '@/user/constants/user-drag.constants'
 import { EVENT_DRAG_CONSTANTS } from '@/event/constants/event-drag.constants'
 
-import { useEventActions } from '@/store/hooks/useEventActions'
+import { useEventMutations } from '@/event/store/useEventMutations'
 
 import { Loader } from '@/components/loaders/loader/Loader'
 import { Button } from '@/components/button/Button'
@@ -37,7 +37,7 @@ export const ScheduleEvent = ({
   const offsetHours = start.hour() + start.minute() / 60 - initialLocation
   const top = offsetHours * rowHeight + labelHeight / 2
   const height = duration * rowHeight
-  const { updateEventStatus, updatingStatus } = useEventActions()
+  const { updateEventStatus, updatingStatus } = useEventMutations()
   const isSmallEvent = duration < 2.5
 
   const handleToggle = () => {

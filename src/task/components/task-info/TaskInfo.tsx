@@ -10,8 +10,9 @@ import { EVENT_STATUS } from '@/types/entities/event'
 
 import { PROGRESS_STATUS } from './helpers/getColorChip'
 
-import { useTaskActions } from '@/store/hooks/useTaskActions'
-import { useModalActions } from '@/store/hooks/useModalActions'
+import { useTaskMutations } from '@/task/store/useTaskMutations'
+import { useModalState } from '@/components/modal/store/useModalState'
+import { useModalActions } from '@/components/modal/store/useModalActions'
 
 import { UserAvatarList } from '@/user/components/user-avatar-list/UserAvatarList'
 import { ModalIds } from '@/components/modal/modal.types'
@@ -25,14 +26,15 @@ import { LinearProgress } from '@/components/linear-progress/LinearProgress'
 
 import styles from './TaskInfo.module.css'
 
-interface Props {
+interface TaskInfoProps {
   task: Task
 }
 
-export const TaskInfo = ({ task }: Props) => {
+export const TaskInfo = ({ task }: TaskInfoProps) => {
   const navigate = useNavigate()
-  const { isOpen, open, close } = useModalActions(ModalIds.Confirm)
-  const { deleting, deleteTask } = useTaskActions()
+  const { isOpen } = useModalState(ModalIds.Confirm)
+  const { open, close } = useModalActions(ModalIds.Confirm)
+  const { deleting, deleteTask } = useTaskMutations()
   const {
     id,
     title,
@@ -49,7 +51,6 @@ export const TaskInfo = ({ task }: Props) => {
   const totalEvents = events?.length ?? 0
   const completeEvents = events?.filter(e => e.status === EVENT_STATUS.COMPLETED).length ?? 0
   const eventProgresTask = `${completeEvents}/${totalEvents}`
-
   const chipConfig = PROGRESS_STATUS[status]
 
   const handleConfirmDelete = async () => {

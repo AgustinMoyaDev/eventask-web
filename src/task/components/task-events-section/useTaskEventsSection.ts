@@ -2,8 +2,9 @@ import { useState, useCallback } from 'react'
 
 import { ModalIds } from '@/components/modal/modal.types'
 
-import { useEventActions } from '@/store/hooks/useEventActions'
-import { useModalActions } from '@/store/hooks/useModalActions'
+import { useEventMutations } from '@/event/store/useEventMutations'
+import { useModalState } from '@/components/modal/store/useModalState'
+import { useModalActions } from '@/components/modal/store/useModalActions'
 
 import { CreateEventDto, UpdateEventDto } from '@/types/dtos/event.dto'
 import { EventFormModel } from '@/types/models/event.model'
@@ -14,8 +15,9 @@ import { EventFormModel } from '@/types/models/event.model'
  */
 export const useTaskEventsSection = (taskId: string) => {
   const [editingEvent, setEditingEvent] = useState<EventFormModel | null>(null)
-  const { isOpen, open, close } = useModalActions(ModalIds.EventForm)
-  const { createEvent, updateEvent, deleteEvent, creating, updating } = useEventActions()
+  const { isOpen } = useModalState(ModalIds.EventForm)
+  const { open, close } = useModalActions(ModalIds.EventForm)
+  const { createEvent, updateEvent, deleteEvent, creating, updating } = useEventMutations()
 
   const handleOpenNew = useCallback(() => {
     setEditingEvent(null)

@@ -27,10 +27,10 @@ export const ResetPasswordForm = ({ token, onSuccess }: ResetPasswordFormProps) 
     errors,
     isFormValid: isValid,
     resetPasswordLoading,
-    resetPasswordAuthError,
+    resetPasswordError,
   } = useResetPasswordForm(token, onSuccess)
 
-  const displayBackendError = resetPasswordAuthError?.message
+  const displayBackendError = resetPasswordError?.message
 
   return (
     <div className={styles.formContainer}>
@@ -47,7 +47,7 @@ export const ResetPasswordForm = ({ token, onSuccess }: ResetPasswordFormProps) 
           required
           autoComplete="new-password"
           {...register('password')}
-          error={errors.password?.message ?? resetPasswordAuthError?.fieldsValidations?.newPassword}
+          error={errors.password?.message ?? resetPasswordError?.fieldErrors?.newPassword}
           initialStateIcon={EyeIcon}
           finalStateIcon={EyeOffIcon}
         />

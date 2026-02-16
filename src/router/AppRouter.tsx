@@ -10,8 +10,8 @@ import { AuthLayout } from '@/auth/layout/AuthLayout'
 import { CalendarLayout } from '@/calendar/layouts/CalendarLayout'
 import { RootLayout } from '@/layouts/RootLayout'
 
-import { useAuthState } from '@/auth/hooks/useAuthState'
-import { useAuthMutations } from '@/auth/hooks/useAuthMutations'
+import { useAuthState } from '@/auth/store/useAuthState'
+import { useAuthMutations } from '@/auth/store/useAuthMutations'
 
 import { useTransitionPage } from '@/hooks/useTransitionPage'
 

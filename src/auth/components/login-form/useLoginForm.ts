@@ -2,10 +2,10 @@ import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 
 import { loginSchema, type LoginSchemaType } from '@/helpers/form-validations/authSchemas'
-import { useAuthMutations } from '@/auth/hooks/useAuthMutations'
+import { useAuthMutations } from '@/auth/store/useAuthMutations'
 
 export function useLoginForm() {
-  const { login, loginLoading, loginAuthError } = useAuthMutations()
+  const { login, loginLoading, loginError } = useAuthMutations()
 
   const {
     register,
@@ -29,7 +29,7 @@ export function useLoginForm() {
     formErrors: errors,
     isFormValid: isValid,
     loginLoading,
-    loginAuthError,
+    loginError,
     handleSubmit: handleSubmit(onSubmit),
   }
 }

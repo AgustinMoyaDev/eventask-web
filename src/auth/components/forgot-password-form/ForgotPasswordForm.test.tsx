@@ -6,13 +6,13 @@ import { MemoryRouter } from 'react-router-dom'
 import { ForgotPasswordForm } from './ForgotPasswordForm'
 
 const mockForgotPassword = vi.fn()
-const mockAuthError = { message: '', fieldsValidations: {} }
+const mockAuthError = { message: '', fieldErrors: {} }
 
-vi.mock('@/auth/hooks/useAuthMutations', () => ({
+vi.mock('@/auth/store/useAuthMutations', () => ({
   useAuthMutations: () => ({
     forgotPassword: mockForgotPassword,
     forgotPasswordLoading: false,
-    forgotPasswordAuthError: mockAuthError,
+    forgotPasswordError: mockAuthError,
   }),
 }))
 
@@ -22,7 +22,7 @@ describe('ForgotPasswordForm Component', () => {
   beforeEach(() => {
     vi.clearAllMocks()
     mockAuthError.message = ''
-    mockAuthError.fieldsValidations = {}
+    mockAuthError.fieldErrors = {}
   })
 
   const renderComponent = () => {

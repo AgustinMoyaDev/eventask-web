@@ -1,11 +1,15 @@
 import { useMemo } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { useNavigate } from 'react-router-dom'
 
 import { taskSchema, TaskSchemaType } from '@/task/pages/task-create-page/taskSchema'
-import { useTaskActions } from '@/store/hooks/useTaskActions'
-import { useCategoryActions } from '@/store/hooks/useCategoryActions'
+import { useTaskMutations } from '@/task/store/useTaskMutations'
+import {
+  useGetCategoriesWithTaskCountQuery,
+  useCreateCategoryMutation,
+} from '@/services/categoryApi'
+import { parseRTKError } from '@/services/utils/parseRTKError'
 
 /**
  * Custom hook for task creation form logic
@@ -13,14 +17,11 @@ import { useCategoryActions } from '@/store/hooks/useCategoryActions'
  */
 export const useTaskCreateForm = () => {
   const navigate = useNavigate()
-  const { createTask, creating, createTaskError } = useTaskActions()
-  const {
-    categoriesWithTaskCount,
-    fetching: fetchingCategories,
-    creating: creatingCategory,
-    createCategory,
-    createCategoryError,
-  } = useCategoryActions()
+  const { createTask, creating, createTaskError } = useTaskMutations()
+  const { data: categoriesWithTaskCount = [], isFetching: fetchingCategories } =
+    useGetCategoriesWithTaskCountQuery()
+  const [createCategory, { isLoading, error: createCategoryRawError }] = useCreateCategoryMutation()
+  const createCategoryError = parseRTKError(createCategoryRawError)
 
   const {
     register,
@@ -65,9 +66,9 @@ export const useTaskCreateForm = () => {
     }
   }
 
-  const backendError = createTaskError?.message || createCategoryError?.message
-  const taskValidationError = createTaskError?.fieldsValidations
-  const categoryValidationError = createCategoryError?.fieldsValidations
+  const backendError = createTaskError?.message ?? createCategoryError?.message
+  const taskValidationError = createTaskError?.fieldErrors
+  const categoryValidationError = createCategoryError?.fieldErrors
 
   return {
     // RHF
@@ -81,7 +82,7 @@ export const useTaskCreateForm = () => {
     handleCreateCategory,
     isCreating: creating,
     isFetchingCategories: fetchingCategories,
-    isCreatingCategory: creatingCategory,
+    isCreatingCategory: isLoading,
     backendError,
     taskValidationError,
     categoryValidationError,

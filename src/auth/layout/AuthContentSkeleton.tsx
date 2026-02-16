@@ -23,15 +23,20 @@ export const AuthContentSkeleton = () => {
           marginTop: '1rem',
         }}
       >
-        <Skeleton width="5rem" height="5rem" styles={{ alignSelf: 'center' }} />
+        <Skeleton width="5rem" height="5rem" stylesInline={{ alignSelf: 'center' }} />
 
         <Skeleton width="100%" height="3.5rem" borderRadius="8px" />
         <Skeleton width="100%" height="3.5rem" borderRadius="8px" />
         <Skeleton width="100%" height="3.5rem" borderRadius="8px" />
         <Skeleton width="100%" height="3.5rem" borderRadius="8px" />
-        <Skeleton width="100%" height="3rem" borderRadius="2rem" styles={{ marginTop: '1rem' }} />
+        <Skeleton
+          width="100%"
+          height="3rem"
+          borderRadius="2rem"
+          stylesInline={{ marginTop: '1rem' }}
+        />
 
-        <Skeleton width="8rem" height="2rem" styles={{ alignSelf: 'center' }} />
+        <Skeleton width="8rem" height="2rem" stylesInline={{ alignSelf: 'center' }} />
       </div>
     </div>
   )

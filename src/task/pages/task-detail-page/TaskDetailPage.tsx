@@ -16,7 +16,7 @@ import { DroppableData } from '@/components/drag-n-drop/types/drag-n-drop.types'
 import { ParticipantDragData } from '@/user/types/user-drag.types'
 
 import { getEventsSegments } from '@/event/helpers/computedEvents'
-import { useEventActions } from '@/store/hooks/useEventActions'
+import { useEventMutations } from '@/event/store/useEventMutations'
 import { useFetchTaskByIdQuery } from '@/services/taskApi'
 
 import { DragOverlayContent } from '@/components/drag-n-drop/drag-overlay/DragOverlayContent'
@@ -29,7 +29,7 @@ import { TaskDetailSkeleton } from './TaskDetailSkeleton'
 const TaskDetailPage = () => {
   const { id } = useParams<{ id: TaskId }>()
   const { data: task, isLoading, isError, refetch } = useFetchTaskByIdQuery(id ?? skipToken)
-  const { assignCollaborator, removeCollaborator } = useEventActions()
+  const { assignCollaborator, removeCollaborator } = useEventMutations()
 
   const [selectedDate, setSelectedDate] = useState(dayjs())
   const isToday = selectedDate.isSame(dayjs(), 'day')

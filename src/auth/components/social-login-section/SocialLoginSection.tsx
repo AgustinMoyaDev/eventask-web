@@ -1,11 +1,11 @@
 import { type CredentialResponse, GoogleLogin } from '@react-oauth/google'
 
-import { useAuthMutations } from '@/auth/hooks/useAuthMutations'
+import { useAuthMutations } from '@/auth/store/useAuthMutations'
 
 import styles from './SocialLoginSection.module.css'
 
 export const SocialLoginSection = () => {
-  const { loginWithGoogle, loginWithGoogleAuthError } = useAuthMutations()
+  const { loginWithGoogle, loginWithGoogleError } = useAuthMutations()
 
   const handleGoogleSuccess = async (credentialResponse: CredentialResponse) => {
     if (!credentialResponse.credential) {
@@ -19,11 +19,11 @@ export const SocialLoginSection = () => {
     console.error('Google log in failed')
   }
 
+  const displayBackendError = loginWithGoogleError?.message
+
   return (
     <>
-      {loginWithGoogleAuthError?.message && (
-        <p className={styles.loginError}>{loginWithGoogleAuthError.message}</p>
-      )}
+      {displayBackendError && <p className={styles.loginError}>{displayBackendError}</p>}
 
       <div className={styles.loginSocial}>
         <p className={styles.loginSocialTitle}>Or access with:</p>

@@ -1,7 +1,8 @@
 import { ModalIds } from '@/components/modal/modal.types'
 import { User } from '@/types/entities/user'
 
-import { useModalActions } from '@/store/hooks/useModalActions'
+import { useModalState } from '@/components/modal/store/useModalState'
+import { useModalActions } from '@/components/modal/store/useModalActions'
 
 import { Chip } from '@/components/chip/Chip'
 import { Button } from '@/components/button/Button'
@@ -17,16 +18,11 @@ interface SecuritySettingsProps {
 }
 
 export const SecuritySettings = ({ user }: SecuritySettingsProps) => {
-  const {
-    isOpen: isSetOpen,
-    open: openSet,
-    close: closeSet,
-  } = useModalActions(ModalIds.SetPasswordForm)
-  const {
-    isOpen: isChangeOpen,
-    open: openChange,
-    close: closeChange,
-  } = useModalActions(ModalIds.ChangePasswordForm)
+  const { isOpen: isSetOpen } = useModalState(ModalIds.SetPasswordForm)
+  const { open: openSet, close: closeSet } = useModalActions(ModalIds.SetPasswordForm)
+
+  const { isOpen: isChangeOpen } = useModalState(ModalIds.ChangePasswordForm)
+  const { open: openChange, close: closeChange } = useModalActions(ModalIds.ChangePasswordForm)
 
   return (
     <section>

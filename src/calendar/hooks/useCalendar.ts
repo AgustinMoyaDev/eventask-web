@@ -7,7 +7,7 @@ import { CalendarDayWithEvents } from '../types/calendar.types'
 
 import { computeCalendar } from '@/calendar/utils/computeCalendar'
 import { useCalendarActions } from '@/calendar/hooks/useCalendarActions'
-import { useEventsByMonth } from '@/event/hooks/useEventsByMonth'
+import { useEventsByMonthQuery } from '@/event/store/useEventQueries'
 
 /**
  * Custom hook for calendar functionality
@@ -25,7 +25,7 @@ import { useEventsByMonth } from '@/event/hooks/useEventsByMonth'
  */
 export const useCalendar = () => {
   const { activeCalendarDay, resetActiveCalendarDay, year, month } = useCalendarActions()
-  const { isFetching: fetchingMonthlyEvents, events } = useEventsByMonth(year, month + 1)
+  const { isFetching: fetchingMonthlyEvents, events } = useEventsByMonthQuery(year, month + 1)
 
   // Generate the basic 42 CalendarDay grid
   const baseDays = useMemo(() => computeCalendar(month, year), [month, year])

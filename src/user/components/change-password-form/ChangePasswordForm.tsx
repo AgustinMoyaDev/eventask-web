@@ -13,11 +13,11 @@ export const ChangePasswordForm = () => {
     formErrors,
     isFormValid,
     changePasswordLoading,
-    changePasswordAuthError,
+    changePasswordError,
     handleSubmit,
   } = useChangePasswordForm()
 
-  const displayBackendError = changePasswordAuthError?.message
+  const displayBackendError = changePasswordError?.message
 
   return (
     <div className={styles.changePasswordContainer}>
@@ -41,8 +41,7 @@ export const ChangePasswordForm = () => {
           autoComplete="current-password"
           {...register('currentPassword')}
           error={
-            formErrors.currentPassword?.message ??
-            changePasswordAuthError?.fieldsValidations?.currentPassword
+            formErrors.currentPassword?.message ?? changePasswordError?.fieldErrors?.currentPassword
           }
           initialStateIcon={EyeIcon}
           finalStateIcon={EyeOffIcon}
@@ -53,10 +52,7 @@ export const ChangePasswordForm = () => {
           required
           autoComplete="new-password"
           {...register('newPassword')}
-          error={
-            formErrors.newPassword?.message ??
-            changePasswordAuthError?.fieldsValidations?.newPassword
-          }
+          error={formErrors.newPassword?.message ?? changePasswordError?.fieldErrors?.newPassword}
           initialStateIcon={EyeIcon}
           finalStateIcon={EyeOffIcon}
         />
