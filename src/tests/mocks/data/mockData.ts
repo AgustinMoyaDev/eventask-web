@@ -71,19 +71,20 @@ export const MOCK_TASKS: Task[] = createFakeTasks(10, {
  * Extract all events from mock tasks for event-specific endpoints
  * These are the same events embedded in MOCK_TASKS
  */
-export const MOCK_EVENTS: Event[] = MOCK_TASKS.flatMap(task =>
-  task.events.map(event => ({
-    ...event,
-    taskId: task.id,
-    task,
-  }))
+export const MOCK_EVENTS: Event[] = MOCK_TASKS.flatMap(
+  task =>
+    task.events?.map(event => ({
+      ...event,
+      taskId: task.id,
+      task,
+    })) ?? []
 )
 
 /**
  * Calculates how many tasks use each category
  */
 export const MOCK_CATEGORIES_TASK_COUNT: CategoryWithTaskCount[] = MOCK_CATEGORIES.map(category => {
-  const taskCount = MOCK_TASKS.filter(task => task.category.name === category.name).length
+  const taskCount = MOCK_TASKS.filter(task => task.category?.name === category.name).length
   return {
     ...category,
     taskCount,

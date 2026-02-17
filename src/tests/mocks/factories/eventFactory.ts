@@ -207,8 +207,8 @@ export function createFakeEvent(overwrites: Partial<Event> = {}, availableUsers?
     notes = faker.lorem.paragraph(),
     taskId = faker.string.uuid(),
     task = undefined,
-    createdAt = faker.date.past(),
-    updatedAt = faker.date.recent(),
+    createdAt = faker.date.past().toISOString(),
+    updatedAt = faker.date.recent().toISOString(),
   } = overwrites
 
   return {
@@ -221,7 +221,7 @@ export function createFakeEvent(overwrites: Partial<Event> = {}, availableUsers?
     collaborators,
     taskId,
     task,
-    createdBy: creator,
+    createdBy: creator.id,
     createdAt,
     updatedAt,
   }

@@ -1,7 +1,8 @@
 import { delay, http, HttpResponse } from 'msw'
 
-import { Event } from '@/types/entities/event'
+import { Event, EVENT_STATUS } from '@/types/entities/event'
 import {
+  CreateEventDto,
   EventCalendarResponseDto,
   UpdateEventDto,
   UpdateEventStatusDto,
@@ -70,6 +71,29 @@ export const eventHandlers = [
     return HttpResponse.json({ ...response, events: cleanItems })
   }),
   /**
+   * POST /api/events - Create new event
+   */
+  http.post('*/api/events', async ({ request }) => {
+    const body = (await request.json()) as CreateEventDto
+
+    const newEvent = {
+      id: crypto.randomUUID(),
+      ...body,
+      status: EVENT_STATUS.PENDING,
+      createdAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString(),
+      createdBy: 'mock-logged-user-id',
+    }
+
+    const taskFound = MOCK_TASKS.find(t => t.id === body.taskId)
+    taskFound?.events?.push(newEvent)
+
+    MOCK_EVENTS.push(newEvent)
+
+    return HttpResponse.json(newEvent)
+  }),
+
+  /**
    * PUT /api/events/:id - Update event
    */
   http.put('*/api/events/:id', async ({ request, params }) => {
@@ -90,7 +114,7 @@ export const eventHandlers = [
       start: body.start,
       end: body.end,
       notes: body.notes,
-      updatedAt: new Date(),
+      updatedAt: new Date().toISOString(),
     }
 
     MOCK_EVENTS[eventIndex] = updatedEvent
@@ -100,6 +124,9 @@ export const eventHandlers = [
       const taskIndex = MOCK_TASKS.findIndex(t => t.id === existingEvent.taskId)
       if (taskIndex !== -1) {
         const task = MOCK_TASKS[taskIndex]
+
+        if (!task.events) return HttpResponse.json(updatedEvent)
+
         const taskEventIndex = task.events.findIndex(e => e.id === id)
         if (taskEventIndex !== -1) {
           task.events[taskEventIndex] = updatedEvent
@@ -108,7 +135,9 @@ export const eventHandlers = [
       }
     }
 
-    return HttpResponse.json(updatedEvent)
+    const { task: _, ...eventResponse } = updatedEvent
+
+    return HttpResponse.json(eventResponse)
   }),
   /**
    * PATCH /api/events/:id/status - Update event status only
@@ -129,7 +158,7 @@ export const eventHandlers = [
     const updatedEvent: Event = {
       ...existingEvent,
       status: body.status,
-      updatedAt: new Date(),
+      updatedAt: new Date().toISOString(),
     }
 
     MOCK_EVENTS[eventIndex] = updatedEvent
@@ -139,7 +168,11 @@ export const eventHandlers = [
       const taskIndex = MOCK_TASKS.findIndex(t => t.id === existingEvent.taskId)
       if (taskIndex !== -1) {
         const task = MOCK_TASKS[taskIndex]
+
+        if (!task.events) return HttpResponse.json(updatedEvent)
+
         const taskEventIndex = task.events.findIndex(e => e.id === id)
+
         if (taskEventIndex !== -1) {
           task.events[taskEventIndex] = updatedEvent
 
@@ -177,6 +210,9 @@ export const eventHandlers = [
       const taskIndex = MOCK_TASKS.findIndex(t => t.id === event.taskId)
       if (taskIndex !== -1) {
         const task = MOCK_TASKS[taskIndex]
+
+        if (!task.events || !task.eventsIds) return HttpResponse.json(event)
+
         task.events = task.events.filter(e => e.id !== id)
         task.eventsIds = task.eventsIds.filter(eId => eId !== id)
         task.duration = calculateTaskDuration(task.events)
@@ -223,6 +259,9 @@ export const eventHandlers = [
       const taskIndex = MOCK_TASKS.findIndex(t => t.id === event.taskId)
       if (taskIndex !== -1) {
         const task = MOCK_TASKS[taskIndex]
+
+        if (!task.events) return HttpResponse.json(null, { status: 200 })
+
         const taskEventIndex = task.events.findIndex(e => e.id === eventId)
         if (taskEventIndex !== -1) {
           task.events[taskEventIndex] = event
@@ -268,6 +307,9 @@ export const eventHandlers = [
       const taskIndex = MOCK_TASKS.findIndex(t => t.id === event.taskId)
       if (taskIndex !== -1) {
         const task = MOCK_TASKS[taskIndex]
+
+        if (!task.events) return HttpResponse.json(null, { status: 200 })
+
         const taskEventIndex = task.events.findIndex(e => e.id === eventId)
         if (taskEventIndex !== -1) {
           task.events[taskEventIndex] = event

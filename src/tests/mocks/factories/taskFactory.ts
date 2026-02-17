@@ -238,8 +238,8 @@ export function createFakeTask(overwrites: Partial<Task> = {}): Task {
     duration = calculateTaskDuration(mockEvents),
     events = mockEvents,
     eventsIds = mockEvents.map(e => e.id),
-    createdAt = faker.date.past(),
-    updatedAt = faker.date.recent(),
+    createdAt = faker.date.past().toISOString(),
+    updatedAt = faker.date.recent().toISOString(),
   } = overwrites
 
   return {
