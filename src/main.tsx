@@ -6,7 +6,7 @@ import EvenTask from './EvenTask'
 import './index.css'
 
 async function enableMocking() {
-  if (import.meta.env.MODE === 'development' && import.meta.env.MODE === 'demo') {
+  if (import.meta.env.MODE === 'development' || import.meta.env.MODE === 'demo') {
     console.log(`[MSW] Mock API enabled - Running in ${import.meta.env.MODE} mode`)
     const { worker } = await import('./tests/mocks/browser')
 
