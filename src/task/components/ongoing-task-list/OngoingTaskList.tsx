@@ -2,7 +2,7 @@ import { useMemo } from 'react'
 import clsx from 'clsx'
 
 import { useSearch } from '@/context/search/SearchContext'
-import { useTaskQueries } from '@/task/store/useTaskQueries'
+import { useTaskQueries } from '@/task/store/hooks/useTaskQueries'
 
 import { PlusIcon } from '@/components/icons/Icons'
 import { ScrollableContainer } from '@/components/scrollable-container/ScrollableContainer'

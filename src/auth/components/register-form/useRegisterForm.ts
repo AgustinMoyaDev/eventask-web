@@ -1,7 +1,7 @@
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 
-import { useAuthMutations } from '@/auth/store/useAuthMutations'
+import { useAuthMutations } from '@/auth/store/hooks/useAuthMutations'
 import { registerSchema, type RegisterSchemaType } from '@/helpers/form-validations/authSchemas'
 
 export function useRegisterForm() {

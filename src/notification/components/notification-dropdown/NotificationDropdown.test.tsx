@@ -15,11 +15,11 @@ vi.mock('@/services/baseApi', () => ({
   },
 }))
 
-vi.mock('@/notification/store/useNotificationMutations')
-vi.mock('@/notification/store/useNotificationQueries')
+vi.mock('@/notification/store/hooks/useNotificationMutations')
+vi.mock('@/notification/store/hooks/useNotificationQueries')
 
-import { useNotificationMutations } from '@/notification/store/useNotificationMutations'
-import { useNotificationQueries } from '@/notification/store/useNotificationQueries'
+import { useNotificationMutations } from '@/notification/store/hooks/useNotificationMutations'
+import { useNotificationQueries } from '@/notification/store/hooks/useNotificationQueries'
 
 vi.mock('@/notification/components/notification-list/NotificationList', () => ({
   NotificationList: vi.fn(() => <div data-testid="notification-list" />),

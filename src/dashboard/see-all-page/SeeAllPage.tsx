@@ -7,12 +7,12 @@ import { ColumnConfig, SortConfig, SortDirection, ViewType } from '@/components/
 import { VIEW_CONFIGS, ViewDetail } from '@/components/table/helpers/viewConfigs'
 import { sortData } from '@/components/table/helpers/sortingData'
 
-import { useCategoryQueries } from '@/category/store/useCategoryQueries'
+import { useCategoryQueries } from '@/category/store/hooks/useCategoryQueries'
 
-import { useTaskQueries } from '@/task/store/useTaskQueries'
-import { useNotificationQueries } from '@/notification/store/useNotificationQueries'
-import { useEventQueries } from '@/event/store/useEventQueries'
-import { useUserContactsQueries } from '@/user/store/useUserContactsQueries'
+import { useTaskQueries } from '@/task/store/hooks/useTaskQueries'
+import { useNotificationQueries } from '@/notification/store/hooks/useNotificationQueries'
+import { useEventQueries } from '@/event/store/hooks/useEventQueries'
+import { useUserContactsQueries } from '@/user/store/hooks/useUserContactsQueries'
 
 import { Button } from '@/components/button/Button'
 import { Table } from '@/components/table/Table'

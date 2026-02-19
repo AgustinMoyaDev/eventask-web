@@ -4,7 +4,7 @@ import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 
 import { taskSchema, TaskSchemaType } from '@/task/pages/task-create-page/taskSchema'
-import { useTaskMutations } from '@/task/store/useTaskMutations'
+import { useTaskMutations } from '@/task/store/hooks/useTaskMutations'
 import {
   useGetCategoriesWithTaskCountQuery,
   useCreateCategoryMutation,

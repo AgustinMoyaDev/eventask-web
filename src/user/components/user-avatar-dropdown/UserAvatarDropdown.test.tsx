@@ -7,18 +7,18 @@ import { TASK_STATUS } from '@/types/entities/task'
 import { UserAvatarDropdown } from './UserAvatarDropdown'
 
 // Define global mocks for the hooks
-vi.mock('@/auth/store/useAuthState')
-vi.mock('@/auth/store/useAuthMutations')
-vi.mock('@/user/store/useUserProfileQueries')
-vi.mock('@/user/store/useUserContactsQueries')
-vi.mock('@/task/store/useTaskQueries')
+vi.mock('@/auth/store/hooks/useAuthState')
+vi.mock('@/auth/store/hooks/useAuthMutations')
+vi.mock('@/user/store/hooks/useUserProfileQueries')
+vi.mock('@/user/store/hooks/useUserContactsQueries')
+vi.mock('@/task/store/hooks/useTaskQueries')
 
 // Import mocked references (intercepted above)
-import { useAuthState } from '@/auth/store/useAuthState'
-import { useAuthMutations } from '@/auth/store/useAuthMutations'
-import { useUserProfileQueries } from '@/user/store/useUserProfileQueries'
-import { useUserContactsQueries } from '@/user/store/useUserContactsQueries'
-import { useTaskQueries } from '@/task/store/useTaskQueries'
+import { useAuthState } from '@/auth/store/hooks/useAuthState'
+import { useAuthMutations } from '@/auth/store/hooks/useAuthMutations'
+import { useUserProfileQueries } from '@/user/store/hooks/useUserProfileQueries'
+import { useUserContactsQueries } from '@/user/store/hooks/useUserContactsQueries'
+import { useTaskQueries } from '@/task/store/hooks/useTaskQueries'
 
 // --- Auxiliary mocks --- //
 const mockLogout = vi.fn()

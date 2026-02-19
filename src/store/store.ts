@@ -5,14 +5,9 @@ import { baseApi } from '../services/baseApi'
 import { rootReducer } from './rootReducer'
 import { listenerMiddleware } from './middlewares/listenerMiddleware'
 
-// Custom middlewares imports
-import './middlewares/categoryToastMiddleware'
-import './middlewares/taskToastMiddleware'
-import './middlewares/userToastMiddleware'
-import './middlewares/invitationToastMiddleware'
-import './middlewares/notificationToastMiddleware'
-import './middlewares/eventToastMiddleware'
-import './middlewares/authToastMiddleware'
+import { registerToastListeners } from './middlewares/registerToastListeners'
+
+registerToastListeners()
 
 export const store = configureStore({
   reducer: rootReducer,
@@ -20,9 +15,17 @@ export const store = configureStore({
     getDefaultMiddleware({
       serializableCheck: false,
     })
-      // El listenerMiddleware para todos los startAppListening
+      /**
+       * Listener middleware for handling side effects in response to dispatched
+       * actions (e.g., showing toasts, clearing cache on logout)
+       */
       .prepend(listenerMiddleware.middleware)
-      // El middleware de RTK Query para cache y refetch automático
+      /**
+       * RTK Query middleware for caching, automatic refetching, and handling
+       * API lifecycle actions
+       * RTK Query middleware must be added after listenerMiddleware to ensure
+       * listeners can react to RTK Query actions
+       */
       .concat(baseApi.middleware),
 })
 

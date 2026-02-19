@@ -3,7 +3,7 @@ import { clsx } from 'clsx'
 import { ScrollableContainer } from '@/components/scrollable-container/ScrollableContainer'
 import { ButtonLink } from '@/components/button-link/ButtonLink'
 
-import { useCategoryQueries } from '@/category/store/useCategoryQueries'
+import { useCategoryQueries } from '@/category/store/hooks/useCategoryQueries'
 
 import { useSearch } from '@/context/search/SearchContext'
 

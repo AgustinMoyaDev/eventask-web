@@ -10,7 +10,7 @@ const mockChangePassword = vi.fn()
 const mockAuthError = { message: '', fieldErrors: {} }
 const mockCloseModal = vi.fn()
 
-vi.mock('@/auth/store/useAuthMutations', () => ({
+vi.mock('@/auth/store/hooks/useAuthMutations', () => ({
   useAuthMutations: () => ({
     changePassword: mockChangePassword,
     changePasswordLoading: false,

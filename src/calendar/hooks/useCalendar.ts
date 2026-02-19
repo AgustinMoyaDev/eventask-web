@@ -7,7 +7,7 @@ import { CalendarDayWithEvents } from '../types/calendar.types'
 
 import { computeCalendar } from '@/calendar/utils/computeCalendar'
 import { useCalendarActions } from '@/calendar/hooks/useCalendarActions'
-import { useEventsByMonthQuery } from '@/event/store/useEventQueries'
+import { useEventsByMonthQuery } from '@/event/store/hooks/useEventQueries'
 
 /**
  * Custom hook for calendar functionality

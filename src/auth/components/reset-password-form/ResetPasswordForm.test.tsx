@@ -10,7 +10,7 @@ import { ResetPasswordForm } from './ResetPasswordForm'
 const mockResetPassword = vi.fn()
 const mockAuthError = { message: '', fieldErrors: {} }
 
-vi.mock('@/auth/store/useAuthMutations', () => ({
+vi.mock('@/auth/store/hooks/useAuthMutations', () => ({
   useAuthMutations: () => ({
     resetPassword: mockResetPassword,
     resetPasswordLoading: false,

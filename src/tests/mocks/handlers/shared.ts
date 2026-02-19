@@ -58,8 +58,8 @@ export function createPaginatedResponse<T>(
  * Used when event status changes to update parent task
  */
 export function recalculateTaskProgress(task: Task): { progress: number; status: TaskStatus } {
-  const completedEvents = task.events.filter(e => e.status === EVENT_STATUS.COMPLETED).length
-  const totalEvents = task.events.length
+  const completedEvents = task.events?.filter(e => e.status === EVENT_STATUS.COMPLETED).length ?? 0
+  const totalEvents = task.events?.length ?? 0
 
   if (totalEvents === 0) {
     return { progress: 0, status: TASK_STATUS.PENDING }

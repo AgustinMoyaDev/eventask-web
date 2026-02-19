@@ -6,7 +6,7 @@ import {
   ForgotPasswordSchemaType,
 } from '@/helpers/form-validations/authSchemas'
 
-import { useAuthMutations } from '@/auth/store/useAuthMutations'
+import { useAuthMutations } from '@/auth/store/hooks/useAuthMutations'
 
 /**
  * Custom hook for forgot password form logic.

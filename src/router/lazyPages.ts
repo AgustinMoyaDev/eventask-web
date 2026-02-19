@@ -9,7 +9,7 @@ export const ResetPasswordPage = React.lazy(
   () => import('../auth/pages/reset-password/ResetPasswordPage')
 )
 export const UserProfilePage = React.lazy(() => import('../user/pages/UserProfilePage'))
-export const HomePage = React.lazy(() => import('../task/pages/home-page/HomePage'))
+export const HomePage = React.lazy(() => import('../pages/home-page/HomePage'))
 export const TaskDetailPage = React.lazy(
   () => import('../task/pages/task-detail-page/TaskDetailPage')
 )

@@ -10,7 +10,7 @@ import { EVENT_STATUS } from '@/types/entities/event'
 
 import { PROGRESS_STATUS } from './helpers/getColorChip'
 
-import { useTaskMutations } from '@/task/store/useTaskMutations'
+import { useTaskMutations } from '@/task/store/hooks/useTaskMutations'
 import { useModalState } from '@/components/modal/store/useModalState'
 import { useModalActions } from '@/components/modal/store/useModalActions'
 

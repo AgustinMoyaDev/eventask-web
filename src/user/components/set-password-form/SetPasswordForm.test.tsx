@@ -16,7 +16,7 @@ const mockAuthError = {
 }
 const mockCloseModal = vi.fn()
 
-vi.mock('@/auth/store/useAuthMutations', () => ({
+vi.mock('@/auth/store/hooks/useAuthMutations', () => ({
   useAuthMutations: () => ({
     setPassword: mockSetPassword,
     setPasswordLoading: false,

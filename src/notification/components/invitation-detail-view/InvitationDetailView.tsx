@@ -3,7 +3,7 @@ import { InvitationDetailViewProps } from './invitation-detail-view.types'
 import { Button } from '@/components/button/Button'
 import { ArrowLeftIcon } from '@/components/icons/Icons'
 
-import { useInvitationMutations } from '@/invitation/store/useInvitationMutations'
+import { useInvitationMutations } from '@/invitation/store/hooks/useInvitationMutations'
 
 import styles from './InvitationDetailView.module.css'
 
