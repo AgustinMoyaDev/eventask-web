@@ -4,7 +4,7 @@ import dayjs from 'dayjs'
 import { Event, EVENT_STATUS } from '@/types/entities/event'
 
 import { Button } from '@/components/button/Button'
-import { useEventMutations } from '@/event/store/useEventMutations'
+import { useEventMutations } from '@/event/store/hooks/useEventMutations'
 import { CheckIcon, DeleteIcon, EditIcon } from '@/components/icons/Icons'
 
 import styles from './EventTimelineItem.module.css'

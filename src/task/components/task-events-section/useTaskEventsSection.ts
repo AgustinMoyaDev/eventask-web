@@ -2,7 +2,7 @@ import { useState, useCallback } from 'react'
 
 import { ModalIds } from '@/components/modal/modal.types'
 
-import { useEventMutations } from '@/event/store/useEventMutations'
+import { useEventMutations } from '@/event/store/hooks/useEventMutations'
 import { useModalState } from '@/components/modal/store/useModalState'
 import { useModalActions } from '@/components/modal/store/useModalActions'
 

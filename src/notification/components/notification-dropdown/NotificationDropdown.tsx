@@ -3,8 +3,8 @@ import { NotificationDropdownProps } from './notification-dropdown.types'
 import { NotificationIcon } from '@/components/icons/Icons'
 import { Dropdown } from '@/components/dropdown/Dropdown'
 
-import { useNotificationMutations } from '@/notification/store/useNotificationMutations'
-import { useNotificationQueries } from '@/notification/store/useNotificationQueries'
+import { useNotificationMutations } from '@/notification/store/hooks/useNotificationMutations'
+import { useNotificationQueries } from '@/notification/store/hooks/useNotificationQueries'
 import { NotificationList } from '../notification-list/NotificationList'
 
 import styles from './NotificationDropdown.module.css'

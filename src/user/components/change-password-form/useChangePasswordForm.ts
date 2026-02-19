@@ -3,7 +3,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 
 import { ModalIds } from '@/components/modal/modal.types'
 
-import { useAuthMutations } from '@/auth/store/useAuthMutations'
+import { useAuthMutations } from '@/auth/store/hooks/useAuthMutations'
 import { useModalActions } from '@/components/modal/store/useModalActions'
 
 import {

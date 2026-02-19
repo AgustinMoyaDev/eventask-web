@@ -3,10 +3,10 @@ import { useNavigate } from 'react-router-dom'
 
 import { TASK_STATUS } from '@/types/entities/task'
 
-import { useAuthState } from '@/auth/store/useAuthState'
-import { useAuthMutations } from '@/auth/store/useAuthMutations'
-import { useUserProfileQueries } from '@/user/store/useUserProfileQueries'
-import { useTaskQueries } from '@/task/store/useTaskQueries'
+import { useAuthState } from '@/auth/store/hooks/useAuthState'
+import { useAuthMutations } from '@/auth/store/hooks/useAuthMutations'
+import { useUserProfileQueries } from '@/user/store/hooks/useUserProfileQueries'
+import { useTaskQueries } from '@/task/store/hooks/useTaskQueries'
 
 import { LogoutIcon, UserSettingIcon } from '@/components/icons/Icons'
 import { Dropdown } from '@/components/dropdown/Dropdown'

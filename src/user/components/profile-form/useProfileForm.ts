@@ -2,9 +2,9 @@ import { useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 
-import { useUserProfileQueries } from '@/user/store/useUserProfileQueries'
-import { useUserProfileMutations } from '@/user/store/useUserProfileMutations'
-import { useInvitationMutations } from '@/invitation/store/useInvitationMutations'
+import { useUserProfileQueries } from '@/user/store/hooks/useUserProfileQueries'
+import { useUserProfileMutations } from '@/user/store/hooks/useUserProfileMutations'
+import { useInvitationMutations } from '@/invitation/store/hooks/useInvitationMutations'
 
 import { profileSchema, ProfileSchemaType } from './profileSchema'
 

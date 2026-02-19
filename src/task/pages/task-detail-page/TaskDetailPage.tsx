@@ -16,7 +16,7 @@ import { DroppableData } from '@/components/drag-n-drop/types/drag-n-drop.types'
 import { ParticipantDragData } from '@/user/types/user-drag.types'
 
 import { getEventsSegments } from '@/event/helpers/computedEvents'
-import { useEventMutations } from '@/event/store/useEventMutations'
+import { useEventMutations } from '@/event/store/hooks/useEventMutations'
 import { useFetchTaskByIdQuery } from '@/services/taskApi'
 
 import { DragOverlayContent } from '@/components/drag-n-drop/drag-overlay/DragOverlayContent'

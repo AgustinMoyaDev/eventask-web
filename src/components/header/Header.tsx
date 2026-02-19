@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import clsx from 'clsx'
 
-import { useAuthState } from '@/auth/store/useAuthState'
+import { useAuthState } from '@/auth/store/hooks/useAuthState'
 import { useSidebarContext } from '@/context/sidebar/SidebarContext'
 
 import { UserAvatarDropdown } from '@/user/components/user-avatar-dropdown/UserAvatarDropdown'

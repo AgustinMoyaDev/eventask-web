@@ -1,6 +1,6 @@
 import { type CredentialResponse, GoogleLogin } from '@react-oauth/google'
 
-import { useAuthMutations } from '@/auth/store/useAuthMutations'
+import { useAuthMutations } from '@/auth/store/hooks/useAuthMutations'
 
 import styles from './SocialLoginSection.module.css'
 

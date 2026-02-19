@@ -3,7 +3,7 @@ import { render, screen, fireEvent, waitFor } from '@testing-library/react'
 import { Notification, NOTIFICATION_TYPE } from '@/types/entities/notification'
 import { InvitationDetailViewProps } from './invitation-detail-view.types'
 
-import { useInvitationMutations } from '@/invitation/store/useInvitationMutations'
+import { useInvitationMutations } from '@/invitation/store/hooks/useInvitationMutations'
 import { ParsedRTKError } from '@/services/utils/parseRTKError'
 
 import { InvitationDetailView } from './InvitationDetailView'
@@ -16,7 +16,7 @@ vi.mock('@/services/baseApi', () => ({
   },
 }))
 
-vi.mock('@/invitation/store/useInvitationMutations')
+vi.mock('@/invitation/store/hooks/useInvitationMutations')
 
 const baseNotification: Notification = {
   id: 'notif-1',

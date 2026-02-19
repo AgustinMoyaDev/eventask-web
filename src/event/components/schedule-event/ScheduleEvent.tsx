@@ -5,7 +5,7 @@ import { ScheduleEventProps } from './schedule-event.types'
 import { USER_DRAG_TYPES } from '@/user/constants/user-drag.constants'
 import { EVENT_DRAG_CONSTANTS } from '@/event/constants/event-drag.constants'
 
-import { useEventMutations } from '@/event/store/useEventMutations'
+import { useEventMutations } from '@/event/store/hooks/useEventMutations'
 
 import { Loader } from '@/components/loaders/loader/Loader'
 import { Button } from '@/components/button/Button'

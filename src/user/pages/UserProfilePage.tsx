@@ -1,6 +1,6 @@
 import { clsx } from 'clsx'
 
-import { useUserProfileQueries } from '@/user/store/useUserProfileQueries'
+import { useUserProfileQueries } from '@/user/store/hooks/useUserProfileQueries'
 
 import { useFirstTimeUser } from '@/components/welcome-onboarding/useFirstTimeUser'
 import { Button } from '@/components/button/Button'

@@ -2,7 +2,7 @@ import { useCallback, useMemo } from 'react'
 
 import { User } from '@/types/entities/user'
 
-import { useUserProfileQueries } from '@/user/store/useUserProfileQueries'
+import { useUserProfileQueries } from '@/user/store/hooks/useUserProfileQueries'
 
 import { useAssignParticipantMutation, useRemoveParticipantMutation } from '@/services/taskApi'
 

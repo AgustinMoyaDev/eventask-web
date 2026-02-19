@@ -9,7 +9,7 @@ import { LoginForm } from './LoginForm'
 const mockLogin = vi.fn()
 const mockLoginError = { message: '', fieldErrors: {} }
 
-vi.mock('@/auth/store/useAuthMutations', () => ({
+vi.mock('@/auth/store/hooks/useAuthMutations', () => ({
   useAuthMutations: () => ({
     login: mockLogin,
     loginLoading: false,

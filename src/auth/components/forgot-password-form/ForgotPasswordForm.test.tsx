@@ -8,7 +8,7 @@ import { ForgotPasswordForm } from './ForgotPasswordForm'
 const mockForgotPassword = vi.fn()
 const mockAuthError = { message: '', fieldErrors: {} }
 
-vi.mock('@/auth/store/useAuthMutations', () => ({
+vi.mock('@/auth/store/hooks/useAuthMutations', () => ({
   useAuthMutations: () => ({
     forgotPassword: mockForgotPassword,
     forgotPasswordLoading: false,
