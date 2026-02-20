@@ -100,7 +100,6 @@ export const ScheduleEvent = ({
                   collapsed={false}
                   users={collaborators}
                   draggable={{
-                    // id: '', // populate with collaborator ID
                     type: USER_DRAG_TYPES.COLLABORATOR,
                     originId: segment.id,
                     originName: EVENT_DRAG_CONSTANTS.ORIGIN,

@@ -1,7 +1,5 @@
 import { useEffect, useState } from 'react'
 
-import dayjs from 'dayjs'
-
 import { WEEKDAYS } from '@/calendar/constants/calendar.constants'
 
 import { Button } from '@/components/button/Button'
@@ -10,14 +8,15 @@ import { SlideTransition } from '@/components/slide-transition/SlideTransition'
 import { CalendarDay } from '../calendar-day/CalendarDay'
 
 import { useCalendar } from '@/calendar/hooks/useCalendar'
-import { useCalendarActions } from '@/calendar/hooks/useCalendarActions'
+import { useCalendarActions } from '@/calendar/store/hooks/useCalendarActions'
 
 import styles from './CalendarGridDays.module.css'
 
 export const CalendarGridDays = () => {
   const [slideDirection, setSlideDirection] = useState<'left' | 'right' | 'center' | null>(null)
-  const { calendarDays, todayDateLabel, resetActiveCalendarDay } = useCalendar()
-  const { setMonth, setYear, getPreviousMonth, getNextMonth } = useCalendarActions()
+  const { calendarDaysWithEvents, todayDateLabel } = useCalendar()
+  const { getPreviousMonth, getNextMonth, resetActiveCalendarDay, resetActiveCalendar } =
+    useCalendarActions()
 
   useEffect(() => {
     return () => resetActiveCalendarDay()
@@ -25,9 +24,7 @@ export const CalendarGridDays = () => {
 
   const handleClickGoToday = () => {
     setSlideDirection('center')
-    const today = dayjs()
-    setMonth(today.month())
-    setYear(today.year())
+    resetActiveCalendar()
   }
 
   const handleGetPreviousMonth = () => {
@@ -52,7 +49,7 @@ export const CalendarGridDays = () => {
           <ArrowLeftIcon />
         </Button>
 
-        <Button variant="text" size="sm" onClick={handleClickGoToday}>
+        <Button variant="text" size="md" onClick={handleClickGoToday}>
           {todayDateLabel}
         </Button>
 
@@ -76,7 +73,7 @@ export const CalendarGridDays = () => {
 
       <SlideTransition direction={slideDirection} onAnimationEnd={() => setSlideDirection(null)}>
         <section className={styles.calendarDays}>
-          {calendarDays.map(calendarDay => {
+          {calendarDaysWithEvents.map(calendarDay => {
             const { day, month, year, type } = calendarDay
             return <CalendarDay key={`${type}-${year}-${month}-${day}`} calendarDay={calendarDay} />
           })}

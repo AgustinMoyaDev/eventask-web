@@ -1,15 +1,14 @@
 import { baseApi } from './baseApi'
 
-import { PaginationOptions, PaginationResult } from '../types/dtos/api/pagination'
-
-import { Event } from '../types/entities/event'
+import { PaginationOptions, PaginationResult } from '@/types/dtos/api/pagination'
+import { Event } from '@/types/entities/event'
 import {
   CreateEventDto,
   UpdateEventDto,
   UpdateEventStatusDto,
   EventCalendarResponseDto,
   EventCalendarQueryDto,
-} from '../types/dtos/event.dto'
+} from '@/types/dtos/event.dto'
 
 export const eventApi = baseApi.injectEndpoints({
   endpoints: builder => ({
@@ -31,7 +30,7 @@ export const eventApi = baseApi.injectEndpoints({
         params: { year, month },
       }),
       providesTags: result => [
-        { type: 'Event', id: 'LIST' },
+        { type: 'Event', id: 'CALENDAR' },
         ...(result?.events.map(evt => ({ type: 'Event' as const, id: evt.id })) ?? []),
       ],
     }),
@@ -41,11 +40,11 @@ export const eventApi = baseApi.injectEndpoints({
         method: 'PATCH',
         body: { status },
       }),
-      invalidatesTags: result =>
+      invalidatesTags: (result, _error, arg) =>
         result
           ? [
-              { type: 'Event', id: 'LIST' },
-              { type: 'Event', id: result.id },
+              { type: 'Event', id: arg.id },
+              { type: 'Event', id: 'CALENDAR' },
               { type: 'Task', id: result.taskId },
             ]
           : [],
@@ -55,11 +54,16 @@ export const eventApi = baseApi.injectEndpoints({
         url: '/events',
         method: 'POST',
         body: newEvent,
+        // body: normalizeDatesToISOString(newEvent),
       }),
-      invalidatesTags: (_result, _error, arg) => [
-        { type: 'Event', id: 'LIST' },
-        { type: 'Task', id: arg.taskId },
-      ],
+      // transformResponse: (response: unknown) => normalizeDatesToISOString(response as Event),
+      invalidatesTags: (result, _error, arg) =>
+        result
+          ? [
+              { type: 'Event', id: 'CALENDAR' },
+              { type: 'Task', id: arg.taskId },
+            ]
+          : [],
     }),
     updateEvent: builder.mutation<Event, UpdateEventDto>({
       query: event => ({
@@ -68,42 +72,53 @@ export const eventApi = baseApi.injectEndpoints({
         body: event,
       }),
       invalidatesTags: (_result, _error, arg) => [
-        { type: 'Event', id: 'LIST' },
         { type: 'Event', id: arg.id },
         { type: 'Task', id: arg.taskId },
       ],
     }),
-    deleteEvent: builder.mutation<{ id: string }, { id: string; taskId: string }>({
+    deleteEvent: builder.mutation<void, { id: string; taskId: string }>({
       query: ({ id }) => ({
         url: `/events/${id}`,
         method: 'DELETE',
       }),
       invalidatesTags: (_result, _error, arg) => [
-        { type: 'Event', id: 'LIST' },
+        { type: 'Event', id: 'CALENDAR' },
         { type: 'Task', id: arg.taskId },
       ],
     }),
     /**
-     * Assign a participant (user) as collaborator to an event.
-     * @param payload - { eventId, participantId }
+     * Assign a task's participant (user) as collaborator to an event.
+     * @param payload - { eventId, collaboratorId }
      */
-    assignCollaborator: builder.mutation<void, { eventId: string; collaboratorId: string }>({
+    assignCollaborator: builder.mutation<Event, { eventId: string; collaboratorId: string }>({
       query: ({ eventId, collaboratorId }) => ({
         url: `/events/${eventId}/collaborators/${collaboratorId}`,
         method: 'PUT',
       }),
-      invalidatesTags: ['Event', 'Task'],
+      invalidatesTags: (result, _error, _arg) =>
+        result
+          ? [
+              { type: 'Event', id: result.id },
+              { type: 'Task', id: result.taskId },
+            ]
+          : [],
     }),
     /**
      * Remove a collaborator from an event.
      * @param payload - { eventId, collaboratorId }
      */
-    removeCollaborator: builder.mutation<void, { eventId: string; collaboratorId: string }>({
+    removeCollaborator: builder.mutation<Event, { eventId: string; collaboratorId: string }>({
       query: ({ eventId, collaboratorId }) => ({
         url: `/events/${eventId}/collaborators/${collaboratorId}`,
         method: 'DELETE',
       }),
-      invalidatesTags: ['Event', 'Task'],
+      invalidatesTags: (result, _error, _arg) =>
+        result
+          ? [
+              { type: 'Event', id: result.id },
+              { type: 'Task', id: result?.taskId },
+            ]
+          : [],
     }),
   }),
   overrideExisting: false,

@@ -61,7 +61,27 @@ export const calendarDaySlice = createSlice({
       state.activeCalendarDay = payload
     },
     onResetActiveCalendarDay: state => {
-      state.activeCalendarDay = initialState.activeCalendarDay
+      const now = dayjs()
+      state.activeCalendarDay = {
+        day: now.date(),
+        dayName: WEEKDAYS[now.day()],
+        month: now.month(),
+        year: now.year(),
+        type: CALENDAR_DAY_TYPE.CURRENT,
+      }
+    },
+    onResetCalendar: state => {
+      const now = dayjs()
+      state.month = now.month()
+      state.year = now.year()
+      state.calendarDays = computeCalendar(now.month(), now.year())
+      state.activeCalendarDay = {
+        day: now.date(),
+        dayName: WEEKDAYS[now.day()],
+        month: now.month(),
+        year: now.year(),
+        type: CALENDAR_DAY_TYPE.CURRENT,
+      }
     },
   },
 })
@@ -71,6 +91,7 @@ export const {
   onGetPreviousMonth,
   onSetActiveCalendarDay,
   onResetActiveCalendarDay,
+  onResetCalendar,
   onSetMonth,
   onSetYear,
 } = calendarDaySlice.actions

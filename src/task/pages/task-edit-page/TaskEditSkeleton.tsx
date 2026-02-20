@@ -1,6 +1,8 @@
 import clsx from 'clsx'
 
 import { Skeleton } from '@/components/skeletons/Skeleton'
+import { TaskEventsSectionSkeleton } from '@/task/components/task-events-section/TaskEventsSectionSkeleton'
+import { TaskParticipantsSectionSkeleton } from '@/task/components/task-participants-section/TaskParticipantSectionSkeleton'
 
 import styles from './TaskEditPage.module.css'
 
@@ -18,15 +20,8 @@ export const TaskEditSkeleton = () => {
           <Skeleton width="10rem" height="1.5rem" />
         </div>
 
-        <div className={styles.taskEditSection}>
-          <Skeleton width="8rem" height="1.5rem" />
-          <Skeleton width="100%" height="10rem" />
-        </div>
-
-        <div className={styles.taskEditSection}>
-          <Skeleton width="8rem" height="1.5rem" />
-          <Skeleton width="100%" height="10rem" />
-        </div>
+        <TaskEventsSectionSkeleton />
+        <TaskParticipantsSectionSkeleton />
       </div>
     </section>
   )

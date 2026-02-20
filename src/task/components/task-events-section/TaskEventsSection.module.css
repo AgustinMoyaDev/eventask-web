@@ -1,3 +1,7 @@
+.section {
+  min-height: 10rem;
+}
+
 .sectionHeader {
   display: flex;
   justify-content: space-between;

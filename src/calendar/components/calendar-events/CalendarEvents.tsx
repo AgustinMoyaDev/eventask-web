@@ -15,7 +15,7 @@ import { useModalActions } from '@/components/modal/store/useModalActions'
 import { useEventActions } from '@/event/store/hooks/useEventActions'
 import { useEventState } from '@/event/store/hooks/useEventState'
 import { useEventMutations } from '@/event/store/hooks/useEventMutations'
-import { useCalendarActions } from '@/calendar/hooks/useCalendarActions'
+import { useCalendarState } from '@/calendar/store/hooks/useCalendarState'
 
 import styles from './CalendarEvents.module.css'
 
@@ -29,10 +29,9 @@ import styles from './CalendarEvents.module.css'
  */
 export const CalendarEvents = () => {
   const navigate = useNavigate()
-  const { open, close } = useModalActions(ModalIds.Confirm)
   const { isOpen } = useModalState(ModalIds.Confirm)
-  const { activeCalendarDay } = useCalendarActions()
-
+  const { open, close } = useModalActions(ModalIds.Confirm)
+  const { activeCalendarDay } = useCalendarState()
   const { activeEvent } = useEventState()
   const { setActiveEvent, clearActiveEvent } = useEventActions()
   const { deleteEvent } = useEventMutations()
@@ -57,9 +56,11 @@ export const CalendarEvents = () => {
 
   const handleConfirmDelete = useCallback(async () => {
     if (!activeEvent) return
-    await deleteEvent({ id: activeEvent.id, taskId: activeEvent.taskId! })
-    clearActiveEvent()
-    close()
+    const result = await deleteEvent({ id: activeEvent.id, taskId: activeEvent.taskId! })
+    if (!result.error) {
+      clearActiveEvent()
+      close()
+    }
   }, [activeEvent, deleteEvent, clearActiveEvent, close])
 
   const eventsListContent = useMemo(() => {
@@ -97,7 +98,7 @@ export const CalendarEvents = () => {
       {isOpen && (
         <ConfirmModal
           isOpen={isOpen}
-          title="Delete Task"
+          title="Delete Event"
           message="Are you sure you want to delete this event?"
           confirmLabel="Delete"
           cancelLabel="Cancel"

@@ -41,7 +41,7 @@ export const OngoingTaskList = () => {
             <PlusIcon />
           </ButtonLink>
         </div>
-        <ButtonLink variant="text" to="/see-all?type=tasks" disabled>
+        <ButtonLink variant="text" to="/see-all?type=tasks">
           See all
         </ButtonLink>
       </header>

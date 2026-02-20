@@ -33,7 +33,8 @@ export const categoryApi = baseApi.injectEndpoints({
         method: 'POST',
         body: newCategory,
       }),
-      invalidatesTags: [{ type: 'Category', id: 'LIST-COUNT' }],
+      invalidatesTags: (result, _error, _arg) =>
+        result ? [{ type: 'Category', id: 'LIST-COUNT' }] : [],
     }),
     updateCategory: builder.mutation<Category, UpdateCategoryDto>({
       query: updatedCategory => ({
