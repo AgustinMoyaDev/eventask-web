@@ -23,10 +23,7 @@ export function setupTestStore(preloadedState?: Partial<RootState>) {
   return configureStore({
     reducer: rootReducer,
     preloadedState,
-    middleware: getDefaultMiddleware =>
-      getDefaultMiddleware({
-        serializableCheck: false,
-      }).concat(baseApi.middleware),
+    middleware: getDefaultMiddleware => getDefaultMiddleware().concat(baseApi.middleware),
   })
 }
 

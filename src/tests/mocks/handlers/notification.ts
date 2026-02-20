@@ -47,7 +47,7 @@ export const notificationHandlers = [
 
     // Mark as read
     MOCK_NOTIFICATIONS[notificationIndex].read = true
-    MOCK_NOTIFICATIONS[notificationIndex].updatedAt = new Date()
+    MOCK_NOTIFICATIONS[notificationIndex].updatedAt = new Date().toISOString()
 
     return HttpResponse.json(MOCK_NOTIFICATIONS[notificationIndex])
   }),
@@ -60,7 +60,7 @@ export const notificationHandlers = [
     // Mark all as read
     MOCK_NOTIFICATIONS.forEach(notification => {
       notification.read = true
-      notification.updatedAt = new Date()
+      notification.updatedAt = new Date().toISOString()
     })
 
     return HttpResponse.json({ message: 'All notifications marked as read' })

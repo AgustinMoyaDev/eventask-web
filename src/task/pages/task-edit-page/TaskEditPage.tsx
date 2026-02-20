@@ -42,7 +42,7 @@ const TaskEditPage = () => {
         <div className={styles.taskEditInfo}>
           <h2>{task.title}</h2>
           <p>
-            <Chip label={task.category.name} variant="outlined" />
+            <Chip label={task.category?.name ?? 'Uncategorized'} variant="outlined" />
           </p>
         </div>
 

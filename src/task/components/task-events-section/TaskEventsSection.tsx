@@ -4,6 +4,7 @@ import { Button } from '@/components/button/Button'
 import { Modal } from '@/components/modal/Modal'
 import { EventForm } from '@/event/components/event-form/EventForm'
 import { EventCardList } from '@/event/components/event-card-list/EventCardList'
+import { TaskEventsSectionSkeleton } from './TaskEventsSectionSkeleton'
 
 import { useTaskEventsSection } from './useTaskEventsSection'
 
@@ -29,8 +30,12 @@ export const TaskEventsSection = ({ task }: TaskEventsSectionProps) => {
     handleDeleteEvent,
   } = useTaskEventsSection(task.id)
 
+  if (!task.events) {
+    return <TaskEventsSectionSkeleton />
+  }
+
   return (
-    <div>
+    <section className={styles.section}>
       <div className={styles.sectionHeader}>
         <h3 className={styles.sectionTitle}>Events</h3>
         <Button variant="filled" size="sm" onClick={handleOpenNew}>
@@ -40,7 +45,6 @@ export const TaskEventsSection = ({ task }: TaskEventsSectionProps) => {
 
       <EventCardList
         events={task.events}
-        onOpenNewEventModal={handleOpenNew}
         onOpenEditEventModal={handleOpenEdit}
         onDelete={handleDeleteEvent}
       />
@@ -55,6 +59,6 @@ export const TaskEventsSection = ({ task }: TaskEventsSectionProps) => {
           />
         </Modal>
       )}
-    </div>
+    </section>
   )
 }

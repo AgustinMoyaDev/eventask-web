@@ -49,7 +49,7 @@ export const invitationHandlers = [
     // Update invitation status in notification data
     notification.data.invitationStatus = INVITATION_STATUS.ACCEPTED
     notification.read = true
-    notification.updatedAt = new Date()
+    notification.updatedAt = new Date().toISOString()
     notification.title = 'Invitation Accepted'
     notification.message = 'Your invitation has been accepted'
 
@@ -76,7 +76,7 @@ export const invitationHandlers = [
     // Update invitation status in notification data
     notification.data.invitationStatus = INVITATION_STATUS.REJECTED
     notification.read = true
-    notification.updatedAt = new Date()
+    notification.updatedAt = new Date().toISOString()
     notification.title = 'Invitation Declined'
     notification.message = 'Your invitation has been declined'
 

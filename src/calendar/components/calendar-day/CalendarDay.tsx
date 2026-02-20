@@ -4,7 +4,8 @@ import { CALENDAR_DAY_TYPE, CalendarDayWithEvents } from '@/calendar/types/calen
 
 import { isActiveDay, isToday } from '@/calendar/utils/validateManagmentDate'
 
-import { useCalendarActions } from '@/calendar/hooks/useCalendarActions'
+import { useCalendarState } from '@/calendar/store/hooks/useCalendarState'
+import { useCalendarActions } from '@/calendar/store/hooks/useCalendarActions'
 
 import styles from './CalendarDay.module.css'
 
@@ -16,7 +17,8 @@ export const CalendarDay = ({ calendarDay }: CalendarDayProps) => {
   const { day, type, events } = calendarDay
   const dayHasEvents = events.length > 0
 
-  const { activeCalendarDay, setActiveCalendarDay } = useCalendarActions()
+  const { activeCalendarDay } = useCalendarState()
+  const { setActiveCalendarDay } = useCalendarActions()
 
   const handleDayClick = () => {
     if (type !== CALENDAR_DAY_TYPE.CURRENT) return

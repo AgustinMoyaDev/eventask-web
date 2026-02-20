@@ -1,7 +1,7 @@
 import { SerializedError } from '@reduxjs/toolkit'
 import { FetchBaseQueryError } from '@reduxjs/toolkit/query'
 
-import { ApiResponseBody } from '@/types/dtos/api/response'
+import { ApiErrorBody } from '@/types/dtos/api/response'
 
 export type RTKQueryError = FetchBaseQueryError | SerializedError | undefined
 
@@ -35,7 +35,7 @@ export function parseRTKError(error: RTKQueryError): ParsedRTKError | null {
 
   // FetchBaseQueryError: Network/HTTP errors from API
   if ('status' in error) {
-    const body = error.data as ApiResponseBody
+    const body = error.data as ApiErrorBody
     const fieldErrors: Record<string, string> = {}
 
     // Parse field-level validation errors from backend

@@ -1,12 +1,10 @@
 import { useMemo } from 'react'
-
 import dayjs from 'dayjs'
 
 import { Event } from '@/types/entities/event'
 import { CalendarDayWithEvents } from '../types/calendar.types'
 
-import { computeCalendar } from '@/calendar/utils/computeCalendar'
-import { useCalendarActions } from '@/calendar/hooks/useCalendarActions'
+import { useCalendarState } from '@/calendar/store/hooks/useCalendarState'
 import { useEventsByMonthQuery } from '@/event/store/hooks/useEventQueries'
 
 /**
@@ -24,11 +22,8 @@ import { useEventsByMonthQuery } from '@/event/store/hooks/useEventQueries'
  * @returns {CalendarDayWithEvents[]} calendarDays - Array of calendar days with their events
  */
 export const useCalendar = () => {
-  const { activeCalendarDay, resetActiveCalendarDay, year, month } = useCalendarActions()
+  const { calendarDays: initialCalendarDays, activeCalendarDay, year, month } = useCalendarState()
   const { isFetching: fetchingMonthlyEvents, events } = useEventsByMonthQuery(year, month + 1)
-
-  // Generate the basic 42 CalendarDay grid
-  const baseDays = useMemo(() => computeCalendar(month, year), [month, year])
 
   // Group events by key YYYY-MM-DD
   const eventsByDay = useMemo(() => {
@@ -41,28 +36,28 @@ export const useCalendar = () => {
   }, [events])
 
   // Enrich every day with its array of events
-  const calendarDays = useMemo<CalendarDayWithEvents[]>(() => {
-    return baseDays.map(cd => {
+  const calendarDaysWithEvents = useMemo<CalendarDayWithEvents[]>(() => {
+    return initialCalendarDays.map(cd => {
       const formattedDate = dayjs().year(cd.year).month(cd.month).date(cd.day)
       const key = formattedDate.format('YYYY-MM-DD')
 
       return {
         ...cd,
-        events: eventsByDay[key] || [],
+        events: eventsByDay[key] ?? [],
       }
     })
-  }, [baseDays, eventsByDay])
+  }, [initialCalendarDays, eventsByDay])
 
   // Events for the currently active day
   const eventsForActiveDay = useMemo<Event[]>(() => {
     if (!activeCalendarDay) return []
 
     const { year, month, day } = activeCalendarDay
-    const targetDay = calendarDays.find(
+    const targetDay = calendarDaysWithEvents.find(
       cd => cd.year === year && cd.month === month && cd.day === day
     )
     return targetDay?.events ?? []
-  }, [calendarDays, activeCalendarDay])
+  }, [calendarDaysWithEvents, activeCalendarDay])
 
   // Labels for calendar tags
   const { todayDateLabel, fullDateLabel, activeCalendarDayName } = useMemo(() => {
@@ -89,8 +84,7 @@ export const useCalendar = () => {
     fullDateLabel,
     todayDateLabel,
     eventsForActiveDay,
-    calendarDays,
+    calendarDaysWithEvents,
     fetchingMonthlyEvents,
-    resetActiveCalendarDay,
   }
 }

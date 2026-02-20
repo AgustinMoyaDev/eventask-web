@@ -1,8 +1,9 @@
+import clsx from 'clsx'
+
 import { Skeleton } from '@/components/skeletons/Skeleton'
 import { ScheduleEventSkeleton } from '../schedule-event/ScheduleEventSkeleton'
 
 import styles from './Schedule.module.css'
-import clsx from 'clsx'
 
 export const ScheduleSkeleton = () => {
   return (

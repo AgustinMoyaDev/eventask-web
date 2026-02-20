@@ -3,9 +3,14 @@ import clsx from 'clsx'
 
 import { EVENT_STATUS } from '@/types/entities/event'
 import { EventCardProps } from './event-card.types'
+import { ModalIds } from '@/components/modal/modal.types'
+
+import { useModalState } from '@/components/modal/store/useModalState'
+import { useModalActions } from '@/components/modal/store/useModalActions'
 
 import { Button } from '@/components/button/Button'
 import { DeleteIcon, EditIcon, SeparatorIcon } from '@/components/icons/Icons'
+import { ConfirmModal } from '@/components/confirm-modal/ConfirmModal'
 
 import styles from './EventCard.module.css'
 
@@ -15,6 +20,14 @@ export const EventCard = ({ event, onEdit, onDelete }: EventCardProps) => {
   const formattedStart = dayjs(start).format('MMM DD, h:mm A')
   const formattedEnd = dayjs(end).format('MMM DD, h:mm A')
   const formattedNotes = notes.length > 30 ? `${notes.slice(0, 30)}...` : notes
+
+  const { isOpen } = useModalState(ModalIds.Confirm)
+  const { open, close } = useModalActions(ModalIds.Confirm)
+
+  const handleConfirmDelete = () => {
+    onDelete(id)
+    close()
+  }
 
   return (
     <article
@@ -39,7 +52,7 @@ export const EventCard = ({ event, onEdit, onDelete }: EventCardProps) => {
           variant="icon"
           size="sm"
           className={clsx(styles.eventCardBtn, styles.eventCardBtnDelete)}
-          onClick={() => onDelete(id)}
+          onClick={() => open()}
         >
           <DeleteIcon />
         </Button>
@@ -64,6 +77,17 @@ export const EventCard = ({ event, onEdit, onDelete }: EventCardProps) => {
         </time>
         {notes && <p className={styles.eventCardNotes}>{formattedNotes}</p>}
       </div>
+      {isOpen && (
+        <ConfirmModal
+          isOpen={isOpen}
+          title="Delete Event"
+          message="Are you sure you want to delete this event?"
+          confirmLabel="Delete"
+          cancelLabel="Cancel"
+          onConfirm={handleConfirmDelete}
+          onCancel={() => close()}
+        />
+      )}
     </article>
   )
 }

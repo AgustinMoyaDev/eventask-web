@@ -1,9 +1,8 @@
 import { baseApi } from './baseApi'
 
-import { PaginationOptions, PaginationResult } from '../types/dtos/api/pagination'
-
-import { CreateTaskDto, UpdateTaskDto } from '../types/dtos/task.dto'
-import { Task, TaskId } from '../types/entities/task'
+import { PaginationOptions, PaginationResult } from '@/types/dtos/api/pagination'
+import { CreateTaskDto, UpdateTaskDto } from '@/types/dtos/task.dto'
+import { Task, TaskId } from '@/types/entities/task'
 
 export const taskApi = baseApi.injectEndpoints({
   endpoints: builder => ({
@@ -13,9 +12,9 @@ export const taskApi = baseApi.injectEndpoints({
         method: 'GET',
         params: { page, perPage, ...(sortBy && { sortBy }), ...(sortOrder && { sortOrder }) },
       }),
-      providesTags: result => [
+      providesTags: () => [
         { type: 'Task', id: 'LIST' },
-        ...(result?.items.map(({ id }) => ({ type: 'Task' as const, id })) ?? []),
+        // ...(result?.items.map(({ id }) => ({ type: 'Task' as const, id })) ?? []),
       ],
     }),
     fetchTaskById: builder.query<Task, TaskId>({
@@ -28,10 +27,7 @@ export const taskApi = baseApi.injectEndpoints({
         method: 'POST',
         body: newTask,
       }),
-      invalidatesTags: [
-        { type: 'Task', id: 'LIST' },
-        { type: 'Category', id: 'LIST-COUNT' },
-      ],
+      invalidatesTags: result => (result ? [{ type: 'Category', id: 'LIST-COUNT' }] : []),
     }),
     updateTask: builder.mutation<Task, UpdateTaskDto>({
       query: task => ({
@@ -39,14 +35,14 @@ export const taskApi = baseApi.injectEndpoints({
         method: 'PUT',
         body: task,
       }),
-      invalidatesTags: (_result, error, arg) => {
-        if (error) return []
-        return [
-          { type: 'Task', id: 'LIST' },
-          { type: 'Task', id: arg.id },
-          { type: 'Event', id: 'LIST' },
-        ]
-      },
+      invalidatesTags: (result, _error, _arg) =>
+        result
+          ? [
+              { type: 'Task', id: 'LIST' },
+              { type: 'Task', id: result.id },
+              { type: 'Event', id: 'LIST' },
+            ]
+          : [],
     }),
     deleteTask: builder.mutation<{ id: string }, TaskId>({
       query: id => ({

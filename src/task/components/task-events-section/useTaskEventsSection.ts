@@ -78,9 +78,12 @@ export const useTaskEventsSection = (taskId: string) => {
 
   const handleDeleteEvent = useCallback(
     async (eventId: string) => {
-      await deleteEvent({ id: eventId, taskId })
+      const result = await deleteEvent({ id: eventId, taskId })
+      if (!result?.error) {
+        handleClose()
+      }
     },
-    [taskId, deleteEvent]
+    [taskId, deleteEvent, handleClose]
   )
 
   return {

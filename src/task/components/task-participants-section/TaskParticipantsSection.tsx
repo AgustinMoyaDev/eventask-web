@@ -4,6 +4,7 @@ import { User } from '@/types/entities/user'
 import { MultiSelectInput } from '@/components/multi-select-input/MultiSelectInput'
 
 import { useTaskParticipantsSection } from './useTaskParticipantsSection'
+import { TaskParticipantsSectionSkeleton } from './TaskParticipantSectionSkeleton'
 
 interface TaskParticipantsSectionProps {
   task: Task
@@ -14,6 +15,7 @@ interface TaskParticipantsSectionProps {
  * Allows adding and removing participants from a task
  */
 export const TaskParticipantsSection = ({ task }: TaskParticipantsSectionProps) => {
+  const { id, participants = [] } = task
   const {
     availableContacts,
     isLoadingContacts,
@@ -21,14 +23,16 @@ export const TaskParticipantsSection = ({ task }: TaskParticipantsSectionProps) 
     isRemoving,
     handleAddParticipant,
     handleRemoveParticipant,
-  } = useTaskParticipantsSection(task.id, task.participants)
+  } = useTaskParticipantsSection(id, participants)
+
+  if (!task) return <TaskParticipantsSectionSkeleton />
 
   return (
     <MultiSelectInput<User>
       label="Participants"
       typeOption="email"
       options={availableContacts}
-      selectedOptions={task.participants}
+      selectedOptions={participants}
       loading={isLoadingContacts || isAssigning || isRemoving}
       onAddItem={handleAddParticipant}
       onRemoveItem={handleRemoveParticipant}

@@ -96,9 +96,11 @@ const TaskDetailPage = () => {
     )
   }
 
-  return isLoading || !task ? (
-    <TaskDetailSkeleton />
-  ) : (
+  if (isLoading || !task) {
+    return <TaskDetailSkeleton />
+  }
+
+  return (
     <DragProviders
       onDragStart={handleDragStart}
       onDragEnd={handleDragEnd}

@@ -1,10 +1,5 @@
-export interface ApiResponse {
-  status: number
-  data: ApiResponseBody
-}
-
-export interface ApiResponseBody {
-  ok: boolean // true if 2xx, false otherwise
+export interface ApiErrorBody {
+  ok: boolean
   message: string
   errors?: ValidationErrors
 }

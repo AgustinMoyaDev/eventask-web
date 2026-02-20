@@ -17,7 +17,6 @@ import { setCsrfToken } from '@/store/slices/security/securitySlice'
 import { selectCsrfToken } from '@/store/slices/security/selectors'
 
 import { getEnvVariables } from '@/helpers/getEnvVariables'
-import { ApiResponse } from '@/types/dtos/api/response'
 
 /**
  * Development logging utilities for auth flow
@@ -103,7 +102,7 @@ async function handleRefreshSuccess(
   )
 
   return (await baseQuery(originalArgs, api, extraOptions)) as QueryReturnValue<
-    ApiResponse,
+    unknown,
     FetchBaseQueryError,
     object
   >
@@ -198,7 +197,7 @@ const baseQuery = fetchBaseQuery({
 // BaseQuery that detects 401 and triggers refresh automatically
 export const baseQueryWithReauth: BaseQueryFn<
   string | FetchArgs,
-  ApiResponse,
+  unknown,
   FetchBaseQueryError // Error type
 > = async (args, api, extraOptions) => {
   const url = extractUrl(args)
@@ -208,7 +207,7 @@ export const baseQueryWithReauth: BaseQueryFn<
 
   // Execute original request
   let result = (await baseQuery(args, api, extraOptions)) as QueryReturnValue<
-    ApiResponse,
+    unknown,
     FetchBaseQueryError,
     object
   >
@@ -225,7 +224,7 @@ export const baseQueryWithReauth: BaseQueryFn<
 
       // retry once with new CSRF token
       result = (await baseQuery(args, api, extraOptions)) as QueryReturnValue<
-        ApiResponse,
+        unknown,
         FetchBaseQueryError,
         object
       >

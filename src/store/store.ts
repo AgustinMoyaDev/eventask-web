@@ -12,9 +12,7 @@ registerToastListeners()
 export const store = configureStore({
   reducer: rootReducer,
   middleware: getDefaultMiddleware =>
-    getDefaultMiddleware({
-      serializableCheck: false,
-    })
+    getDefaultMiddleware()
       /**
        * Listener middleware for handling side effects in response to dispatched
        * actions (e.g., showing toasts, clearing cache on logout)
