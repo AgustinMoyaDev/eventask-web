@@ -78,9 +78,11 @@ export const CalendarEvents = () => {
     ))
   }, [eventsForActiveDay, handleClickEditEvent, handleClickDeleteEvent])
 
-  return fetchingMonthlyEvents ? (
-    <CalendarEventsSkeleton />
-  ) : (
+  if (fetchingMonthlyEvents) {
+    return <CalendarEventsSkeleton />
+  }
+
+  return (
     <aside className={styles.calendarEvents}>
       {!activeCalendarDay && (
         <span className={styles.calendarEventsEmpty} role="status" aria-live="polite">

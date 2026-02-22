@@ -1,66 +1,72 @@
 [data-theme='dark'] {
-  --color-shimmer-effect: hsla(0, 0%, 100%, 0.1);
-
-  --color-page-1-calendar: hsl(243, 13%, 20%);
-  --color-page-2-calendar: hsl(243, 13%, 15%);
-
   --color-surface-tint: hsl(243, 100%, 88%);
-
   --color-primary: hsl(243, 100%, 88%);
   --color-on-primary: hsl(242, 39%, 27%);
-
   --color-primary-container: hsl(242, 30%, 36%);
   --color-primary-container-hsla: hsla(242, 30%, 36%, 0.75);
   --color-on-primary-container: hsl(246, 100%, 94%);
 
   --color-secondary: hsl(247, 27%, 82%);
   --color-on-secondary: hsl(243, 18%, 22%);
-
   --color-secondary-container: hsl(243, 13%, 31%);
   --color-on-secondary-container: hsl(247, 68%, 93%);
 
-  --color-surface: hsla(240, 12%, 8%);
-  --color-surface-hsla: hsl(240, 12%, 8%, 0.75);
-  --color-on-surface: hsl(270, 15%, 90%);
-
-  --color-surface-variant: hsl(247, 6%, 29%);
-  --color-surface-variant-hsla: hsla(247, 6%, 29%, 0.75);
-  --color-on-surface-variant: hsl(256, 10%, 79%);
-
-  --color-surface-container-high: rgb(42 41 47);
-  --color-surface-container-highest: rgb(53 52 58);
-
-  --color-outline: hsl(256, 5%, 58%);
-  --color-outline-variant: hsl(247, 6%, 29%);
+  --color-tertiary: hsl(331, 54%, 82%);
+  --color-on-tertiary: hsl(325, 30%, 21%);
+  --color-tertiary-container: hsl(326, 24%, 30%);
+  --color-on-tertiary-container: hsl(332, 100%, 92%);
 
   --color-error: hsl(6, 100%, 84%);
   --color-on-error: hsl(357, 100%, 21%);
-
   --color-error-container: hsl(356, 100%, 29%);
   --color-on-error-container: hsl(6, 100%, 92%);
 
   --color-warning: hsl(35, 80%, 60%);
   --color-on-warning: hsl(0, 0%, 10%);
-
   --color-warning-container: hsl(35, 80%, 30%);
   --color-on-warning-container: hsl(45, 100%, 90%);
 
   --color-info: hsl(210, 80%, 60%);
   --color-on-info: hsl(0, 0%, 10%);
-
   --color-info-container: hsl(210, 80%, 30%);
   --color-on-info-container: hsl(208, 100%, 93%);
 
   --color-success: hsl(145, 60%, 60%);
   --color-on-success: hsl(0, 0%, 10%);
-
   --color-success-container: hsl(142, 80%, 30%);
   --color-on-success-container: hsl(142, 80%, 90%);
 
-  --color-scrim: hsla(0, 0%, 0%, 0.75);
+  --color-background: hsl(240, 12%, 8%);
+  --color-on-background: hsl(270, 15%, 90%);
 
+  --color-surface: hsl(240, 12%, 8%);
+  --color-surface-hsla: hsla(240, 12%, 8%, 0.75);
+  --color-on-surface: hsl(270, 15%, 90%);
+  --color-surface-variant: hsl(247, 6%, 29%);
+  --color-surface-variant-hsla: hsla(247, 6%, 29%, 0.75);
+  --color-on-surface-variant: hsl(256, 10%, 79%);
+
+  --color-outline: hsl(256, 5%, 58%);
+  --color-outline-variant: hsl(247, 6%, 29%);
+
+  --color-scrim: hsla(0, 0%, 0%, 0.75);
   --shadow-key-color: hsla(0, 0%, 0%, 0.6);
   --shadow-ambient-color: hsla(0, 0%, 0%, 0.4);
+
+  --color-inverse-surface: hsl(270, 15%, 90%);
+  --color-inverse-on-surface: hsl(250, 6%, 20%);
+  --color-inverse-primary: hsl(242, 24%, 46%);
+
+  --color-surface-container-lowest: hsl(240, 15%, 6%);
+  --color-surface-container-low: hsl(250, 10%, 12%);
+  --color-surface-container: hsl(250, 9%, 13%);
+  --color-surface-container-high: hsl(250, 7%, 17%);
+  --color-surface-container-highest: hsl(250, 5%, 22%);
+
+  --color-shimmer-effect: hsla(0, 0%, 100%, 0.1);
+
+  --color-page-1-calendar: hsl(243, 13%, 20%);
+  --color-page-2-calendar: hsl(243, 13%, 15%);
 
   --elevation-1:
     0px 1px 2px 0px var(--shadow-key-color), 0px 1px 3px 1px var(--shadow-ambient-color);

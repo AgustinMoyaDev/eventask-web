@@ -130,8 +130,7 @@ If it exceeds that, it is truncated with "...". */
 }
 
 .footer {
-  border-top: var(--stroke-width-1) solid var(--color-outline-variant);
-  background: var(--color-surface-container);
+  border-top: var(--stroke-width-1) solid var(--color-outline);
 }
 
 .viewAll {
