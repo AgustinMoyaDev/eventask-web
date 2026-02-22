@@ -28,7 +28,8 @@
 
 .taskEditInfo {
   background-color: var(--color-surface-container-low);
-  border-radius: var(--shape-corner-medium);
+  border-radius: var(--radius-md);
+  padding: var(--spacing-md);
   display: flex;
   flex-direction: column;
   gap: var(--spacing-sm-plus);
