@@ -1,10 +1,10 @@
-import { registerAuthToastListeners } from '@/auth/store/authToastListeners'
-import { registerCategoryToastListeners } from '@/category/store/categoryToastListeners'
-import { registerEventToastListeners } from '@/event/store/eventToastListeners'
-import { registerInvitationToastListeners } from '@/invitation/store/invitationToastListeners'
-import { registerNotificationToastListeners } from '@/notification/store/notificationToastListeners'
-import { registerTaskToastListeners } from '@/task/store/taskToastListeners'
-import { registerUserToastListeners } from '@/user/store/userToastListeners'
+import { registerAuthToastListeners } from '@/features/auth/store/authToastListeners'
+import { registerCategoryToastListeners } from '@/features/category/store/categoryToastListeners'
+import { registerEventToastListeners } from '@/features/event/store/eventToastListeners'
+import { registerInvitationToastListeners } from '@/features/invitation/store/invitationToastListeners'
+import { registerNotificationToastListeners } from '@/features/notification/store/notificationToastListeners'
+import { registerTaskToastListeners } from '@/features/task/store/taskToastListeners'
+import { registerUserToastListeners } from '@/features/user/store/userToastListeners'
 
 let initialized = false
 

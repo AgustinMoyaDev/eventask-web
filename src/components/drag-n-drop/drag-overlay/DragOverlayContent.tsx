@@ -1,10 +1,10 @@
 import clsx from 'clsx'
 
 import { DragOverlayContentProps } from '@/components/drag-n-drop/types/drag-n-drop.types'
-import { ParticipantDragData } from '@/user/types/user-drag.types'
-import { USER_DRAG_TYPES } from '@/user/constants/user-drag.constants'
+import { ParticipantDragData } from '@/features/user/types/user-drag.types'
+import { USER_DRAG_TYPES } from '@/features/user/constants/user-drag.constants'
 
-import { UserAvatar } from '@/user/components/user-avatar/UserAvatar'
+import { UserAvatar } from '@/features/user/components/user-avatar/UserAvatar'
 
 import styles from './DragOverlayContent.module.css'
 

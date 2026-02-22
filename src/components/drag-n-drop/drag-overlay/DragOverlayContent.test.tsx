@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react'
 
-import { ParticipantDragData } from '@/user/types/user-drag.types'
-import { USER_DRAG_TYPES } from '@/user/constants/user-drag.constants'
+import { ParticipantDragData } from '@/features/user/types/user-drag.types'
+import { USER_DRAG_TYPES } from '@/features/user/constants/user-drag.constants'
 
 import { DragOverlayContent } from './DragOverlayContent'
 

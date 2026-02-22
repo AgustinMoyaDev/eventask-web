@@ -1,9 +1,9 @@
 import { useEffect } from 'react'
 import { RouterProvider } from 'react-router-dom'
 
-import { AUTH_STATUS } from '@/auth/constants/auth-status'
-import { useAuthMutations } from '@/auth/store/hooks/useAuthMutations'
-import { useAuthState } from '@/auth/store/hooks/useAuthState'
+import { AUTH_STATUS } from '@/features/auth/constants/auth-status'
+import { useAuthMutations } from '@/features/auth/store/hooks/useAuthMutations'
+import { useAuthState } from '@/features/auth/store/hooks/useAuthState'
 
 import { AppShellSkeleton } from '@/layouts/AppShellSkeleton'
 import { router } from '@/router/router'

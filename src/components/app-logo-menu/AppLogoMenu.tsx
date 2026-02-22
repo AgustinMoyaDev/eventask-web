@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom'
 import clsx from 'clsx'
 
 import { useSidebarContext } from '@/context/sidebar/SidebarContext'
-import { useAuthState } from '@/auth/store/hooks/useAuthState'
+import { useAuthState } from '@/features/auth/store/hooks/useAuthState'
 
 import { Button } from '@/components/button/Button'
 import { MenuIcon } from '@/components/icons/Icons'

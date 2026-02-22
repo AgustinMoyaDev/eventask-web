@@ -7,8 +7,8 @@ import { User } from '@/types/entities/user'
 import { ColumnConfig } from './table.types'
 
 import { Chip } from '@/components/chip/Chip'
-import { UserAvatar } from '@/user/components/user-avatar/UserAvatar'
-import { PROGRESS_STATUS } from '@/task/components/task-info/helpers/getColorChip'
+import { UserAvatar } from '@/features/user/components/user-avatar/UserAvatar'
+import { PROGRESS_STATUS } from '@/features/task/components/task-info/helpers/getColorChip'
 
 export const TASK_COLUMNS: ColumnConfig<Task>[] = [
   { key: 'title', label: 'Title', sortable: true },

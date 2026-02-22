@@ -3,9 +3,9 @@ import { io, ManagerOptions, SocketOptions } from 'socket.io-client'
 import { AuthenticatedSocket, ConnectionData } from './SocketTypes'
 
 import { store } from '@/store/store'
-import { setCredentials } from '@/auth/store/authSlice'
+import { setCredentials } from '@/features/auth/store/authSlice'
 
-import { authApi } from '../authApi'
+import { authApi } from '@/features/auth/services/authApi'
 
 import { getEnvVariables } from '@/helpers/getEnvVariables'
 

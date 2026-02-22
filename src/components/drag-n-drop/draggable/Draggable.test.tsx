@@ -3,8 +3,8 @@ import userEvent from '@testing-library/user-event'
 
 import { useDraggable } from '@dnd-kit/core'
 
-import { USER_DRAG_TYPES } from '@/user/constants/user-drag.constants'
-import { TASK_DRAG_CONSTANTS } from '@/task/constants/task-drag.constants'
+import { USER_DRAG_TYPES } from '@/features/user/constants/user-drag.constants'
+import { TASK_DRAG_CONSTANTS } from '@/features/task/constants/task-drag.constants'
 
 import { Draggable } from './Draggable'
 
