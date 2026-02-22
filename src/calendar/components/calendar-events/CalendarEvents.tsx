@@ -49,7 +49,7 @@ export const CalendarEvents = () => {
   const handleClickEditEvent = useCallback(
     ({ taskId, id }: Event) => {
       if (!taskId) return
-      navigate(`/task/${taskId}/edit?editEvent=${id}`, { replace: true })
+      navigate(`/task/${taskId}/edit?editEvent=${id}`, { replace: true, viewTransition: true })
     },
     [navigate]
   )

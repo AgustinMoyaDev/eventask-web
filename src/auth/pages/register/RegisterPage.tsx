@@ -12,7 +12,9 @@ const RegisterPage = () => {
       <RegisterForm />
       <p className={styles.registerSwitch}>
         Already have an account?&nbsp;
-        <Link to="/auth/login">Log in.</Link>
+        <Link to="/auth/login" viewTransition>
+          Log in.
+        </Link>
       </p>
     </section>
   )

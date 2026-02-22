@@ -46,7 +46,7 @@ export const LoginForm = () => {
         />
       </div>
 
-      <Link className={styles.loginForgot} to="/auth/forgot-password">
+      <Link className={styles.loginForgot} to="/auth/forgot-password" viewTransition>
         Forgot your password?
       </Link>
 

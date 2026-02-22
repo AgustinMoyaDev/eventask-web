@@ -47,12 +47,10 @@ function HomePage() {
   }, [showWelcome, handleNextStep, handlePreviousStep])
 
   return (
-    <>
-      <SearchProvider>
-        <Search />
-        <OngoingTaskList />
-        <CategoryList />
-      </SearchProvider>
+    <SearchProvider>
+      <Search />
+      <OngoingTaskList />
+      <CategoryList />
       <WelcomeSlide isOpen={showWelcome} onClose={handleCloseWelcome}>
         <WelcomeSlideContent
           step={ONBOARDING_STEPS[currentStepIndex]}
@@ -66,7 +64,7 @@ function HomePage() {
           onAnimationEnd={handleAnimationEnd}
         />
       </WelcomeSlide>
-    </>
+    </SearchProvider>
   )
 }
 

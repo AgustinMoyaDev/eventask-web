@@ -95,13 +95,14 @@ export const eventApi = baseApi.injectEndpoints({
         url: `/events/${eventId}/collaborators/${collaboratorId}`,
         method: 'PUT',
       }),
-      invalidatesTags: (result, _error, _arg) =>
-        result
+      invalidatesTags: (result, _error, _arg) => {
+        return result
           ? [
               { type: 'Event', id: result.id },
               { type: 'Task', id: result.taskId },
             ]
-          : [],
+          : []
+      },
     }),
     /**
      * Remove a collaborator from an event.
@@ -116,7 +117,7 @@ export const eventApi = baseApi.injectEndpoints({
         result
           ? [
               { type: 'Event', id: result.id },
-              { type: 'Task', id: result?.taskId },
+              { type: 'Task', id: result.taskId },
             ]
           : [],
     }),

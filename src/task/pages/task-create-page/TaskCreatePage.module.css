@@ -1,7 +1,3 @@
-.taskCreatePage {
-  height: 100vh;
-}
-
 .taskCreateForm {
   display: flex;
   flex-direction: column;

@@ -1,0 +1,21 @@
+.appLogoContainer {
+  display: flex;
+  align-items: center;
+  column-gap: var(--spacing-xs);
+}
+
+.appLogo {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+}
+
+.appLogoImg {
+  transform: scaleX(-1);
+  height: 2.75rem;
+  aspect-ratio: 1 / 1;
+}
+
+.appLogoText {
+  font-weight: var(--font-weight-bold);
+}

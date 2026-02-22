@@ -34,7 +34,14 @@ export const ButtonLink = ({
   }
 
   return (
-    <Link to={to} className={classNames} aria-disabled={disabled} onClick={handleClick} {...rest}>
+    <Link
+      to={to}
+      className={classNames}
+      aria-disabled={disabled}
+      onClick={handleClick}
+      viewTransition
+      {...rest}
+    >
       <span className={styles.content}>{children}</span>
     </Link>
   )

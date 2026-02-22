@@ -2,14 +2,14 @@ import { Navigate } from 'react-router-dom'
 
 import { AUTH_STATUS } from '@/auth/constants/auth-status'
 
-import { useAppSelector } from '../store/reduxStore'
+import { useAuthState } from '@/auth/store/hooks/useAuthState'
 
 interface PublicRouteProps {
   children: React.ReactNode
 }
 
 export const PublicRoute = ({ children }: PublicRouteProps) => {
-  const { status, accessToken } = useAppSelector(state => state.auth)
+  const { status, accessToken } = useAuthState()
 
   if (status === AUTH_STATUS.AUTHENTICATED && accessToken) {
     return <Navigate to="/home" replace />

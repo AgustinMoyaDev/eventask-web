@@ -62,7 +62,7 @@ export const useTaskCreateForm = () => {
     })
 
     if (result?.data) {
-      navigate(`/task/${result.data.id}/edit`, { replace: true })
+      navigate(`/task/${result.data.id}/edit`, { replace: true, viewTransition: true })
     }
   }
 

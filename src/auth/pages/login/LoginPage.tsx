@@ -14,7 +14,9 @@ const LoginPage = () => {
       <SocialLoginSection />
       <p className={styles.loginSwitch}>
         <span>Don't have an account?&nbsp;</span>
-        <Link to="/auth/register">Create account.</Link>
+        <Link to="/auth/register" viewTransition>
+          Create account.
+        </Link>
       </p>
     </section>
   )

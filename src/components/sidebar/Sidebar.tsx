@@ -2,16 +2,24 @@ import { NavLink, useLocation } from 'react-router-dom'
 import clsx from 'clsx'
 
 import { SIDEBAR_MENU_ITEMS } from './constants/sidebar.constants'
-
 import { SidebarProps } from './sidebar.types'
+
+import { AppLogoMenu } from '../app-logo-menu/AppLogoMenu'
 
 import styles from './Sidebar.module.css'
 
 export const Sidebar = ({ isCollapsed, onClose }: SidebarProps) => {
   const location = useLocation()
 
-  const handleNavClick = () => {
+  const handleNavClick = (event: React.MouseEvent<HTMLAnchorElement>) => {
     if (window.innerWidth < 991) onClose()
+
+    if (
+      location.pathname === event.currentTarget.getAttribute('href') ||
+      location.pathname + location.search === event.currentTarget.getAttribute('href')
+    ) {
+      event.preventDefault()
+    }
   }
 
   /**
@@ -32,6 +40,7 @@ export const Sidebar = ({ isCollapsed, onClose }: SidebarProps) => {
 
       {/* Sidebar */}
       <aside className={clsx(styles.sidebar, isCollapsed && styles.sidebarCollapsed)}>
+        {window.innerWidth <= 991 && <AppLogoMenu />}
         <nav className={styles.sidebarNav} aria-label="Main navigation">
           {SIDEBAR_MENU_ITEMS.map(({ to, label, icon: Icon }) => {
             const isActive = isLinkActive(to)
@@ -41,6 +50,7 @@ export const Sidebar = ({ isCollapsed, onClose }: SidebarProps) => {
                 to={to}
                 className={() => clsx(styles.sidebarLink, isActive && styles.sidebarLinkActive)}
                 onClick={handleNavClick}
+                viewTransition
               >
                 <Icon className={styles.sidebarIcon} />
                 <span className={styles.sidebarText}>{label}</span>

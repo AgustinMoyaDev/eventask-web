@@ -13,7 +13,7 @@ export const AuthHeaderForm = ({ logoSrc, title, subtitle }: AuthHeaderProps) =>
 
   return (
     <header className={styles.authHeader}>
-      <Link to="/">
+      <Link to="/" viewTransition>
         <img src={imgLogo} alt="App logo" className={styles.authHeaderLogo} />
       </Link>
       <h1 className={`text-title-lg ${styles.authHeaderTitle}`}>{title}</h1>
