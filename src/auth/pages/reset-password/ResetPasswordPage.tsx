@@ -12,7 +12,10 @@ const ResetPasswordPage = () => {
   return (
     <section>
       <AuthHeaderForm title="Reset your password" />
-      <ResetPasswordForm token={token} onSuccess={() => navigate('/auth/login')} />
+      <ResetPasswordForm
+        token={token}
+        onSuccess={() => navigate('/auth/login', { viewTransition: true })}
+      />
     </section>
   )
 }

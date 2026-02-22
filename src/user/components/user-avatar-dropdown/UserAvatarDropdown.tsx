@@ -42,7 +42,7 @@ export const UserAvatarDropdown = () => {
       {
         label: 'Profile',
         icon: <UserSettingIcon />,
-        onClick: () => navigate('/profile'),
+        onClick: () => navigate('/profile', { viewTransition: true }),
       },
       {
         label: 'Sign out',

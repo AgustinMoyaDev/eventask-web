@@ -243,7 +243,7 @@ const SeeAllPage = () => {
           <p className={styles.emptyStateMessage}>
             No {type} found. {config.hasPagination && 'Try adjusting your filters.'}
           </p>
-          <Button onClick={() => navigate('/home')}>Go back Home</Button>
+          <Button onClick={() => navigate('/home', { viewTransition: true })}>Go back Home</Button>
         </div>
       </div>
     )

@@ -34,28 +34,6 @@
   justify-content: space-between;
 }
 
-.headerAppLogoContainer {
-  display: flex;
-  align-items: center;
-  column-gap: var(--spacing-xs);
-}
-
-.headerAppLogo {
-  display: flex;
-  align-items: center;
-  gap: var(--spacing-sm);
-}
-
-.headerAppLogoImg {
-  transform: scaleX(-1);
-  height: 2.75rem;
-  aspect-ratio: 1 / 1;
-}
-
-.headerAppLogoText {
-  font-weight: var(--font-weight-bold);
-}
-
 .headerAppActions {
   display: flex;
   align-items: center;

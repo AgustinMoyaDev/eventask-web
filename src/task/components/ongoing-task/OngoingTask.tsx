@@ -17,7 +17,7 @@ export const OngoingTask = ({ task }: OngoingTaskProps) => {
   const navigate = useNavigate()
 
   const handleClick = () => {
-    navigate(`/task/${id}`)
+    navigate(`/task/${id}`, { viewTransition: true })
   }
 
   return (

@@ -25,7 +25,7 @@ export const HeroSection = () => {
             variant="filled"
             size="lg"
             className={styles.heroButton}
-            onClick={() => navigate('/auth/register')}
+            onClick={() => navigate('/auth/register', { viewTransition: true })}
           >
             Start for free
           </Button>
@@ -34,7 +34,7 @@ export const HeroSection = () => {
             variant="outlined"
             size="lg"
             className={styles.heroButton}
-            onClick={() => navigate('/auth/login')}
+            onClick={() => navigate('/auth/login', { viewTransition: true })}
           >
             Log in
           </Button>

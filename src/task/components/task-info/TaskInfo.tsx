@@ -57,7 +57,7 @@ export const TaskInfo = ({ task }: TaskInfoProps) => {
     const result = await deleteTask(id)
     if (!result?.error) {
       close()
-      navigate('/home', { replace: true })
+      navigate('/home', { replace: true, viewTransition: true })
     }
   }
 

@@ -84,8 +84,8 @@ export const VIEW_CONFIGS: SpecificViewConfigs = {
     hasError: detail => !!detail.tasks.error,
     getErrorMessage: detail => detail.tasks.error,
     createActions: navigate => ({
-      onView: id => navigate(`/task/${id}`),
-      onEdit: id => navigate(`/task/${id}/edit`),
+      onView: id => navigate(`/task/${id}`, { viewTransition: true }),
+      onEdit: id => navigate(`/task/${id}/edit`, { viewTransition: true }),
       // onDelete: id => console.log('Delete task', id), // TODO: Implement modal
     }),
   },

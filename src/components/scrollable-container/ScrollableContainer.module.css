@@ -5,7 +5,7 @@
 .scrollableContainerList {
   display: flex;
   column-gap: var(--spacing-sm);
-  padding: var(--spacing-sm);
+  padding: var(--spacing-xs);
   scroll-padding-inline: var(--spacing-xs); /* start snap after padding */
   overflow-x: auto;
   overflow-y: hidden;

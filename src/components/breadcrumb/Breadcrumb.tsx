@@ -25,7 +25,7 @@ export const Breadcrumb = () => {
           <li key={item.path} className={styles.breadcrumbItem}>
             {index < lastCrumbIndex ? (
               <>
-                <Link to={item.path} className={styles.breadcrumbLink}>
+                <Link to={item.path} className={styles.breadcrumbLink} viewTransition>
                   {item.label}
                 </Link>
                 <span className={styles.breadcrumbSeparator}>

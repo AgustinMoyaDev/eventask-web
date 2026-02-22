@@ -269,7 +269,9 @@ export const eventHandlers = [
       }
     }
 
-    return new HttpResponse(null, { status: 200 })
+    const { task: _, ...eventResponse } = event
+
+    return HttpResponse.json(eventResponse)
   }),
   /**
    * DELETE /api/events/:eventId/collaborators/:collaboratorId - Remove collaborator from event
@@ -317,6 +319,8 @@ export const eventHandlers = [
       }
     }
 
-    return new HttpResponse(null, { status: 200 })
+    const { task: _, ...eventResponse } = event
+
+    return HttpResponse.json(eventResponse)
   }),
 ]

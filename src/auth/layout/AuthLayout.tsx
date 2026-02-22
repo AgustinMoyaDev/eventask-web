@@ -1,24 +1,18 @@
 import { Suspense } from 'react'
-import { Navigate, Route, Routes } from 'react-router-dom'
-
-import { LoginPage, RegisterPage, ForgotPasswordPage, ResetPasswordPage } from '@/router/lazyPages'
+import { Outlet } from 'react-router-dom'
 
 import { AuthContentSkeleton } from './AuthContentSkeleton'
+import { AuthBlob } from '@/auth/components/auth-blob/AuthBlob'
 
 import styles from './AuthLayout.module.css'
 
 export const AuthLayout = () => {
   return (
     <section className={styles.auth}>
+      <AuthBlob />
       <div className={styles.authContainer}>
         <Suspense fallback={<AuthContentSkeleton />}>
-          <Routes>
-            <Route path="login" element={<LoginPage />} />
-            <Route path="register" element={<RegisterPage />} />
-            <Route path="forgot-password" element={<ForgotPasswordPage />} />
-            <Route path="reset-password" element={<ResetPasswordPage />} />
-            <Route path="*" element={<Navigate to="/auth/login" replace />} />
-          </Routes>
+          <Outlet />
         </Suspense>
       </div>
     </section>
