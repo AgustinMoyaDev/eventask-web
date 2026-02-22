@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react'
 
-import { USER_DRAG_TYPES } from '@/user/constants/user-drag.constants'
-import { EVENT_DRAG_CONSTANTS } from '@/event/constants/event-drag.constants'
+import { USER_DRAG_TYPES } from '@/features/user/constants/user-drag.constants'
+import { EVENT_DRAG_CONSTANTS } from '@/features/event/constants/event-drag.constants'
 
 import { useDroppable } from '@dnd-kit/core'
 

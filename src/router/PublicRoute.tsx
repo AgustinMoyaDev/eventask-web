@@ -1,8 +1,8 @@
 import { Navigate } from 'react-router-dom'
 
-import { AUTH_STATUS } from '@/auth/constants/auth-status'
+import { AUTH_STATUS } from '@/features/auth/constants/auth-status'
 
-import { useAuthState } from '@/auth/store/hooks/useAuthState'
+import { useAuthState } from '@/features/auth/store/hooks/useAuthState'
 
 interface PublicRouteProps {
   children: React.ReactNode

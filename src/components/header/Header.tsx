@@ -1,12 +1,12 @@
 import { useEffect, useState } from 'react'
 import clsx from 'clsx'
 
-import { useAuthState } from '@/auth/store/hooks/useAuthState'
+import { useAuthState } from '@/features/auth/store/hooks/useAuthState'
 
-import { UserAvatarDropdown } from '@/user/components/user-avatar-dropdown/UserAvatarDropdown'
+import { UserAvatarDropdown } from '@/features/user/components/user-avatar-dropdown/UserAvatarDropdown'
 import { ButtonTheme } from '@/components/button-theme/ButtonTheme'
-import { NotificationDropdown } from '@/notification/components/notification-dropdown/NotificationDropdown'
-import { AppLogoMenu } from '../app-logo-menu/AppLogoMenu'
+import { NotificationDropdown } from '@/features/notification/components/notification-dropdown/NotificationDropdown'
+import { AppLogoMenu } from '@/components/app-logo-menu/AppLogoMenu'
 
 import styles from './Header.module.css'
 
