@@ -3,7 +3,7 @@ import { clsx } from 'clsx'
 import { ScrollableContainer } from '@/components/scrollable-container/ScrollableContainer'
 import { ButtonLink } from '@/components/button-link/ButtonLink'
 
-import { useCategoryQueries } from '@/features/category/store/hooks/useCategoryQueries'
+import { useCategoriesWithTaskCount } from '../../store/hooks/useCategoriesWithTaskCount'
 
 import { useSearch } from '@/context/search/SearchContext'
 
@@ -13,7 +13,7 @@ import styles from './CategoryList.module.css'
 
 export function CategoryList() {
   const { search } = useSearch()
-  const { categoriesWithTaskCount, isFetchingWithCount: isFetching } = useCategoryQueries()
+  const { categoriesWithTaskCount, isFetching } = useCategoriesWithTaskCount()
 
   const filteredCategories = Object.values(categoriesWithTaskCount).filter(({ name }) =>
     name.toLowerCase().includes(search.toLowerCase())

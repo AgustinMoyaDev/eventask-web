@@ -11,14 +11,14 @@ vi.mock('@/features/auth/store/hooks/useAuthState')
 vi.mock('@/features/auth/store/hooks/useAuthMutations')
 vi.mock('@/features/user/store/hooks/useUserProfileQueries')
 vi.mock('@/features/user/store/hooks/useUserContactsQueries')
-vi.mock('@/features/task/store/hooks/useTaskQueries')
+vi.mock('@/features/task/store/hooks/useTaskList')
 
 // Import mocked references (intercepted above)
 import { useAuthState } from '@/features/auth/store/hooks/useAuthState'
 import { useAuthMutations } from '@/features/auth/store/hooks/useAuthMutations'
 import { useUserProfileQueries } from '@/features/user/store/hooks/useUserProfileQueries'
 import { useUserContactsQueries } from '@/features/user/store/hooks/useUserContactsQueries'
-import { useTaskQueries } from '@/features/task/store/hooks/useTaskQueries'
+import { useTaskList } from '@/features/task/store/hooks/useTaskList'
 
 // --- Auxiliary mocks --- //
 const mockLogout = vi.fn()
@@ -175,7 +175,7 @@ describe('AvatarDropdown', () => {
     vi.mocked(useAuthMutations).mockReturnValue(mockAuthMutations)
     vi.mocked(useUserProfileQueries).mockReturnValue(mockUserProfile)
     vi.mocked(useUserContactsQueries).mockReturnValue(mockUserContacts)
-    vi.mocked(useTaskQueries).mockReturnValue(mockTasksQueries)
+    vi.mocked(useTaskList).mockReturnValue(mockTasksQueries)
   })
 
   it('returns null if no currentUserId', () => {
@@ -189,7 +189,7 @@ describe('AvatarDropdown', () => {
       user: undefined,
     })
 
-    vi.mocked(useTaskQueries).mockReturnValue(mockTasksQueries)
+    vi.mocked(useTaskList).mockReturnValue(mockTasksQueries)
 
     renderWithRouter(<UserAvatarDropdown />)
 

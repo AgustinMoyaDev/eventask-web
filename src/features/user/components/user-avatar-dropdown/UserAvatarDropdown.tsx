@@ -6,7 +6,7 @@ import { TASK_STATUS } from '@/types/entities/task'
 import { useAuthState } from '@/features/auth/store/hooks/useAuthState'
 import { useAuthMutations } from '@/features/auth/store/hooks/useAuthMutations'
 import { useUserProfileQueries } from '@/features/user/store/hooks/useUserProfileQueries'
-import { useTaskQueries } from '@/features/task/store/hooks/useTaskQueries'
+import { useTaskList } from '@/features/task/store/hooks/useTaskList'
 
 import { LogoutIcon, UserSettingIcon } from '@/components/icons/Icons'
 import { Dropdown } from '@/components/dropdown/Dropdown'
@@ -25,7 +25,7 @@ export const UserAvatarDropdown = () => {
   const { logout } = useAuthMutations()
 
   const { user } = useUserProfileQueries()
-  const { tasks } = useTaskQueries()
+  const { tasks } = useTaskList()
   const navigate = useNavigate()
 
   /**

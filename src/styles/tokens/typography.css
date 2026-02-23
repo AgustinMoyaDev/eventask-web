@@ -26,9 +26,9 @@
      ======================================================================== */
   --font-family-base: var(--ref-typeface-brand);
 
-  --font-weight-bold: 700;
+  --font-weight-regular: 400;
   --font-weight-medium: 500;
-  --font-weight-normal: 400;
+  --font-weight-bold: 700;
 
   /* --- DISPLAY (Heroes, Impact) --- */
   /* Large */

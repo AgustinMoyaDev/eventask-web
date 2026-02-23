@@ -7,11 +7,11 @@ import { ColumnConfig, SortConfig, SortDirection, ViewType } from '@/components/
 import { VIEW_CONFIGS, ViewDetail } from '@/components/table/helpers/viewConfigs'
 import { sortData } from '@/components/table/helpers/sortingData'
 
-import { useCategoryQueries } from '@/features/category/store/hooks/useCategoryQueries'
+import { useCategoryList } from '@/features/category/store/hooks/useCategoryList'
 
-import { useTaskQueries } from '@/features/task/store/hooks/useTaskQueries'
+import { useTaskList } from '@/features/task/store/hooks/useTaskList'
 import { useNotificationQueries } from '@/features/notification/store/hooks/useNotificationQueries'
-import { useEventQueries } from '@/features/event/store/hooks/useEventQueries'
+import { useEventList } from '@/features/event/store/hooks/useEventList'
 import { useUserContactsQueries } from '@/features/user/store/hooks/useUserContactsQueries'
 
 import { Button } from '@/components/button/Button'
@@ -65,7 +65,7 @@ const SeeAllPage = () => {
     isFetching: categoriesFetching,
     fetchCategoryError,
     refetch: refetchCategories,
-  } = useCategoryQueries(validatedPage, itemsPerPage, shouldFetchCategories, sortConfig)
+  } = useCategoryList(validatedPage, itemsPerPage, shouldFetchCategories, sortConfig)
 
   const {
     contacts,
@@ -85,7 +85,7 @@ const SeeAllPage = () => {
     fetching: eventsFetching,
     fetchEventsError: fetchAllEventsError,
     refetch: refetchEvents,
-  } = useEventQueries(
+  } = useEventList(
     validatedPage,
     itemsPerPage,
     shouldFetchEvents,
@@ -109,7 +109,7 @@ const SeeAllPage = () => {
     fetching: tasksFetching,
     fetchTaskError,
     refetch: refetchTasks,
-  } = useTaskQueries(
+  } = useTaskList(
     validatedPage,
     itemsPerPage,
     shouldFetchTasks,

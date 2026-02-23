@@ -1,6 +1,5 @@
 import { useMemo, useState } from 'react'
-import { useParams } from 'react-router-dom'
-import { skipToken } from '@reduxjs/toolkit/query'
+import { useNavigate, useParams } from 'react-router-dom'
 import dayjs from 'dayjs'
 
 import { DragEndEvent, DragStartEvent } from '@dnd-kit/core'
@@ -15,23 +14,28 @@ import { ParticipantDragData } from '@/features/user/types/user-drag.types'
 
 import { getEventsSegments } from '@/features/event/helpers/computedEvents'
 import { useEventMutations } from '@/features/event/store/hooks/useEventMutations'
-import { useFetchTaskByIdQuery } from '@/features/task/services/taskApi'
 
+import { EmptyState } from '@/components/empty-state/EmptyState'
+import { GhostIcon } from '@/components/icons/Icons'
 import { DragOverlayContent } from '@/components/drag-n-drop/drag-overlay/DragOverlayContent'
 import { TaskInfo } from '@/features/task/components/task-info/TaskInfo'
 import { DatePills } from '@/features/event/components/date-pills-list/DatePills'
 import { Schedule } from '@/features/event/components/schedule/Schedule'
+import { useTaskDetail } from '@/features/task/store/hooks/useTaskDetail'
 
 import { TaskDetailSkeleton } from './TaskDetailSkeleton'
+import { Button } from '@/components/button/Button'
+import { ErrorState } from '@/components/error-state/ErrorState'
 
 const TaskDetailPage = () => {
   const { id } = useParams<{ id: TaskId }>()
-  const { data: task, isLoading, isError, refetch } = useFetchTaskByIdQuery(id ?? skipToken)
+  const navigate = useNavigate()
+  const { task, isLoading, isError, error, refetch } = useTaskDetail(id)
   const { assignCollaborator, removeCollaborator } = useEventMutations()
-
   const [selectedDate, setSelectedDate] = useState(dayjs())
-  const isToday = selectedDate.isSame(dayjs(), 'day')
   const [draggedData, setDraggedData] = useState<ParticipantDragData | undefined>(undefined)
+
+  const isToday = selectedDate.isSame(dayjs(), 'day')
 
   const [allSegments, segmentsForDay] = useMemo(() => {
     const allSegments = getEventsSegments(task?.events)
@@ -85,17 +89,27 @@ const TaskDetailPage = () => {
     }
   }
 
-  if (isError) {
+  if (isLoading) {
+    return <TaskDetailSkeleton />
+  }
+
+  if (!task || error?.status === 404) {
     return (
-      <div>
-        <p>Error loading task.</p>
-        <button onClick={() => refetch()}>Retry</button>
-      </div>
+      <EmptyState
+        icon={<GhostIcon size={48} />}
+        title={'Task not found'}
+        description="It seems the task doesn't exist. It might have been deleted or the link is incorrect."
+        action={
+          <Button onClick={() => navigate('/home')} variant="outlined">
+            Go to home
+          </Button>
+        }
+      />
     )
   }
 
-  if (isLoading || !task) {
-    return <TaskDetailSkeleton />
+  if (isError) {
+    return <ErrorState onRetry={refetch} />
   }
 
   return (
