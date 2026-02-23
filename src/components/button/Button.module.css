@@ -45,6 +45,7 @@
 .btn:disabled,
 .disabled {
   opacity: var(--state-layer-disabled-opacity);
+  pointer-events: none;
   cursor: not-allowed;
 }
 

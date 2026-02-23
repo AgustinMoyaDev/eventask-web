@@ -24,7 +24,11 @@ export const LandingPage = () => {
           <p className={clsx('text-body-lg', styles.landingCtaSubtitle)}>
             Start using EvenTask and enjoy organizing your events.
           </p>
-          <Button variant="filled" size="lg" onClick={() => navigate('/auth/register')}>
+          <Button
+            variant="filled"
+            size="lg"
+            onClick={() => navigate('/auth/register', { viewTransition: true })}
+          >
             Create a free account
           </Button>
         </div>

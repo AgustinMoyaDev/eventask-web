@@ -120,13 +120,13 @@ describe('MultiSelectInput', () => {
     render(
       <MultiSelectInput<Option>
         label="Users"
-        typeOption="email"
         options={options}
         getOptionLabel={getOptionLabel}
         getOptionKey={getOptionKey}
-        actionOnEmpty
-        actionLabel="Invite"
         actionMethod={actionMethod}
+        actionLabel="Invite"
+        typeOption="email"
+        actionOnEmpty={true}
       />
     )
     const input = screen.getByLabelText(/search users/i)

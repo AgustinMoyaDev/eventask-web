@@ -8,15 +8,15 @@ import {
   BaseQueryApi,
 } from '@reduxjs/toolkit/query/react'
 
-import { IAuthResponseDto } from '@/types/dtos/auth'
-import { HTTP_STATUS } from '@/api/types/http-status'
+import { AuthResponseDto } from '@/types/dtos/auth.dto'
+import { HTTP_STATUS } from '@/types/dtos/api/httpStatus'
 
 import type { RootState } from '@/store/store'
-import { setCredentials } from '@/store/slices/auth/authActions'
-import { setCsrfToken } from '@/store/slices/security/security'
+import { setCredentials } from '@/features/auth/store/authActions'
+import { setCsrfToken } from '@/store/slices/security/securitySlice'
+import { selectCsrfToken } from '@/store/slices/security/selectors'
 
 import { getEnvVariables } from '@/helpers/getEnvVariables'
-import { ApiResponse } from '@/api/types/response'
 
 /**
  * Development logging utilities for auth flow
@@ -29,7 +29,7 @@ const { DEV, VITE_API_URL } = getEnvVariables()
  * Only the first request executes refresh, others wait for the same promise result
  * @see https://redux-toolkit.js.org/rtk-query/usage/customizing-queries#preventing-duplicate-requests
  */
-let refreshPromise: Promise<QueryReturnValue<IAuthResponseDto, FetchBaseQueryError>> | null = null
+let refreshPromise: Promise<QueryReturnValue<AuthResponseDto, FetchBaseQueryError>> | null = null
 
 /**
  * Promise Deduplication Pattern for logout operations
@@ -88,7 +88,7 @@ function logRefreshStatus(isNewRefresh: boolean): void {
  */
 async function handleRefreshSuccess(
   api: BaseQueryApi,
-  refreshData: IAuthResponseDto,
+  refreshData: AuthResponseDto,
   originalArgs: string | FetchArgs,
   extraOptions: Parameters<BaseQueryFn>[2]
 ) {
@@ -102,7 +102,7 @@ async function handleRefreshSuccess(
   )
 
   return (await baseQuery(originalArgs, api, extraOptions)) as QueryReturnValue<
-    ApiResponse,
+    unknown,
     FetchBaseQueryError,
     object
   >
@@ -137,11 +137,9 @@ async function handleRefreshError(error: unknown, api: BaseQueryApi): Promise<vo
  */
 export async function executeLogout(
   api: BaseQueryApi
-): Promise<QueryReturnValue<IAuthResponseDto, FetchBaseQueryError>> {
+): Promise<QueryReturnValue<AuthResponseDto, FetchBaseQueryError>> {
   const args: FetchArgs = { url: '/auth/logout', method: 'POST' }
-  return baseQuery(args, api, {}) as Promise<
-    QueryReturnValue<IAuthResponseDto, FetchBaseQueryError>
-  >
+  return baseQuery(args, api, {}) as Promise<QueryReturnValue<AuthResponseDto, FetchBaseQueryError>>
 }
 
 /**
@@ -153,9 +151,9 @@ export async function executeLogout(
 function executeRefresh(
   api: BaseQueryApi,
   extraOptions: Parameters<BaseQueryFn>[2]
-): Promise<QueryReturnValue<IAuthResponseDto, FetchBaseQueryError>> {
+): Promise<QueryReturnValue<AuthResponseDto, FetchBaseQueryError>> {
   return baseQuery({ url: '/auth/refresh', method: 'POST' }, api, extraOptions) as Promise<
-    QueryReturnValue<IAuthResponseDto, FetchBaseQueryError>
+    QueryReturnValue<AuthResponseDto, FetchBaseQueryError>
   >
 }
 
@@ -164,7 +162,7 @@ function executeRefresh(
  */
 async function ensureCsrfToken(api: BaseQueryApi, extraOptions: Parameters<BaseQueryFn>[2]) {
   const state = api.getState() as RootState
-  const currentToken = state.security.csrfToken
+  const currentToken = selectCsrfToken(state)
 
   if (currentToken) return
 
@@ -188,7 +186,7 @@ const baseQuery = fetchBaseQuery({
   baseUrl: VITE_API_URL,
   prepareHeaders: (headers, { getState }) => {
     const accessToken = (getState() as RootState).auth.accessToken
-    const csrfToken = (getState() as RootState).security.csrfToken
+    const csrfToken = selectCsrfToken(getState() as RootState)
 
     if (accessToken) headers.set('authorization', `Bearer ${accessToken}`)
     if (csrfToken) headers.set('x-csrf-token', csrfToken)
@@ -199,7 +197,7 @@ const baseQuery = fetchBaseQuery({
 // BaseQuery that detects 401 and triggers refresh automatically
 export const baseQueryWithReauth: BaseQueryFn<
   string | FetchArgs,
-  ApiResponse,
+  unknown,
   FetchBaseQueryError // Error type
 > = async (args, api, extraOptions) => {
   const url = extractUrl(args)
@@ -209,7 +207,7 @@ export const baseQueryWithReauth: BaseQueryFn<
 
   // Execute original request
   let result = (await baseQuery(args, api, extraOptions)) as QueryReturnValue<
-    ApiResponse,
+    unknown,
     FetchBaseQueryError,
     object
   >
@@ -226,7 +224,7 @@ export const baseQueryWithReauth: BaseQueryFn<
 
       // retry once with new CSRF token
       result = (await baseQuery(args, api, extraOptions)) as QueryReturnValue<
-        ApiResponse,
+        unknown,
         FetchBaseQueryError,
         object
       >

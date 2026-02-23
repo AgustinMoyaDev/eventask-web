@@ -2,20 +2,19 @@ import { HeaderSkeleton } from '@/components/header/HeaderSkeleton'
 import { SidebarSkeleton } from '@/components/sidebar/SidebarSkeleton'
 import { GenericContentSkeleton } from '@/components/skeletons/GenericContentSkeleton'
 
-import styles from './RootLayout.module.css'
+import styles from './MainLayout.module.css'
+import clsx from 'clsx'
 
 export const AppShellSkeleton = () => {
   return (
-    <>
+    <div className={styles.mainLayoutWrapper}>
       <HeaderSkeleton />
-      <main className="main">
-        <div className={`${styles.rootLayout} container`}>
-          <SidebarSkeleton />
-          <div className={styles.rootLayoutContent}>
-            <GenericContentSkeleton />
-          </div>
-        </div>
-      </main>
-    </>
+      <div className={`${styles.mainLayoutBody} container`}>
+        <SidebarSkeleton />
+        <main className={clsx('main', styles.mainContent)}>
+          <GenericContentSkeleton />
+        </main>
+      </div>
+    </div>
   )
 }

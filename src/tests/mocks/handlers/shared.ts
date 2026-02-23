@@ -1,9 +1,9 @@
 /**
  * Shared helper functions for MSW handlers
  */
-import type { IPaginationResult } from '@/api/types/pagination'
-import { EVENT_STATUS } from '@/types/IEvent'
-import { ITask, TASK_STATUS, TaskStatus } from '@/types/ITask'
+import type { PaginationResult } from '@/types/dtos/api/pagination'
+import { EVENT_STATUS } from '@/types/entities/event'
+import { Task, TASK_STATUS, TaskStatus } from '@/types/entities/task'
 
 /**
  * Parse pagination query params from URL
@@ -26,7 +26,7 @@ export function createPaginatedResponse<T>(
   perPage: number,
   sortBy: string,
   sortOrder: 'asc' | 'desc'
-): IPaginationResult<T> {
+): PaginationResult<T> {
   const sortedItems = [...allItems].sort((a, b) => {
     const aValue = a[sortBy as keyof T]
     const bValue = b[sortBy as keyof T]
@@ -57,9 +57,9 @@ export function createPaginatedResponse<T>(
  * Recalculate task metadata based on events
  * Used when event status changes to update parent task
  */
-export function recalculateTaskProgress(task: ITask): { progress: number; status: TaskStatus } {
-  const completedEvents = task.events.filter(e => e.status === EVENT_STATUS.COMPLETED).length
-  const totalEvents = task.events.length
+export function recalculateTaskProgress(task: Task): { progress: number; status: TaskStatus } {
+  const completedEvents = task.events?.filter(e => e.status === EVENT_STATUS.COMPLETED).length ?? 0
+  const totalEvents = task.events?.length ?? 0
 
   if (totalEvents === 0) {
     return { progress: 0, status: TASK_STATUS.PENDING }

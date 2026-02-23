@@ -1,7 +1,7 @@
-import { ConfirmModalProps } from '@/types/ui/confirm-modal'
-
 import { Button } from '../button/Button'
 import { Modal } from '../modal/Modal'
+
+import { ConfirmModalProps } from './confirm-modal.types'
 
 import styles from './ConfirmModal.module.css'
 

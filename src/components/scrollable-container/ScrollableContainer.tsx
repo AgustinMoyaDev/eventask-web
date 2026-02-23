@@ -1,7 +1,7 @@
 import { useRef } from 'react'
 import clsx from 'clsx'
 
-import { ScrollableContainerProps } from '@/types/ui/scrollable-container'
+import { ScrollableContainerProps } from './scrollable-container.types'
 
 import { FabArrow } from '@/components/fab-arrow/FabArrow'
 

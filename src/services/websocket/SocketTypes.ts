@@ -1,6 +1,6 @@
 import { Socket } from 'socket.io-client'
 
-import { INotification } from '@/types/INotification'
+import { Notification } from '@/types/entities/notification'
 
 export interface ConnectionData {
   userId: string
@@ -8,7 +8,7 @@ export interface ConnectionData {
 }
 
 export interface ServerToClientEvents {
-  notification: (notification: INotification) => void
+  notification: (notification: Notification) => void
   connected: (data: ConnectionData) => void
   error: (error: string) => void
 }

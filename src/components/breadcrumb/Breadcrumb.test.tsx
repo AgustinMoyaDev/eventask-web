@@ -4,11 +4,11 @@ import { MemoryRouter } from 'react-router-dom'
 import { Breadcrumb } from './Breadcrumb'
 import { SidebarProvider } from '@/context/sidebar/SidebarProvider'
 
-vi.mock('./useNavigation', () => ({
-  useNavigation: vi.fn(),
+vi.mock('@/context/breadcrumb/BreadcrumbContext', () => ({
+  useBreadcrumbContext: vi.fn(),
 }))
 
-import { useNavigation } from './useNavigation'
+import { useBreadcrumbContext } from '@/context/breadcrumb/BreadcrumbContext'
 
 function renderWithProviders(ui: React.ReactNode) {
   return render(
@@ -19,12 +19,13 @@ function renderWithProviders(ui: React.ReactNode) {
 }
 
 describe('Breadcrumb', () => {
-  vi.mocked(useNavigation).mockReturnValue({
+  vi.mocked(useBreadcrumbContext).mockReturnValue({
     breadcrumbs: [
       { path: '/', label: 'Home' },
       { path: '/tasks', label: 'Tasks' },
       { path: '/tasks/123', label: 'Task Details' },
     ],
+    setBreadcrumbs: vi.fn(),
   })
 
   it('should render accessible structure and elements correctly', () => {
@@ -51,10 +52,11 @@ describe('Breadcrumb', () => {
   })
 
   it('should not render anything if breadcrumbs is empty', () => {
-    vi.mocked(useNavigation).mockReturnValue({
+    vi.mocked(useBreadcrumbContext).mockReturnValue({
       breadcrumbs: [],
+      setBreadcrumbs: vi.fn(),
     })
     renderWithProviders(<Breadcrumb />)
-    expect(screen.queryByLabelText('breadcrumb')).toBeInTheDocument()
+    expect(screen.queryByLabelText('breadcrumb')).not.toBeInTheDocument()
   })
 })

@@ -1,9 +1,7 @@
 import { delay, http, HttpResponse } from 'msw'
 
-import type { ITask } from '@/types/ITask'
-import { ITaskCreatePayload, ITaskUpdatePayload } from '@/types/dtos/task'
-import { EVENT_STATUS, IEvent } from '@/types/IEvent'
-import { IUser } from '@/types/IUser'
+import type { Task } from '@/types/entities/task'
+import { CreateTaskDto, UpdateTaskDto } from '@/types/dtos/task.dto'
 
 import { createPaginatedResponse, getPaginationParams } from './shared'
 import {
@@ -14,7 +12,7 @@ import {
   MOCK_TASKS,
 } from '../data/mockData'
 import { DELAYS } from '../utils/delays'
-import { calculateTaskDuration, createFakeTask } from '../factories/taskFactory'
+import { createFakeTask } from '../factories/taskFactory'
 
 /**
  * Task domain handlers
@@ -28,11 +26,11 @@ export const taskHandlers = [
   http.get('*/api/tasks', ({ request }) => {
     const url = new URL(request.url)
     const { page, perPage, sortBy, sortOrder } = getPaginationParams(url)
-    const response = createPaginatedResponse<ITask>(MOCK_TASKS, page, perPage, sortBy, sortOrder)
+    const response = createPaginatedResponse<Task>(MOCK_TASKS, page, perPage, sortBy, sortOrder)
 
     // Remove circular references from all tasks
     const cleanItems = response.items.map(task => {
-      const { events: taskEvents, ...taskResponse } = task
+      const { events: taskEvents = [], ...taskResponse } = task
       const cleanEvents = taskEvents.map(({ task: _, ...evt }) => evt)
       return { ...taskResponse, events: cleanEvents }
     })
@@ -51,7 +49,7 @@ export const taskHandlers = [
     }
 
     // Remove circular references before returning
-    const { events: taskEvents, ...taskResponse } = task
+    const { events: taskEvents = [], ...taskResponse } = task
     const cleanEvents = taskEvents.map(({ task: _, ...evt }) => evt)
 
     return HttpResponse.json({ ...taskResponse, events: cleanEvents })
@@ -61,7 +59,7 @@ export const taskHandlers = [
    */
   http.post('*/api/tasks', async ({ request }) => {
     await delay(DELAYS.NORMAL)
-    const body = (await request.json()) as ITaskCreatePayload
+    const body = (await request.json()) as CreateTaskDto
 
     if (!body.title || !body.categoryId) {
       return HttpResponse.json(
@@ -75,49 +73,21 @@ export const taskHandlers = [
       return HttpResponse.json({ ok: false, message: 'Category not found' }, { status: 404 })
     }
 
-    const participants = body.participantsIds
-      .map(id => MOCK_CONTACTS.find(c => c.id === id))
-      .filter((user): user is IUser => user !== undefined)
-
-    const events: IEvent[] = body.events.map(eventForm => ({
-      id: crypto.randomUUID(),
-      title: eventForm.title,
-      start: eventForm.start,
-      end: eventForm.end,
-      notes: eventForm.notes,
-      status: EVENT_STATUS.PENDING,
-      createdBy: MOCK_LOGGED_USER,
-      createdAt: new Date(),
-      updatedAt: new Date(),
-    }))
-
     const newTask = createFakeTask({
       title: body.title,
       categoryId: body.categoryId,
       category,
       createdBy: MOCK_LOGGED_USER.id,
       creator: MOCK_LOGGED_USER,
-      participantsIds: body.participantsIds,
-      participants,
-      events,
-      eventsIds: events.map(e => e.id),
+      events: [], // Start with empty events, they can be added later
+      eventsIds: [],
+      participants: [], // Start with empty participants, they can be added later
+      participantsIds: [],
     })
 
     MOCK_TASKS.push(newTask)
 
-    events.forEach(event => {
-      MOCK_EVENTS.push({
-        ...event,
-        taskId: newTask.id,
-        task: newTask,
-      })
-    })
-
-    // Remove circular references before returning
-    const { events: taskEvents, ...taskResponse } = newTask
-    const cleanEvents = taskEvents.map(({ task: _, ...evt }) => evt)
-
-    return HttpResponse.json({ ...taskResponse, events: cleanEvents }, { status: 201 })
+    return HttpResponse.json(newTask, { status: 201 })
   }),
   /**
    * PUT /api/tasks/:id - Update existing task
@@ -125,7 +95,7 @@ export const taskHandlers = [
   http.put('*/api/tasks/:id', async ({ request, params }) => {
     await delay(DELAYS.NORMAL)
     const { id } = params
-    const body = (await request.json()) as ITaskUpdatePayload
+    const body = (await request.json()) as UpdateTaskDto
 
     const taskIndex = MOCK_TASKS.findIndex(t => t.id === id)
     if (taskIndex === -1) {
@@ -138,81 +108,18 @@ export const taskHandlers = [
       ? MOCK_CATEGORIES.find(c => c.id === body.categoryId)
       : existingTask.category
 
-    const participants = body.participantsIds
-      .map(id => MOCK_CONTACTS.find(c => c.id === id))
-      .filter((user): user is IUser => user !== undefined)
-
-    const currentEventsMap = new Map(existingTask.events.map(e => [e.id, e]))
-    const newEventIds: string[] = []
-    const updatedEvents: IEvent[] = []
-
-    for (const eventForm of body.events) {
-      if (eventForm.id && currentEventsMap.has(eventForm.id)) {
-        // UPDATE: preserve collaborators and other fields
-        const existingEvent = currentEventsMap.get(eventForm.id)!
-        const updatedEvent: IEvent = {
-          ...existingEvent,
-          title: eventForm.title,
-          start: eventForm.start,
-          end: eventForm.end,
-          notes: eventForm.notes,
-          updatedAt: new Date(),
-        }
-        updatedEvents.push(updatedEvent)
-        newEventIds.push(updatedEvent.id)
-        currentEventsMap.delete(eventForm.id)
-
-        // Update in MOCK_EVENTS
-        const mockEventIndex = MOCK_EVENTS.findIndex(e => e.id === eventForm.id)
-        if (mockEventIndex !== -1) {
-          MOCK_EVENTS[mockEventIndex] = {
-            ...updatedEvent,
-            taskId: id as string,
-            task: existingTask,
-          }
-        }
-      } else {
-        // CREATE: new event without collaborators
-        const newEvent: IEvent = {
-          id: crypto.randomUUID(),
-          title: eventForm.title,
-          start: eventForm.start,
-          end: eventForm.end,
-          notes: eventForm.notes,
-          status: EVENT_STATUS.PENDING,
-          createdBy: MOCK_LOGGED_USER,
-          createdAt: new Date(),
-          updatedAt: new Date(),
-        }
-        updatedEvents.push(newEvent)
-        newEventIds.push(newEvent.id)
-
-        // Add to MOCK_EVENTS
-        MOCK_EVENTS.push({ ...newEvent, taskId: id as string, task: existingTask })
-      }
-    }
-
-    const updatedTask = createFakeTask({
+    const updatedTask = {
       ...existingTask,
       id: existingTask.id,
       title: body.title,
       categoryId: body.categoryId,
       category,
-      participantsIds: body.participantsIds,
-      participants,
-      events: updatedEvents,
-      eventsIds: newEventIds,
-      updatedAt: new Date(),
-      duration: calculateTaskDuration(updatedEvents),
-    })
+      updatedAt: new Date().toISOString(),
+    }
 
     MOCK_TASKS[taskIndex] = updatedTask
 
-    // Remove circular references before returning
-    const { events: taskEvents, ...taskResponse } = updatedTask
-    const cleanEvents = taskEvents.map(({ task: _task, ...evt }) => evt)
-
-    return HttpResponse.json({ ...taskResponse, events: cleanEvents })
+    return HttpResponse.json(updatedTask, { status: 200 })
   }),
   /**
    * DELETE /api/tasks/:id - Delete task and cascade delete events
@@ -236,5 +143,52 @@ export const taskHandlers = [
     }
 
     return HttpResponse.json({ id: id as string })
+  }),
+
+  /**
+   * POST /api/tasks/:taskId/participants/:participantId - Assign participant to task
+   */
+  http.post('*/api/tasks/:taskId/participants/:participantId', async ({ params }) => {
+    await delay(DELAYS.FAST)
+    const { taskId, participantId } = params
+
+    const task = MOCK_TASKS.find(t => t.id === taskId)
+    if (!task) {
+      return HttpResponse.json({ ok: false, message: 'Task not found' }, { status: 404 })
+    }
+
+    const participant = MOCK_CONTACTS.find(c => c.id === participantId)
+    if (!participant) {
+      return HttpResponse.json({ ok: false, message: 'Participant not found' }, { status: 404 })
+    }
+
+    task.participants?.push(participant)
+
+    return HttpResponse.json({ ...task })
+  }),
+
+  /**
+   * DELETE /api/tasks/:taskId/participants/:participantId - Remove participant from task
+   */
+  http.delete('*/api/tasks/:taskId/participants/:participantId', async ({ params }) => {
+    await delay(DELAYS.FAST)
+    const { taskId, participantId } = params
+
+    const task = MOCK_TASKS.find(t => t.id === taskId)
+    if (!task) {
+      return HttpResponse.json({ ok: false, message: 'Task not found' }, { status: 404 })
+    }
+
+    const participantIndex = task.participants?.findIndex(p => p.id === participantId)
+    if (participantIndex === undefined || participantIndex === -1) {
+      return HttpResponse.json(
+        { ok: false, message: 'Participant not found in task' },
+        { status: 404 }
+      )
+    }
+
+    task.participants?.splice(participantIndex, 1)
+
+    return HttpResponse.json({ ...task })
   }),
 ]
