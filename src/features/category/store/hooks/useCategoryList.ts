@@ -3,15 +3,12 @@ import { skipToken } from '@reduxjs/toolkit/query'
 
 import { SortConfig } from '@/components/table/table.types'
 
-import {
-  useFetchCategoriesQuery,
-  useGetCategoriesWithTaskCountQuery,
-} from '@/features/category/services/categoryApi'
+import { useFetchCategoriesQuery } from '@/features/category/services/categoryApi'
 import { useAppSelector } from '@/store/reduxStore'
 import { parseRTKError } from '@/services/utils/parseRTKError'
 
 /**
- * Category Queries Hook
+ * Category List Hook
  *
  * Provides read-only access to category data from the API.
  * Handles pagination, sorting, and conditional fetching.
@@ -24,13 +21,13 @@ import { parseRTKError } from '@/services/utils/parseRTKError'
  * @example
  * ```tsx
  * // Paginated list
- * const { categories, total, isFetching } = useCategoryQueries(1, 10, true)
+ * const { categories, total, isFetching } = useCategoryList(1, 10, true)
  *
  * // All categories with task count
- * const { categoriesWithTaskCount } = useCategoryQueries()
+ * const { categoriesWithTaskCount } = useCategoryList()
  * ```
  */
-export const useCategoryQueries = (
+export const useCategoryList = (
   page = 1,
   perPage = 5,
   shouldFetch = true,
@@ -61,29 +58,13 @@ export const useCategoryQueries = (
     refetch,
   } = useFetchCategoriesQuery(categoriesQueryParams)
 
-  // All categories with task count (always fetch if no skipToken)
-  const {
-    data: categoriesWithTaskCount = [],
-    isFetching: isFetchingWithCount,
-    error: fetchCountError,
-  } = useGetCategoriesWithTaskCountQuery(accessToken ? undefined : skipToken)
-
   const fetchCategoryError = useMemo(() => parseRTKError(fetchError), [fetchError])
-  const fetchCategoryCountError = useMemo(() => parseRTKError(fetchCountError), [fetchCountError])
 
   return {
-    // Paginated data
     categories,
     total,
     isFetching,
-    refetch,
-
-    // All categories with count
-    categoriesWithTaskCount,
-    isFetchingWithCount,
-
-    // Errors
     fetchCategoryError,
-    fetchCategoryCountError,
+    refetch,
   }
 }

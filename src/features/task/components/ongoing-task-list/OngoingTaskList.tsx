@@ -2,7 +2,7 @@ import { useMemo } from 'react'
 import clsx from 'clsx'
 
 import { useSearch } from '@/context/search/SearchContext'
-import { useTaskQueries } from '@/features/task/store/hooks/useTaskQueries'
+import { useTaskList } from '@/features/task/store/hooks/useTaskList'
 
 import { PlusIcon } from '@/components/icons/Icons'
 import { ScrollableContainer } from '@/components/scrollable-container/ScrollableContainer'
@@ -14,7 +14,7 @@ import styles from './OngoingTaskList.module.css'
 
 export const OngoingTaskList = () => {
   const { search } = useSearch()
-  const { fetching, tasks } = useTaskQueries()
+  const { fetching, tasks } = useTaskList()
 
   const filteredTasks = useMemo(() => {
     return tasks.filter(({ title }) => title.toLowerCase().includes(search.toLowerCase()))

@@ -75,6 +75,6 @@
 }
 
 .categoryItemSubtitle {
-  font-weight: var(--font-weight-normal);
+  font-weight: var(--font-weight-regular);
   color: var(--color-on-surface-variant);
 }

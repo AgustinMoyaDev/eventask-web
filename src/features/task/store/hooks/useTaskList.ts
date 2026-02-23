@@ -6,12 +6,7 @@ import { parseRTKError } from '@/services/utils/parseRTKError'
 import { useFetchTasksQuery } from '@/features/task/services/taskApi'
 import { useAppSelector } from '@/store/reduxStore'
 
-export const useTaskQueries = (
-  page = 1,
-  perPage = 5,
-  shouldFetch = true,
-  sortConfig?: SortConfig
-) => {
+export const useTaskList = (page = 1, perPage = 5, shouldFetch = true, sortConfig?: SortConfig) => {
   const { accessToken } = useAppSelector(state => state.auth)
 
   const queryParams = useMemo(() => {
