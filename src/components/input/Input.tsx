@@ -2,7 +2,7 @@ import { forwardRef, useId, useState } from 'react'
 
 import clsx from 'clsx'
 
-import { InputProps } from '@/types/ui/input'
+import { InputProps } from './input.types'
 
 import styles from './Input.module.css'
 
@@ -112,7 +112,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
             )}
             {hint && (
               <small id={hintId} className={styles.inputHint}>
-                {`Eg: ${hint}`}
+                {hint}
               </small>
             )}
           </div>

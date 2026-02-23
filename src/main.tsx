@@ -1,4 +1,3 @@
-import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 
 import EvenTask from './EvenTask'
@@ -18,9 +17,5 @@ async function enableMocking() {
 }
 
 enableMocking().then(() => {
-  createRoot(document.getElementById('root')!).render(
-    <StrictMode>
-      <EvenTask />
-    </StrictMode>
-  )
+  createRoot(document.getElementById('root')!).render(<EvenTask />)
 })

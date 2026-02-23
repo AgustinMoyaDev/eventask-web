@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 
 import clsx from 'clsx'
 
-import { TOAST_STATUS, ToastProps } from '@/types/ui/toast'
+import { TOAST_STATUS, ToastProps } from './toast.types'
 
 import { CheckIcon, ErrorIcon } from '@/components/icons/Icons'
 

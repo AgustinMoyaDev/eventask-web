@@ -1,6 +1,6 @@
 import { faker } from '@faker-js/faker'
 
-import { IInvitation, INVITATION_STATUS } from '@/types/IInvitation'
+import { Invitation, INVITATION_STATUS } from '@/types/entities/invitation'
 
 import { MOCK_LOGGED_USER_ID } from '../data/mockData'
 
@@ -8,7 +8,7 @@ import { MOCK_LOGGED_USER_ID } from '../data/mockData'
  * Creates a fake invitation
  * @param overwrites - Partial invitation properties to override defaults
  */
-export function createFakeInvitation(overwrites: Partial<IInvitation> = {}): IInvitation {
+export function createFakeInvitation(overwrites: Partial<Invitation> = {}): Invitation {
   return {
     id: faker.string.uuid(),
     from: overwrites.from ?? MOCK_LOGGED_USER_ID,
@@ -31,6 +31,6 @@ export function createFakeInvitation(overwrites: Partial<IInvitation> = {}): IIn
  * Creates multiple fake invitations
  * @param count - Number of invitations to create
  */
-export function createFakeInvitations(count: number): IInvitation[] {
+export function createFakeInvitations(count: number): Invitation[] {
   return Array.from({ length: count }, () => createFakeInvitation())
 }

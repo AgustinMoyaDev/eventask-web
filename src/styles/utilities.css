@@ -1,8 +1,6 @@
 /* =============== REUSABLE CSS CLASSES =============== */
 .section {
-  /* padding: var(--spacing-xl) 0 var(--spacing-md); */
   padding-block: var(--spacing-xl) var(--spacing-md);
-  padding-inline: var(--spacing-xs);
 }
 
 .container {

@@ -6,7 +6,7 @@ export function TableSkeleton() {
   return (
     <div className={styles.tableContainer}>
       <table className={styles.table}>
-        <thead className={styles.tableHead}>
+        <thead className={styles.tableHead} style={{ backgroundColor: 'inherit' }}>
           <tr className={styles.tableHeadRow}>
             {Array.from({ length: 4 }).map((_, index) => (
               <th key={index} className={styles.tableHeader}>
@@ -21,7 +21,11 @@ export function TableSkeleton() {
             const rowId = `skeleton-row-${rowIndex}`
 
             return (
-              <tr key={rowId} className={styles.tableBodyRow}>
+              <tr
+                key={rowId}
+                className={styles.tableBodyRow}
+                style={{ backgroundColor: 'inherit' }}
+              >
                 {Array.from({ length: 4 }).map((_, index) => {
                   return (
                     <td key={`skeleton-col-${index}`} className={styles.tableBodyData}>

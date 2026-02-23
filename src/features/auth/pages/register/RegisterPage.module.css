@@ -1,0 +1,9 @@
+.registerSwitch {
+  display: flex;
+  gap: var(--spacing-xs);
+  justify-content: center;
+}
+
+.registerSwitch a {
+  font-weight: var(--font-weight-bold);
+}

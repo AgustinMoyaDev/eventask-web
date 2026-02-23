@@ -1,10 +1,10 @@
 /**
  * Category Factory
- * Generates fake ICategory objects using Faker.js
+ * Generates fake  objects using Faker.js
  * @see https://fakerjs.dev/guide/usage.html#create-complex-objects
  */
 import { faker } from '@faker-js/faker'
-import type { ICategory } from '@/types/ICategory'
+import type { Category } from '@/types/entities/category'
 
 /**
  * Predefined realistic category names for task management.
@@ -26,10 +26,10 @@ const CATEGORY_NAMES = [
 ]
 
 /**
- * Creates a fake ICategory object with realistic data.
+ * Creates a fake Category object with realistic data.
  *
- * @param overwrites - Partial ICategory to override default generated values
- * @returns A complete ICategory object with fake data
+ * @param overwrites - Partial Category to override default generated values
+ * @returns A complete Category object with fake data
  *
  * @example
  * ```typescript
@@ -40,7 +40,7 @@ const CATEGORY_NAMES = [
  * const devCategory = createFakeCategory({ name: 'Development' })
  * ```
  */
-export function createFakeCategory(overwrites: Partial<ICategory> = {}): ICategory {
+export function createFakeCategory(overwrites: Partial<Category> = {}): Category {
   const {
     id = faker.string.uuid(),
     name = faker.helpers.arrayElement(CATEGORY_NAMES),
@@ -59,11 +59,11 @@ export function createFakeCategory(overwrites: Partial<ICategory> = {}): ICatego
 }
 
 /**
- * Creates multiple fake ICategory objects.
+ * Creates multiple fake Category objects.
  *
  * @param count - Number of categories to generate
- * @param overwrites - Partial ICategory applied to all generated categories
- * @returns Array of ICategory objects
+ * @param overwrites - Partial Category applied to all generated categories
+ * @returns Array of Category objects
  *
  * @example
  * ```typescript
@@ -73,7 +73,7 @@ export function createFakeCategory(overwrites: Partial<ICategory> = {}): ICatego
  */
 export function createFakeCategories(
   count: number,
-  overwrites: Partial<ICategory> = {}
-): ICategory[] {
+  overwrites: Partial<Category> = {}
+): Category[] {
   return Array.from({ length: count }, () => createFakeCategory(overwrites))
 }

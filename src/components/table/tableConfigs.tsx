@@ -1,21 +1,22 @@
-import { ColumnConfig } from '@/types/ui/table'
-import { ITask } from '@/types/ITask'
-import { ICategory } from '@/types/ICategory'
-import { INotification } from '@/types/INotification'
-import { IEvent } from '@/types/IEvent'
-import { IUser } from '@/types/IUser'
-import { getColorChipTask } from '@/types/ui/task'
+import { Task } from '@/types/entities/task'
+import { Category } from '@/types/entities/category'
+import { Notification } from '@/types/entities/notification'
+import { Event } from '@/types/entities/event'
+import { User } from '@/types/entities/user'
+
+import { ColumnConfig } from './table.types'
 
 import { Chip } from '@/components/chip/Chip'
-import { Avatar } from '@/components/users-avatars/Avatar'
+import { UserAvatar } from '@/features/user/components/user-avatar/UserAvatar'
+import { PROGRESS_STATUS } from '@/features/task/components/task-info/helpers/getColorChip'
 
-export const TASK_COLUMNS: ColumnConfig<ITask>[] = [
+export const TASK_COLUMNS: ColumnConfig<Task>[] = [
   { key: 'title', label: 'Title', sortable: true },
   {
     key: 'status',
     label: 'Status',
     sortable: true,
-    render: task => <Chip label={task.status} color={getColorChipTask(task.status)} />,
+    render: task => <Chip label={task.status} color={PROGRESS_STATUS[task.status].color} />,
   },
   {
     key: 'createdAt',
@@ -25,12 +26,12 @@ export const TASK_COLUMNS: ColumnConfig<ITask>[] = [
   },
 ]
 
-export const CATEGORY_COLUMNS: ColumnConfig<ICategory>[] = [
+export const CATEGORY_COLUMNS: ColumnConfig<Category>[] = [
   { key: 'name', label: 'Name', sortable: true },
   { key: 'description', label: 'Description', sortable: false },
 ]
 
-export const NOTIFICATION_COLUMNS: ColumnConfig<INotification>[] = [
+export const NOTIFICATION_COLUMNS: ColumnConfig<Notification>[] = [
   { key: 'title', label: 'Title', sortable: true },
   { key: 'message', label: 'Message', sortable: true },
   {
@@ -41,7 +42,7 @@ export const NOTIFICATION_COLUMNS: ColumnConfig<INotification>[] = [
   },
 ]
 
-export const EVENTS_COLUMNS: ColumnConfig<IEvent>[] = [
+export const EVENTS_COLUMNS: ColumnConfig<Event>[] = [
   { key: 'title', label: 'Title', sortable: true },
   {
     key: 'createdAt',
@@ -63,7 +64,7 @@ export const EVENTS_COLUMNS: ColumnConfig<IEvent>[] = [
   },
 ]
 
-export const CONTACTS_COLUMNS: ColumnConfig<IUser>[] = [
+export const CONTACTS_COLUMNS: ColumnConfig<User>[] = [
   { key: 'firstName', label: 'First name', sortable: true },
   { key: 'lastName', label: 'Last name', sortable: true },
   { key: 'email', label: 'Email', sortable: true },
@@ -71,6 +72,14 @@ export const CONTACTS_COLUMNS: ColumnConfig<IUser>[] = [
     key: 'profileImageURL',
     label: 'Profile Image',
     sortable: false,
-    render: user => <Avatar user={user} />,
+    render: user => (
+      <UserAvatar
+        userId={user.id.toString()}
+        imageUrl={user.profileImageURL}
+        firstName={user.firstName}
+        lastName={user.lastName}
+        ariaLabel={`${user.firstName} ${user.lastName} avatar`}
+      />
+    ),
   },
 ]
