@@ -1,0 +1,8 @@
+.userProfileResetOnboardingContainer {
+  display: flex;
+  padding-inline: var(--spacing-xs);
+}
+
+.userProfileResetOnboardingBtn {
+  margin-left: auto;
+}

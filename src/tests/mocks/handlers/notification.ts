@@ -1,6 +1,6 @@
 import { delay, http, HttpResponse } from 'msw'
 
-import type { INotification } from '@/types/INotification'
+import type { Notification } from '@/types/entities/notification'
 
 import { createPaginatedResponse, getPaginationParams } from './shared'
 import { MOCK_NOTIFICATIONS } from '../data/mockData'
@@ -15,7 +15,7 @@ export const notificationHandlers = [
     const url = new URL(request.url)
     const { page, perPage, sortBy, sortOrder } = getPaginationParams(url)
 
-    const response = createPaginatedResponse<INotification>(
+    const response = createPaginatedResponse<Notification>(
       MOCK_NOTIFICATIONS,
       page,
       perPage,
@@ -47,7 +47,7 @@ export const notificationHandlers = [
 
     // Mark as read
     MOCK_NOTIFICATIONS[notificationIndex].read = true
-    MOCK_NOTIFICATIONS[notificationIndex].updatedAt = new Date()
+    MOCK_NOTIFICATIONS[notificationIndex].updatedAt = new Date().toISOString()
 
     return HttpResponse.json(MOCK_NOTIFICATIONS[notificationIndex])
   }),
@@ -60,7 +60,7 @@ export const notificationHandlers = [
     // Mark all as read
     MOCK_NOTIFICATIONS.forEach(notification => {
       notification.read = true
-      notification.updatedAt = new Date()
+      notification.updatedAt = new Date().toISOString()
     })
 
     return HttpResponse.json({ message: 'All notifications marked as read' })

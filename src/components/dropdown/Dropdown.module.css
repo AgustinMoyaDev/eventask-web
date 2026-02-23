@@ -21,7 +21,7 @@
   position: absolute;
   top: 85%;
   right: 5%;
-  background-color: var(--color-secondary-container);
+  background-color: var(--color-surface-container);
   border-radius: var(--radius-sm);
   width: var(--dropdown-wrapper-width);
   padding: var(--spacing-md);

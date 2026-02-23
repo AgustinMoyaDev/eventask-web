@@ -1,12 +1,16 @@
 /**
  * Notification Factory
- * Generates fake INotification objects using Faker.js
+ * Generates fake Notification objects using Faker.js
  * @see https://fakerjs.dev/guide/usage.html#create-complex-objects
  */
 import { faker } from '@faker-js/faker'
-import type { INotification, INotificationData, NotificationType } from '@/types/INotification'
-import { NOTIFICATION_TYPE } from '@/types/INotification'
-import { INVITATION_STATUS, InvitationStatus } from '@/types/IInvitation'
+import type {
+  Notification,
+  NotificationData,
+  NotificationType,
+} from '@/types/entities/notification'
+import { NOTIFICATION_TYPE } from '@/types/entities/notification'
+import { INVITATION_STATUS, InvitationStatus } from '@/types/entities/invitation'
 
 /**
  * Realistic notification templates by type.
@@ -57,10 +61,10 @@ const NOTIFICATION_TEMPLATES = {
 } as const
 
 /**
- * Creates a fake INotification object with realistic data.
+ * Creates a fake Notification object with realistic data.
  *
- * @param overwrites - Partial INotification to override default generated values
- * @returns A complete INotification object with fake data
+ * @param overwrites - Partial Notification to override default generated values
+ * @returns A complete Notification object with fake data
  *
  * @example
  * ```typescript
@@ -84,7 +88,7 @@ const NOTIFICATION_TEMPLATES = {
  * })
  * ```
  */
-export function createFakeNotification(overwrites: Partial<INotification> = {}): INotification {
+export function createFakeNotification(overwrites: Partial<Notification> = {}): Notification {
   // Determine notification type first
   const type: NotificationType =
     overwrites.type ?? faker.helpers.arrayElement(Object.values(NOTIFICATION_TYPE))
@@ -92,7 +96,7 @@ export function createFakeNotification(overwrites: Partial<INotification> = {}):
   // Generate invitation-specific data with varied statuses
   let title: string
   let message: string
-  let defaultData: INotificationData
+  let defaultData: NotificationData
   let readInvitation = true
   const fromUserNameInvitation = faker.person.fullName()
 
@@ -173,7 +177,7 @@ export function createFakeNotification(overwrites: Partial<INotification> = {}):
  * @param notifications - Array of notifications to sort
  * @returns Sorted array (descending by createdAt)
  */
-function sortByMostRecent(notifications: INotification[]): INotification[] {
+function sortByMostRecent(notifications: Notification[]): Notification[] {
   return notifications.sort((a, b) => {
     const timeA = a.createdAt.getTime()
     const timeB = b.createdAt.getTime()
@@ -182,11 +186,11 @@ function sortByMostRecent(notifications: INotification[]): INotification[] {
 }
 
 /**
- * Creates multiple fake INotification objects.
+ * Creates multiple fake Notification objects.
  *
  * @param count - Number of notifications to generate
- * @param overwrites - Partial INotification applied to all generated notifications
- * @returns Array of INotification objects
+ * @param overwrites - Partial Notification applied to all generated notifications
+ * @returns Array of Notification objects
  *
  * @example
  * ```typescript
@@ -199,8 +203,8 @@ function sortByMostRecent(notifications: INotification[]): INotification[] {
  */
 export function createFakeNotifications(
   count: number,
-  overwrites: Partial<INotification> = {}
-): INotification[] {
+  overwrites: Partial<Notification> = {}
+): Notification[] {
   const notifications = Array.from({ length: count }, () => createFakeNotification(overwrites))
   return sortByMostRecent(notifications)
 }

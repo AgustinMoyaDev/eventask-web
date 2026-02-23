@@ -4,7 +4,7 @@ import styles from './GenericContentSkeleton.module.css'
 
 /**
  * Skeleton for the main content area (Title + Grid).
- * Used in RootLayout and CalendarLayout during route transitions.
+ * Used in MainLayout during route transitions.
  */
 export const GenericContentSkeleton = () => {
   return (

@@ -1,14 +1,10 @@
 .breadcrumb {
-  position: sticky;
-  top: var(--header-height);
-  width: 100%;
   overflow: hidden;
   z-index: var(--z-tooltip);
   background-color: var(--color-surface-hsla);
   backdrop-filter: blur(10px);
   display: flex;
   align-items: center;
-  padding-inline: var(--spacing-lg);
   min-height: var(--breadcrumb-height);
   transition: opacity var(--transition-base);
 }
@@ -52,10 +48,4 @@
   color: var(--color-outline);
   display: inline-flex;
   align-items: center;
-}
-
-@media screen and (min-width: 992px) {
-  .breadcrumb {
-    padding-left: calc(var(--sidebar-collapsed-width) + var(--spacing-md-plus));
-  }
 }

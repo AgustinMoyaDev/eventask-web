@@ -1,0 +1,14 @@
+.section {
+  min-height: 10rem;
+}
+
+.sectionHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.sectionTitle {
+  font-size: var(--font-title-md-size);
+  font-weight: var(--font-weight-medium);
+}

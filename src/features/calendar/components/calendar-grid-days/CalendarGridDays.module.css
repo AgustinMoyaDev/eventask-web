@@ -1,0 +1,69 @@
+.calendar {
+  position: relative;
+  background-color: var(--color-secondary-container);
+  padding: var(--spacing-sm-plus);
+  border-radius: var(--radius-sm);
+  display: flex;
+  flex-direction: column;
+  row-gap: var(--spacing-xs);
+  width: 100%;
+  box-shadow: var(--elevation-2);
+}
+
+.calendarHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  column-gap: var(--spacing-md-plus);
+  padding-block: var(--spacing-sm-plus) var(--spacing-md-plus);
+}
+
+.calendarNavBtn {
+  background-color: var(--color-secondary);
+  color: var(--color-on-secondary);
+}
+
+.calendarWeekdays {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  text-transform: capitalize;
+}
+
+.calendarWeekday {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 14.28%;
+  font-weight: var(--font-weight-medium);
+}
+
+.calendarDays {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+@media screen and (min-width: 576px) {
+  .calendar {
+    margin-right: 40%;
+  }
+
+  .calendar::after,
+  .calendar::before {
+    content: '';
+    position: absolute;
+    width: 7px;
+    height: 96%;
+    top: 50%;
+    right: 100%;
+    transform: translateY(-50%);
+    border-radius: var(--radius-sm) 0 0 var(--radius-sm);
+    background-color: var(--color-page-1-calendar);
+  }
+
+  .calendar::before {
+    height: 92%;
+    right: calc(100% + 5px);
+    background-color: var(--color-page-2-calendar);
+  }
+}
