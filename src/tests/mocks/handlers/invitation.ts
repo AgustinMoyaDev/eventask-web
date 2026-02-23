@@ -3,8 +3,8 @@ import { http, HttpResponse, delay } from 'msw'
 import { DELAYS } from '../utils/delays'
 import { MOCK_CONTACTS, MOCK_NOTIFICATIONS } from '../data/mockData'
 
-import { INVITATION_STATUS } from '@/types/IInvitation'
-import { NOTIFICATION_TYPE } from '@/types/INotification'
+import { INVITATION_STATUS } from '@/types/entities/invitation'
+import { NOTIFICATION_TYPE } from '@/types/entities/notification'
 
 export const invitationHandlers = [
   /**
@@ -49,7 +49,7 @@ export const invitationHandlers = [
     // Update invitation status in notification data
     notification.data.invitationStatus = INVITATION_STATUS.ACCEPTED
     notification.read = true
-    notification.updatedAt = new Date()
+    notification.updatedAt = new Date().toISOString()
     notification.title = 'Invitation Accepted'
     notification.message = 'Your invitation has been accepted'
 
@@ -76,7 +76,7 @@ export const invitationHandlers = [
     // Update invitation status in notification data
     notification.data.invitationStatus = INVITATION_STATUS.REJECTED
     notification.read = true
-    notification.updatedAt = new Date()
+    notification.updatedAt = new Date().toISOString()
     notification.title = 'Invitation Declined'
     notification.message = 'Your invitation has been declined'
 

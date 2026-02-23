@@ -1,6 +1,6 @@
 import clsx from 'clsx'
 
-import { ChipProps } from '@/types/ui/chip'
+import { ChipProps } from './chip.types'
 
 import styles from './Chip.module.css'
 

@@ -1,25 +1,29 @@
 import js from '@eslint/js'
+import { defineConfig } from 'eslint/config'
 import globals from 'globals'
 import reactHooks from 'eslint-plugin-react-hooks'
 import reactRefresh from 'eslint-plugin-react-refresh'
 import tseslint from 'typescript-eslint'
 import prettierConfig from 'eslint-config-prettier'
 
-export default tseslint.config(
+export default defineConfig([
   {
-    ignores: ['dist', 'coverage'],
+    ignores: ['dist', 'coverage', 'eslint.config.js', 'public/'],
+  },
+  js.configs.recommended,
+  ...tseslint.configs.recommended,
+  ...tseslint.configs.stylisticTypeChecked,
+  prettierConfig,
+  {
+    files: ['**/*.js', '**/*.cjs', '**/*.mjs'],
+    ...tseslint.configs.disableTypeChecked,
   },
   {
-    extends: [
-      js.configs.recommended,
-      ...tseslint.configs.recommended,
-      ...tseslint.configs.stylisticTypeChecked,
-      prettierConfig,
-    ],
     files: ['**/*.{ts,tsx}'],
     languageOptions: {
-      ecmaVersion: 2020,
+      ecmaVersion: 'latest',
       globals: globals.browser,
+      parser: tseslint.parser,
       parserOptions: {
         project: ['./tsconfig.app.json', './tsconfig.node.json'],
         tsconfigRootDir: import.meta.dirname,
@@ -42,5 +46,5 @@ export default tseslint.config(
         },
       ],
     },
-  }
-)
+  },
+])

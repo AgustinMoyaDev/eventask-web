@@ -1,14 +1,17 @@
+import { getEnvVariables } from '@/helpers/getEnvVariables'
 import { http, HttpResponse, ws, delay } from 'msw'
+
+const { DEV } = getEnvVariables()
 
 const chatSocket = ws.link('*/socket.io/*')
 /**
  * WebSocket handler for real-time communication
  */
 chatSocket.addEventListener('connection', ({ client }) => {
-  console.log('🔌 Mocked Socket.io connection established')
+  if (DEV) console.log('🔌 Mocked Socket.io connection established')
 
   client.addEventListener('message', event => {
-    console.log('Client sent:', event.data)
+    if (DEV) console.log('Client sent:', event.data)
   })
 })
 

@@ -302,7 +302,7 @@ All API calls are managed through RTK Query with automatic caching, deduplicatio
 - **Automatic Token Refresh**: Intercepts 401 responses and refreshes JWT tokens
 - **CSRF Protection**: Includes CSRF token in all state-changing requests
 - **Promise Deduplication**: Prevents multiple simultaneous refresh calls
-- **Error Handling**: Centralized error transformation with `getErrorMessage()`
+- **Error Handling**: Centralized error transformation with `parseRTKError()`
 
 API services are organized by domain (auth, task, event, category, user, invitation, notification, security)
 with standard CRUD operations injected into the base API using RTK Query's code splitting pattern.
@@ -499,7 +499,7 @@ EvenTask follows strict coding standards enforced by **ESLint**, **TypeScript st
 
 - Components: PascalCase (`Button.tsx`)
 - Hooks: camelCase with `use` prefix (`useForm.ts`)
-- Types/Interfaces: PascalCase with `I` prefix (`ITask.ts`)
+- Types/Interfaces: PascalCase (`Task.ts`)
 - Constants: UPPER_SNAKE_CASE
 - Variables/Functions: camelCase with descriptive verbs
 
