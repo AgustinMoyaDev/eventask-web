@@ -13,10 +13,15 @@ export const CHIP_COLOR = {
 export type ChipColorType = (typeof CHIP_COLOR)[keyof typeof CHIP_COLOR]
 export type ChipVariantType = (typeof CHIP_VARIANT)[keyof typeof CHIP_VARIANT]
 
-export interface ChipProps {
+export interface BaseChipProps {
   label: string
   role?: string
   color?: ChipColorType
   variant?: ChipVariantType
   className?: string
+}
+
+export type ChipProps = BaseChipProps & {
+  onClick?: () => void
+  disabled?: boolean
 }

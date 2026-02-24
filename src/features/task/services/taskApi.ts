@@ -32,7 +32,7 @@ export const taskApi = baseApi.injectEndpoints({
     updateTask: builder.mutation<Task, UpdateTaskDto>({
       query: task => ({
         url: `/tasks/${task.id}`,
-        method: 'PUT',
+        method: 'PATCH',
         body: task,
       }),
       invalidatesTags: (result, _error, _arg) =>

@@ -14,7 +14,7 @@ export const invitationApi = baseApi.injectEndpoints({
         method: 'POST',
         body: { email },
       }),
-      invalidatesTags: ['User'],
+      invalidatesTags: (result, _error, _arg) => (result ? ['User'] : []),
     }),
     /**
      * Accept a pending invitation and create bidirectional contact relationship
@@ -25,7 +25,8 @@ export const invitationApi = baseApi.injectEndpoints({
         url: `/invitations/${invitationId}/accept`,
         method: 'PUT',
       }),
-      invalidatesTags: ['Invitation', 'User', 'Notification'],
+      invalidatesTags: (result, _error, _arg) =>
+        result ? ['Invitation', 'User', 'Notification'] : [],
     }),
     /**
      * Reject a pending invitation
@@ -36,7 +37,7 @@ export const invitationApi = baseApi.injectEndpoints({
         url: `/invitations/${invitationId}/reject`,
         method: 'PUT',
       }),
-      invalidatesTags: ['Invitation', 'Notification'],
+      invalidatesTags: (result, _error, _arg) => (result ? ['Invitation', 'Notification'] : []),
     }),
   }),
 })

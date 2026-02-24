@@ -51,11 +51,14 @@ export const notificationApi = baseApi.injectEndpoints({
         url: `/notifications/${notificationId}/read`,
         method: 'PUT',
       }),
-      invalidatesTags: (_result, _error, notificationId) => [
-        { type: 'Notification', id: notificationId },
-        { type: 'Notification', id: 'LIST' },
-        { type: 'Notification', id: 'UNREAD_COUNT' },
-      ],
+      invalidatesTags: (result, _error, notificationId) =>
+        result
+          ? [
+              { type: 'Notification', id: notificationId },
+              { type: 'Notification', id: 'LIST' },
+              { type: 'Notification', id: 'UNREAD_COUNT' },
+            ]
+          : [],
     }),
     /**
      * Mark all user notifications as read
@@ -66,10 +69,13 @@ export const notificationApi = baseApi.injectEndpoints({
         url: '/notifications/mark-all-read',
         method: 'PUT',
       }),
-      invalidatesTags: [
-        { type: 'Notification', id: 'LIST' },
-        { type: 'Notification', id: 'UNREAD_COUNT' },
-      ],
+      invalidatesTags: (result, _error, _arg) =>
+        result
+          ? [
+              { type: 'Notification', id: 'LIST' },
+              { type: 'Notification', id: 'UNREAD_COUNT' },
+            ]
+          : [],
     }),
   }),
   overrideExisting: false,

@@ -3,13 +3,13 @@ import { useNavigate } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 
-import { taskSchema, TaskSchemaType } from '@/features/task/pages/task-create-page/taskSchema'
-import { useTaskMutations } from '@/features/task/store/hooks/useTaskMutations'
 import {
-  useGetCategoriesWithTaskCountQuery,
-  useCreateCategoryMutation,
-} from '@/features/category/services/categoryApi'
-import { parseRTKError } from '@/services/utils/parseRTKError'
+  createTaskSchema,
+  CreateTaskSchemaType,
+} from '@/features/task/pages/task-create-page/taskSchema'
+import { useTaskMutations } from '@/features/task/store/hooks/useTaskMutations'
+import { useCategoryMutations } from '@/features/category/store/hooks/useCategoryMutations'
+import { useCategoriesWithTaskCount } from '@/features/category/store/hooks/useCategoriesWithTaskCount'
 
 /**
  * Custom hook for task creation form logic
@@ -18,10 +18,8 @@ import { parseRTKError } from '@/services/utils/parseRTKError'
 export const useTaskCreateForm = () => {
   const navigate = useNavigate()
   const { createTask, creating, createTaskError } = useTaskMutations()
-  const { data: categoriesWithTaskCount = [], isFetching: fetchingCategories } =
-    useGetCategoriesWithTaskCountQuery()
-  const [createCategory, { isLoading, error: createCategoryRawError }] = useCreateCategoryMutation()
-  const createCategoryError = parseRTKError(createCategoryRawError)
+  const { categoriesWithTaskCount, isFetching } = useCategoriesWithTaskCount()
+  const { createCategory, isCreating, createCategoryError } = useCategoryMutations()
 
   const {
     register,
@@ -30,8 +28,8 @@ export const useTaskCreateForm = () => {
     setValue,
     trigger,
     formState: { errors, isValid },
-  } = useForm<TaskSchemaType>({
-    resolver: zodResolver(taskSchema),
+  } = useForm<CreateTaskSchemaType>({
+    resolver: zodResolver(createTaskSchema),
     mode: 'onTouched',
     defaultValues: {
       title: '',
@@ -52,7 +50,7 @@ export const useTaskCreateForm = () => {
     }
   }
 
-  const onSubmit = async (data: TaskSchemaType) => {
+  const onSubmit = async (data: CreateTaskSchemaType) => {
     const categoryToUse = categoriesWithTaskCount.find(cat => cat.name === data.category)
     if (!categoryToUse) return
 
@@ -81,8 +79,8 @@ export const useTaskCreateForm = () => {
     categorySuggestions,
     handleCreateCategory,
     isCreating: creating,
-    isFetchingCategories: fetchingCategories,
-    isCreatingCategory: isLoading,
+    isFetchingCategories: isFetching,
+    isCreatingCategory: isCreating,
     backendError,
     taskValidationError,
     categoryValidationError,

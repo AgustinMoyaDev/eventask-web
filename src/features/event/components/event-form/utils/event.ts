@@ -56,21 +56,43 @@ export const getNextStartDate = (events: EventFormModel[] = []): string => {
 }
 
 /**
- * Checks for time collisions
+ * Checks for time collisions between a new/edited event and the existing ones.
+ * @returns An error message string if there is an overlap, or `null` if the slot is free.
  */
 export function hasOverlap(
   newStart: string,
   newEnd: string,
   existingEvents: EventFormModel[],
   editingId?: string
-): boolean {
+): string | null {
   const s = dayjs(newStart)
   const e = dayjs(newEnd)
 
-  return existingEvents.some(evt => {
+  const overlaps = existingEvents.some(evt => {
     if (evt.id === editingId) return false
     const evtStart = dayjs(evt.start)
     const evtEnd = dayjs(evt.end)
     return s.isBefore(evtEnd) && e.isAfter(evtStart)
   })
+
+  return overlaps
+    ? 'Another event is already occupying that time slot. Adjust the start or end time.'
+    : null
+}
+
+/**
+ * Checks whether another event already uses the same title.
+ * @returns An error message string if a duplicate title exists, or `null` otherwise.
+ */
+export function hasSameTitle(
+  title: string,
+  existingEvents: EventFormModel[],
+  editingId?: string
+): string | null {
+  const duplicate = existingEvents.some(evt => {
+    if (evt.id === editingId) return false
+    return evt.title.trim().toLowerCase() === title.trim().toLowerCase()
+  })
+
+  return duplicate ? 'An event with that title already exists.' : null
 }

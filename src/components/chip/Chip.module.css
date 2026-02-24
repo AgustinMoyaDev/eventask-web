@@ -6,12 +6,57 @@
   justify-content: center;
   align-items: center;
   padding: var(--spacing-xs) var(--spacing-sm-plus);
-  border-radius: var(--radius-md);
+  border-radius: var(--radius-full);
   font-weight: var(--font-weight-medium);
   font-size: var(--font-label-md-size);
   text-transform: capitalize;
   background-color: var(--color-surface-variant);
   color: var(--color-on-surface-variant);
+}
+
+.interactive {
+  transition:
+    background-color var(--transition-base),
+    background-color var(--transition-base);
+  user-select: none;
+}
+
+.interactive::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-color: currentColor;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--transition-base);
+  border-radius: inherit;
+}
+
+.interactive:hover:not(:disabled)::before {
+  opacity: var(--state-layer-hover-opacity);
+}
+
+.interactive:active:not(:disabled)::before {
+  opacity: var(--state-layer-pressed-opacity);
+}
+
+.interactive:focus-visible::before {
+  opacity: var(--state-layer-focus-opacity);
+}
+
+.interactive:disabled {
+  opacity: var(--state-layer-disabled-opacity);
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.interactive:disabled::before {
+  opacity: 0;
+}
+
+.default {
+  background-color: var(--color-surface-container);
+  color: var(--color-primary);
 }
 
 .completed {

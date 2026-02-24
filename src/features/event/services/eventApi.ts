@@ -46,6 +46,7 @@ export const eventApi = baseApi.injectEndpoints({
               { type: 'Event', id: arg.id },
               { type: 'Event', id: 'CALENDAR' },
               { type: 'Task', id: result.taskId },
+              { type: 'Task', id: 'LIST' },
             ]
           : [],
     }),
@@ -71,20 +72,26 @@ export const eventApi = baseApi.injectEndpoints({
         method: 'PUT',
         body: event,
       }),
-      invalidatesTags: (_result, _error, arg) => [
-        { type: 'Event', id: arg.id },
-        { type: 'Task', id: arg.taskId },
-      ],
+      invalidatesTags: (result, _error, arg) =>
+        result
+          ? [
+              { type: 'Event', id: arg.id },
+              { type: 'Task', id: arg.taskId },
+            ]
+          : [],
     }),
     deleteEvent: builder.mutation<void, { id: string; taskId: string }>({
       query: ({ id }) => ({
         url: `/events/${id}`,
         method: 'DELETE',
       }),
-      invalidatesTags: (_result, _error, arg) => [
-        { type: 'Event', id: 'CALENDAR' },
-        { type: 'Task', id: arg.taskId },
-      ],
+      invalidatesTags: (result, _error, arg) =>
+        result
+          ? [
+              { type: 'Event', id: 'CALENDAR' },
+              { type: 'Task', id: arg.taskId },
+            ]
+          : [],
     }),
     /**
      * Assign a task's participant (user) as collaborator to an event.

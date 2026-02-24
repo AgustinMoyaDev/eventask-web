@@ -42,17 +42,20 @@ export const categoryApi = baseApi.injectEndpoints({
         method: 'PUT',
         body: updatedCategory,
       }),
-      invalidatesTags: (_result, _error, arg) => [
-        { type: 'Category', id: 'LIST' },
-        { type: 'Category', id: arg.id },
-      ],
+      invalidatesTags: (result, _error, arg) =>
+        result
+          ? [
+              { type: 'Category', id: 'LIST-COUNT' },
+              { type: 'Category', id: arg.id },
+            ]
+          : [],
     }),
     deleteCategory: builder.mutation<void, string>({
       query: categoryId => ({
         url: `/categories/${categoryId}`,
         method: 'DELETE',
       }),
-      invalidatesTags: [{ type: 'Category', id: 'LIST' }],
+      invalidatesTags: (result, _error, _arg) => (result ? [{ type: 'Category', id: 'LIST' }] : []),
     }),
   }),
   overrideExisting: false,

@@ -23,7 +23,7 @@ export const EventForm = ({
     formErrors,
     isFormValid,
     // Custom logic props
-    hasConflict,
+    conflictMessage,
     isStatusCompleted,
     colorChip,
     currentStatus,
@@ -39,11 +39,7 @@ export const EventForm = ({
         <Chip label={currentStatus} color={colorChip} />
       </header>
 
-      {hasConflict && (
-        <small className={styles.eventFormError}>
-          Another event is already occupying that time slot. Adjust the start or end time.
-        </small>
-      )}
+      {conflictMessage && <small className={styles.eventFormError}>{conflictMessage}</small>}
 
       <fieldset
         disabled={isStatusCompleted}
@@ -90,7 +86,7 @@ export const EventForm = ({
         />
 
         <footer className={styles.eventFormFooter}>
-          <Button type="submit" variant="filled" disabled={!isFormValid || hasConflict}>
+          <Button type="submit" variant="filled" disabled={!isFormValid || !!conflictMessage}>
             {eventToEdit ? 'Edit' : 'Create'} event
           </Button>
           <Button variant="outlined" onClick={handleResetForm}>

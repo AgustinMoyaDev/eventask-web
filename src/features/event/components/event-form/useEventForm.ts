@@ -5,10 +5,10 @@ import dayjs from 'dayjs'
 
 import { EVENT_STATUS } from '@/types/entities/event'
 import { EventFormModel } from '@/types/models/event.model'
-import { ColorProgressType } from '@/types/ui/task'
+import { ChipColorType } from '@/components/chip/chip.types'
 
 import { eventSchema, type EventSchemaType } from './eventSchema'
-import { formatToDatetimeLocal, getNextStartDate, hasOverlap } from './utils/event'
+import { formatToDatetimeLocal, getNextStartDate, hasOverlap, hasSameTitle } from './utils/event'
 
 export function useEventForm(
   existingEvents: EventFormModel[] = [],
@@ -33,13 +33,14 @@ export function useEventForm(
   })
 
   // Watch fields for real-time conflict detection
+  const title = useWatch({ control, name: 'title' })
   const startValue = useWatch({ control, name: 'start' })
   const endValue = useWatch({ control, name: 'end' })
 
   // Computed Status logic (Preserved from original)
   const currentStatus = eventToEdit?.status ?? EVENT_STATUS.PENDING
   const isStatusCompleted = currentStatus === EVENT_STATUS.COMPLETED
-  const colorChip: ColorProgressType = isStatusCompleted ? 'completed' : 'pending'
+  const colorChip: ChipColorType = isStatusCompleted ? 'completed' : 'pending'
 
   const getInitialValues = useCallback((): EventSchemaType => {
     if (eventToEdit) {
@@ -61,10 +62,13 @@ export function useEventForm(
     reset(getInitialValues())
   }, [getInitialValues, reset])
 
-  const hasConflict = hasOverlap(startValue || '', endValue || '', existingEvents, eventToEdit?.id)
+  // null = no conflict; string = error message — falsy/truthy respectively
+  const conflictMessage =
+    hasOverlap(startValue, endValue, existingEvents, eventToEdit?.id) ??
+    hasSameTitle(title, existingEvents, eventToEdit?.id)
 
   const onSubmit = (data: EventSchemaType) => {
-    if (hasConflict) return
+    if (conflictMessage) return
 
     const submitEvent: EventFormModel = {
       ...data,
@@ -91,7 +95,7 @@ export function useEventForm(
     isDirty,
 
     // Custom Logic Props
-    hasConflict,
+    conflictMessage,
     isStatusCompleted,
     currentStatus,
     colorChip,

@@ -3,7 +3,7 @@ import {
   useCreateCategoryMutation,
   useUpdateCategoryMutation,
   useDeleteCategoryMutation,
-} from '@/services/categoryApi'
+} from '@/features/category/services/categoryApi'
 import { parseRTKError } from '@/services/utils/parseRTKError'
 
 /**

@@ -37,7 +37,7 @@ export const OngoingTask = ({ task }: OngoingTaskProps) => {
       <footer className={styles.ongoingTaskFooter}>
         <small className={styles.ongoingTaskSchedule}>
           <CalendarIcon className={styles.ongoingTaskCalendarIcon} size={20} />
-          {`${formattedBeginningDate} - ${formattedCompletionDate}`}
+          {beginningDate ? `${formattedBeginningDate} - ${formattedCompletionDate}` : 'No schedule'}
         </small>
         <small className={styles.ongoingTaskDuration}>{`${duration} h`}</small>
       </footer>

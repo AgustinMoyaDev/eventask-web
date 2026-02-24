@@ -24,7 +24,7 @@ const baseMockReturn = {
   isDirty: false,
 
   // Custom Props
-  hasConflict: false,
+  conflictMessage: null,
   isStatusCompleted: false,
   colorChip: CHIP_COLOR.pending,
   currentStatus: EVENT_STATUS.PENDING,
@@ -90,10 +90,11 @@ describe('EventForm', () => {
     expect(baseMockReturn.handleSubmit).toHaveBeenCalled()
   })
 
-  it('should show conflict error message when hasConflict is true', () => {
+  it('should show conflict error message when conflictMessage is set', () => {
     mockUseEventForm.mockReturnValue({
       ...baseMockReturn,
-      hasConflict: true,
+      conflictMessage:
+        'Another event is already occupying that time slot. Adjust the start or end time.',
     })
 
     render(<EventForm onAddEvent={vi.fn()} onUpdateEvent={vi.fn()} />)
@@ -118,7 +119,7 @@ describe('EventForm', () => {
     mockUseEventForm.mockReturnValue({
       ...baseMockReturn,
       isFormValid: false,
-      hasConflict: true,
+      conflictMessage: 'An event with that title already exists.',
     })
 
     render(<EventForm onAddEvent={vi.fn()} onUpdateEvent={vi.fn()} />)
