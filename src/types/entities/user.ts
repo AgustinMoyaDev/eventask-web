@@ -7,7 +7,7 @@ export interface User extends Base {
   email: string
   // password: string --- IGNORE ---
   contactsIds: string[]
-  isEmailVerified: boolean
+  isEmailVerified?: boolean
   hasManualPassword: boolean
   googleId?: string
   // virtual fields

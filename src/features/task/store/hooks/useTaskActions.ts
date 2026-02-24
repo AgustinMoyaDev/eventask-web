@@ -1,7 +1,7 @@
 import { useCallback } from 'react'
 
 import { useAppDispatch } from '@/store/reduxStore'
-import { setActiveTaskId } from '@/task/store/slice/taskSlice'
+import { setActiveTaskId } from '../slice/taskSlice'
 
 export const useTaskActions = () => {
   const dispatch = useAppDispatch()

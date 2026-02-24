@@ -21,7 +21,8 @@
 }
 
 .taskCreateTitle {
-  font-size: var(--font-title-lg-size);
+  font-size: var(--font-headline-md-size);
+  font-weight: var(--font-weight-medium);
 }
 
 .taskCreateFooter {

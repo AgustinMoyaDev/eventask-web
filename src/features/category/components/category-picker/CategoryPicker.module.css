@@ -1,0 +1,73 @@
+.container {
+  position: relative; /* Clave para el posicionamiento absoluto del hijo */
+  display: inline-block;
+}
+
+.trigger {
+  cursor: pointer;
+}
+
+.popover {
+  position: absolute;
+  top: 100%; /* Justo debajo */
+  left: 0;
+  margin-top: 8px; /* Espacio pequeño */
+  width: 250px; /* O min-width */
+  background: var(--color-surface);
+  border: 1px solid var(--color-outline-variant);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-md); /* Asumiendo tokens de sombra */
+  z-index: 100; /* Flotar sobre todo */
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.searchWrapper {
+  padding: var(--spacing-sm);
+  border-bottom: 1px solid var(--color-outline-variant);
+}
+
+.searchInput {
+  width: 100%;
+  border: none;
+  background: transparent;
+  font-size: var(--font-body-md-size);
+  outline: none;
+  color: var(--color-on-surface);
+}
+
+.list {
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+.option {
+  padding: var(--spacing-sm) var(--spacing-md);
+  cursor: pointer;
+  font-size: var(--font-body-sm-size);
+  color: var(--color-on-surface);
+  display: flex;
+  justify-content: space-between;
+}
+
+.option:hover {
+  background-color: var(--color-surface-container-highest);
+}
+
+.selected {
+  background-color: var(--color-primary-container);
+  color: var(--color-on-primary-container);
+}
+
+.createOption {
+  color: var(--color-primary);
+  font-weight: 500;
+}
+
+.empty {
+  padding: var(--spacing-md);
+  color: var(--color-on-surface-variant);
+  text-align: center;
+  font-size: var(--font-body-xs-size);
+}

@@ -1,12 +1,26 @@
 import { z } from 'zod'
 
-/**
- * Zod schema for task creation (basic fields)
- * Used in TaskCreatePage and TaskEditPage
- */
-export const taskSchema = z.object({
-  title: z.string().trim().min(1, 'Title is required.'),
-  category: z.string().trim().min(1, 'You must select a category.').max(75, 'Title is too long.'),
+export const taskTitleSchema = z
+  .string()
+  .trim()
+  .min(1, 'Title is required.')
+  .max(100, 'Title is too long.')
+
+export const taskCategorySchema = z
+  .string()
+  .trim()
+  .min(1, 'You must select a category.')
+  .max(75, 'Category name is too long.')
+
+export const createTaskSchema = z.object({
+  title: taskTitleSchema,
+  category: taskCategorySchema,
 })
 
-export type TaskSchemaType = z.infer<typeof taskSchema>
+export const updateTaskSchema = z.object({
+  title: taskTitleSchema.optional(),
+  category: taskCategorySchema.optional(), // Aquí podría ser categoryId si el backend lo prefiere
+})
+
+export type CreateTaskSchemaType = z.infer<typeof createTaskSchema>
+export type UpdateTaskSchemaType = z.infer<typeof updateTaskSchema>
