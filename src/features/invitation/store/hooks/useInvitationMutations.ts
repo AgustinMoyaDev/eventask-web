@@ -1,49 +1,53 @@
 import { useMemo } from 'react'
 
+import { parseRTKError } from '@/services/utils/parseRTKError'
 import {
   useInviteContactMutation,
   useAcceptInvitationMutation,
   useRejectInvitationMutation,
 } from '@/features/invitation/services/invitationApi'
-import { parseRTKError } from '@/services/utils/parseRTKError'
 
 /**
  * Custom hook for managing invitation-related state and operations
  * @returns Invitation actions, loading states, and error handling
  */
 export const useInvitationMutations = () => {
-  const [inviteContact, { isLoading: inviting, error: inviteRawError, isSuccess: inviteSuccess }] =
+  const [inviteContact, { isLoading: inviting, error: inviteError, isSuccess: inviteSuccess }] =
     useInviteContactMutation()
 
-  const [
-    acceptInvitation,
-    { isLoading: accepting, error: acceptRawError, isSuccess: acceptSuccess },
-  ] = useAcceptInvitationMutation()
+  const [acceptInvitation, { isLoading: accepting, error: acceptError, isSuccess: acceptSuccess }] =
+    useAcceptInvitationMutation()
 
-  const [
-    rejectInvitation,
-    { isLoading: rejecting, error: rejectRawError, isSuccess: rejectSuccess },
-  ] = useRejectInvitationMutation()
+  const [rejectInvitation, { isLoading: rejecting, error: rejectError, isSuccess: rejectSuccess }] =
+    useRejectInvitationMutation()
 
-  const inviteContactError = useMemo(() => parseRTKError(inviteRawError), [inviteRawError])
-  const acceptInvitationError = useMemo(() => parseRTKError(acceptRawError), [acceptRawError])
-  const rejectInvitationError = useMemo(() => parseRTKError(rejectRawError), [rejectRawError])
+  const errors = useMemo(() => {
+    const rawErrors = {
+      invite: inviteError,
+      accept: acceptError,
+      reject: rejectError,
+    }
+
+    const arrayErrors = Object.entries(rawErrors)
+      .filter(([_, err]) => !!err)
+      .map(([key, error]) => [key, parseRTKError(error)])
+
+    return Object.fromEntries(arrayErrors) as Record<
+      keyof typeof rawErrors,
+      ReturnType<typeof parseRTKError>
+    >
+  }, [inviteError, acceptError, rejectError])
 
   return {
-    // Mutations
     inviteContact,
     acceptInvitation,
     rejectInvitation,
-    // flags
     inviting,
     accepting,
     rejecting,
     inviteSuccess,
     acceptSuccess,
     rejectSuccess,
-    // Errors
-    inviteContactError,
-    acceptInvitationError,
-    rejectInvitationError,
+    errors,
   }
 }

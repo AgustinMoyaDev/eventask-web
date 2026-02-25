@@ -1,0 +1,41 @@
+.container {
+  height: 100vh;
+  padding: var(--spacing-md);
+  background-color: var(--color-surface-container-low);
+  display: grid;
+  place-content: center;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-xl);
+  max-width: 30rem;
+  text-align: center;
+}
+
+.title {
+  font-weight: var(--font-weight-medium);
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+}
+
+.message {
+  color: var(--color-on-surface-variant);
+}
+
+.alert {
+  color: var(--color-error);
+  width: 2.5rem;
+  height: auto;
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-md);
+}

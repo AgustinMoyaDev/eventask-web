@@ -4,6 +4,8 @@ export interface ConfirmModalProps {
   message: string
   confirmLabel?: string
   cancelLabel?: string
+  isLoading?: boolean
+  actionMessage?: string
   onConfirm: () => void
   onCancel: () => void
 }

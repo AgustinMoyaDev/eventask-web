@@ -1,10 +1,12 @@
+import { useMemo } from 'react'
+
 import { Task } from '@/types/entities/task'
 import { User } from '@/types/entities/user'
 
-import { MultiSelectInput } from '@/components/multi-select-input/MultiSelectInput'
+import { useTaskMutations } from '@/features/task/store/hooks/useTaskMutations'
 
-import { useTaskParticipantsSection } from './useTaskParticipantsSection'
-import { TaskParticipantsSectionSkeleton } from './TaskParticipantSectionSkeleton'
+import { MultiSelectInput } from '@/components/multi-select-input/MultiSelectInput'
+import { useUserProfileQueries } from '@/features/user/store/hooks/useUserProfileQueries'
 
 interface TaskParticipantsSectionProps {
   task: Task
@@ -16,16 +18,29 @@ interface TaskParticipantsSectionProps {
  */
 export const TaskParticipantsSection = ({ task }: TaskParticipantsSectionProps) => {
   const { id, participants = [] } = task
-  const {
-    availableContacts,
-    isLoadingContacts,
-    isAssigning,
-    isRemoving,
-    handleAddParticipant,
-    handleRemoveParticipant,
-  } = useTaskParticipantsSection(id, participants)
+  const { user, fetchingProfile } = useUserProfileQueries()
+  const { assignParticipant, removeParticipant } = useTaskMutations()
 
-  if (!task) return <TaskParticipantsSectionSkeleton />
+  const availableContacts = useMemo(() => {
+    if (!user?.contacts) return []
+    const participantIds = new Set(participants.map(p => p.id))
+    return user.contacts.filter(contact => !participantIds.has(contact.id))
+  }, [user, participants])
+
+  const handleAddParticipant = async (participant: User) => {
+    await assignParticipant({
+      taskId: id,
+      participantId: participant.id,
+      _optimisticParticipant: participant,
+    })
+  }
+
+  const handleRemoveParticipant = async (participant: User) => {
+    await removeParticipant({
+      taskId: id,
+      participantId: participant.id,
+    })
+  }
 
   return (
     <MultiSelectInput<User>
@@ -33,7 +48,7 @@ export const TaskParticipantsSection = ({ task }: TaskParticipantsSectionProps) 
       typeOption="email"
       options={availableContacts}
       selectedOptions={participants}
-      loading={isLoadingContacts || isAssigning || isRemoving}
+      loading={fetchingProfile}
       onAddItem={handleAddParticipant}
       onRemoveItem={handleRemoveParticipant}
       getOptionLabel={(user: User) => user.email}

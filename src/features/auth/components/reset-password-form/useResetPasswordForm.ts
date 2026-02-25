@@ -10,7 +10,7 @@ import { TOKEN_TYPE } from '@/types/entities/token'
 import { useAuthMutations } from '@/features/auth/store/hooks/useAuthMutations'
 
 export function useResetPasswordForm(token: string, onSuccess: () => void) {
-  const { resetPassword, resetPasswordLoading, resetPasswordError } = useAuthMutations()
+  const { resetPassword, resetPasswordLoading, errors: authErrors } = useAuthMutations()
 
   const {
     register,
@@ -43,6 +43,6 @@ export function useResetPasswordForm(token: string, onSuccess: () => void) {
     errors,
     isFormValid: isValid,
     resetPasswordLoading,
-    resetPasswordError,
+    resetPasswordError: authErrors?.resetPassword,
   }
 }

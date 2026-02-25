@@ -5,32 +5,55 @@ import {
   useCreateTaskMutation,
   useUpdateTaskMutation,
   useDeleteTaskMutation,
+  useAssignParticipantMutation,
+  useRemoveParticipantMutation,
 } from '@/features/task/services/taskApi'
 
 export const useTaskMutations = () => {
-  const [createTask, { isSuccess: createSuccess, isLoading: creating, error: createTaskRawError }] =
+  const [createTask, { isSuccess: createSuccess, isLoading: creating, error: createError }] =
     useCreateTaskMutation()
-  const [updateTask, { isSuccess: updateSuccess, isLoading: updating, error: updateTaskRawError }] =
+  const [updateTask, { isSuccess: updateSuccess, isLoading: updating, error: updateError }] =
     useUpdateTaskMutation()
-  const [deleteTask, { isSuccess: deleteSuccess, isLoading: deleting, error: deleteTaskRawError }] =
+  const [deleteTask, { isSuccess: deleteSuccess, isLoading: deleting, error: deleteError }] =
     useDeleteTaskMutation()
+  const [assignParticipant, { isLoading: isAssigning, error: assignError }] =
+    useAssignParticipantMutation()
+  const [removeParticipant, { isLoading: isRemoving, error: removeError }] =
+    useRemoveParticipantMutation()
 
-  const createTaskError = useMemo(() => parseRTKError(createTaskRawError), [createTaskRawError])
-  const updateTaskError = useMemo(() => parseRTKError(updateTaskRawError), [updateTaskRawError])
-  const deleteTaskError = useMemo(() => parseRTKError(deleteTaskRawError), [deleteTaskRawError])
+  const errors = useMemo(() => {
+    const rawErrors = {
+      create: createError,
+      update: updateError,
+      delete: deleteError,
+      assignParticipant: assignError,
+      removeParticipant: removeError,
+    }
+
+    const arrayErrors = Object.entries(rawErrors)
+      .filter(([_, err]) => !!err)
+      .map(([key, error]) => [key, parseRTKError(error)])
+
+    return Object.fromEntries(arrayErrors) as Record<
+      keyof typeof rawErrors,
+      ReturnType<typeof parseRTKError>
+    >
+  }, [createError, updateError, deleteError, assignError, removeError])
 
   return {
     createTask,
     updateTask,
     deleteTask,
+    assignParticipant,
+    removeParticipant,
     createSuccess,
     updateSuccess,
     deleteSuccess,
     creating,
     updating,
     deleting,
-    createTaskError,
-    updateTaskError,
-    deleteTaskError,
+    isAssigning,
+    isRemoving,
+    errors,
   }
 }

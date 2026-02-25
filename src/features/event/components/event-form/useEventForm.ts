@@ -57,12 +57,10 @@ export function useEventForm(
     return { title: '', notes: '', start, end }
   }, [eventToEdit, existingEvents])
 
-  // Initialize or Reset Form Data
   useEffect(() => {
     reset(getInitialValues())
   }, [getInitialValues, reset])
 
-  // null = no conflict; string = error message — falsy/truthy respectively
   const conflictMessage =
     hasOverlap(startValue, endValue, existingEvents, eventToEdit?.id) ??
     hasSameTitle(title, existingEvents, eventToEdit?.id)

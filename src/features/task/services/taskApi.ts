@@ -1,7 +1,7 @@
 import { baseApi } from '@/services/baseApi'
 
 import { PaginationOptions, PaginationResult } from '@/types/dtos/api/pagination'
-import { CreateTaskDto, UpdateTaskDto } from '@/types/dtos/task.dto'
+import { CreateTaskDto, ParticipantDto, UpdateTaskDto } from '@/types/dtos/task.dto'
 import { Task, TaskId } from '@/types/entities/task'
 
 export const taskApi = baseApi.injectEndpoints({
@@ -12,10 +12,13 @@ export const taskApi = baseApi.injectEndpoints({
         method: 'GET',
         params: { page, perPage, ...(sortBy && { sortBy }), ...(sortOrder && { sortOrder }) },
       }),
-      providesTags: () => [
-        { type: 'Task', id: 'LIST' },
-        // ...(result?.items.map(({ id }) => ({ type: 'Task' as const, id })) ?? []),
-      ],
+      providesTags: result =>
+        result
+          ? [
+              { type: 'Task', id: 'LIST' },
+              ...(result?.items.map(({ id }) => ({ type: 'Task' as const, id })) ?? []),
+            ]
+          : [],
     }),
     fetchTaskById: builder.query<Task, TaskId>({
       query: id => `/tasks/${id}`,
@@ -27,51 +30,117 @@ export const taskApi = baseApi.injectEndpoints({
         method: 'POST',
         body: newTask,
       }),
-      invalidatesTags: result => (result ? [{ type: 'Category', id: 'LIST-COUNT' }] : []),
-    }),
-    updateTask: builder.mutation<Task, UpdateTaskDto>({
-      query: task => ({
-        url: `/tasks/${task.id}`,
-        method: 'PATCH',
-        body: task,
-      }),
-      invalidatesTags: (result, _error, _arg) =>
+      invalidatesTags: result =>
         result
           ? [
               { type: 'Task', id: 'LIST' },
-              { type: 'Task', id: result.id },
-              { type: 'Event', id: 'LIST' },
+              { type: 'Category', id: 'LIST-COUNT' },
             ]
           : [],
     }),
-    deleteTask: builder.mutation<{ id: string }, TaskId>({
+    updateTask: builder.mutation<Task, UpdateTaskDto>({
+      query: ({ id, ...patch }) => ({
+        url: `/tasks/${id}`,
+        method: 'PATCH',
+        body: patch,
+      }),
+      async onQueryStarted({ id, _optimisticCategory, ...patch }, { dispatch, queryFulfilled }) {
+        const optimisticPatchResult = dispatch(
+          taskApi.util.updateQueryData('fetchTaskById', id, draft => {
+            // draft: mutable proxy object (Immer)
+            Object.assign(draft, patch)
+            if (_optimisticCategory) {
+              draft.category = _optimisticCategory
+              draft.categoryId = _optimisticCategory.id
+            }
+          })
+        )
+
+        try {
+          await queryFulfilled
+        } catch {
+          optimisticPatchResult.undo()
+        }
+      },
+      invalidatesTags: result => {
+        if (!result) return []
+
+        return [
+          { type: 'Task', id: result.id },
+          ...(result.categoryId ? [{ type: 'Category' as const, id: 'LIST-COUNT' }] : []),
+        ]
+      },
+    }),
+    deleteTask: builder.mutation<void, TaskId>({
       query: id => ({
         url: `/tasks/${id}`,
         method: 'DELETE',
       }),
-      invalidatesTags: () => [{ type: 'Task', id: 'LIST' }],
+      invalidatesTags: (_result, error, _arg) =>
+        !error
+          ? [
+              { type: 'Task', id: 'LIST' },
+              { type: 'Category', id: 'LIST-COUNT' },
+            ]
+          : [],
     }),
-    assignParticipant: builder.mutation<Task, { taskId: string; participantId: string }>({
+    assignParticipant: builder.mutation<Task, ParticipantDto>({
       query: ({ taskId, participantId }) => ({
         url: `/tasks/${taskId}/participants/${participantId}`,
         method: 'POST',
       }),
-      // Optimistic update
-      // async onQueryStarted({ taskId, participantId }, { dispatch, queryFulfilled }) {
-      // TODO: Update cache optimistically
-      // },
-      invalidatesTags: (_result, _error, { taskId }) => [{ type: 'Task', id: taskId }],
+      async onQueryStarted(
+        { taskId, participantId, _optimisticParticipant },
+        { dispatch, queryFulfilled }
+      ) {
+        const optimisticResult = dispatch(
+          taskApi.util.updateQueryData('fetchTaskById', taskId, draft => {
+            draft.participants ??= []
+            draft.participantsIds ??= []
+            // Avoid duplicate entries if user clicks add multiple times quickly
+            const alreadyExists = draft.participants.some(p => p.id === participantId)
+            if (!alreadyExists && _optimisticParticipant) {
+              draft.participants.push(_optimisticParticipant)
+              draft.participantsIds.push(_optimisticParticipant.id)
+            }
+          })
+        )
+
+        try {
+          await queryFulfilled
+        } catch {
+          optimisticResult.undo()
+        }
+      },
+      invalidatesTags: (result, _error, _arg) => (result ? [{ type: 'Task', id: result.id }] : []),
     }),
-    removeParticipant: builder.mutation<Task, { taskId: string; participantId: string }>({
+    removeParticipant: builder.mutation<Task, ParticipantDto>({
       query: ({ taskId, participantId }) => ({
         url: `/tasks/${taskId}/participants/${participantId}`,
         method: 'DELETE',
       }),
-      // Optimistic update
-      // async onQueryStarted({ taskId, participantId }, { dispatch, queryFulfilled }) {
-      // TODO: Update cache optimistically
-      // },
-      invalidatesTags: (_result, _error, { taskId }) => [{ type: 'Task', id: taskId }],
+      async onQueryStarted({ taskId, participantId }, { dispatch, queryFulfilled }) {
+        const optimisticResult = dispatch(
+          taskApi.util.updateQueryData('fetchTaskById', taskId, draft => {
+            draft.participants ??= []
+            draft.participantsIds ??= []
+
+            const index = draft.participants.findIndex(p => p.id === participantId)
+
+            if (index !== -1) {
+              draft.participants.splice(index, 1)
+              draft.participantsIds.splice(index, 1)
+            }
+          })
+        )
+
+        try {
+          await queryFulfilled
+        } catch {
+          optimisticResult.undo()
+        }
+      },
+      invalidatesTags: result => (result ? [{ type: 'Task', id: result.id }] : []),
     }),
   }),
   overrideExisting: false,

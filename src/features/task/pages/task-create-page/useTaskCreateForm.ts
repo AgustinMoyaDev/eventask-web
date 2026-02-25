@@ -17,9 +17,9 @@ import { useCategoriesWithTaskCount } from '@/features/category/store/hooks/useC
  */
 export const useTaskCreateForm = () => {
   const navigate = useNavigate()
-  const { createTask, creating, createTaskError } = useTaskMutations()
+  const { createTask, creating, errors: taskErrors } = useTaskMutations()
   const { categoriesWithTaskCount, isFetching } = useCategoriesWithTaskCount()
-  const { createCategory, isCreating, createCategoryError } = useCategoryMutations()
+  const { createCategory, isCreating, errors: categoryErrors } = useCategoryMutations()
 
   const {
     register,
@@ -64,9 +64,9 @@ export const useTaskCreateForm = () => {
     }
   }
 
-  const backendError = createTaskError?.message ?? createCategoryError?.message
-  const taskValidationError = createTaskError?.fieldErrors
-  const categoryValidationError = createCategoryError?.fieldErrors
+  const backendError = taskErrors?.create?.message ?? categoryErrors?.create?.message
+  const taskValidationError = taskErrors?.create?.fieldErrors
+  const categoryValidationError = categoryErrors?.create?.fieldErrors
 
   return {
     // RHF

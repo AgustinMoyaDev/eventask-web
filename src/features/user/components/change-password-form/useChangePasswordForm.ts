@@ -20,7 +20,7 @@ import {
  */
 export const useChangePasswordForm = () => {
   const { close } = useModalActions(ModalIds.ChangePasswordForm)
-  const { changePassword, changePasswordLoading, changePasswordError } = useAuthMutations()
+  const { changePassword, changePasswordLoading, errors: authErrors } = useAuthMutations()
   const {
     register,
     handleSubmit,
@@ -50,7 +50,7 @@ export const useChangePasswordForm = () => {
     formErrors: errors,
     isFormValid: isValid,
     changePasswordLoading,
-    changePasswordError,
+    changePasswordError: authErrors?.changePassword,
     handleSubmit: handleSubmit(onSubmit),
   }
 }

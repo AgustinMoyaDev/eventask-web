@@ -6,6 +6,7 @@ import { EmptyState } from '@/components/empty-state/EmptyState'
 import { GhostIcon } from '@/components/icons/Icons'
 import { Button } from '@/components/button/Button'
 import { InlineTextEdit } from '@/components/form/inline-text-edit/InlineTextEdit'
+
 import { TaskEventsSection } from '@/features/task/components/task-events-section/TaskEventsSection'
 import { TaskParticipantsSection } from '@/features/task/components/task-participants-section/TaskParticipantsSection'
 import { TaskEditSkeleton } from './TaskEditSkeleton'
@@ -13,12 +14,13 @@ import { TaskEditSkeleton } from './TaskEditSkeleton'
 import { useTaskDetail } from '@/features/task/store/hooks/useTaskDetail'
 import { useTaskMutations } from '@/features/task/store/hooks/useTaskMutations'
 
-import { taskTitleSchema } from '../task-create-page/taskSchema'
+import { taskTitleSchema } from '@/features/task/pages/task-create-page/taskSchema'
 
-import styles from './TaskEditPage.module.css'
 import { parseRTKError } from '@/services/utils/parseRTKError'
 import { Category } from '@/types/entities/category'
 import { CategoryPicker } from '@/features/category/components/category-picker/CategoryPicker'
+
+import styles from './TaskEditPage.module.css'
 
 /**
  * Task edit page for adding events and participants to an existing task
@@ -28,13 +30,13 @@ const TaskEditPage = () => {
   const { id } = useParams<{ id: string }>()
   const navigate = useNavigate()
   const { task, isLoading, isError, error } = useTaskDetail(id)
-  const { updateTask, updateTaskError } = useTaskMutations()
+  const { updateTask, errors } = useTaskMutations()
 
   if (isLoading && !task) {
     return <TaskEditSkeleton />
   }
 
-  if (!task || error?.status === 404) {
+  if (error?.status === 404 && !task) {
     return (
       <EmptyState
         icon={<GhostIcon size={48} />}
@@ -49,13 +51,13 @@ const TaskEditPage = () => {
     )
   }
 
-  if (isError) {
+  if (isError || !task) {
     return <ErrorState />
   }
 
   const handleTitleSave = async (newTitle: string) => {
-    if (newTitle === task.title) return
-    const result = await updateTask({ id: task.id, title: newTitle, categoryId: task.categoryId })
+    if (newTitle.trim() === task.title) return
+    const result = await updateTask({ id: task.id, title: newTitle })
     if ('error' in result) {
       const parsed = parseRTKError(result.error)
       throw parsed?.fieldErrors?.title ?? parsed?.message ?? 'Failed to save'
@@ -63,19 +65,18 @@ const TaskEditPage = () => {
   }
 
   const handleCategoryChange = async (newCategory: Category) => {
-    // Optimistic update via RTK Query
     await updateTask({
       id: task.id,
       categoryId: newCategory.id,
-      title: task.title,
+      _optimisticCategory: newCategory,
     })
   }
 
   return (
     <section className={clsx(styles.taskEditPage, 'section')}>
-      {error && (
+      {errors && (
         <p className={styles.taskEditFormError} role="alert" aria-live="polite">
-          {updateTaskError?.message ?? 'An error occurred while updating the task.'}
+          {errors.update?.message ?? 'An error occurred while updating the task.'}
         </p>
       )}
       <div className={styles.taskEditContainer}>
@@ -101,7 +102,6 @@ const TaskEditPage = () => {
         </div>
 
         <TaskEventsSection task={task} />
-
         <TaskParticipantsSection task={task} />
       </div>
     </section>

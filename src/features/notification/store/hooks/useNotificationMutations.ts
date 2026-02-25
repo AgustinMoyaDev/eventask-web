@@ -1,3 +1,5 @@
+import { useMemo } from 'react'
+
 import {
   useMarkAllAsReadMutation,
   useMarkAsReadMutation,
@@ -7,28 +9,37 @@ import { parseRTKError } from '@/services/utils/parseRTKError'
 export const useNotificationMutations = () => {
   const [
     markAsRead,
-    { isLoading: markingAsRead, error: markAsReadRawError, isSuccess: markAsReadSuccess },
+    { isLoading: markingAsRead, isSuccess: markAsReadSuccess, error: markAsReadError },
   ] = useMarkAsReadMutation()
 
   const [
     markAllAsRead,
-    { isLoading: markingAllAsRead, error: markAllAsReadRawError, isSuccess: markAllAsReadSuccess },
+    { isLoading: markingAllAsRead, isSuccess: markAllAsReadSuccess, error: markAllAsReadError },
   ] = useMarkAllAsReadMutation()
 
-  const markAsReadError = parseRTKError(markAsReadRawError)
-  const markAllAsReadError = parseRTKError(markAllAsReadRawError)
+  const errors = useMemo(() => {
+    const rawErrors = {
+      markAsRead: markAsReadError,
+      markAllAsRead: markAllAsReadError,
+    }
+
+    const arrayErrors = Object.entries(rawErrors)
+      .filter(([_, err]) => !!err)
+      .map(([key, error]) => [key, parseRTKError(error)])
+
+    return Object.fromEntries(arrayErrors) as Record<
+      keyof typeof rawErrors,
+      ReturnType<typeof parseRTKError>
+    >
+  }, [markAsReadError, markAllAsReadError])
 
   return {
-    // Mutations
     markAsRead,
     markAllAsRead,
-    // flags
     markingAsRead,
     markAsReadSuccess,
     markingAllAsRead,
     markAllAsReadSuccess,
-    // Errors
-    markAsReadError,
-    markAllAsReadError,
+    errors,
   }
 }

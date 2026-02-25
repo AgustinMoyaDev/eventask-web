@@ -34,7 +34,7 @@ export const CalendarEvents = () => {
   const { activeCalendarDay } = useCalendarState()
   const { activeEvent } = useEventState()
   const { setActiveEvent, clearActiveEvent } = useEventActions()
-  const { deleteEvent } = useEventMutations()
+  const { deleteEvent, deleting } = useEventMutations()
   const { fetchingMonthlyEvents, eventsForActiveDay, activeCalendarDayName, fullDateLabel } =
     useCalendar()
 
@@ -106,6 +106,8 @@ export const CalendarEvents = () => {
           cancelLabel="Cancel"
           onConfirm={handleConfirmDelete}
           onCancel={close}
+          isLoading={deleting}
+          actionMessage="Deleting..."
         />
       )}
     </aside>
