@@ -23,11 +23,10 @@ export const useProfileForm = () => {
     uploadingAvatar,
     updateProfile,
     uploadAvatar,
-    updateUserError,
-    uploadUserAvatarError,
+    errors: userErrors,
   } = useUserProfileMutations()
 
-  const { inviteContact, inviting, inviteContactError } = useInvitationMutations()
+  const { inviteContact, inviting, errors: invitationErrors } = useInvitationMutations()
 
   const {
     register,
@@ -76,7 +75,10 @@ export const useProfileForm = () => {
   }
 
   const displayBackendError =
-    fetchUserError?.message ?? updateUserError?.message ?? uploadUserAvatarError?.message
+    fetchUserError?.message ??
+    userErrors.updateProfile?.message ??
+    userErrors.updateAvatar?.message ??
+    invitationErrors?.invite?.message
 
   return {
     // Data & State
@@ -99,6 +101,6 @@ export const useProfileForm = () => {
 
     // Invitation State
     isInviting: inviting,
-    inviteError: inviteContactError,
+    inviteError: invitationErrors?.invite,
   }
 }

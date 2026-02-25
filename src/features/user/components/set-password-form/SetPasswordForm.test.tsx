@@ -20,7 +20,7 @@ vi.mock('@/features/auth/store/hooks/useAuthMutations', () => ({
   useAuthMutations: () => ({
     setPassword: mockSetPassword,
     setPasswordLoading: false,
-    setPasswordError: mockAuthError,
+    errors: { setPassword: mockAuthError },
   }),
 }))
 

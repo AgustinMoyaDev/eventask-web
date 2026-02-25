@@ -17,7 +17,7 @@ import { useAuthMutations } from '@/features/auth/store/hooks/useAuthMutations'
  * @returns Form methods, validation state, and loading/error states
  */
 export function useForgotPasswordForm(onSuccess: () => void) {
-  const { forgotPassword, forgotPasswordLoading, forgotPasswordError } = useAuthMutations()
+  const { forgotPassword, forgotPasswordLoading, errors: authErrors } = useAuthMutations()
 
   const {
     register,
@@ -44,6 +44,6 @@ export function useForgotPasswordForm(onSuccess: () => void) {
     errors,
     isFormValid: isValid,
     forgotPasswordLoading,
-    forgotPasswordError,
+    forgotPasswordError: authErrors?.forgotPassword,
   }
 }

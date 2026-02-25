@@ -11,57 +11,49 @@ import {
 } from '@/features/event/services/eventApi'
 
 export const useEventMutations = () => {
-  const [createEvent, { isLoading: creating, error: createRawError }] = useCreateEventMutation()
-  const [updateEvent, { isLoading: updating, error: updateRawError }] = useUpdateEventMutation()
-  const [updateEventStatus, { isLoading: updatingStatus, error: updateEvtStatusRawError }] =
+  const [createEvent, { isLoading: creating, error: createError }] = useCreateEventMutation()
+  const [updateEvent, { isLoading: updating, error: updateError }] = useUpdateEventMutation()
+  const [updateEventStatus, { isLoading: updatingStatus, error: updateStatusError }] =
     useUpdateEventStatusMutation()
-  const [deleteEvent, { isLoading: deleting, error: deleteRawError }] = useDeleteEventMutation()
-  const [
-    assignCollaborator,
-    { isLoading: assigningCollaborator, error: assignCollaboratorRawError },
-  ] = useAssignCollaboratorMutation()
-  const [
-    removeCollaborator,
-    { isLoading: removingCollaborator, error: removeCollaboratorRawError },
-  ] = useRemoveCollaboratorMutation()
+  const [deleteEvent, { isLoading: deleting, error: deleteError }] = useDeleteEventMutation()
+  const [assignCollaborator, { isLoading: assigningCollaborator, error: assignError }] =
+    useAssignCollaboratorMutation()
+  const [removeCollaborator, { isLoading: removingCollaborator, error: removeError }] =
+    useRemoveCollaboratorMutation()
 
-  const createEventError = useMemo(() => parseRTKError(createRawError), [createRawError])
-  const updateEventError = useMemo(() => parseRTKError(updateRawError), [updateRawError])
-  const updateEventStatusError = useMemo(
-    () => parseRTKError(updateEvtStatusRawError),
-    [updateEvtStatusRawError]
-  )
-  const deleteEventError = useMemo(() => parseRTKError(deleteRawError), [deleteRawError])
-  const assignCollaboratorError = useMemo(
-    () => parseRTKError(assignCollaboratorRawError),
-    [assignCollaboratorRawError]
-  )
-  const removeCollaboratorError = useMemo(
-    () => parseRTKError(removeCollaboratorRawError),
-    [removeCollaboratorRawError]
-  )
+  const errors = useMemo(() => {
+    const rawErrors = {
+      create: createError,
+      update: updateError,
+      updateStatus: updateStatusError,
+      delete: deleteError,
+      assignCollaborator: assignError,
+      removeCollaborator: removeError,
+    }
+
+    const arrayErrors = Object.entries(rawErrors)
+      .filter(([_, err]) => !!err)
+      .map(([key, error]) => [key, parseRTKError(error)])
+
+    return Object.fromEntries(arrayErrors) as Record<
+      keyof typeof rawErrors,
+      ReturnType<typeof parseRTKError>
+    >
+  }, [createError, updateError, updateStatusError, deleteError, assignError, removeError])
 
   return {
-    // Mutations
     createEvent,
     updateEvent,
     updateEventStatus,
     deleteEvent,
     assignCollaborator,
     removeCollaborator,
-    // flags
     creating,
     updating,
     deleting,
     updatingStatus,
     assigningCollaborator,
     removingCollaborator,
-    // RTKQ errors
-    createEventError,
-    updateEventError,
-    updateEventStatusError,
-    deleteEventError,
-    assignCollaboratorError,
-    removeCollaboratorError,
+    errors,
   }
 }

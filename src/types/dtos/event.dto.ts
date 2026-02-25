@@ -63,3 +63,8 @@ export interface EventCalendarQueryDto {
   year: string
   month: string
 }
+
+export interface CollaboratorDto {
+  eventId: string
+  collaboratorId: string
+}

@@ -1,4 +1,5 @@
 import { Button } from '../button/Button'
+import { Loader } from '../loaders/loader/Loader'
 import { Modal } from '../modal/Modal'
 
 import { ConfirmModalProps } from './confirm-modal.types'
@@ -11,6 +12,8 @@ export const ConfirmModal = ({
   message,
   confirmLabel = 'Confirm',
   cancelLabel = 'Cancel',
+  isLoading = false,
+  actionMessage = '',
   onConfirm,
   onCancel,
 }: ConfirmModalProps) => {
@@ -21,8 +24,8 @@ export const ConfirmModal = ({
         <Button variant="text" onClick={onCancel}>
           {cancelLabel}
         </Button>
-        <Button variant="filled" onClick={onConfirm}>
-          {confirmLabel}
+        <Button variant="filled" onClick={onConfirm} disabled={isLoading}>
+          {isLoading ? <Loader text={actionMessage} /> : confirmLabel}
         </Button>
       </div>
     </Modal>

@@ -1,4 +1,3 @@
-// src/features/category/components/category-picker/CategoryPicker.tsx
 import { useState, useRef, useEffect, useMemo } from 'react'
 import clsx from 'clsx'
 
@@ -8,9 +7,10 @@ import { useCategoryMutations } from '@/features/category/store/hooks/useCategor
 import { Category } from '@/types/entities/category'
 
 import styles from './CategoryPicker.module.css'
+import { Loader } from '@/components/loaders/loader/Loader'
 
 interface CategoryPickerProps {
-  selectedCategory?: Category | null
+  selectedCategory?: Category
   onSelect: (category: Category) => void
 }
 
@@ -53,7 +53,6 @@ export const CategoryPicker = ({ selectedCategory, onSelect }: CategoryPickerPro
   const handleCreate = async () => {
     if (!searchTerm.trim()) return
     try {
-      // Optimistic logic assumed inside hook, or wait for response
       const { data: newCategory } = await createCategory({ name: searchTerm })
       if (newCategory) {
         handleSelect(newCategory)
@@ -73,6 +72,8 @@ export const CategoryPicker = ({ selectedCategory, onSelect }: CategoryPickerPro
       else if (searchTerm) handleCreate()
     }
   }
+
+  const isCreation = filteredCategories.length === 0 && searchTerm
 
   return (
     <div className={styles.container} ref={containerRef}>
@@ -111,14 +112,13 @@ export const CategoryPicker = ({ selectedCategory, onSelect }: CategoryPickerPro
               </li>
             ))}
 
-            {/* Empty State / Create Action */}
-            {filteredCategories.length === 0 && searchTerm && (
+            {isCreation && (
               <li
                 role="option"
                 className={clsx(styles.option, styles.createOption)}
                 onClick={handleCreate}
               >
-                {isCreating ? 'Creating...' : `Create "${searchTerm}"`}
+                {isCreating ? <Loader text="Creating..." /> : `Create "${searchTerm}"`}
               </li>
             )}
 

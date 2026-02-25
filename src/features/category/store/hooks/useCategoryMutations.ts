@@ -30,24 +30,30 @@ export const useCategoryMutations = () => {
   const [deleteCategory, { isLoading: isDeleting, error: deleteError }] =
     useDeleteCategoryMutation()
 
-  const createCategoryError = useMemo(() => parseRTKError(createError), [createError])
-  const updateCategoryError = useMemo(() => parseRTKError(updateError), [updateError])
-  const deleteCategoryError = useMemo(() => parseRTKError(deleteError), [deleteError])
+  const errors = useMemo(() => {
+    const rawErrors = {
+      create: createError,
+      update: updateError,
+      delete: deleteError,
+    }
+
+    const arrayErrors = Object.entries(rawErrors)
+      .filter(([_, err]) => !!err)
+      .map(([key, error]) => [key, parseRTKError(error)])
+
+    return Object.fromEntries(arrayErrors) as Record<
+      keyof typeof rawErrors,
+      ReturnType<typeof parseRTKError>
+    >
+  }, [createError, updateError, deleteError])
 
   return {
-    // Mutations
     createCategory,
     updateCategory,
     deleteCategory,
-
-    // Loading flags
     isCreating,
     isUpdating,
     isDeleting,
-
-    // Errors
-    createCategoryError,
-    updateCategoryError,
-    deleteCategoryError,
+    errors,
   }
 }

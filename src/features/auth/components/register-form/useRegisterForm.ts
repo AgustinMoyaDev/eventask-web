@@ -5,7 +5,7 @@ import { useAuthMutations } from '@/features/auth/store/hooks/useAuthMutations'
 import { registerSchema, type RegisterSchemaType } from '@/helpers/form-validations/authSchemas'
 
 export function useRegisterForm() {
-  const { register: registerUser, registerLoading, registerError } = useAuthMutations()
+  const { register: registerUser, registerLoading, errors: authErrors } = useAuthMutations()
 
   const {
     register,
@@ -35,6 +35,6 @@ export function useRegisterForm() {
     errors,
     isFormValid: isValid,
     registerLoading,
-    registerError,
+    registerError: authErrors?.register,
   }
 }

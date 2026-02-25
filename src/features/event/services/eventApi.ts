@@ -8,6 +8,8 @@ import {
   UpdateEventStatusDto,
   EventCalendarResponseDto,
   EventCalendarQueryDto,
+  DeleteEventDto,
+  CollaboratorDto,
 } from '@/types/dtos/event.dto'
 
 export const eventApi = baseApi.injectEndpoints({
@@ -18,10 +20,13 @@ export const eventApi = baseApi.injectEndpoints({
         method: 'GET',
         params: { page, perPage, ...(sortBy && { sortBy }), ...(sortOrder && { sortOrder }) },
       }),
-      providesTags: result => [
-        { type: 'Event', id: 'LIST' },
-        ...(result?.items.map(evt => ({ type: 'Event' as const, id: evt.id })) ?? []),
-      ],
+      providesTags: result =>
+        result
+          ? [
+              { type: 'Event', id: 'LIST' },
+              ...(result?.items.map(evt => ({ type: 'Event' as const, id: evt.id })) ?? []),
+            ]
+          : [],
     }),
     fetchEventsByMonth: builder.query<EventCalendarResponseDto, EventCalendarQueryDto>({
       query: ({ year, month }) => ({
@@ -29,10 +34,13 @@ export const eventApi = baseApi.injectEndpoints({
         method: 'GET',
         params: { year, month },
       }),
-      providesTags: result => [
-        { type: 'Event', id: 'CALENDAR' },
-        ...(result?.events.map(evt => ({ type: 'Event' as const, id: evt.id })) ?? []),
-      ],
+      providesTags: result =>
+        result
+          ? [
+              { type: 'Event', id: 'CALENDAR' },
+              ...(result?.events.map(evt => ({ type: 'Event' as const, id: evt.id })) ?? []),
+            ]
+          : [],
     }),
     updateEventStatus: builder.mutation<Event, UpdateEventStatusDto>({
       query: ({ id, status }) => ({
@@ -40,10 +48,10 @@ export const eventApi = baseApi.injectEndpoints({
         method: 'PATCH',
         body: { status },
       }),
-      invalidatesTags: (result, _error, arg) =>
+      invalidatesTags: (result, _error, _arg) =>
         result
           ? [
-              { type: 'Event', id: arg.id },
+              { type: 'Event', id: result.id },
               { type: 'Event', id: 'CALENDAR' },
               { type: 'Task', id: result.taskId },
               { type: 'Task', id: 'LIST' },
@@ -80,7 +88,7 @@ export const eventApi = baseApi.injectEndpoints({
             ]
           : [],
     }),
-    deleteEvent: builder.mutation<void, { id: string; taskId: string }>({
+    deleteEvent: builder.mutation<void, DeleteEventDto>({
       query: ({ id }) => ({
         url: `/events/${id}`,
         method: 'DELETE',
@@ -115,7 +123,7 @@ export const eventApi = baseApi.injectEndpoints({
      * Remove a collaborator from an event.
      * @param payload - { eventId, collaboratorId }
      */
-    removeCollaborator: builder.mutation<Event, { eventId: string; collaboratorId: string }>({
+    removeCollaborator: builder.mutation<Event, CollaboratorDto>({
       query: ({ eventId, collaboratorId }) => ({
         url: `/events/${eventId}/collaborators/${collaboratorId}`,
         method: 'DELETE',

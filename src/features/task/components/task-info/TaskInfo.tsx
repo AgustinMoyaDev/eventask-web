@@ -138,6 +138,8 @@ export const TaskInfo = ({ task }: TaskInfoProps) => {
           cancelLabel="Cancel"
           onConfirm={handleConfirmDelete}
           onCancel={() => close()}
+          isLoading={deleting}
+          actionMessage="Deleting..."
         />
       )}
     </section>

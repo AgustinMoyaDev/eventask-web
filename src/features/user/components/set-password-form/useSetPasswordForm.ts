@@ -10,7 +10,7 @@ import { setPasswordSchema, SetPasswordSchemaType } from '@/helpers/form-validat
 
 export const useSetPasswordForm = () => {
   const { close } = useModalActions(ModalIds.SetPasswordForm)
-  const { setPassword, setPasswordLoading, setPasswordError } = useAuthMutations()
+  const { setPassword, setPasswordLoading, errors: authErrors } = useAuthMutations()
 
   const {
     register,
@@ -38,7 +38,7 @@ export const useSetPasswordForm = () => {
     formErrors: errors,
     isFormValid: isValid,
     setPasswordLoading,
-    setPasswordError,
+    setPasswordError: authErrors?.setPassword,
     handleSubmit: handleSubmit(onSubmit),
   }
 }

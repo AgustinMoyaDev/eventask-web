@@ -36,46 +36,55 @@ import { parseRTKError } from '@/services/utils/parseRTKError'
  * ```
  */
 export const useAuthMutations = () => {
-  const [login, { isLoading: loginLoading, error: loginRawError }] = useLoginMutation()
-  const [loginWithGoogle, { isLoading: loginWithGoogleLoading, error: loginWithGoogleRawError }] =
+  const [login, { isLoading: loginLoading, error: loginError }] = useLoginMutation()
+  const [loginWithGoogle, { isLoading: loginWithGoogleLoading, error: loginWithGoogleError }] =
     useLoginWithGoogleMutation()
-  const [logout, { isLoading: logoutLoading, error: logoutRawError }] = useLogoutMutation()
-  const [register, { isLoading: registerLoading, error: registerRawError }] = useRegisterMutation()
-  const [refresh, { error: refreshRawError }] = useRefreshMutation()
-  const [forgotPassword, { isLoading: forgotPasswordLoading, error: forgotPasswordRawError }] =
+  const [logout, { isLoading: logoutLoading, error: logoutError }] = useLogoutMutation()
+  const [register, { isLoading: registerLoading, error: registerError }] = useRegisterMutation()
+  const [refresh, { error: refreshError }] = useRefreshMutation()
+  const [forgotPassword, { isLoading: forgotPasswordLoading, error: forgotPasswordError }] =
     useForgotPasswordMutation()
-  const [resetPassword, { isLoading: resetPasswordLoading, error: resetPasswordRawError }] =
+  const [resetPassword, { isLoading: resetPasswordLoading, error: resetPasswordError }] =
     useResetPasswordMutation()
-  const [setPassword, { isLoading: setPasswordLoading, error: setPasswordRawError }] =
+  const [setPassword, { isLoading: setPasswordLoading, error: setPasswordError }] =
     useSetPasswordMutation()
-  const [changePassword, { isLoading: changePasswordLoading, error: changePasswordRawError }] =
+  const [changePassword, { isLoading: changePasswordLoading, error: changePasswordError }] =
     useChangePasswordMutation()
 
-  // Parse errors with memoization for performance
-  const loginError = useMemo(() => parseRTKError(loginRawError), [loginRawError])
-  const loginWithGoogleError = useMemo(
-    () => parseRTKError(loginWithGoogleRawError),
-    [loginWithGoogleRawError]
-  )
-  const logoutError = useMemo(() => parseRTKError(logoutRawError), [logoutRawError])
-  const registerError = useMemo(() => parseRTKError(registerRawError), [registerRawError])
-  const refreshError = useMemo(() => parseRTKError(refreshRawError), [refreshRawError])
-  const forgotPasswordError = useMemo(
-    () => parseRTKError(forgotPasswordRawError),
-    [forgotPasswordRawError]
-  )
-  const resetPasswordError = useMemo(
-    () => parseRTKError(resetPasswordRawError),
-    [resetPasswordRawError]
-  )
-  const setPasswordError = useMemo(() => parseRTKError(setPasswordRawError), [setPasswordRawError])
-  const changePasswordError = useMemo(
-    () => parseRTKError(changePasswordRawError),
-    [changePasswordRawError]
-  )
+  const errors = useMemo(() => {
+    const rawErrors = {
+      login: loginError,
+      loginWithGoogle: loginWithGoogleError,
+      logout: logoutError,
+      register: registerError,
+      refresh: refreshError,
+      forgotPassword: forgotPasswordError,
+      resetPassword: resetPasswordError,
+      setPassword: setPasswordError,
+      changePassword: changePasswordError,
+    }
+
+    const arrayErrors = Object.entries(rawErrors)
+      .filter(([_, err]) => !!err)
+      .map(([key, error]) => [key, parseRTKError(error)])
+
+    return Object.fromEntries(arrayErrors) as Record<
+      keyof typeof rawErrors,
+      ReturnType<typeof parseRTKError>
+    >
+  }, [
+    loginError,
+    loginWithGoogleError,
+    logoutError,
+    registerError,
+    refreshError,
+    forgotPasswordError,
+    resetPasswordError,
+    setPasswordError,
+    changePasswordError,
+  ])
 
   return {
-    // Mutations
     login,
     loginWithGoogle,
     logout,
@@ -85,8 +94,6 @@ export const useAuthMutations = () => {
     resetPassword,
     setPassword,
     changePassword,
-
-    // Loading flags
     loginLoading,
     loginWithGoogleLoading,
     logoutLoading,
@@ -95,16 +102,6 @@ export const useAuthMutations = () => {
     resetPasswordLoading,
     setPasswordLoading,
     changePasswordLoading,
-
-    // Errors
-    loginError,
-    loginWithGoogleError,
-    registerError,
-    refreshError,
-    logoutError,
-    forgotPasswordError,
-    resetPasswordError,
-    setPasswordError,
-    changePasswordError,
+    errors,
   }
 }

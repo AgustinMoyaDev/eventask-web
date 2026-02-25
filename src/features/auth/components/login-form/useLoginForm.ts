@@ -5,7 +5,7 @@ import { loginSchema, type LoginSchemaType } from '@/helpers/form-validations/au
 import { useAuthMutations } from '@/features/auth/store/hooks/useAuthMutations'
 
 export function useLoginForm() {
-  const { login, loginLoading, loginError } = useAuthMutations()
+  const { login, loginLoading, errors: authErrors } = useAuthMutations()
 
   const {
     register,
@@ -29,7 +29,7 @@ export function useLoginForm() {
     formErrors: errors,
     isFormValid: isValid,
     loginLoading,
-    loginError,
+    loginError: authErrors?.login,
     handleSubmit: handleSubmit(onSubmit),
   }
 }

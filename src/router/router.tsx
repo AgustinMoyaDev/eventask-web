@@ -18,14 +18,16 @@ import {
   ForgotPasswordPage,
   ResetPasswordPage,
 } from './lazyPages'
-
 import { NotFoundPage } from '@/pages/404-page/NotFoundPage'
+
+import { GlobalError } from '@/components/errors/GlobalError'
 import { RootIndex } from './RouterIndex'
 
 export const router = createBrowserRouter([
   {
     path: '/',
     element: <RootIndex />,
+    errorElement: <GlobalError />,
   },
   {
     path: '/auth',
@@ -34,6 +36,7 @@ export const router = createBrowserRouter([
         <AuthLayout />
       </PublicRoute>
     ),
+    errorElement: <GlobalError />,
     children: [
       { path: 'login', element: <LoginPage /> },
       { path: 'register', element: <RegisterPage /> },
@@ -48,6 +51,7 @@ export const router = createBrowserRouter([
         <MainLayout />
       </PrivateRoute>
     ),
+    errorElement: <GlobalError />,
     children: [
       { path: '/home', element: <HomePage /> },
       { path: '/task/new', element: <TaskCreatePage /> },
@@ -61,6 +65,7 @@ export const router = createBrowserRouter([
   {
     path: '/not-found',
     element: <NotFoundPage />,
+    errorElement: <GlobalError />,
   },
   {
     path: '*',
