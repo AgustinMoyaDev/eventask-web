@@ -4,6 +4,8 @@ import clsx from 'clsx'
 
 import { InputWithSuggestionsProps } from './input-with-suggestions.types'
 
+import { Loader } from '../loaders/loader/Loader'
+
 import styles from './InputWithSuggestions.module.css'
 import inputStyles from '../input/Input.module.css'
 
@@ -70,7 +72,7 @@ export const InputWithSuggestions = forwardRef<HTMLInputElement, InputWithSugges
       } as React.ChangeEvent<HTMLInputElement>
 
       onChange?.(syntheticEvent)
-      setShowSuggestions?.(false)
+      setShowSuggestions(false)
     }
 
     const handleCreateNew = () => {
@@ -142,7 +144,7 @@ export const InputWithSuggestions = forwardRef<HTMLInputElement, InputWithSugges
             </ul>
           )}
 
-          {loading && <span>Loading...</span>}
+          {loading && <Loader text="Loading..." />}
           {hasError && !showSuggestions && (
             <small id={errorId} className={inputStyles.inputErrorMessage} role="alert">
               {error}
